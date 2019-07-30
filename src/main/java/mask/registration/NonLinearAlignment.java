@@ -4,10 +4,12 @@ import java.util.Collection;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-public class NonLinearAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform> {
+import mask.registration.alignment.AlignmentTransform;
+
+public class NonLinearAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AlignmentTransform> {
 
 	@Override
-	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+	public AlignmentTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
