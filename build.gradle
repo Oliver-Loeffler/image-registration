@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+}
+
+repositories {
+    jcenter()
+}
+
+test {
+   useJUnitPlatform()
+   testLogging {
+      events "passed", "skipped", "failed"
+   }
+}
+
+dependencies {
+    // This dependency is exported to consumers, that is to say found on their compile classpath.
+    //implementation 'org.apache.commons:commons-math3:3.6.1'
+
+	implementation 'org.la4j:la4j:0.6.0'
+	// JAMA
+	implementation 'gov.nist.math.jama:gov.nist.math.jama:1.1.1'
+	
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+}
