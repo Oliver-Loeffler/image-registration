@@ -2,9 +2,12 @@ package mask.registration;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
+
+import mask.registration.alignment.AlignmentEquation;
 
 public class Displacement {
 
@@ -13,7 +16,16 @@ public class Displacement {
 	}
 	
 	public static double average(Collection<Displacement> t, ToDoubleFunction<Displacement> mapper) {
+		return average(t, d->true, mapper);
+	}
+	
+	public static DisplacementSummary summarize(Collection<Displacement> t, Predicate<Displacement> calculationSelection) {
+		return DisplacementSummary.over(t, calculationSelection);
+	}
+	
+	public static double average(Collection<Displacement> t, Predicate<Displacement> filter, ToDoubleFunction<Displacement> mapper) {
 		return t.stream()
+				.filter(filter)
 				.mapToDouble(mapper)
 				.filter(Double::isFinite)
 				.average()
@@ -78,7 +90,7 @@ public class Displacement {
 		return siteClass;
 	}
 	
-	Stream<AlignmentEquation> getEquationsParams() {
+	public Stream<AlignmentEquation> equations() {
 		
 		Builder<AlignmentEquation> builder = Stream.builder();
 		

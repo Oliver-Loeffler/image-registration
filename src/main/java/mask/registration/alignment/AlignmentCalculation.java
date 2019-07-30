@@ -1,4 +1,4 @@
-package mask.registration;
+package mask.registration.alignment;
 
 import java.util.Collection;
 import java.util.List;
@@ -8,17 +8,20 @@ import java.util.stream.Collectors;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
+import mask.registration.Displacement;
 
-public class JamaAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
+public class AlignmentCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AlignmentTransform>{
 
 	@Override
-	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
-		
-		List<Displacement> alignmentSites = t.stream().filter(u).collect(Collectors.toList());
+	public AlignmentTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+				
+		List<Displacement> alignmentSites = t.stream()
+											 .filter(u)
+					 						 .collect(Collectors.toList());
 			
 		List<AlignmentEquation> equations = alignmentSites
 												.stream()
-												.flatMap(Displacement::getEquationsParams)
+												.flatMap(Displacement::equations)
 												.collect(Collectors.toList());
 		
 		int n = 3;
@@ -42,10 +45,7 @@ public class JamaAlignment implements BiFunction<Collection<Displacement>, Predi
         double translationY = resultRaw.get(1, 0);
         double rotation = resultRaw.get(2, 0);
         
-        RigidTransform alignment = RigidTransform
-        		.with(translationX, translationY, rotation);
-		
-		return alignment;
+        return AlignmentTransform.with(translationX, translationY, rotation);
 	}
 
 	

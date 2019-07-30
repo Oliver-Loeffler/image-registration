@@ -1,4 +1,6 @@
-package mask.registration;
+package mask.registration.alignment;
+
+import mask.registration.Displacement;
 
 public class AlignmentEquation {
 	

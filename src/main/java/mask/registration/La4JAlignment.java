@@ -9,16 +9,19 @@ import java.util.stream.Collectors;
 import org.la4j.LinearAlgebra.InverterFactory;
 import org.la4j.decomposition.QRDecompositor;
 
-public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
+import mask.registration.alignment.AlignmentEquation;
+import mask.registration.alignment.AlignmentTransform;
+
+public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AlignmentTransform>{
 
 	@Override
-	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+	public AlignmentTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 		
 		List<Displacement> alignmentSites = t.stream().filter(u).collect(Collectors.toList());
 		
 		List<AlignmentEquation> equations = alignmentSites
 												.stream()
-												.flatMap(Displacement::getEquationsParams)
+												.flatMap(Displacement::equations)
 												.collect(Collectors.toList());
 		
 		int n = 3;
@@ -52,7 +55,7 @@ public class La4JAlignment implements BiFunction<Collection<Displacement>, Predi
         double translationY = laResult.get(1, 0);
         double rotation = laResult.get(2, 0);
         
-        RigidTransform alignment = RigidTransform
+        AlignmentTransform alignment = AlignmentTransform
         		.with(translationX, translationY, rotation);
 		
 		return alignment;
