@@ -8,6 +8,8 @@ import mask.registration.alignment.AlignmentCalculation;
 import mask.registration.alignment.AlignmentCorrection;
 import mask.registration.alignment.AlignmentTransform;
 import mask.registration.file.FileLoader;
+import mask.registration.firstorder.FirstOrderCalculation;
+import mask.registration.firstorder.FirstOrderTransform;
 
 public class Demo {
 
@@ -41,6 +43,11 @@ public class Demo {
 		
 		DisplacementSummary alignedSummary = Displacement.summarize(aligned, calculationSelection);
 		System.out.println(System.lineSeparator()+ "--- aligned --------------------" + alignedSummary);
+		
+		FirstOrderCalculation firstOrderCalc = new FirstOrderCalculation();
+		FirstOrderTransform firstOrder = firstOrderCalc.apply(displacements, calculationSelection);
+		
+		System.out.println(firstOrder);
 		
 		
 	}
