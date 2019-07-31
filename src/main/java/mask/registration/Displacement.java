@@ -4,10 +4,6 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
-import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
-
-import mask.registration.alignment.AlignmentEquation;
 
 public class Displacement {
 
