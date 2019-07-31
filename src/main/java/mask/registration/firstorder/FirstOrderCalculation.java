@@ -8,14 +8,24 @@ import java.util.stream.Collectors;
 
 import Jama.Matrix;
 import mask.registration.Displacement;
+import mask.registration.DisplacementSummary;
 
 public class FirstOrderCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, FirstOrderTransform>{
 
     @Override
     public FirstOrderTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
-                        
-        List<FirstOrderEquation> equations = t.stream()
-                                             .filter(u)
+        
+    	DisplacementSummary summary = Displacement.summarize(t, u);
+    	double meanx = summary.designMeanX();
+    	double meany = summary.designMeanY();
+    	
+    	List<Displacement> sites = t.stream()
+                .filter(u)
+                .map(d->d.moveBy(-meanx, -meany))
+                .collect(Collectors.toList());
+    	
+        List<FirstOrderEquation> equations = sites
+        									 .stream()
                                              .flatMap(FirstOrderEquation::from)
                                              .collect(Collectors.toList());
         

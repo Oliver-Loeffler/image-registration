@@ -63,8 +63,8 @@ public class FirstOrderTransform implements Function<Displacement, Displacement>
     @Override
     public String toString() {
         return "FirstOrderTransform [" +
-               "\ttx=" + format(translationX) + ", sx=" + format(scaleX * 1E6) + ", ox=" + format(orthoX * 1E6) +
-               System.lineSeparator() + "\tty=" + format(translationY) + ", sy=" + format(scaleY * 1E6) + ", oy=" +
+               "tx=" + format(translationX) + ", sx=" + format(scaleX * 1E6) + ", ox=" + format(orthoX * 1E6) +
+               System.lineSeparator() + "                     ty=" + format(translationY) + ", sy=" + format(scaleY * 1E6) + ", oy=" +
                format(orthoY * 1E6) + "]";
     }
 
