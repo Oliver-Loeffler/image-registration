@@ -4,12 +4,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
 
-import mask.registration.alignment.AlignmentCalculation;
-import mask.registration.alignment.AlignmentCorrection;
-import mask.registration.alignment.AlignmentTransform;
+import mask.registration.alignment.RigidCorrection;
+import mask.registration.alignment.RigidTransform;
+import mask.registration.alignment.RigidTransformCalculation;
+import mask.registration.distortions.AffineTransform;
+import mask.registration.distortions.FirstOrderTransformCalculation;
 import mask.registration.file.FileLoader;
-import mask.registration.firstorder.FirstOrderCalculation;
-import mask.registration.firstorder.FirstOrderTransform;
 
 public class Demo {
 
@@ -17,7 +17,6 @@ public class Demo {
 		
 		Demo demo = new Demo();
 		demo.run();
-		
 
 	}
 
@@ -33,23 +32,36 @@ public class Demo {
 		
 		
 		
-		AlignmentCalculation alignmentCalc = new AlignmentCalculation();
-		AlignmentTransform alignment = alignmentCalc.apply(displacements, alignmentSelection);
+		RigidTransformCalculation alignmentCalc = new RigidTransformCalculation();
+		RigidTransform alignment = alignmentCalc.apply(displacements, alignmentSelection);
 		
 		System.out.println(alignment);
 		
-		AlignmentCorrection alignmentCorrection = new AlignmentCorrection();
+		RigidCorrection alignmentCorrection = new RigidCorrection();
 		List<Displacement> aligned = alignmentCorrection.apply(alignment, displacements);
 		
 		DisplacementSummary alignedSummary = Displacement.summarize(aligned, calculationSelection);
+		
 		System.out.println(System.lineSeparator()+ "--- aligned --------------------" + alignedSummary);
 		
-		FirstOrderCalculation firstOrderCalc = new FirstOrderCalculation();
-		FirstOrderTransform firstOrder = firstOrderCalc.apply(displacements, calculationSelection);
+		FirstOrderTransformCalculation firstOrderCalc = new FirstOrderTransformCalculation();
+		AffineTransform firstOrder = firstOrderCalc.apply(displacements, calculationSelection);
 		
 		System.out.println(firstOrder);
 		
+		// TODO: Fix current affine correction and implement straight forward firstOrderCorrection
 		
+		// TODO: Implement sections for positional and first order in DisplacementSummary
+		
+		// TODO: Add Similarity Transform
+		
+		/* TODO: Implement strategy to use subset of displacements for alignment
+		 *       but all displacement for distortion calculation.
+		 */
+		
+		/* TODO: Implement strategy to use subset of displacements for alignment
+		 *       and same subset for distortion calculation.
+		 */
 	}
 
 	

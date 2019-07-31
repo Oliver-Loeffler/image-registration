@@ -5,24 +5,24 @@ import java.util.stream.Stream.Builder;
 
 import mask.registration.Displacement;
 
-public class AlignmentEquation {
+public class RigidModelEquation {
 	
-	public static Stream<AlignmentEquation> from(Displacement d) {
+	public static Stream<RigidModelEquation> from(Displacement d) {
 		
-		Builder<AlignmentEquation> builder = Stream.builder();
+		Builder<RigidModelEquation> builder = Stream.builder();
 		
 		if (Double.isFinite(d.getXd())) {
-			builder.accept(AlignmentEquation.forX(d));
+			builder.accept(RigidModelEquation.forX(d));
 		}
 		
 		if (Double.isFinite(d.getYd())) {
-			builder.accept(AlignmentEquation.forY(d));
+			builder.accept(RigidModelEquation.forY(d));
 		}
 		
 		return builder.build();
 	}
 	
-	public static AlignmentEquation forX(Displacement d) {
+	public static RigidModelEquation forX(Displacement d) {
 		
 		double xf = 1.0;
 		double yf = 0.0;
@@ -30,10 +30,10 @@ public class AlignmentEquation {
 		double design = -d.getY();
 		double delta = d.dX();
 		
-		return new AlignmentEquation(xf, yf, design, delta);
+		return new RigidModelEquation(xf, yf, design, delta);
 	}
 	
-	public static AlignmentEquation forY(Displacement d) {
+	public static RigidModelEquation forY(Displacement d) {
 		
 		double xf = 0.0;
 		double yf = 1.0;
@@ -41,7 +41,7 @@ public class AlignmentEquation {
 		double design = d.getX();
 		double delta = d.dY();
 		
-		return new AlignmentEquation(xf, yf, design, delta);
+		return new RigidModelEquation(xf, yf, design, delta);
 	}
 	
 	private final double xf;
@@ -52,7 +52,7 @@ public class AlignmentEquation {
 	
 	private final double deltaValue;
 	
-	private AlignmentEquation(double xf, double yf, double design, double delta) {
+	private RigidModelEquation(double xf, double yf, double design, double delta) {
 		this.xf = xf;
 		this.yf = yf;
 		this.designValue = design;

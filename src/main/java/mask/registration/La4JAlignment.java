@@ -9,19 +9,19 @@ import java.util.stream.Collectors;
 import org.la4j.LinearAlgebra.InverterFactory;
 import org.la4j.decomposition.QRDecompositor;
 
-import mask.registration.alignment.AlignmentEquation;
-import mask.registration.alignment.AlignmentTransform;
+import mask.registration.alignment.RigidModelEquation;
+import mask.registration.alignment.RigidTransform;
 
-public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AlignmentTransform>{
+public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
 
 	@Override
-	public AlignmentTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 		
 		List<Displacement> alignmentSites = t.stream().filter(u).collect(Collectors.toList());
 		
-		List<AlignmentEquation> equations = alignmentSites
+		List<RigidModelEquation> equations = alignmentSites
 												.stream()
-												.flatMap(AlignmentEquation::from)
+												.flatMap(RigidModelEquation::from)
 												.collect(Collectors.toList());
 		
 		int n = 3;
@@ -30,7 +30,7 @@ public class La4JAlignment implements BiFunction<Collection<Displacement>, Predi
 		org.la4j.Matrix laDeltas = org.la4j.Matrix.zero(equations.size(), 1);
 		
 		for (int m = 0; m < equations.size(); m++) {
-			AlignmentEquation eq = equations.get(m);
+			RigidModelEquation eq = equations.get(m);
 			
 			laRef.set(m, 0, eq.getXf());
 			laRef.set(m, 1, eq.getYf());
@@ -55,7 +55,7 @@ public class La4JAlignment implements BiFunction<Collection<Displacement>, Predi
         double translationY = laResult.get(1, 0);
         double rotation = laResult.get(2, 0);
         
-        AlignmentTransform alignment = AlignmentTransform
+        RigidTransform alignment = RigidTransform
         		.with(translationX, translationY, rotation);
 		
 		return alignment;

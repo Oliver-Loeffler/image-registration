@@ -4,10 +4,17 @@ import java.util.function.Function;
 
 import mask.registration.Displacement;
 
-public class AlignmentTransform implements Function<Displacement, Displacement> {
+/**
+ * 
+ * Allows to correct rotation and translation (x,y) for a given displacement.
+ *  
+ * @author oliver
+ *
+ */
+public class RigidTransform implements Function<Displacement, Displacement> {
 
-	public static AlignmentTransform with(double translationX, double translationY, double rotation) {
-		return new AlignmentTransform(translationX, translationY, rotation);
+	public static RigidTransform with(double translationX, double translationY, double rotation) {
+		return new RigidTransform(translationX, translationY, rotation);
 	}
 	
 	private final double translationX;
@@ -16,7 +23,7 @@ public class AlignmentTransform implements Function<Displacement, Displacement> 
 	
 	private final double rotation;
 
-	private AlignmentTransform(double tx, double ty, double rot) {
+	private RigidTransform(double tx, double ty, double rot) {
 		this.translationX = tx;
 		this.translationY = ty;
 		this.rotation = rot;
@@ -43,7 +50,7 @@ public class AlignmentTransform implements Function<Displacement, Displacement> 
 	}
 	
 	private String format(double value) {
-		return String.format("%.6f", value);
+		return String.format("%10.7f", value);
 	}
 
 	@Override
