@@ -21,7 +21,7 @@ public class La4JAlignment implements BiFunction<Collection<Displacement>, Predi
 		
 		List<AlignmentEquation> equations = alignmentSites
 												.stream()
-												.flatMap(Displacement::equations)
+												.flatMap(AlignmentEquation::from)
 												.collect(Collectors.toList());
 		
 		int n = 3;
