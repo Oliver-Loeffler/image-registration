@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.DoubleConsumer;
 import java.util.function.Predicate;
 
-import mask.registration.alignment.AlignmentCalculation;
+import mask.registration.alignment.RigidTransformCalculation;
 
 public class DisplacementSummary {
 
@@ -48,7 +48,7 @@ public class DisplacementSummary {
 		this.sd3x = 3* stdev(this.statsDiffX.getAverage(), dx);
 		this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);
 		
-		this.rotation = new AlignmentCalculation().apply(displacements, calculationSelection)
+		this.rotation = new RigidTransformCalculation().apply(displacements, calculationSelection)
 												  .getRotation();
 	}	
 	

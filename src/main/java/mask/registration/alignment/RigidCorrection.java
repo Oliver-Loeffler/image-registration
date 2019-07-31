@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import mask.registration.Displacement;
 
-public class AlignmentCorrection implements BiFunction<AlignmentTransform, Collection<Displacement>, List<Displacement>> {
+public class RigidCorrection implements BiFunction<RigidTransform, Collection<Displacement>, List<Displacement>> {
 		
 	@Override
-	public List<Displacement> apply(AlignmentTransform t, Collection<Displacement> u) {
+	public List<Displacement> apply(RigidTransform t, Collection<Displacement> u) {
 
 		return u.stream()
 				.map(t)
