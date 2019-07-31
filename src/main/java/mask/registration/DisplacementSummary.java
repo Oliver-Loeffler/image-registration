@@ -4,38 +4,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.function.DoubleConsumer;
 import java.util.function.Predicate;
 
 import mask.registration.alignment.AlignmentCalculation;
-import mask.registration.alignment.AlignmentTransform;
 
 public class DisplacementSummary {
 
 	public static DisplacementSummary over(Collection<Displacement> t, Predicate<Displacement> calculationSelection) {
-		List<Double> dx = new ArrayList<>(t.size());
-		List<Double> dy = new ArrayList<>(t.size());
-
-		for (Displacement displacement : t) {
-			double deltaX = displacement.dX();
-			double deltaY = displacement.dY();
-
-			if (calculationSelection.test(displacement) && Double.isFinite(deltaX)) {
-				dx.add(deltaX);
-			}
-
-			if (calculationSelection.test(displacement) && Double.isFinite(deltaY)) {
-				dy.add(deltaY);
-			}
-		}
-		
-		AlignmentTransform alignment = new AlignmentCalculation().apply(t, calculationSelection);
-
-		return new DisplacementSummary(dx, dy, alignment);
+		return new DisplacementSummary(t, calculationSelection);
 	}
 
-	private final DoubleSummaryStatistics statsx;
+	private final DoubleSummaryStatistics statsDiffX = new DoubleSummaryStatistics();
 	
-	private final DoubleSummaryStatistics statsy;
+	private final DoubleSummaryStatistics statsDiffY = new DoubleSummaryStatistics();
+	
+	private final DoubleSummaryStatistics statsRefX = new DoubleSummaryStatistics();
+	
+	private final DoubleSummaryStatistics statsRefY = new DoubleSummaryStatistics();
+	
+	private final DoubleSummaryStatistics statsPosX = new DoubleSummaryStatistics();
+	
+	private final DoubleSummaryStatistics statsPosY = new DoubleSummaryStatistics();
 	
 	private final double sd3x;
 	
@@ -43,15 +33,41 @@ public class DisplacementSummary {
 	
 	private final double rotation;
 	
-	private DisplacementSummary(List<Double> dx, List<Double> dy, AlignmentTransform alignment) {
-		this.statsx = dx.stream().mapToDouble(Double::doubleValue).sorted().summaryStatistics();
-		this.statsy = dy.stream().mapToDouble(Double::doubleValue).sorted().summaryStatistics();
+	private DisplacementSummary(Collection<Displacement> displacements, Predicate<Displacement> calculationSelection) {
 		
-		this.sd3x = 3* stdev(this.statsx.getAverage(), dx);
-		this.sd3y = 3* stdev(this.statsy.getAverage(), dy);
+		List<Double> dx = new ArrayList<>(displacements.size());
+		List<Double> dy = new ArrayList<>(displacements.size());
 		
-		this.rotation = alignment.getRotation();
+		displacements.stream()
+					 .forEach(d -> {
+						 if (Double.isFinite(d.dX())) { dx.add(d.dX()); }
+						 if (Double.isFinite(d.dY())) { dy.add(d.dY()); }
+						 update(d);
+					 });
+		
+		this.sd3x = 3* stdev(this.statsDiffX.getAverage(), dx);
+		this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);
+		
+		this.rotation = new AlignmentCalculation().apply(displacements, calculationSelection)
+												  .getRotation();
 	}	
+	
+	private void update(Displacement d) {
+		acceptFinites(d.dX(), statsDiffX::accept);
+		acceptFinites(d.dY(), statsDiffY::accept);
+		
+		acceptFinites(d.getX(), statsRefX::accept);
+		acceptFinites(d.getY(), statsRefY::accept);
+		
+		acceptFinites(d.getXd(), statsPosX::accept);
+		acceptFinites(d.getYd(), statsPosY::accept);
+	}
+
+	private void acceptFinites(double value, DoubleConsumer consumer) {
+		if (Double.isFinite(value)) {
+			consumer.accept(value);
+		}
+	}
 	
 	public double stdev(double mean, Collection<Double> values) {
 		
@@ -82,7 +98,7 @@ public class DisplacementSummary {
 		sb.append("Min").append(tabs3).append(format(minX())).append(tabs1).append(format(minY())).append(System.lineSeparator());
 		sb.append("Max").append(tabs3).append(format(maxX())).append(tabs1).append(format(maxY())).append(System.lineSeparator());
 		sb.append("Rotation").append(tabs3).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
-		sb.append("Sites").append(tabs3).append(this.statsx.getCount()).append(tabs2).append(this.statsy.getCount()).append(System.lineSeparator());
+		sb.append("Sites").append(tabs3).append(this.statsDiffX.getCount()).append(tabs2).append(this.statsDiffY.getCount()).append(System.lineSeparator());
 		
 		return sb.toString();
 	}
@@ -91,28 +107,44 @@ public class DisplacementSummary {
 		return this.rotation;
 	}
 
-	private double meanX() {
-		return this.statsx.getAverage();
+	public double meanX() {
+		return this.statsDiffX.getAverage();
 	}
 	
-	private double meanY() {
-		return this.statsy.getAverage();
+	public double meanY() {
+		return this.statsDiffY.getAverage();
+	}
+	
+	public double designMeanX() {
+		return this.statsRefX.getAverage();
+	}
+	
+	public double designMeanY() {
+		return this.statsRefY.getAverage();
+	}
+	
+	public double displacedMeanX() {
+		return this.statsRefX.getAverage();
+	}
+	
+	public double displacedMeanY() {
+		return this.statsRefY.getAverage();
 	}
 	
 	private double minX() {
-		return this.statsx.getMin();
+		return this.statsDiffX.getMin();
 	}
 	
 	private double minY() {
-		return this.statsy.getMin();
+		return this.statsDiffY.getMin();
 	}
 	
 	private double maxX() {
-		return this.statsx.getMax();
+		return this.statsDiffX.getMax();
 	}
 	
 	private double maxY() {
-		return this.statsy.getMax();
+		return this.statsDiffY.getMax();
 	}
 	
 	private double sd3X() {

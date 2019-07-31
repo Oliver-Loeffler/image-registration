@@ -23,11 +23,11 @@ public class FirstOrderEquation {
     }
     
     public static FirstOrderEquation forX(Displacement d) {
-        return new FirstOrderEquation(d.getX(), 0.0, 0.0, d.getY(), 0.0, 0.0, d.dX());
+        return new FirstOrderEquation(d.getX(), 0.0, 0.0, d.getY(), 1.0, 0.0, d.dX());
     }
     
     public static FirstOrderEquation forY(Displacement d) {
-        return new FirstOrderEquation(0.0, d.getY(), -d.getX(), 0.0, 0.0, 0.0, d.dY());
+        return new FirstOrderEquation(0.0,     d.getY(), -d.getX(), 0.0, 0.0, 1.0, d.dY());
     }
        
     private final double sx;
