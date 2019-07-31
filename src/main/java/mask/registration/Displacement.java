@@ -89,21 +89,6 @@ public class Displacement {
 	public SiteClass getType() {
 		return siteClass;
 	}
-	
-	public Stream<AlignmentEquation> equations() {
-		
-		Builder<AlignmentEquation> builder = Stream.builder();
-		
-		if (Double.isFinite(xd)) {
-			builder.accept(AlignmentEquation.forX(this));
-		}
-		
-		if (Double.isFinite(yd)) {
-			builder.accept(AlignmentEquation.forY(this));
-		}
-		
-		return builder.build();
-	}
 
 	@Override
 	public String toString() {

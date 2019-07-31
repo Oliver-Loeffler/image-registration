@@ -1,15 +1,8 @@
 package mask.registration;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import mask.registration.alignment.AlignmentCalculation;
 import mask.registration.alignment.AlignmentCorrection;

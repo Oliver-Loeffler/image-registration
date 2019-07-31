@@ -1,8 +1,26 @@
 package mask.registration.alignment;
 
+import java.util.stream.Stream;
+import java.util.stream.Stream.Builder;
+
 import mask.registration.Displacement;
 
 public class AlignmentEquation {
+	
+	public static Stream<AlignmentEquation> from(Displacement d) {
+		
+		Builder<AlignmentEquation> builder = Stream.builder();
+		
+		if (Double.isFinite(d.getXd())) {
+			builder.accept(AlignmentEquation.forX(d));
+		}
+		
+		if (Double.isFinite(d.getYd())) {
+			builder.accept(AlignmentEquation.forY(d));
+		}
+		
+		return builder.build();
+	}
 	
 	public static AlignmentEquation forX(Displacement d) {
 		
