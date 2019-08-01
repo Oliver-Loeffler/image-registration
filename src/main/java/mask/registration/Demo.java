@@ -29,7 +29,7 @@ public class Demo {
 		
 		List<Displacement> displacements = new FileLoader().load(Paths.get("Demo.csv"));
 		DisplacementSummary summary = Displacement.summarize(displacements, calculationSelection);
-		System.out.println(System.lineSeparator()+ "--- unaligned ------------------" + summary);
+		System.out.println(System.lineSeparator()+ "--- unaligned --------------------------------" + summary);
 		
 		
 		
@@ -43,7 +43,7 @@ public class Demo {
 		
 		DisplacementSummary alignedSummary = Displacement.summarize(aligned, calculationSelection);
 		
-		System.out.println(System.lineSeparator()+ "--- aligned --------------------" + alignedSummary);
+		System.out.println(System.lineSeparator()+ "--- aligned ----------------------------------" + alignedSummary);
 		
 		FirstOrderTransformCalculation firstOrderCalc = new FirstOrderTransformCalculation();
 		AffineTransform firstOrder = firstOrderCalc.apply(displacements, calculationSelection);
@@ -54,7 +54,7 @@ public class Demo {
 		List<Displacement> corrected = correction.apply(displacements);
 		
 		DisplacementSummary correctedSummary = Displacement.summarize(corrected, calculationSelection);
-		System.out.println(correctedSummary);
+		System.out.println(System.lineSeparator()+ "--- scaling and shearing removed -------------" + correctedSummary);
 		
 		
 		/* TODO: Fix current affine correction and implement straight forward firstOrderCorrection
