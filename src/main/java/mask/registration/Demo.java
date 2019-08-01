@@ -9,6 +9,7 @@ import mask.registration.alignment.RigidTransform;
 import mask.registration.alignment.RigidTransformCalculation;
 import mask.registration.distortions.AffineTransform;
 import mask.registration.distortions.FirstOrderTransformCalculation;
+import mask.registration.distortions.FirstOrderTransformCorrection;
 import mask.registration.file.FileLoader;
 
 public class Demo {
@@ -48,6 +49,13 @@ public class Demo {
 		AffineTransform firstOrder = firstOrderCalc.apply(displacements, calculationSelection);
 		
 		System.out.println(firstOrder);
+		
+		FirstOrderTransformCorrection correction = new FirstOrderTransformCorrection(alignment, firstOrder);
+		List<Displacement> corrected = correction.apply(displacements);
+		
+		DisplacementSummary correctedSummary = Displacement.summarize(corrected, calculationSelection);
+		System.out.println(correctedSummary);
+		
 		
 		// TODO: Fix current affine correction and implement straight forward firstOrderCorrection
 		

@@ -156,7 +156,7 @@ public class DisplacementSummary {
 	}
 
 	private String format(double value) {
-		return String.format("%.6f", value*1E3);
+		return String.format("%10.7f", value*1E3);
 	}
 	
 }

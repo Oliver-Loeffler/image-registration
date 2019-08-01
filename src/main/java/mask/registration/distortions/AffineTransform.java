@@ -73,7 +73,10 @@ public class AffineTransform implements Function<Displacement, Displacement> {
 
     @Override
     public Displacement apply(Displacement d) {
-        throw new UnsupportedOperationException("To be implemented");
+        return Displacement.of(d.getX(), d.getY(),
+                d.getXd() - d.getXd() * this.getScaleX() + d.getY() * this.getOrthoX(),
+                d.getYd() - d.getYd() * this.getScaleY() - d.getX() * this.getOrthoY(),
+                d.getType());
     }
 
 }
