@@ -88,7 +88,8 @@ public class Displacement {
 
 	@Override
 	public String toString() {
-		return "Displacement [type="+siteClass.name()+ " x=" + x + ", y=" + y + ", xd=" + xd + ", yd=" + yd + ", dx=" + dx + ", dy=" + dy + "]";
+		return "Displacement [type="+siteClass.name()+ " x=" + x + ", y=" + y + ", xd=" + xd + ", yd=" + yd + ", "
+				+ System.lineSeparator() + "\t\tdx=" + dx + ", dy=" + dy + "]";
 	}
 
 	public boolean isOfType(SiteClass other) {
