@@ -31,9 +31,7 @@ public class FirstOrderTransformCorrection implements Function<Collection<Displa
 		List<Displacement> aligned = alignmentFunction
 										.andThen(translateToCenter)
 										.apply(alignment, t);
-		
-		System.out.println(Displacement.summarize(aligned, d->true));
-		
+	
 		/* 
 		 * TODO:
 		 * Here after alignment, correct only scale & shear (use only 4 params)
