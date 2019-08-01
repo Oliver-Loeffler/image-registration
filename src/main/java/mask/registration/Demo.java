@@ -57,7 +57,10 @@ public class Demo {
 		System.out.println(correctedSummary);
 		
 		
-		// TODO: Fix current affine correction and implement straight forward firstOrderCorrection
+		/* TODO: Fix current affine correction and implement straight forward firstOrderCorrection
+		 * 	     Create a new transform type FirstOrder which combines Rigid and Affine.
+		 * 
+		 */
 		
 		// TODO: Implement sections for positional and first order in DisplacementSummary
 		
