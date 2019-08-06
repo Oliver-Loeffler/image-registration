@@ -12,11 +12,11 @@ import mask.registration.distortions.FirstOrderTransformCalculation;
 import mask.registration.distortions.FirstOrderTransformCorrection;
 import mask.registration.file.FileLoader;
 
-public class Demo {
+public class DemoMultipoint {
 
 	public static void main(String ...args) {
 		
-		Demo demo = new Demo();
+		DemoMultipoint demo = new DemoMultipoint();
 		demo.run();
 
 	}
@@ -30,8 +30,6 @@ public class Demo {
 		List<Displacement> displacements = new FileLoader().load(Paths.get("Demo.csv"));
 		DisplacementSummary summary = Displacement.summarize(displacements, calculationSelection);
 		System.out.println(System.lineSeparator()+ "--- unaligned --------------------------------" + summary);
-		
-		
 		
 		RigidTransformCalculation alignmentCalc = new RigidTransformCalculation();
 		RigidTransform alignment = alignmentCalc.apply(displacements, alignmentSelection);

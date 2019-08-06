@@ -39,6 +39,7 @@ public class DisplacementSummary {
 		List<Double> dy = new ArrayList<>(displacements.size());
 		
 		displacements.stream()
+					 .filter(calculationSelection)
 					 .forEach(d -> {
 						 if (Double.isFinite(d.dX())) { dx.add(d.dX()); }
 						 if (Double.isFinite(d.dY())) { dy.add(d.dY()); }
