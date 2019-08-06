@@ -7,8 +7,8 @@ import java.util.function.ToDoubleFunction;
 
 public class Displacement {
 
-	public static Displacement of(double x, double y, double xd, double yd, SiteClass type) {
-		return new Displacement(x, y, xd, yd, type);
+	public static Displacement of(int index, double x, double y, double xd, double yd, SiteClass type) {
+		return new Displacement(index, x, y, xd, yd, type);
 	}
 	
 	public static double average(Collection<Displacement> t, ToDoubleFunction<Displacement> mapper) {
@@ -28,6 +28,7 @@ public class Displacement {
 				.orElse(Double.NaN);
 	}
 	
+	private final int id;
 	private final double x;
 	private final double y;
 	private final double xd;
@@ -38,7 +39,9 @@ public class Displacement {
 	
 	private final SiteClass siteClass;
 	
-	private Displacement(double x, double y, double xd, double yd, SiteClass type) {
+	private Displacement(int index, double x, double y, double xd, double yd, SiteClass type) {
+		this.id = index;
+		
 		this.x = x;
 		this.y = y;
 		this.xd = xd;
@@ -51,13 +54,17 @@ public class Displacement {
 	}
 	
 	public Displacement moveBy(double offsetX, double offsetY) {
-		return new Displacement(offsetX + x, offsetY + y, offsetX + xd, offsetY + yd, siteClass);
+		return new Displacement(id, offsetX + x, offsetY + y, offsetX + xd, offsetY + yd, siteClass);
 	}
 	
 	public Displacement correctBy(double dx, double dy) {
-		return new Displacement(x, y, xd - dx, yd - dy, siteClass);
+		return new Displacement(id, x, y, xd - dx, yd - dy, siteClass);
 	}
 
+	public int getId() {
+		return id;
+	}
+	
 	public double getX() {
 		return x;
 	}
@@ -88,7 +95,7 @@ public class Displacement {
 
 	@Override
 	public String toString() {
-		return "Displacement [type="+siteClass.name()+ " x=" + x + ", y=" + y + ", xd=" + xd + ", yd=" + yd + ", "
+		return "Displacement [type="+siteClass.name()+ " id=" + id + " x=" + x + ", y=" + y + ", xd=" + xd + ", yd=" + yd + ", "
 				+ System.lineSeparator() + "\t\tdx=" + dx + ", dy=" + dy + "]";
 	}
 

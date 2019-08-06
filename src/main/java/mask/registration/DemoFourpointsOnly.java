@@ -22,37 +22,54 @@ public class DemoFourpointsOnly {
 	}
 
 	private void run() {
+				
+		// define custom sites for alignment and calc
+		Predicate<Displacement> isAlignMark = d -> d.isOfType(SiteClass.ALIGN); // MULTIPOINT;
 		
-		Predicate<Displacement> alignmentSelection = d -> d.isOfType(SiteClass.ALIGN); // MULTIPOINT;
-		Predicate<Displacement> calculationSelection = d -> d.isOfType(SiteClass.ALIGN); // use all locations for summary;
-		
+		SiteSelection selection = SiteSelection
+					.forAlignment(isAlignMark)
+					.forCalculation(isAlignMark)
+					.forFirstOrderCalculation(isAlignMark);
+	
 		
 		List<Displacement> displacements = new FileLoader().load(Paths.get("Demo-4Point.csv"));
-		DisplacementSummary summary = Displacement.summarize(displacements, calculationSelection);
+		DisplacementSummary summary = Displacement.summarize(displacements, selection.getCalculation());
 		System.out.println(System.lineSeparator()+ "--- unaligned --------------------------------" + summary);
 		
 		RigidTransformCalculation alignmentCalc = new RigidTransformCalculation();
-		RigidTransform alignment = alignmentCalc.apply(displacements, alignmentSelection);
+		RigidTransform alignment = alignmentCalc.apply(displacements, selection.getAlignment());
 		
 		System.out.println(alignment);
 		
 		RigidCorrection alignmentCorrection = new RigidCorrection();
 		List<Displacement> aligned = alignmentCorrection.apply(alignment, displacements);
 		
-		DisplacementSummary alignedSummary = Displacement.summarize(aligned, calculationSelection);
+		DisplacementSummary alignedSummary = Displacement.summarize(aligned, selection.getCalculation());
 		
 		System.out.println(System.lineSeparator()+ "--- aligned ----------------------------------" + alignedSummary);
 		
 		FirstOrderTransformCalculation firstOrderCalc = new FirstOrderTransformCalculation();
-		AffineTransform firstOrder = firstOrderCalc.apply(displacements, calculationSelection);
+		AffineTransform firstOrder = firstOrderCalc.apply(displacements, selection);
 		
 		System.out.println(firstOrder);
 		
 		FirstOrderTransformCorrection correction = new FirstOrderTransformCorrection(alignment, firstOrder);
-		List<Displacement> corrected = correction.apply(displacements);
+		List<Displacement> corrected = correction.apply(displacements, selection);
 		
-		DisplacementSummary correctedSummary = Displacement.summarize(corrected, calculationSelection);
+		DisplacementSummary correctedSummary = Displacement.summarize(corrected, selection.getCalculation());
+		
+		SiteSelection customized4point = SiteSelection.alignOn(SiteClass.ALIGN)
+													  .forCalculation(d->Double.compare(d.getX(), 5425.0) != 0)
+													  .build();
+		
+		
+		DisplacementSummary correctedOverallSummary = Displacement.summarize(corrected, customized4point.getCalculation());
 		System.out.println(System.lineSeparator()+ "--- scaling and shearing removed -------------" + correctedSummary);
+		System.out.println(System.lineSeparator()+ "--- Summary after correction -----------------" + correctedOverallSummary);
+		
+		AffineTransform firstOrderOverall = firstOrderCalc.apply(displacements, customized4point);
+		
+		System.out.println(firstOrderOverall);
 		
 		
 		/* TODO: Fix current affine correction and implement straight forward firstOrderCorrection

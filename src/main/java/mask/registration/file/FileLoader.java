@@ -28,7 +28,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 			Set<String> siteClasses = Arrays.stream(SiteClass.values())
 											.map(SiteClass::name)
 											.collect(Collectors.toSet());
-			
+			int index = 1;
 			for (String line : lines) {
 				try {
 					String[] e = line.split(";");
@@ -50,8 +50,9 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 						}
 					} 				
 					
-					Displacement d = Displacement.of(x, y, xd, yd, sc);
+					Displacement d = Displacement.of(index, x, y, xd, yd, sc);
 					dp.add(d);
+					index++;
 				} catch(NumberFormatException nfe) {
 					// ignore corrupted lines
 				}	
