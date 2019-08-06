@@ -11,6 +11,8 @@
 * It should be numerically and technically correct 
 * Try more advanced transforms beyond rigid (alignment) and affine (6-parameter first 
   order). Technically n-parameters higher order should work.
+* Decouple matrix computation (equation solving) from high level transform code so 
+  that matrix libraries can be exchanged (e.g. using La4J instead of Jama)
 * Make all core elements immutable, improve design step by step to achieve concurrency 
   for large data sets (improve speed by using fork-join, try to use async using CompletableFutures) 
 * Consider use of Units-of-Measurement API (JSR385)
