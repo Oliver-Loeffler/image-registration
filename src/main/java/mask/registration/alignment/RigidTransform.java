@@ -55,7 +55,7 @@ public class RigidTransform implements Function<Displacement, Displacement> {
 
 	@Override
 	public Displacement apply(Displacement d) {
-		return Displacement.of(d.getX(), d.getY(), 
+		return Displacement.of(d.getId(), d.getX(), d.getY(), 
 				d.getXd() - this.getTranslationX() + d.getY() * this.getRotation(), 
 				d.getYd() - this.getTranslationY() - d.getX() * this.getRotation(), 
 				d.getType());

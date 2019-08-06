@@ -2,15 +2,16 @@ package mask.registration.distortions;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 import mask.registration.Displacement;
+import mask.registration.SiteSelection;
 import mask.registration.alignment.RigidCorrection;
 import mask.registration.alignment.RigidTransform;
 import mask.registration.alignment.RigidTransformCalculation;
 import mask.registration.alignment.TranslateToCenter;
 
-public class FirstOrderTransformCorrection implements Function<Collection<Displacement>, List<Displacement>> {
+public class FirstOrderTransformCorrection implements BiFunction<Collection<Displacement>, SiteSelection, List<Displacement>> {
 
 	private final RigidTransform alignment;
 	
@@ -22,7 +23,7 @@ public class FirstOrderTransformCorrection implements Function<Collection<Displa
 	}
 	
 	@Override
-	public List<Displacement> apply(Collection<Displacement> t) {
+	public List<Displacement> apply(Collection<Displacement> t, SiteSelection u) {
 		
 		
 		RigidCorrection alignmentFunction = new RigidCorrection();
@@ -40,7 +41,7 @@ public class FirstOrderTransformCorrection implements Function<Collection<Displa
 		AffineTransformCorrection affineCorrection = new AffineTransformCorrection();
 		List<Displacement> corrected = affineCorrection.apply(firstOrder, aligned);
 		
-		RigidTransform residualAlignment = new RigidTransformCalculation().apply(corrected, d->true);
+		RigidTransform residualAlignment = new RigidTransformCalculation().apply(corrected, u.getAlignment());
 		List<Displacement> finalCorrected = alignmentFunction
 				.andThen(translateToCenter.reverse())
 				.apply(residualAlignment, corrected);
