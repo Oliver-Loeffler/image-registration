@@ -1,4 +1,4 @@
-package mask.registration;
+package mask.registration.alignment;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 import org.la4j.LinearAlgebra.InverterFactory;
 import org.la4j.decomposition.QRDecompositor;
 
-import mask.registration.alignment.RigidModelEquation;
-import mask.registration.alignment.RigidTransform;
+import mask.registration.Displacement;
 
 public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
 
