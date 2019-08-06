@@ -31,7 +31,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 			int index = 1;
 			for (String line : lines) {
 				try {
-					String[] e = line.split(";");
+					String[] e = line.split(",");
 					
 					double x = Double.parseDouble(e[0]);
 					double xd = Double.parseDouble(e[2]);
