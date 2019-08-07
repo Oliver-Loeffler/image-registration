@@ -30,3 +30,9 @@
   higher level functions to do the all-in-one-job as its done in the demos.   
 
 * Move to Java 14 and play with project Valhalla (Value Types/Value Objects, JEP169)
+
+## Further Reading
+* https://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2/pdfs/Ch2.pdf
+* https://www.uni-muenster.de/AMM/num/Vorlesungen/VarBioMed_WS10/skript/Kapitel_3_4_Registrierung.pdf
+* http://www.mathe.tu-freiberg.de/~tochten/gkhm/skript_Matrizen_Gleichungssysteme_Determinanten_ws07.pdf
+* https://www.cs.tau.ac.il/~dcor/Graphics/cg-slides/trans3d.pdf 
