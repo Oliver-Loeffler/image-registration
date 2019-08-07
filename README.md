@@ -16,12 +16,17 @@
 * Make all core elements immutable, improve design step by step to achieve concurrency 
   for large data sets (improve speed by using fork-join, try to use async using CompletableFutures) 
 * Consider use of Units-of-Measurement API (JSR385)
-* Move to Java 14 and play with project Valhalla (Value Types/Value Objects, JEP169)
+* Learn how project Valhalla works in Java 14
 
 ## Todos
-
+* Handle 1D cases (handling of individual missing points already works)
 * Define high level API (ideally fluent or builder based) to compose evaluations.
 * Fluent-API for selecting specific displacements for alignment, positional calculation, 
   first order calculation
+
 * Implement higher order polynomial model with configurable coefficients (polynomial 
-  model should work up to 9th order, coefficients to be used shall be configurable independently for x and y)  
+  model should work up to 9th order, coefficients to be used shall be configurable independently for x and y)
+* Sum up learnings and reshape structure of alignment/correction classes, possibly add 
+  higher level functions to do the all-in-one-job as its done in the demos.   
+
+* Move to Java 14 and play with project Valhalla (Value Types/Value Objects, JEP169)

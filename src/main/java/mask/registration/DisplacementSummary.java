@@ -46,8 +46,18 @@ public class DisplacementSummary {
 						 update(d);
 					 });
 		
-		this.sd3x = 3* stdev(this.statsDiffX.getAverage(), dx);
-		this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);
+		
+		if (Double.isFinite(this.statsDiffX.getAverage())) {
+			this.sd3x = 3* stdev(this.statsDiffX.getAverage(), dx);	
+		} else {
+			this.sd3x = Double.NaN;	
+		}
+		
+		if (Double.isFinite(this.statsDiffY.getAverage())) {
+			this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);	
+		} else {
+			this.sd3y = Double.NaN;	
+		}
 		
 		this.rotation = new RigidTransformCalculation().apply(displacements, calculationSelection)
 												  .getRotation();
