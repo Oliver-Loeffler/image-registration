@@ -25,6 +25,13 @@ public class RigidModel {
 	private final Matrix deltas;
 	
 	public RigidModel(Collection<RigidModelEquation> equations) {
+		
+		/* 
+		 * TODO: Depending on equations, the model should decide to include or exclude one dimension
+		 * or instead to populate one axis fully with 0.0.
+		 * 
+		 */
+		
 		this.rows = equations.size();
 		this.references = new Matrix(this.rows, 3);
 		this.deltas = new Matrix(this.rows, 1);
