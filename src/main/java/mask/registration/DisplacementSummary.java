@@ -2,12 +2,12 @@ package mask.registration;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.function.DoubleConsumer;
 import java.util.function.Predicate;
 
 import mask.registration.alignment.RigidTransformCalculation;
+import net.raumzeitfalle.util.DoubleStatisticsSummary;
 
 public class DisplacementSummary {
 
@@ -15,17 +15,17 @@ public class DisplacementSummary {
 		return new DisplacementSummary(t, calculationSelection);
 	}
 
-	private final DoubleSummaryStatistics statsDiffX = new DoubleSummaryStatistics();
+	private final DoubleStatisticsSummary statsDiffX = new DoubleStatisticsSummary();
 	
-	private final DoubleSummaryStatistics statsDiffY = new DoubleSummaryStatistics();
+	private final DoubleStatisticsSummary statsDiffY = new DoubleStatisticsSummary();
 	
-	private final DoubleSummaryStatistics statsRefX = new DoubleSummaryStatistics();
+	private final DoubleStatisticsSummary statsRefX = new DoubleStatisticsSummary();
 	
-	private final DoubleSummaryStatistics statsRefY = new DoubleSummaryStatistics();
+	private final DoubleStatisticsSummary statsRefY = new DoubleStatisticsSummary();
 	
-	private final DoubleSummaryStatistics statsPosX = new DoubleSummaryStatistics();
+	private final DoubleStatisticsSummary statsPosX = new DoubleStatisticsSummary();
 	
-	private final DoubleSummaryStatistics statsPosY = new DoubleSummaryStatistics();
+	private final DoubleStatisticsSummary statsPosY = new DoubleStatisticsSummary();
 	
 	private final double sd3x;
 	
