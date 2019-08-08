@@ -34,9 +34,9 @@ public class FirstOrderTransformCalculation implements BiFunction<Collection<Dis
         SimilarityModel alignModel = new SimilarityModel(alignmentEquations);
         
         Matrix alignment = alignModel.solve();
+        double rotation = alignment.get(1, 0);
         double transx = alignment.get(2, 0);
         double transy = alignment.get(3, 0);
-        double rotation = alignment.get(1, 0);
         
         List<AffineModelEquation> finalEquations = sites
 				 .stream()
