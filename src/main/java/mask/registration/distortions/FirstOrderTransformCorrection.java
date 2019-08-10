@@ -41,6 +41,7 @@ public class FirstOrderTransformCorrection implements BiFunction<Collection<Disp
 		AffineTransformCorrection affineCorrection = new AffineTransformCorrection();
 		List<Displacement> corrected = affineCorrection.apply(firstOrder, aligned);
 		
+
 		RigidTransform residualAlignment = new RigidTransformCalculation().apply(corrected, u.getAlignment());
 		List<Displacement> finalCorrected = alignmentFunction
 				.andThen(translateToCenter.reverse())
@@ -48,7 +49,5 @@ public class FirstOrderTransformCorrection implements BiFunction<Collection<Disp
 		
 		return finalCorrected;
 	}
-
-	
 
 }

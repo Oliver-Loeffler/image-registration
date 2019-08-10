@@ -11,10 +11,10 @@ import org.la4j.decomposition.QRDecompositor;
 
 import mask.registration.Displacement;
 
-public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
+public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, SimpleRigidTransform>{
 
 	@Override
-	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+	public SimpleRigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 		
 		List<Displacement> alignmentSites = t.stream().filter(u).collect(Collectors.toList());
 		
@@ -54,7 +54,7 @@ public class La4JAlignment implements BiFunction<Collection<Displacement>, Predi
         double translationY = laResult.get(1, 0);
         double rotation = laResult.get(2, 0);
         
-        RigidTransform alignment = RigidTransform
+        SimpleRigidTransform alignment = SimpleRigidTransform
         		.with(translationX, translationY, rotation);
 		
 		return alignment;

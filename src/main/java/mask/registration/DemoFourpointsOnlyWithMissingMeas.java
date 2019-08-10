@@ -49,7 +49,7 @@ public class DemoFourpointsOnlyWithMissingMeas {
 		System.out.println(System.lineSeparator()+ "--- aligned ----------------------------------" + alignedSummary);
 		
 		FirstOrderTransformCalculation firstOrderCalc = new FirstOrderTransformCalculation();
-		AffineTransform firstOrder = firstOrderCalc.apply(displacements, selection);
+		AffineTransform firstOrder = firstOrderCalc.apply(displacements, selection.getFirstOrderSelection());
 		
 		System.out.println(firstOrder);
 		
@@ -67,7 +67,7 @@ public class DemoFourpointsOnlyWithMissingMeas {
 		System.out.println(System.lineSeparator()+ "--- scaling and shearing removed -------------" + correctedSummary);
 		System.out.println(System.lineSeparator()+ "--- Summary after correction -----------------" + correctedOverallSummary);
 		
-		AffineTransform firstOrderOverall = firstOrderCalc.apply(displacements, customized4point);
+		AffineTransform firstOrderOverall = firstOrderCalc.apply(displacements, customized4point.getCalculation());
 		
 		System.out.println(firstOrderOverall);
 		

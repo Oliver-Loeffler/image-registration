@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-class AlignmentSelection implements Supplier<Predicate<Displacement>> {
+public class AlignmentSelection implements Supplier<Predicate<Displacement>> {
 	
 	private final Predicate<Displacement> selection;
 
@@ -12,7 +12,7 @@ class AlignmentSelection implements Supplier<Predicate<Displacement>> {
 		this.selection = Objects.requireNonNull(selection, "Predicate for alignment selection must not be null.");
 	}
 	
-	CalculationSelection forCalculation(Predicate<Displacement> selection) {
+	public CalculationSelection forCalculation(Predicate<Displacement> selection) {
 		return new CalculationSelection(this, selection);
 	}
 

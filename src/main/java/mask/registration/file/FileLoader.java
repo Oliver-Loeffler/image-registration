@@ -50,7 +50,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 						}
 					} 				
 					
-					Displacement d = Displacement.of(index, x, y, xd, yd, sc);
+					Displacement d = Displacement.at(index,index, x, y, xd, yd, sc);
 					dp.add(d);
 					index++;
 				} catch(NumberFormatException nfe) {

@@ -1,12 +1,13 @@
 package mask.registration.distortions;
 
-public class FirstOrderTransform extends AffineTransform {
+public class FirstOrderTransform extends SimpleAffineTransform {
 
     public static FirstOrderTransform with(double transx, double transy,
             double scalex, double scaley,
             double orthox, double orthoy,
-            double rotation) {
-        return new FirstOrderTransform(transx, transy, scalex, scaley, orthox, orthoy, rotation);
+            double rotation, double meanx,
+            double meany) {
+        return new FirstOrderTransform(transx, transy, scalex, scaley, orthox, orthoy, rotation, meanx, meany);
     }
     
     private final double rotation;
@@ -14,8 +15,9 @@ public class FirstOrderTransform extends AffineTransform {
     private FirstOrderTransform(double tx, double ty,
                                 double sx, double sy,
                                 double ox, double oy,
-                                double rot) {
-        super(tx,ty,sx,sy,ox,oy);
+                                double rot, double mx,
+                                double my) {
+        super(tx,ty,sx,sy,ox,oy, mx, my);
         this.rotation = rot;
     }
 
