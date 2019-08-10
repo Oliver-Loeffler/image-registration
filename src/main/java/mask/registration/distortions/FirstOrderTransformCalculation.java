@@ -3,31 +3,36 @@ package mask.registration.distortions;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import Jama.Matrix;
 import mask.registration.Displacement;
 import mask.registration.DisplacementSummary;
-import mask.registration.SiteSelection;
 import mask.registration.alignment.SimilarityModel;
 import mask.registration.alignment.SimilarityModelEquation;
 
-public class FirstOrderTransformCalculation implements BiFunction<Collection<Displacement>, SiteSelection, AffineTransform>{
+public class FirstOrderTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform>{
 
     @Override
-    public FirstOrderTransform apply(Collection<Displacement> t, SiteSelection u) {
+    public FirstOrderTransform apply(Collection<Displacement> t, Predicate<Displacement> selection) {
         
-    	DisplacementSummary summary = Displacement.summarize(t, u.getFirstOrderSelection());
+    	DisplacementSummary summary = Displacement.summarize(t, selection);
     	double meanx = summary.designMeanX();
     	double meany = summary.designMeanY();
     	
+    	/* TODO:
+    	 * Rework configuration of SimilarityModel and AffineModel, attempt to place both into one loop. 
+    	 */
+    	
     	List<Displacement> sites = t.stream()
-                .filter(u.getFirstOrderSelection())
+                .filter(selection)
                 .map(d->d.moveBy(-meanx, -meany))
                 .collect(Collectors.toList());
     	
-    	List<SimilarityModelEquation> alignmentEquations = sites
-				 .stream()
+    	List<SimilarityModelEquation> alignmentEquations = t.stream()
+                .filter(selection)
+                .map(d->d.moveBy(-meanx, -meany))
                 .flatMap(SimilarityModelEquation::from)
                 .collect(Collectors.toList());
     	 
@@ -52,7 +57,7 @@ public class FirstOrderTransformCalculation implements BiFunction<Collection<Dis
         double orthoy = distortion.get(3, 0);
         
         return FirstOrderTransform
-        		.with(transx, transy, scalex, scaley, orthox, orthoy, rotation);
+        			.with(transx, transy, scalex, scaley, orthox, orthoy, rotation, meanx, meany);
     }
 
     

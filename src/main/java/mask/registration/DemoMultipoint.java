@@ -42,7 +42,7 @@ public class DemoMultipoint {
 		System.out.println(System.lineSeparator()+ "--- aligned ----------------------------------" + alignedSummary);
 		
 		FirstOrderTransformCalculation firstOrderCalc = new FirstOrderTransformCalculation();
-		AffineTransform firstOrder = firstOrderCalc.apply(displacements, selection);
+		AffineTransform firstOrder = firstOrderCalc.apply(displacements, selection.getFirstOrderSelection());
 		
 		System.out.println(firstOrder);
 		
@@ -52,7 +52,7 @@ public class DemoMultipoint {
 		DisplacementSummary correctedSummary = Displacement.summarize(corrected, selection.getFirstOrderSelection());
 		System.out.println(System.lineSeparator()+ "--- scaling and shearing removed -------------" + correctedSummary);
 		
-		AffineTransform finalFirstOrder = firstOrderCalc.apply(corrected, selection);
+		AffineTransform finalFirstOrder = firstOrderCalc.apply(corrected, selection.getCalculation());
 		System.out.println(finalFirstOrder);
 		
 		/* TODO: Fix current affine correction and implement straight forward firstOrderCorrection

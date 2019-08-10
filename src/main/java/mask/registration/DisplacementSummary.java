@@ -59,7 +59,8 @@ public class DisplacementSummary {
 			this.sd3y = Double.NaN;	
 		}
 		
-		this.rotation = new RigidTransformCalculation().apply(displacements, calculationSelection)
+		this.rotation = new RigidTransformCalculation()
+												  .apply(displacements, calculationSelection)
 												  .getRotation();
 	}	
 	

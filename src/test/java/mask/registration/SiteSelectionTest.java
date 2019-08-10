@@ -27,9 +27,9 @@ public class SiteSelectionTest {
 	}
 
 	private List<Displacement> createDisplacementsList() {
-		Displacement alignMark = Displacement.of(1,0, 0, 10, 10, SiteClass.ALIGN);
-		Displacement regMark = Displacement.of(2,0, 0, 10, 10, SiteClass.REG_MARK);
-		Displacement infoOnlyMark = Displacement.of(3,0, 0, 10, 10, SiteClass.INFO_ONLY);
+		Displacement alignMark = Displacement.at(1,1,0, 0, 10, 10, SiteClass.ALIGN);
+		Displacement regMark = Displacement.at(2,2,0, 0, 10, 10, SiteClass.REG_MARK);
+		Displacement infoOnlyMark = Displacement.at(3,3,0, 0, 10, 10, SiteClass.INFO_ONLY);
 		
 		return Arrays.asList(alignMark,regMark, infoOnlyMark);
 	}

@@ -3,7 +3,7 @@ package mask.registration;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-class CalculationSelection {
+public class CalculationSelection {
 	
 	private final Predicate<Displacement> alignment;
 	
