@@ -32,6 +32,7 @@ public class RigidTransformCalculation implements BiFunction<Collection<Displace
 	@Override
 	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 						
+		
 		List<RigidModelEquation> equations = t.stream()
 											 .filter(u)
 											 .flatMap(RigidModelEquation::from)

@@ -1,10 +1,10 @@
 package mask.registration;
 
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
-import mask.registration.alignment.RigidCorrection;
 import mask.registration.alignment.RigidTransform;
 import mask.registration.alignment.RigidTransformCalculation;
 import mask.registration.distortions.AffineTransform;
@@ -41,8 +41,7 @@ public class DemoFourpointsOnly {
 		
 		System.out.println(alignment);
 		
-		RigidCorrection alignmentCorrection = new RigidCorrection();
-		List<Displacement> aligned = alignmentCorrection.apply(alignment, displacements);
+		Collection<Displacement> aligned = alignment.apply(displacements);
 		
 		DisplacementSummary alignedSummary = Displacement.summarize(aligned, selection.getCalculation());
 		

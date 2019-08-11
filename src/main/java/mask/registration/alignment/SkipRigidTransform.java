@@ -1,11 +1,15 @@
 package mask.registration.alignment;
 
+import java.util.Collection;
+
 import mask.registration.Displacement;
 
-class SkipRigidTransform implements RigidTransform {
+public class SkipRigidTransform implements RigidTransform {
 
 	@Override
-	public Displacement apply(Displacement t) {return t; }
+	public Collection<Displacement> apply(Collection<Displacement> d) {
+		return d;
+	}
 
 	@Override
 	public double getTranslationX() { return 0.0; }

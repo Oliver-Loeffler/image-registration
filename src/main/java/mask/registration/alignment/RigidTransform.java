@@ -1,5 +1,6 @@
 package mask.registration.alignment;
 
+import java.util.Collection;
 import java.util.function.Function;
 
 import mask.registration.Displacement;
@@ -11,7 +12,7 @@ import mask.registration.Displacement;
  * @author oliver
  *
  */
-public interface RigidTransform extends Function<Displacement, Displacement> {
+public interface RigidTransform extends Function<Collection<Displacement>, Collection<Displacement>> {
 	
 	double getTranslationX();
 	double getTranslationY();

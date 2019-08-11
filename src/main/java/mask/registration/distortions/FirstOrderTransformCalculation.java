@@ -16,8 +16,11 @@ public class FirstOrderTransformCalculation implements BiFunction<Collection<Dis
 
     @Override
     public FirstOrderTransform apply(Collection<Displacement> t, Predicate<Displacement> selection) {
-        
-    	DisplacementSummary summary = Displacement.summarize(t, selection);
+        return apply(t,selection,selection);
+    }
+
+    public FirstOrderTransform apply(Collection<Displacement> t, Predicate<Displacement> alignOn, Predicate<Displacement> calculateWith) {
+    	DisplacementSummary summary = Displacement.summarize(t, alignOn);
     	double meanx = summary.designMeanX();
     	double meany = summary.designMeanY();
     	
@@ -26,12 +29,12 @@ public class FirstOrderTransformCalculation implements BiFunction<Collection<Dis
     	 */
     	
     	List<Displacement> sites = t.stream()
-                .filter(selection)
+    			.filter(calculateWith)
                 .map(d->d.moveBy(-meanx, -meany))
                 .collect(Collectors.toList());
     	
     	List<SimilarityModelEquation> alignmentEquations = t.stream()
-                .filter(selection)
+                .filter(alignOn)
                 .map(d->d.moveBy(-meanx, -meany))
                 .flatMap(SimilarityModelEquation::from)
                 .collect(Collectors.toList());
@@ -45,8 +48,8 @@ public class FirstOrderTransformCalculation implements BiFunction<Collection<Dis
         
         List<AffineModelEquation> finalEquations = sites
 				 .stream()
-                .flatMap(AffineModelEquation::from)
-                .collect(Collectors.toList());
+                 .flatMap(AffineModelEquation::from)
+                 .collect(Collectors.toList());
 
         AffineModel distortionModel = new AffineModel(finalEquations);
         Matrix distortion = distortionModel.solve();
@@ -59,7 +62,5 @@ public class FirstOrderTransformCalculation implements BiFunction<Collection<Dis
         return FirstOrderTransform
         			.with(transx, transy, scalex, scaley, orthox, orthoy, rotation, meanx, meany);
     }
-
     
-
 }

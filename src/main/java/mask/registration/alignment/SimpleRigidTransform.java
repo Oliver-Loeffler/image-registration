@@ -1,5 +1,9 @@
 package mask.registration.alignment;
 
+import java.util.Collection;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import mask.registration.Displacement;
 
 /**
@@ -52,10 +56,16 @@ class SimpleRigidTransform implements RigidTransform {
 	}
 
 	@Override
-	public Displacement apply(Displacement d) {
-		return Displacement.from(d, 
-				d.getXd() - this.getTranslationX() + d.getY() * this.getRotation(), 
-				d.getYd() - this.getTranslationY() - d.getX() * this.getRotation());
+	public Collection<Displacement> apply(Collection<Displacement> d) {
+		return d.stream()
+				 .map(mappper())
+				 .collect(Collectors.toList());
+	}
+	
+	private Function<Displacement,Displacement> mappper() {
+		return source -> Displacement.from(source, 
+				source.getXd() - this.getTranslationX() + source.getY() * this.getRotation(), 
+				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
 	}
 	
 }
