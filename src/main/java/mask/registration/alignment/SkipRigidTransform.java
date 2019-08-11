@@ -5,7 +5,7 @@ import java.util.Collection;
 import mask.registration.Displacement;
 
 public class SkipRigidTransform implements RigidTransform {
-
+	
 	@Override
 	public Collection<Displacement> apply(Collection<Displacement> d) {
 		return d;

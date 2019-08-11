@@ -21,8 +21,7 @@ import Jama.QRDecomposition;
  * @author oliver
  *
  */
-// TODO: find a better name, similarity seems to be wrong
-public class SimilarityAlignmentModel {
+public class NonUniformSimilarityModel {
 	
 	private final int rows;
 	
@@ -30,17 +29,17 @@ public class SimilarityAlignmentModel {
 	
 	private final Matrix deltas;
 	
-	public SimilarityAlignmentModel(Collection<SimilarityAlignmentModelEquation> equations) {
+	public NonUniformSimilarityModel(Collection<NonUniformSimilarityModelEquation> equations) {
     	this.rows = equations.size();
     	this.references = new Matrix(this.rows, 5);
     	this.deltas = new Matrix(this.rows, 1);
     	
-    	populateMatrices(equations.toArray(new SimilarityAlignmentModelEquation[0]));
+    	populateMatrices(equations.toArray(new NonUniformSimilarityModelEquation[0]));
     }
     
-    private void populateMatrices(SimilarityAlignmentModelEquation[] equations) {
+    private void populateMatrices(NonUniformSimilarityModelEquation[] equations) {
     	for (int m = 0; m < equations.length; m++) {
-    		SimilarityAlignmentModelEquation eq = equations[m];
+    		NonUniformSimilarityModelEquation eq = equations[m];
 			this.references.set(m, 0, eq.getSx());
 			this.references.set(m, 1, eq.getSy());
 			this.references.set(m, 2, eq.getRot());
@@ -60,7 +59,7 @@ public class SimilarityAlignmentModel {
 
 	@Override
 	public String toString() {
-		return "SimilarityAlignmentModel [" + System.lineSeparator() +  showMatrix(references) 
+		return "NonUniformSimilarityModel [" + System.lineSeparator() +  showMatrix(references) 
 				+ System.lineSeparator()
 				+ "]";
 	}

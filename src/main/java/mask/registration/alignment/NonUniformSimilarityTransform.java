@@ -13,10 +13,10 @@ import mask.registration.Displacement;
  * @author oliver
  *
  */
-public class SimilarityAlignmentTransform implements Function<Collection<Displacement>, Collection<Displacement>> {
+public class NonUniformSimilarityTransform implements Function<Collection<Displacement>, Collection<Displacement>> {
 
-	public static SimilarityAlignmentTransform with(double scaleX, double scaleY, double translationX, double translationY, double rotation) {
-		return new SimilarityAlignmentTransform(scaleX, scaleY, translationX, translationY, rotation);
+	public static NonUniformSimilarityTransform with(double scaleX, double scaleY, double translationX, double translationY, double rotation) {
+		return new NonUniformSimilarityTransform(scaleX, scaleY, translationX, translationY, rotation);
 	}
 	
 	private final double translationX;
@@ -29,7 +29,7 @@ public class SimilarityAlignmentTransform implements Function<Collection<Displac
 	
 	private final double rotation;
 
-	private SimilarityAlignmentTransform(double sx, double sy, double tx, double ty, double rot) {
+	private NonUniformSimilarityTransform(double sx, double sy, double tx, double ty, double rot) {
 		this.scaleX = sx;
 		this.scaleY = sy;
 		this.translationX = tx;
@@ -60,7 +60,7 @@ public class SimilarityAlignmentTransform implements Function<Collection<Displac
 	@Override
 	public String toString() {
 		
-		return    "SimilarityAlignmentTransform [x=" + format(translationX) 
+		return    "NonUniformSimilarityTransform [x=" + format(translationX) 
 				+ ", y=" + format(translationY) + ", rotation="
 				+ format(rotation * 1E6) + " urad, "
 				+ ", scale_x=" + format(scaleX * 1E6) + " ppm, "
