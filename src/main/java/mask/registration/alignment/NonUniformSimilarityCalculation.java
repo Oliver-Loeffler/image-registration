@@ -9,18 +9,18 @@ import java.util.stream.Collectors;
 import Jama.Matrix;
 import mask.registration.Displacement;
 
-public class SimilarityAlignmentCalculation
-		implements BiFunction<Collection<Displacement>, Predicate<Displacement>, SimilarityAlignmentTransform> {
+public class NonUniformSimilarityCalculation
+		implements BiFunction<Collection<Displacement>, Predicate<Displacement>, NonUniformSimilarityTransform> {
 
 	@Override
-	public SimilarityAlignmentTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
-		List<SimilarityAlignmentModelEquation> equations = t.stream()
+	public NonUniformSimilarityTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+		List<NonUniformSimilarityModelEquation> equations = t.stream()
 				.filter(u)
-				.flatMap(SimilarityAlignmentModelEquation::from)
+				.flatMap(NonUniformSimilarityModelEquation::from)
 				.collect(Collectors.toList());
 
 
-		SimilarityAlignmentModel model = new SimilarityAlignmentModel(equations);
+		NonUniformSimilarityModel model = new NonUniformSimilarityModel(equations);
 
 		Matrix result = model.solve();
 
@@ -30,7 +30,7 @@ public class SimilarityAlignmentCalculation
 		double translationX = result.get(3, 0);
 		double translationY = result.get(4, 0);
 
-		return SimilarityAlignmentTransform.with(scaleX, scaleY, translationX, translationY, rotation);
+		return NonUniformSimilarityTransform.with(scaleX, scaleY, translationX, translationY, rotation);
 	}
 
 }

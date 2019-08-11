@@ -24,6 +24,10 @@ public class RigidTransformCalculation implements BiFunction<Collection<Displace
 	 * When no displacements are left after filtering with the given predicate, then the {@link SkipRigidTransform} is returned. Otherwise the results is returned as {@link SimpleRigidTransform}.
 	 * <p>
 	 * The {@link RigidModel} is used for calculation.
+	 * <p>
+	 * For cases where no sites are selected for calculation (e.g. the predicate does not match any given displacement),
+	 * A {@link SkipRigidTransform} is returned instead of a {@link SimpleRigidTransform}. When used in data processing, 
+	 * the {@link SkipRigidTransform} will just pass through all given data without any modification.
 	 * 
 	 * @param t Collection of {@link Displacement}
 	 * @param u {@link Predicate} which describes which {@link Displacement} elements shall be used for alignment

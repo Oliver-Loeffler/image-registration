@@ -5,29 +5,29 @@ import java.util.stream.Stream.Builder;
 
 import mask.registration.Displacement;
 
-public class SimilarityAlignmentModelEquation {
+public class NonUniformSimilarityModelEquation {
     
-    public static Stream<SimilarityAlignmentModelEquation> from(Displacement d) {
+    public static Stream<NonUniformSimilarityModelEquation> from(Displacement d) {
         
-        Builder<SimilarityAlignmentModelEquation> builder = Stream.builder();
+        Builder<NonUniformSimilarityModelEquation> builder = Stream.builder();
         
         if (Double.isFinite(d.getXd())) {
-            builder.accept(SimilarityAlignmentModelEquation.forX(d));
+            builder.accept(NonUniformSimilarityModelEquation.forX(d));
         }
         
         if (Double.isFinite(d.getYd())) {
-            builder.accept(SimilarityAlignmentModelEquation.forY(d));
+            builder.accept(NonUniformSimilarityModelEquation.forY(d));
         }
         
         return builder.build();
     }
     
-    public static SimilarityAlignmentModelEquation forX(Displacement d) {
-        return new SimilarityAlignmentModelEquation(d.getX(), 0.0, -d.getY(), 1.0, 0.0, d.dX());
+    public static NonUniformSimilarityModelEquation forX(Displacement d) {
+        return new NonUniformSimilarityModelEquation(d.getX(), 0.0, -d.getY(), 1.0, 0.0, d.dX());
     }
     
-    public static SimilarityAlignmentModelEquation forY(Displacement d) {
-        return new SimilarityAlignmentModelEquation(0.0, d.getY(), d.getX(), 0.0, 1.0, d.dY());
+    public static NonUniformSimilarityModelEquation forY(Displacement d) {
+        return new NonUniformSimilarityModelEquation(0.0, d.getY(), d.getX(), 0.0, 1.0, d.dY());
     }
         
     private final double scale_x;
@@ -42,7 +42,7 @@ public class SimilarityAlignmentModelEquation {
     
     private final double deltaValue;
     
-    private SimilarityAlignmentModelEquation(double sx, double sy, double rot, double tx, double ty, double delta) {
+    private NonUniformSimilarityModelEquation(double sx, double sy, double rot, double tx, double ty, double delta) {
         this.scale_x = sx;
         this.scale_y = sy;
         this.rot = rot;
@@ -53,7 +53,7 @@ public class SimilarityAlignmentModelEquation {
 
     @Override
     public String toString() {
-        return "SimilarityAlignmentModelEquation [REF: (" + scale_x + ", " + scale_y + ", " + rot + ", " + tx + ", " + ty + "), Delta: (" + deltaValue + ") ]";
+        return "NonUniformSimilarityModelEquation [REF: (" + scale_x + ", " + scale_y + ", " + rot + ", " + tx + ", " + ty + "), Delta: (" + deltaValue + ") ]";
     }
 
     double getRot() {
