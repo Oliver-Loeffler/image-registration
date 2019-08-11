@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import mask.registration.Displacement;
 
-class Translate implements Function<Collection<Displacement>, List<Displacement>> {
+public class Translate implements Function<Collection<Displacement>, List<Displacement>> {
 	
 	private final double x;
 	

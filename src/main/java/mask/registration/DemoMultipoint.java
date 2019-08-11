@@ -46,7 +46,7 @@ public class DemoMultipoint {
 		System.out.println(firstOrder);
 		
 		FirstOrderTransformCorrection correction = new FirstOrderTransformCorrection(alignment, firstOrder);
-		List<Displacement> corrected = correction.apply(displacements, selection);
+		Collection<Displacement> corrected = correction.apply(displacements, selection);
 		
 		DisplacementSummary correctedSummary = Displacement.summarize(corrected, selection.getFirstOrderSelection());
 		System.out.println(System.lineSeparator()+ "--- scaling and shearing removed -------------" + correctedSummary);

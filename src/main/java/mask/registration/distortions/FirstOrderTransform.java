@@ -1,6 +1,6 @@
 package mask.registration.distortions;
 
-public class FirstOrderTransform extends SimpleAffineTransform {
+public class FirstOrderTransform extends AffineTransform {
 
     public static FirstOrderTransform with(double transx, double transy,
             double scalex, double scaley,
