@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.function.DoubleConsumer;
 import java.util.function.Predicate;
 
+import mask.registration.alignment.RigidTransform;
 import mask.registration.alignment.RigidTransformCalculation;
+import mask.registration.distortions.AffineTransform;
+import mask.registration.distortions.AffineTransformCalculation;
 import net.raumzeitfalle.util.DoubleStatisticsSummary;
 
 public class DisplacementSummary {
@@ -33,6 +36,18 @@ public class DisplacementSummary {
 	
 	private final double rotation;
 	
+	private final double scalex;
+	
+	private final double scaley;
+	
+	private final double magnification;
+	
+	private final double orthox;
+	
+	private final double orthoy;
+	
+	private final double ortho;
+	
 	private DisplacementSummary(Collection<Displacement> displacements, Predicate<Displacement> calculationSelection) {
 		
 		List<Double> dx = new ArrayList<>(displacements.size());
@@ -58,10 +73,18 @@ public class DisplacementSummary {
 		} else {
 			this.sd3y = Double.NaN;	
 		}
+
+		RigidTransform alignment = new RigidTransformCalculation().apply(displacements, calculationSelection);
+		AffineTransform firstOrder = new AffineTransformCalculation().apply(displacements, calculationSelection);
 		
-		this.rotation = new RigidTransformCalculation()
-												  .apply(displacements, calculationSelection)
-												  .getRotation();
+		this.rotation = alignment.getRotation();		
+		this.scalex = firstOrder.getScaleX();
+		this.scaley = firstOrder.getScaleY();
+		this.magnification = firstOrder.getMagnification();
+		
+		this.orthox = firstOrder.getOrthoX();
+		this.orthoy = firstOrder.getOrthoY();
+		this.ortho =  firstOrder.getOrtho();
 	}	
 	
 	private void update(Displacement d) {
@@ -109,9 +132,10 @@ public class DisplacementSummary {
 		sb.append("3Sigma").append(tabs3).append(format(sd3X())).append(tabs1).append(format(sd3Y())).append(System.lineSeparator());
 		sb.append("Min").append(tabs3).append(format(minX())).append(tabs1).append(format(minY())).append(System.lineSeparator());
 		sb.append("Max").append(tabs3).append(format(maxX())).append(tabs1).append(format(maxY())).append(System.lineSeparator());
-		sb.append("Rotation").append(tabs3).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
+		sb.append("Scales:").append(tabs2).append(format(scalex*1E6)).append(tabs1).append(format(scaley*1E6)).append(tabs1).append(format(magnification*1E6)).append(System.lineSeparator());
+		sb.append("Orthos:").append(tabs2).append(format(orthox*1E6)).append(tabs1).append(format(orthoy*1E6)).append(tabs1).append(format(ortho*1E6)).append(System.lineSeparator());
+		sb.append("Rotation:").append(tabs3).append(tabs3).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
 		sb.append("Sites").append(tabs3).append(this.statsDiffX.getCount()).append(tabs2).append(this.statsDiffY.getCount()).append(System.lineSeparator());
-		
 		return sb.toString();
 	}
 
@@ -136,11 +160,11 @@ public class DisplacementSummary {
 	}
 	
 	public double displacedMeanX() {
-		return this.statsRefX.getAverage();
+		return this.statsPosX.getAverage();
 	}
 	
 	public double displacedMeanY() {
-		return this.statsRefY.getAverage();
+		return this.statsPosY.getAverage();
 	}
 	
 	private double minX() {

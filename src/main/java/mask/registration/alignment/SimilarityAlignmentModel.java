@@ -9,19 +9,20 @@ import Jama.QRDecomposition;
 
 /**
  * 
- * Calculates rotation, translation (x,y) and isotropic scale (aka. magnification) for the given collection of equations.
- * A similarity transformation will preserve all angles between vectors.
+ * Calculates rotation, translation (x,y) and anisotropic scale (scale x,y) for the given collection of equations.
+ * This transform will not preserve angles and distances.
  * 
  * <ul>
- * 	<li>Translation</li>
+ * 	<li>Translation (x,y)</li>
  *  <li>Rotation</li>
- *  <li>Uniform scale (Magnification)</li>
+ *  <li>Non-uniform scale (scale<sub>X</sub> and scale<sub>Y</sub>)</li>
  * </ul>
  *  
  * @author oliver
  *
  */
-public class SimilarityModel {
+// TODO: find a better name, similarity seems to be wrong
+public class SimilarityAlignmentModel {
 	
 	private final int rows;
 	
@@ -29,21 +30,22 @@ public class SimilarityModel {
 	
 	private final Matrix deltas;
 	
-	public SimilarityModel(Collection<SimilarityModelEquation> equations) {
+	public SimilarityAlignmentModel(Collection<SimilarityAlignmentModelEquation> equations) {
     	this.rows = equations.size();
-    	this.references = new Matrix(this.rows, 4);
+    	this.references = new Matrix(this.rows, 5);
     	this.deltas = new Matrix(this.rows, 1);
     	
-    	populateMatrices(equations.toArray(new SimilarityModelEquation[0]));
+    	populateMatrices(equations.toArray(new SimilarityAlignmentModelEquation[0]));
     }
     
-    private void populateMatrices(SimilarityModelEquation[] equations) {
+    private void populateMatrices(SimilarityAlignmentModelEquation[] equations) {
     	for (int m = 0; m < equations.length; m++) {
-    		SimilarityModelEquation eq = equations[m];
-			this.references.set(m, 0, eq.getMag());
-			this.references.set(m, 1, eq.getRot());
-			this.references.set(m, 2, eq.getTx());
-			this.references.set(m, 3, eq.getTy());
+    		SimilarityAlignmentModelEquation eq = equations[m];
+			this.references.set(m, 0, eq.getSx());
+			this.references.set(m, 1, eq.getSy());
+			this.references.set(m, 2, eq.getRot());
+			this.references.set(m, 3, eq.getTx());
+			this.references.set(m, 4, eq.getTy());
 			
 			deltas.set(m, 0, eq.getDeltaValue());
 		}
@@ -58,7 +60,7 @@ public class SimilarityModel {
 
 	@Override
 	public String toString() {
-		return "SimilarityModel [" + System.lineSeparator() +  showMatrix(references) 
+		return "SimilarityAlignmentModel [" + System.lineSeparator() +  showMatrix(references) 
 				+ System.lineSeparator()
 				+ "]";
 	}
