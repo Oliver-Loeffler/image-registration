@@ -128,14 +128,14 @@ public class DisplacementSummary {
 				.append(System.lineSeparator());
 		
 		sb.append("Summary").append(tabs3).append("X").append(tabs2).append("Y").append(tabs2).append("ISO").append(System.lineSeparator());
-		sb.append("Mean").append(tabs3).append(format(meanX())).append(tabs1).append(format(meanY())).append(System.lineSeparator());
-		sb.append("3Sigma").append(tabs3).append(format(sd3X())).append(tabs1).append(format(sd3Y())).append(System.lineSeparator());
-		sb.append("Min").append(tabs3).append(format(minX())).append(tabs1).append(format(minY())).append(System.lineSeparator());
-		sb.append("Max").append(tabs3).append(format(maxX())).append(tabs1).append(format(maxY())).append(System.lineSeparator());
+		sb.append("Mean").append(tabs2).append(format(meanX())).append(tabs1).append(format(meanY())).append(System.lineSeparator());
+		sb.append("3Sigma").append(tabs2).append(format(sd3X())).append(tabs1).append(format(sd3Y())).append(System.lineSeparator());
+		sb.append("Min").append(tabs2).append(format(minX())).append(tabs1).append(format(minY())).append(System.lineSeparator());
+		sb.append("Max").append(tabs2).append(format(maxX())).append(tabs1).append(format(maxY())).append(System.lineSeparator());
 		sb.append("Scales:").append(tabs2).append(format(scalex*1E6)).append(tabs1).append(format(scaley*1E6)).append(tabs1).append(format(magnification*1E6)).append(System.lineSeparator());
 		sb.append("Orthos:").append(tabs2).append(format(orthox*1E6)).append(tabs1).append(format(orthoy*1E6)).append(tabs1).append(format(ortho*1E6)).append(System.lineSeparator());
-		sb.append("Rotation:").append(tabs3).append(tabs3).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
-		sb.append("Sites").append(tabs3).append(this.statsDiffX.getCount()).append(tabs2).append(this.statsDiffY.getCount()).append(System.lineSeparator());
+		sb.append("Rotation:").append(tabs2).append(tabs3).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
+		sb.append("Sites").append(tabs2).append(this.statsDiffX.getCount()).append(tabs2).append(this.statsDiffY.getCount()).append(System.lineSeparator());
 		return sb.toString();
 	}
 
@@ -192,7 +192,7 @@ public class DisplacementSummary {
 	}
 
 	private String format(double value) {
-		return String.format("%10.7f", value*1E3);
+		return String.format("%10.5f", value*1E3);
 	}
 	
 }
