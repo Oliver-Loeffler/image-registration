@@ -3,12 +3,13 @@ package mask.registration.distortions;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 import mask.registration.Displacement;
 import mask.registration.SiteSelection;
-import mask.registration.alignment.RigidCorrection;
 import mask.registration.alignment.RigidTransform;
 import mask.registration.alignment.RigidTransformCalculation;
+import mask.registration.alignment.SkipRigidTransform;
 import mask.registration.alignment.TranslateToCenter;
 
 public class FirstOrderTransformCorrection implements BiFunction<Collection<Displacement>, SiteSelection, List<Displacement>> {
@@ -25,14 +26,17 @@ public class FirstOrderTransformCorrection implements BiFunction<Collection<Disp
 	@Override
 	public List<Displacement> apply(Collection<Displacement> t, SiteSelection u) {
 		
+		if (this.alignment instanceof SkipRigidTransform 
+			&& this.firstOrder instanceof SkipAffineTransform) {
+			return t.stream()
+					.collect(Collectors.toList());
+		}
 		
-		RigidCorrection alignmentFunction = new RigidCorrection();
 		TranslateToCenter translateToCenter = new TranslateToCenter();
 		
-		List<Displacement> aligned = alignmentFunction
-										.andThen(translateToCenter)
-										.apply(alignment, t);
-	
+		List<Displacement> aligned = alignment.andThen(translateToCenter)
+											  .apply(t);
+		
 		/* 
 		 * TODO:
 		 * Here after alignment, correct only scale & shear (use only 4 params)
@@ -43,9 +47,10 @@ public class FirstOrderTransformCorrection implements BiFunction<Collection<Disp
 		
 
 		RigidTransform residualAlignment = new RigidTransformCalculation().apply(corrected, u.getAlignment());
-		List<Displacement> finalCorrected = alignmentFunction
-				.andThen(translateToCenter.reverse())
-				.apply(residualAlignment, corrected);
+		
+		List<Displacement> finalCorrected = residualAlignment
+												.andThen(translateToCenter.reverse())
+												.apply(corrected);
 		
 		return finalCorrected;
 	}

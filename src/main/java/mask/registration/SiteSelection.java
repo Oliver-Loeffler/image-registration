@@ -47,7 +47,7 @@ public class SiteSelection {
 	}
 
 	public Predicate<Displacement> getCalculation() {
-		return calculation;
+		return calculation.and(sitesToRemove.negate());
 	}
 
 	public Predicate<Displacement> getFirstOrderSelection() {
