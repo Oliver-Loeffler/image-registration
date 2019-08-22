@@ -25,10 +25,15 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 	public List<Displacement> load(Path file) {
 		try {
 			List<String> lines = Files.readAllLines(file, Charset.forName("UTF-8"));
+			
 			List<Displacement> dp = new ArrayList<>(lines.size());
 
 			int index = 1;
 			for (String line : lines) {
+				if (line.startsWith("\"") && line.toLowerCase().contains("refx")) {
+					continue;
+				}
+				
 				try {
 					String[] e = line.split(",");
 					
@@ -51,7 +56,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 					dp.add(d);
 					index++;
 				} catch(NumberFormatException nfe) {
-					logger.log(Level.WARNING, "Could not parse value of (x,xd,y,yd). Either file is incomple or file format is unknown.");
+					logger.log(Level.WARNING, "Could not parse value of (x,xd,y,yd). Either file is incomplete or file format is unknown.");
 				}	
 			}
 			return dp;
