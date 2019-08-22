@@ -13,10 +13,36 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {url "https://plugins.gradle.org/m2/"}
+    }
+}
+
+import java.text.SimpleDateFormat
+
 plugins {
-    id 'java-library'
-    id 'eclipse'
+    id "java-library"
+    id "maven"
+    id "maven-publish"
+    id "signing"
+    id "eclipse"
+    id "com.jfrog.bintray" version "1.6"
+	id "net.nemerosa.versioning" version "2.8.2"
+	id "org.sonarqube" version "2.7.1"
     id "org.kordamp.gradle.licensing" version "0.25.0"
+}
+
+config {
+	 licensing {
+	        licenses {
+	            license {
+	                id = 'Apache-2.0'
+	            }
+	       }
+     }
 }
 
 repositories {
@@ -30,26 +56,118 @@ test {
    }
 }
 
-config {
-    licensing {
-        licenses {
-            license {
-                id = 'Apache-2.0'
-            }
-        }
-    }
-}
-
 dependencies {
     
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    //implementation 'org.apache.commons:commons-math3:3.6.1'
-
+    // TODO: Define strategy to decouple this project from Jama or La4J
+    // implementation 'org.apache.commons:commons-math3:3.6.1'
 	implementation 'org.la4j:la4j:0.6.0'
-	
-	// JAMA
 	implementation 'gov.nist.math.jama:gov.nist.math.jama:1.1.1'
 	
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+}
+
+Date buildTimeAndDate = new Date()
+ext {
+    buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
+    buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
+}
+
+jar {
+    manifest {
+        attributes(
+            'Built-By': System.properties['user.name'],
+            'Created-By': System.properties['java.version'] + " (" + System.properties['java.vendor'] + " " + System.properties['java.vm.version'] + ")",
+            'Build-Date': project.buildDate,
+            'Build-Time': project.buildTime,
+            'Build-Revision': versioning.info.commit,
+            'Specification-Title': project.name,
+            'Specification-Version': project.version,
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+        )
+    }
+}
+
+task sourcesJar(type: Jar) {
+    group 'Build'
+    description 'Creates a JAR archive containing the source code only.'
+    classifier 'sources'    
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    group 'Build'
+    description 'Creates a JAR containing the Java API documentation.'
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+
+def pomConfig = {
+    name project.name
+    url project.project_url
+    inceptionYear '2019'
+    licenses {
+        license([:]) {
+            name 'Apache-2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0'
+            distribution 'repo'
+        }
+    }
+    scm {
+        url project.project_scm
+    }
+    developers { 
+        developer {
+            id 'Raumzeitfalle.net'
+            name 'Oliver Löffler'
+            roles{ role 'Developer' }
+        }
+    }
+}
+
+// MAVEN CENTRAL
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'image-registration'
+        packaging 'jar' 
+        description 'A library with functions to perform rigid and affine transforms for image registration.'
+        url 'https://github.com/Oliver-Loeffler/image-registration'
+
+        scm {
+          connection 'scm:git:https://github.com/Oliver-Loeffler/image-registration.git'
+          developerConnection 'scm:git:https://github.com/Oliver-Loeffler/image-registration.git'
+          url 'https://github.com/Oliver-Loeffler/image-registration.git'
+        }
+
+        licenses {
+          license {
+            name 'Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0'
+          }
+        }
+
+        developers {
+          developer {
+            id 'oloeffler'
+            name 'Oliver Loeffler'
+            email 'oliver@raumzeitfalle.de'
+          }
+        }
+      }
+    }
+  }
 }
