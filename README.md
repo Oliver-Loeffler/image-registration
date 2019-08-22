@@ -35,7 +35,22 @@
 
 ```java
     
-    // STEP 1, load displacements from file (or any other source)
+    /* STEP 1, load displacements from file (or any other source)
+     *
+     * The CSV file may look like:
+     * "refx","refy","posx","posy","diffx","diffy","type"
+     * 10980.0,9012.5,10980.014331404400,9012.481628831100,0.014331404400,-0.018371168900,"ALIGN"
+     * 10980.0,73512.5,10980.009388937700,73512.484174799200,0.009388937700,-0.015825200800,"REG_MARK"
+     * 10980.0,143387.5,10980.004598393400,143387.490394277000,0.004598393400,-0.009605722700,"ALIGN"
+     * ....
+     * 146975.0,13925.0,146975.030283248000,NaN,0.030283248900,NaN,"INFO_ONLY"
+     * 
+     * All values are stored with the same unit, in this example all columns consist
+     * of values in microns. The values in columns (diffx,diffy) are not used.
+     * In case of one-dimensionality or missing values, NaN can be used.
+     * 
+     */
+
     List<Displacement> displacements = new FileLoader().load(Paths.get("Demo-4Point.csv"));
         
     /*
