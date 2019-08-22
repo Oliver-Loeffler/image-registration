@@ -1,0 +1,23 @@
+language: java
+
+sudo: false
+
+matrix:
+  include:
+    # Headed Linux
+    - os: linux
+      dist: trusty
+      jdk: oraclejdk8
+    
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+install: ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dgpg.skip -Dlicense.skipDownloadLicenses -Dlicense.skipUpdateLicense
+
+script: ./mvnw clean verify install -Dgpg.skip -Dlicense.skipDownloadLicenses -Dlicense.skipUpdateLicense
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - ./mvnw sonar:sonar -DsourceEncoding=UTF-8

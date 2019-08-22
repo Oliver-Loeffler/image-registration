@@ -1,5 +1,8 @@
 # Image Placement
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Build Status](https://travis-ci.org/Oliver-Loeffler/image-registration.svg?branch=master)](https://travis-ci.org/Oliver-Loeffler/image-registration) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=alert_status)](https://sonarcloud.io/dashboard?id=net.raumzeitfalle.registration%3Aimage-registration) 
+[![codecov](https://codecov.io/gh/Oliver-Loeffler/image-registration/branch/master/graph/badge.svg)](https://codecov.io/gh/Oliver-Loeffler/image-registration) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.raumzeitfalle.registration/image-registration/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.raumzeitfalle.registration/image-registration)
+
 ## How to start?
 
 The API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
