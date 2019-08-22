@@ -52,16 +52,16 @@ public class DemoFourpointsOnlyWithMissingMeas {
 	
 		// STEP 2, perform site selection 
 		SiteSelection selection = SiteSelection
-								.forAlignment(d -> d.isOfType(SiteClass.ALIGN_MARK))
-								.forCalculation(d->true)
-								.build()
-								.remove(d->d.isOfType(SiteClass.INFO_ONLY));
+						.forAlignment(d -> d.isOfType(SiteClass.ALIGN_MARK))
+						.forCalculation(d->true)
+						.build()
+						.remove(d->d.isOfType(SiteClass.INFO_ONLY));
 	
 		// STEP 3, parametrize evaluation model 
 		FirstOrderSetup setup = FirstOrderSetup
-								.usingAlignment(Alignments.SELECTED)
-								.withCompensations(Compensations.SCALE, Compensations.ORTHO)
-								.withSiteSelection(selection);
+						.usingAlignment(Alignments.SELECTED)
+						.withCompensations(Compensations.SCALE, Compensations.ORTHO)
+						.withSiteSelection(selection);
 
 	
 		// STEP 4, perform correction and calculate results

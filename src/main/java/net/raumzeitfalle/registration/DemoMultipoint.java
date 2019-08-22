@@ -49,14 +49,14 @@ public class DemoMultipoint {
 	
 		// STEP 2, perform site selection 
 		SiteSelection selection = SiteSelection
-								.forAlignment(d -> true)
-								.forCalculation(d->true)
-								.build();
+							.forAlignment(d -> true)
+							.forCalculation(d->true)
+							.build();
 	
 		// STEP 3, parametrize evaluation model 
 		FirstOrderSetup setup = FirstOrderSetup
-								.usingAlignment(Alignments.ALL)
-								.withSiteSelection(selection);
+							.usingAlignment(Alignments.ALL)
+							.withSiteSelection(selection);
 
 		// STEP 4, perform correction and calculate results
 		FirstOrderResult result = new FirstOrderCorrection().apply(displacements, setup);
