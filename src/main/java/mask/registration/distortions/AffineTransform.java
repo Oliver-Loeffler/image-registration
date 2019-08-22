@@ -90,11 +90,11 @@ public class AffineTransform implements Function<Displacement, Displacement> {
     
     @Override
     public String toString() {
-        return "FirstOrderTransform [" +
+        return "AffineTransform [" +
                "tx=" + format(translationX) + " um, sx=" + format(scaleX * 1E6) + " ppm, ox=" + format(orthoX * 1E6) + " urad" +
-               System.lineSeparator() + "                     ty=" + format(translationY) + " um, sy=" + format(scaleY * 1E6) + " ppm, oy=" +
+               System.lineSeparator() + "                 ty=" + format(translationY) + " um, sy=" + format(scaleY * 1E6) + " ppm, oy=" +
                format(orthoY * 1E6) + " urad,"
-               + System.lineSeparator() + "                     mx=" + format(meanX) + " um, my=" + format(meanY)+" um]";
+               + System.lineSeparator() + "                 mx=" + format(meanX) + " um, my=" + format(meanY)+" um]";
     }
 
     protected String format(double value) {

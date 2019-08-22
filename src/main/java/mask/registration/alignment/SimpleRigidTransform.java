@@ -46,9 +46,9 @@ class SimpleRigidTransform implements RigidTransform {
 	@Override
 	public String toString() {
 		
-		return    "AlignmentTransform [x=" + format(translationX) 
+		return    "RigidTransform [x=" + format(translationX) 
 				+ ", y=" + format(translationY) + ", rotation="
-				+ format(rotation * 1E6) + " urad ]";
+				+ format(rotation * 1E6) + " urad]";
 	}
 	
 	private String format(double value) {
