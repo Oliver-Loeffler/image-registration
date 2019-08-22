@@ -25,8 +25,10 @@ public class DemoFourpointsScanner {
 		
 		List<Displacement> displacements = new FileLoader().load(Paths.get("Demo-4Point.csv"));
 		
+		
+		
 		SiteSelection selection = SiteSelection
-					.forAlignment(d -> d.isOfType(SiteClass.ALIGN))
+					.forAlignment(d -> d.isOfType(SiteClass.ALIGN_MARK))
 					.forCalculation(d->true)
 					.build()
 					.remove(d->d.isOfType(SiteClass.INFO_ONLY));

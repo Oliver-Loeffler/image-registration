@@ -12,10 +12,17 @@ import mask.registration.distortions.AffineTransform;
 import mask.registration.distortions.AffineTransformCalculation;
 import net.raumzeitfalle.util.DoubleStatisticsSummary;
 
+
 public class DisplacementSummary {
 
-	public static DisplacementSummary over(Collection<Displacement> t, Predicate<Displacement> calculationSelection) {
-		return new DisplacementSummary(t, calculationSelection);
+	/**
+	 * Generates a summary table for (x,y)-Directions showing min/max/mean/3sigma values for deviations from reference. Also first order and alignment details are shown.
+	 * @param displacements Collection of displacements
+	 * @param calculationSelection Use {@link SiteSelection} to define which site shall be used for positional calculation, alignment and first order calculation.
+	 * @return Summary table
+	 */
+	public static DisplacementSummary over(Collection<Displacement> displacements, Predicate<Displacement> calculationSelection) {
+		return new DisplacementSummary(displacements, calculationSelection);
 	}
 
 	private final DoubleStatisticsSummary statsDiffX = new DoubleStatisticsSummary();
@@ -61,9 +68,8 @@ public class DisplacementSummary {
 						 update(d);
 					 });
 		
-		
 		if (Double.isFinite(this.statsDiffX.getAverage())) {
-			this.sd3x = 3* stdev(this.statsDiffX.getAverage(), dx);	
+			this.sd3x = 3 * stdev(this.statsDiffX.getAverage(), dx);	
 		} else {
 			this.sd3x = Double.NaN;	
 		}
@@ -75,6 +81,7 @@ public class DisplacementSummary {
 		}
 
 		RigidTransform alignment = new RigidTransformCalculation().apply(displacements, calculationSelection);
+		
 		AffineTransform firstOrder = new AffineTransformCalculation().apply(displacements, calculationSelection);
 		
 		this.rotation = alignment.getRotation();		
@@ -157,6 +164,22 @@ public class DisplacementSummary {
 	
 	public double designMeanY() {
 		return this.statsRefY.getAverage();
+	}
+	
+	public double designMaxX() {
+		return this.statsRefX.getMax();
+	}
+	
+	public double designMaxY() {
+		return this.statsRefY.getMax();
+	}
+	
+	public double designMinX() {
+		return this.statsRefX.getMin();
+	}
+	
+	public double designMinY() {
+		return this.statsRefY.getMin();
 	}
 	
 	public double displacedMeanX() {
