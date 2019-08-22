@@ -82,7 +82,17 @@
     // STEP 4, perform correction and calculate results
     FirstOrderResult result = FirstOrderCorrection.using(displacements, setup);
     Collection<Displacement> results = result.getDisplacements();
-        
+
+    /* alternatively:
+     *
+     *  FirstOrderCorrection correction = new FirstOrderCorrection();
+     *  results = correction.apply(displacements, setup).getDisplacements();
+     * 
+     *  As FirstOrderCorrection is a function, .andThen(...) and .compose(...) 
+     *  can be used as well. 
+     *
+     */  
+    
     // STEP 5, print results
         
     // Now print results before correction
