@@ -36,34 +36,53 @@ public class FirstOrderCorrection implements BiFunction<Collection<Displacement>
 			firstOrderSelector = siteSelection.getAlignment();
 		}
 		
-		AffineTransform firstOrder = updateFirstOrderForCompensation(setup.getCompensations(),new AffineTransformCalculation()
-				.apply(displacements, firstOrderSelector)
-				.centerAt(0.0, 0.0));
+		/*
+		 * STEP 2 - Calculate the 6-parameter model (FirstOrder) and parametrize according to corrections defined in setup
+		 */
+		AffineTransform calculatedFirstOrder = new AffineTransformCalculation().apply(displacements, firstOrderSelector);
+		AffineTransform firstOrder = updateFirstOrderForCompensation(setup.getCompensations(),calculatedFirstOrder);
 		
+		/*
+		 * STEP 3 - Apply all requested compensations
+		 */
 		Collection<Displacement> correctedResults = new AffineTransformCorrection().apply(firstOrder, displacements);
 		
+		/*
+		 * When no alignment is requested, then the work is done here. The result will be returned then.
+		 */
 		if (setup.getAlignment().equals(Alignments.UNALIGNED)) {
 			return new FirstOrderResult(alignment, firstOrder, correctedResults);
 		}
 		
 		/*
-		 * STEP 2 - Apply residual rotation correction for custom alignment methods
+		 * STEP 4 - When any case of alignment is requested, then a 2nd correction is needed.
+		 * Calculate and correct residual rotation correction for custom alignment methods
+		 * 
 		 */
 		RigidTransform residualAlignment = new RigidTransformCalculation().apply(correctedResults, siteSelection.getAlignment());
 		Collection<Displacement> alignedResults = residualAlignment.apply(correctedResults);
 
 		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
 		AffineTransform finalFirstOrder = new AffineTransformCalculation()
-				.apply(alignedResults, siteSelection.getCalculation())
-				.centerAt(0.0, 0.0);
+											.apply(alignedResults, siteSelection.getCalculation())
+											.centerAt(0.0, 0.0);
 		
 		return new FirstOrderResult(alignment, finalFirstOrder, alignedResults);
 	}
 
+	
+	/**
+	 * In order to correct a certain transform, this method ensures that depending on given set of compensations,
+	 * the proper values are selected and set in a given {@link AffineTransform}.
+	 * 
+	 * @param compensations {@link Set}t of {@link Compensations} to apply.
+	 * @param transform Calculated {@link AffineTransform}
+	 * @return {@link AffineTransform} prepared on order to perform requested {@link Compensations}
+	 */
 	private AffineTransform updateFirstOrderForCompensation(Set<Compensations> compensations,
 			AffineTransform transform) {
 		
-		AffineTransformBuilder transformBuilder = new AffineTransformBuilder(transform);
+		AffineTransformBuilder transformBuilder = new AffineTransformBuilder(transform.centerAt(0.0, 0.0));
 		
 		if (compensations.isEmpty()) {
 			transformBuilder.disableAll();
