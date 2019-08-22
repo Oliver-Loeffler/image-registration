@@ -83,7 +83,8 @@
     FirstOrderResult result = FirstOrderCorrection.using(displacements, setup);
     Collection<Displacement> results = result.getDisplacements();
 
-    /* alternatively:
+    /* 
+     *  Alternatively:
      *
      *  FirstOrderCorrection correction = new FirstOrderCorrection();
      *  results = correction.apply(displacements, setup).getDisplacements();
