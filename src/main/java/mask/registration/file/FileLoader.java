@@ -5,17 +5,18 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import mask.registration.Displacement;
 import mask.registration.SiteClass;
 
 public class FileLoader implements Function<Path,List<Displacement>> {
 
+	private final Logger logger = Logger.getLogger(FileLoader.class.getName());
+	
 	@Override
 	public List<Displacement> apply(Path file) {
 		return load(file);
@@ -25,9 +26,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 		try {
 			List<String> lines = Files.readAllLines(file, Charset.forName("UTF-8"));
 			List<Displacement> dp = new ArrayList<>(lines.size());
-			Set<String> siteClasses = Arrays.stream(SiteClass.values())
-											.map(SiteClass::name)
-											.collect(Collectors.toSet());
+
 			int index = 1;
 			for (String line : lines) {
 				try {
@@ -45,16 +44,14 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 					SiteClass sc = SiteClass.REG_MARK;
 					if (firstQuote >= 0 && lastQuote >= 0) {
 						String siteClass = type.substring(firstQuote+1, lastQuote);
-						if (siteClasses.contains(siteClass)) {
-							sc = SiteClass.valueOf(siteClass);	
-						}
+						sc = SiteClass.fromString(siteClass);
 					} 				
 					
 					Displacement d = Displacement.at(index,index, x, y, xd, yd, sc);
 					dp.add(d);
 					index++;
 				} catch(NumberFormatException nfe) {
-					// ignore corrupted lines
+					logger.log(Level.WARNING, "Could not parse value of (x,xd,y,yd). Either file is incomple or file format is unknown.");
 				}	
 			}
 			return dp;

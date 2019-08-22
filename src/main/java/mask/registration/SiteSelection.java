@@ -26,20 +26,23 @@ public class SiteSelection {
 	
 	private final Predicate<Displacement> firstOrderSelection;
 	
-	private Predicate<Displacement> sitesToRemove;
+	private final Predicate<Displacement> sitesToRemove;
 
 	SiteSelection(Predicate<Displacement> alignment, Predicate<Displacement> calculation,
 			Predicate<Displacement> firstOrderSelection) {
-		
+		this(alignment,calculation,firstOrderSelection,d->false);
+	}
+	
+	SiteSelection(Predicate<Displacement> alignment, Predicate<Displacement> calculation,
+			Predicate<Displacement> firstOrderSelection, Predicate<Displacement> sitesToRemove) {
 		this.alignment = alignment;
 		this.calculation = calculation;
 		this.firstOrderSelection = firstOrderSelection;
-		this.sitesToRemove = d->false;
+		this.sitesToRemove = sitesToRemove;
 	}
 	
-	public SiteSelection remove(Predicate<Displacement> predicate) {
-		this.sitesToRemove = predicate;
-		return this;
+	public SiteSelection remove(Predicate<Displacement> sitesToRemove) {
+		return new SiteSelection(alignment, calculation, firstOrderSelection, sitesToRemove);
 	}
 	
 	public Predicate<Displacement> getAlignment() {

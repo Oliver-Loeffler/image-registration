@@ -5,23 +5,23 @@ import java.util.function.Predicate;
 
 public class CalculationSelection {
 	
-	private final Predicate<Displacement> alignment;
+	private final AlignmentSelection alignment;
 	
 	private final Predicate<Displacement> calculation;
 	
-	CalculationSelection(AlignmentSelection alignmentSelection, Predicate<Displacement> selection) {
+	CalculationSelection(AlignmentSelection alignmentSelection, Predicate<Displacement> positionalCalculationSelection) {
 		Objects.requireNonNull(alignmentSelection, "AlignmentSelection must not be null");
-		Objects.requireNonNull(selection, "Predicate for calculation selection must not be null");
-		this.alignment = alignmentSelection.get();
-		this.calculation = selection;
+		Objects.requireNonNull(positionalCalculationSelection, "Predicate for calculation selection must not be null");
+		this.alignment = alignmentSelection;
+		this.calculation = positionalCalculationSelection;
 	}
 	
 	public SiteSelection build() {
-		return new SiteSelection(alignment, calculation, calculation);
+		return new SiteSelection(alignment.get(), calculation, calculation);
 	}
 
 	public SiteSelection forFirstOrderCalculation(Predicate<Displacement> firstOrderSelection) {
-		return new SiteSelection(alignment, calculation, firstOrderSelection);
+		return new SiteSelection(alignment.get(), calculation, firstOrderSelection);
 	}
-
+	
 }
