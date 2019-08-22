@@ -3,7 +3,7 @@
 ## Goals
 
 * Learn how to implement a construction kit for various transforms used in photomask image placement 
-  using Javas functional elements
+  using Javas functional elements (enabling use of .andThen(...) and .compose(...)
 * Experimenting to find suitable data types and data flows for easy use and extendability
 * Try to make model parameter names and class names to speak for them selves, ideally 
   end up with a fluent API which uses builder pattern for setup
@@ -15,8 +15,8 @@
   that matrix libraries can be exchanged (e.g. using La4J instead of Jama)
 * Make all core elements immutable, improve design step by step to achieve concurrency 
   for large data sets (improve speed by using fork-join, try to use async using CompletableFutures) 
-* Consider use of Units-of-Measurement API (JSR385)
-* Learn how project Valhalla works in Java 14
+* Consider use of Units-of-Measurement API (JSR385, http://unitsofmeasurement.github.io/unit-api/)
+* Learn how project Valhalla works in Java 14 (JEP169, https://openjdk.java.net/jeps/169)
 
 ## Todos
 * Handle 1D cases (handling of individual missing points already works)
