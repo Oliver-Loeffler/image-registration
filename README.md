@@ -42,6 +42,12 @@ There are some demos available, how this library is supposed to be used:
 
 * The example for 1D evaluations does not yet work as it is not yet implemented.
 
+The following example code shows, how alignment on 4 selected locations works, with 
+info only locations being removed. First order (scale/ortho) will be calculated on 
+all locations.
+
+To calculate first order on selected locations, `Alignments.SCANNER_SELECTED` must 
+be used.
 
 ```java
     
