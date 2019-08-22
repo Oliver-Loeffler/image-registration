@@ -15,13 +15,13 @@
  */
 package net.raumzeitfalle.registration.displacement;
 
-public enum SiteClass {
+public enum SiteType {
 	
 	REG_MARK, 
 	ALIGN_MARK, 
 	INFO_ONLY;
 
-	public static SiteClass fromString(String value) {
+	public static SiteType fromString(String value) {
 		
 		if (null == value) {
 			return REG_MARK;
@@ -34,7 +34,7 @@ public enum SiteClass {
 		}
 		
 		if (description.contains("info")) {
-			return SiteClass.INFO_ONLY;
+			return SiteType.INFO_ONLY;
 		}
 		
 		return REG_MARK;
