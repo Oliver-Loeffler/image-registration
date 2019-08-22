@@ -14,9 +14,9 @@ addons:
     packages:
       - oracle-java8-installer
 
-install: ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dgpg.skip -Dlicense.skipDownloadLicenses -Dlicense.skipUpdateLicense
+install: ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V --no-transfer-progress -Dgpg.skip -Dlicense.skipDownloadLicenses -Dlicense.skipUpdateLicense
 
-script: ./mvnw clean verify install -Dgpg.skip -Dlicense.skipDownloadLicenses -Dlicense.skipUpdateLicense
+script: ./mvnw clean verify install -Dgpg.skip -Dlicense.skipDownloadLicenses -Dlicense.skipUpdateLicense --no-transfer-progress
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
