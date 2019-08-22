@@ -39,16 +39,22 @@
     List<Displacement> displacements = new FileLoader().load(Paths.get("Demo-4Point.csv"));
         
     /*
+     * 
      * Each Displacement consists of a design location (x,y) and the actual displaced
-     * location (xd,yd). By default, each Displacement is a registration mark, depending
-     * on text label in CSV file, it can be assigned to a certain site type.
+     * location (xd,yd). By default, each Displacement is of type REG, but depending
+     * on declaration in CSV file, a different DisplacementClass can be assigned.
+     * The DisplacementClass allows to create simple predicates to select Displacmemt  
+     * instances for different operations.
      *
      */
     
-    // STEP 2, perform site selection 
+
+    // STEP 2, perform site selection
+    Predicate<Displacement> allSites = d->true;
+     
     SiteSelection selection = SiteSelection
                         .forAlignment(d -> d.isOfType(DisplacementClass.ALIGN))
-                        .forCalculation(d->true)
+                        .forCalculation(allSites)
                         .build()
                         .remove(d->d.isOfType(DisplacementClass.INFO_ONLY));
     
