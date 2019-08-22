@@ -141,7 +141,7 @@ public class DisplacementSummary {
 		sb.append("Max").append(tabs2).append(format(maxX())).append(tabs1).append(format(maxY())).append(System.lineSeparator());
 		sb.append("Scales:").append(tabs2).append(format(scalex*1E6)).append(tabs1).append(format(scaley*1E6)).append(tabs1).append(format(magnification*1E6)).append(System.lineSeparator());
 		sb.append("Orthos:").append(tabs2).append(format(orthox*1E6)).append(tabs1).append(format(orthoy*1E6)).append(tabs1).append(format(ortho*1E6)).append(System.lineSeparator());
-		sb.append("Rotation:").append(tabs2).append(tabs3).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
+		sb.append("Rotation:").append(tabs2).append(tabs3).append(format(rotation()*1E6)).append(System.lineSeparator());
 		sb.append("Sites").append(tabs2).append(this.statsDiffX.getCount()).append(tabs2).append(this.statsDiffY.getCount()).append(System.lineSeparator());
 		return sb.toString();
 	}
