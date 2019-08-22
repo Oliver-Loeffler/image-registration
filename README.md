@@ -1,5 +1,18 @@
 # Image Placement
 
+## How to start?
+
+The API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
+Version 0.0.1 is available on Maven Central using following snippet:
+
+```xml
+<dependency>
+  <groupId>net.raumzeitfalle.registration</groupId>
+  <artifactId>image-registration</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
+
 ## Goals
 
 * Learn how to implement a construction kit for various transforms used in photomask image placement 
