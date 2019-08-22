@@ -31,6 +31,55 @@
 
 * Move to Java 14 and play with project Valhalla (Value Types/Value Objects, JEP169)
 
+## Example Code
+
+```java
+    
+    // STEP 1, load displacements from file (or any other source)
+    List<Displacement> displacements = new FileLoader().load(Paths.get("Demo-4Point.csv"));
+        
+    /*
+     * Each Displacement consists of a design location (x,y) and the actual displaced
+     * location (xd,yd). By default, each Displacement is a registration mark, depending
+     * on text label in CSV file, it can be assigned to a certain site type.
+     *
+     */
+    
+    // STEP 2, perform site selection 
+    SiteSelection selection = SiteSelection
+                        .forAlignment(d -> d.isOfType(DisplacementClass.ALIGN))
+                        .forCalculation(d->true)
+                        .build()
+                        .remove(d->d.isOfType(DisplacementClass.INFO_ONLY));
+    
+    // STEP 3, parametrize evaluation model 
+    FirstOrderSetup setup = FirstOrderSetup
+                        .usingAlignment(Alignments.SELECTED)
+                        .withCompensations(Compensations.SCALE, Compensations.ORTHO)
+                        .withSiteSelection(selection);
+
+    // STEP 4, perform correction and calculate results
+    FirstOrderResult result = FirstOrderCorrection.using(displacements, setup);
+    Collection<Displacement> results = result.getDisplacements();
+        
+    // STEP 5, print results
+        
+    // Now print results before correction
+    DisplacementSummary uncorrectedSummary = Displacement.summarize(displacements, selection.getCalculation());
+    System.out.println(uncorrectedSummary);
+        
+    // after correction
+    DisplacementSummary correctedSummary = Displacement.summarize(results, selection.getCalculation());
+    System.out.println(correctedSummary);
+        
+    // now also print residual first order and alignment
+    RigidTransform correctedAlignment = result.getAlignment();
+    System.out.println(correctedAlignment);
+        
+    AffineTransform correctedFirstOrder = result.getFirstOrder();
+    System.out.println(correctedFirstOrder);
+```
+
 ## Further Reading
 * https://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2/pdfs/Ch2.pdf
 * https://www.uni-muenster.de/AMM/num/Vorlesungen/VarBioMed_WS10/skript/Kapitel_3_4_Registrierung.pdf

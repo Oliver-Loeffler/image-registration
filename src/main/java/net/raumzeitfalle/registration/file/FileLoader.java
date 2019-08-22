@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.SiteType;
+import net.raumzeitfalle.registration.displacement.DisplacementClass;
 
 
 public class FileLoader implements Function<Path,List<Displacement>> {
@@ -62,13 +62,13 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 					int firstQuote = type.indexOf("\"");
 					int lastQuote = type.lastIndexOf("\"");
 					
-					SiteType siteType = SiteType.REG_MARK;
+					DisplacementClass category = DisplacementClass.REG;
 					if (firstQuote >= 0 && lastQuote >= 0) {
 						String siteClass = type.substring(firstQuote+1, lastQuote);
-						siteType = SiteType.fromString(siteClass);
+						category = DisplacementClass.fromString(siteClass);
 					} 				
 					
-					Displacement d = Displacement.at(index,index, x, y, xd, yd, siteType);
+					Displacement d = Displacement.at(index,index, x, y, xd, yd, category);
 					dp.add(d);
 					index++;
 				} catch(NumberFormatException nfe) {
