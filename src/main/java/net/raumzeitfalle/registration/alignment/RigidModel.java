@@ -33,7 +33,7 @@ import Jama.QRDecomposition;
  * @author oliver
  * 
  */
-public class RigidModel {
+final class RigidModel {
 	
 	private final int rows;
 	private final Matrix references;

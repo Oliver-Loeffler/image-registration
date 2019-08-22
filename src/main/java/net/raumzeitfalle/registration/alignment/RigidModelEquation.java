@@ -20,7 +20,7 @@ import java.util.stream.Stream.Builder;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class RigidModelEquation {
+final class RigidModelEquation {
 	
 	public static Stream<RigidModelEquation> from(Displacement d) {
 		

@@ -23,7 +23,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public class SkipAffineTransform extends AffineTransform {
+public final class SkipAffineTransform extends AffineTransform {
 
 	public SkipAffineTransform() {
 		super(0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d);

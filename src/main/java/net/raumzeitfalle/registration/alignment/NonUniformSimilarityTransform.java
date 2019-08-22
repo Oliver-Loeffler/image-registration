@@ -28,7 +28,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public class NonUniformSimilarityTransform implements Function<Collection<Displacement>, Collection<Displacement>> {
+public final class NonUniformSimilarityTransform implements Function<Collection<Displacement>, Collection<Displacement>> {
 
 	public static NonUniformSimilarityTransform with(double scaleX, double scaleY, double translationX, double translationY, double rotation) {
 		return new NonUniformSimilarityTransform(scaleX, scaleY, translationX, translationY, rotation);

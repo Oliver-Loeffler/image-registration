@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class Translate implements Function<Collection<Displacement>, List<Displacement>> {
+public final class Translate implements Function<Collection<Displacement>, List<Displacement>> {
 	
 	private final double x;
 	

@@ -37,7 +37,7 @@ import Jama.QRDecomposition;
  * @author oliver
  *
  */
-class AffineModel {
+final class AffineModel {
 	
 	private final int rows;
 	

@@ -32,7 +32,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public class RigidTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
+public final class RigidTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
 
 	/**
 	 * Calculates the alignment parameters (translation<sub>X</sub>, translation<sub>Y</sub> and rotation) for the given collection of displacements.

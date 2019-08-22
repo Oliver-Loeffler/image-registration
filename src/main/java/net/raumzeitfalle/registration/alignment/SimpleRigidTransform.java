@@ -28,7 +28,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-class SimpleRigidTransform implements RigidTransform {
+final class SimpleRigidTransform implements RigidTransform {
 
 	public static SimpleRigidTransform with(double translationX, double translationY, double rotation) {
 		return new SimpleRigidTransform(translationX, translationY, rotation);

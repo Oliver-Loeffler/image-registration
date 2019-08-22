@@ -36,7 +36,7 @@ import Jama.QRDecomposition;
  * @author oliver
  *
  */
-public class NonUniformSimilarityModel {
+final class NonUniformSimilarityModel {
 	
 	private final int rows;
 	
