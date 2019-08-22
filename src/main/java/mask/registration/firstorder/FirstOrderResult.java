@@ -7,6 +7,9 @@ import mask.registration.alignment.RigidTransform;
 import mask.registration.displacement.Displacement;
 import mask.registration.distortions.AffineTransform;
 
+/*
+ * TODO: Consider storing of total (unaligned) alignment&first order, then also corrected alignment&first order.
+ */
 public class FirstOrderResult {
 	
 	private final RigidTransform alignment;
