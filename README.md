@@ -33,6 +33,16 @@
 
 ## Example Code
 
+There are some demos available, how this library is supposed to be used:
+
+* `net/raumzeitfalle/registration/DemoFourpointsOnlyWithMissingMeas.java`
+* `net/raumzeitfalle/registration/DemoFourpointsScanner.java`
+* `net/raumzeitfalle/registration/DemoFourpointsStandard.java`
+* `net/raumzeitfalle/registration/DemoMultipoint.java`
+
+* The example for 1D evaluations does not yet work as it is not yet implemented.
+
+
 ```java
     
     /* STEP 1, load displacements from file (or any other source)
