@@ -13,6 +13,10 @@ public class FirstOrderSetup {
 	
 	private Set<Compensations> compensations = EnumSet.noneOf(Compensations.class);
 	
+	public static FirstOrderSetup usingAlignment(Alignments alignment) {
+		return new FirstOrderSetup().withAlignment(alignment);
+	}
+	
 	public FirstOrderSetup() {
 		
 	}
