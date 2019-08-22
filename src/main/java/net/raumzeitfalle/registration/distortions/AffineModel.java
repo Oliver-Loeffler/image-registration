@@ -87,11 +87,11 @@ final class AffineModel {
     
 	
 	private String showMatrix(Matrix matrix) {
-		int rows = matrix.getRowDimension();
-		
+		int rowDimension = matrix.getRowDimension();
+
 		StringBuilder b = new StringBuilder();
 		double[][] array = matrix.getArray();
-		for (int m = 0; m < rows; m++) {
+		for (int m = 0; m < rowDimension; m++) {
 			b.append(Arrays.stream(array[m]).mapToObj(this::format).collect(Collectors.joining(", ", "(", ")")));
 			b.append(" => (").append(format(deltas.get(m, 0),6)).append(")").append(System.lineSeparator());
 		}
