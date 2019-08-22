@@ -15,16 +15,21 @@ import mask.registration.distortions.AffineTransformCalculation;
 import mask.registration.distortions.AffineTransformCorrection;
 
 
-public class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, Collection<Displacement>> {
+public class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, FirstOrderResult> {
 
+	public static FirstOrderResult using(Collection<Displacement> displacements, FirstOrderSetup setup) {
+		return new FirstOrderCorrection().apply(displacements, setup);
+	}
+	
 	@Override
-	public Collection<Displacement> apply(Collection<Displacement> displacements, FirstOrderSetup setup) {
+	public FirstOrderResult apply(Collection<Displacement> displacements, FirstOrderSetup setup) {
 		
 		SiteSelection siteSelection = setup.getSiteSelection();
+		
 		/* 
 		 * STEP 1 - Calculate corrected first order based on unaligned data
 		 */
-		//RigidTransform alignment = new RigidTransformCalculation().apply(displacements, siteSelection.getAlignment());
+		RigidTransform alignment = new RigidTransformCalculation().apply(displacements, siteSelection.getAlignment());
 		
 		Predicate<Displacement> firstOrderSelector = siteSelection.getCalculation();
 		if (setup.getAlignment().equals(Alignments.SCANNER_SELECTED)) {
@@ -37,10 +42,8 @@ public class FirstOrderCorrection implements BiFunction<Collection<Displacement>
 		
 		Collection<Displacement> correctedResults = new AffineTransformCorrection().apply(firstOrder, displacements);
 		
-		// TODO: Consider storing alignment and first order details
-		
 		if (setup.getAlignment().equals(Alignments.UNALIGNED)) {
-			return correctedResults;
+			return new FirstOrderResult(alignment, firstOrder, correctedResults);
 		}
 		
 		/*
@@ -49,14 +52,12 @@ public class FirstOrderCorrection implements BiFunction<Collection<Displacement>
 		RigidTransform residualAlignment = new RigidTransformCalculation().apply(correctedResults, siteSelection.getAlignment());
 		Collection<Displacement> alignedResults = residualAlignment.apply(correctedResults);
 
-		// TODO: Consider storing alignment and first order details
-
-//		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
-//		AffineTransform finalFirstOrder = new AffineTransformCalculation()
-//				.apply(alignedResults, siteSelection.getCalculation())
-//				.centerAt(0.0, 0.0);
+		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
+		AffineTransform finalFirstOrder = new AffineTransformCalculation()
+				.apply(alignedResults, siteSelection.getCalculation())
+				.centerAt(0.0, 0.0);
 		
-		return alignedResults;
+		return new FirstOrderResult(alignment, finalFirstOrder, alignedResults);
 	}
 
 	private AffineTransform updateFirstOrderForCompensation(Set<Compensations> compensations,
