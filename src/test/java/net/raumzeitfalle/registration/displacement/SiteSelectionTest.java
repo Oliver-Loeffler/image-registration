@@ -42,9 +42,9 @@ public class SiteSelectionTest {
 	}
 
 	private List<Displacement> createDisplacementsList() {
-		Displacement alignMark = Displacement.at(1,1,0, 0, 10, 10, SiteType.ALIGN_MARK);
-		Displacement regMark = Displacement.at(2,2,0, 0, 10, 10, SiteType.REG_MARK);
-		Displacement infoOnlyMark = Displacement.at(3,3,0, 0, 10, 10, SiteType.INFO_ONLY);
+		Displacement alignMark = Displacement.at(1,1,0, 0, 10, 10, DisplacementClass.ALIGN);
+		Displacement regMark = Displacement.at(2,2,0, 0, 10, 10, DisplacementClass.REG);
+		Displacement infoOnlyMark = Displacement.at(3,3,0, 0, 10, 10, DisplacementClass.INFO_ONLY);
 		
 		return Arrays.asList(alignMark,regMark, infoOnlyMark);
 	}

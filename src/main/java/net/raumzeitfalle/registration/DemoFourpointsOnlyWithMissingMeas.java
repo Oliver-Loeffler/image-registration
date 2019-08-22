@@ -22,7 +22,7 @@ import java.util.List;
 import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.DisplacementSummary;
-import net.raumzeitfalle.registration.displacement.SiteType;
+import net.raumzeitfalle.registration.displacement.DisplacementClass;
 import net.raumzeitfalle.registration.displacement.SiteSelection;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.file.FileLoader;
@@ -52,10 +52,10 @@ public class DemoFourpointsOnlyWithMissingMeas {
 	
 		// STEP 2, perform site selection 
 		SiteSelection selection = SiteSelection
-						.forAlignment(d -> d.isOfType(SiteType.ALIGN_MARK))
+						.forAlignment(d -> d.isOfType(DisplacementClass.ALIGN))
 						.forCalculation(d->true)
 						.build()
-						.remove(d->d.isOfType(SiteType.INFO_ONLY));
+						.remove(d->d.isOfType(DisplacementClass.INFO_ONLY));
 	
 		// STEP 3, parametrize evaluation model 
 		FirstOrderSetup setup = FirstOrderSetup

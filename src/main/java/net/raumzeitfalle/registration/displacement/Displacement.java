@@ -27,7 +27,7 @@ import java.util.function.ToDoubleFunction;
  * The measured position of the structure is specified by (x<sub>d</sub>, y<sub>d</sub>).<br>
  * The differences between (x,y)<sub>d</sub> and (x,y) are calculated when a {@link Displacement} object is created.<br>
  * <p>
- * Depending of the location on a mask, a geometrical feature has a specific task. To distinguish between different features, the {@link SiteType} enum category type is used. 
+ * Depending of the location on a mask, a geometrical feature has a specific task. To distinguish between different features, the {@link DisplacementClass} enum category type is used. 
  * 
  * @author oliver
  *
@@ -59,7 +59,7 @@ public class Displacement {
 	 * 
 	 * @return {@link Displacement}
 	 */
-	public static Displacement at(int index, int id, double x, double y, double xd, double yd, SiteType type) {
+	public static Displacement at(int index, int id, double x, double y, double xd, double yd, DisplacementClass type) {
 		return new Displacement(index,id, x, y, xd, yd, type);
 	}
 	
@@ -96,9 +96,9 @@ public class Displacement {
 	private final double dx;
 	private final double dy;
 	
-	private final SiteType siteClass;
+	private final DisplacementClass siteClass;
 	
-	private Displacement(int index, int id, double x, double y, double xd, double yd, SiteType type) {
+	private Displacement(int index, int id, double x, double y, double xd, double yd, DisplacementClass type) {
 		this.index = index;
 		this.id = id;
 		
@@ -153,7 +153,7 @@ public class Displacement {
 		return dy;
 	}
 
-	public SiteType getType() {
+	public DisplacementClass getType() {
 		return siteClass;
 	}
 
@@ -163,7 +163,7 @@ public class Displacement {
 				+ System.lineSeparator() + "\t\tdx=" + dx + ", dy=" + dy + "]";
 	}
 
-	public boolean isOfType(SiteType other) {
+	public boolean isOfType(DisplacementClass other) {
 		return this.siteClass.equals(other);
 	}
 	

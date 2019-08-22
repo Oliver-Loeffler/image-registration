@@ -15,29 +15,29 @@
  */
 package net.raumzeitfalle.registration.displacement;
 
-public enum SiteType {
+public enum DisplacementClass {
 	
-	REG_MARK, 
-	ALIGN_MARK, 
+	REG, 
+	ALIGN, 
 	INFO_ONLY;
 
-	public static SiteType fromString(String value) {
+	public static DisplacementClass fromString(String value) {
 		
 		if (null == value) {
-			return REG_MARK;
+			return REG;
 		}
 		
 		String description = value.toLowerCase();
 		
 		if (description.contains("align")) {
-			return ALIGN_MARK;
+			return ALIGN;
 		}
 		
 		if (description.contains("info")) {
-			return SiteType.INFO_ONLY;
+			return DisplacementClass.INFO_ONLY;
 		}
 		
-		return REG_MARK;
+		return REG;
 	}
 
 }
