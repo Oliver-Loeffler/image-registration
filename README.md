@@ -31,6 +31,8 @@
 
 * Move to Java 14 and play with project Valhalla (Value Types/Value Objects, JEP169)
 
+* Add graphical examples of first order distortions.
+
 ## Example Code
 
 There are some demos available, how this library is supposed to be used:
@@ -44,9 +46,7 @@ There are some demos available, how this library is supposed to be used:
 
 The following example code shows, how alignment on 4 selected locations works, with 
 info only locations being removed. First order (scale/ortho) will be calculated on 
-all locations.
-
-To calculate first order on selected locations, `Alignments.SCANNER_SELECTED` must 
+all locations. To calculate first order on selected locations, `Alignments.SCANNER_SELECTED` must 
 be used.
 
 ```java
