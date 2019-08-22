@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import Jama.Matrix;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class AffineTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform> {
+public final class AffineTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform> {
 
 	@Override
 	public AffineTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {

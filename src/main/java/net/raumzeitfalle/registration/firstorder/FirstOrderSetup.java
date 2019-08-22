@@ -20,7 +20,7 @@ import java.util.Set;
 
 import net.raumzeitfalle.registration.displacement.SiteSelection;
 
-public class FirstOrderSetup {
+public final class FirstOrderSetup {
 	
 	private SiteSelection siteSelection;
 	

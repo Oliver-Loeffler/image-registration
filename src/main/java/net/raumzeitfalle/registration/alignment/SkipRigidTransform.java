@@ -19,7 +19,7 @@ import java.util.Collection;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class SkipRigidTransform implements RigidTransform {
+public final class SkipRigidTransform implements RigidTransform {
 	
 	@Override
 	public Collection<Displacement> apply(Collection<Displacement> d) {

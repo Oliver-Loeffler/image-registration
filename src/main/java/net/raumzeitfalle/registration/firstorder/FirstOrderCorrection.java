@@ -29,7 +29,7 @@ import net.raumzeitfalle.registration.distortions.AffineTransformBuilder;
 import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
 import net.raumzeitfalle.registration.distortions.AffineTransformCorrection;
 
-public class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, FirstOrderResult> {
+public final class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, FirstOrderResult> {
 
 	public static FirstOrderResult using(Collection<Displacement> displacements, FirstOrderSetup setup) {
 		return new FirstOrderCorrection().apply(displacements, setup);

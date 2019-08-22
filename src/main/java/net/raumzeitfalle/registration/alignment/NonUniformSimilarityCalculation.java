@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import Jama.Matrix;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class NonUniformSimilarityCalculation
+public final class NonUniformSimilarityCalculation
 		implements BiFunction<Collection<Displacement>, Predicate<Displacement>, NonUniformSimilarityTransform> {
 
 	@Override

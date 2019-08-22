@@ -20,9 +20,9 @@ import java.util.stream.Stream.Builder;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class SimilarityModelEquation {
+final class SimilarityModelEquation {
     
-    public static Stream<SimilarityModelEquation> from(Displacement d) {
+    static Stream<SimilarityModelEquation> from(Displacement d) {
         
         Builder<SimilarityModelEquation> builder = Stream.builder();
         
@@ -37,11 +37,11 @@ public class SimilarityModelEquation {
         return builder.build();
     }
     
-    public static SimilarityModelEquation forX(Displacement d) {
+    static SimilarityModelEquation forX(Displacement d) {
         return new SimilarityModelEquation(d.getX(), -d.getY(), 1.0, 0.0, d.dX());
     }
     
-    public static SimilarityModelEquation forY(Displacement d) {
+    static SimilarityModelEquation forY(Displacement d) {
         return new SimilarityModelEquation(d.getY(), d.getX(), 0.0, 1.0, d.dY());
     }
         

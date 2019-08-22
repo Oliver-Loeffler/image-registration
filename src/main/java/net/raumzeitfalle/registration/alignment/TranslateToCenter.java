@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.DisplacementSummary;
 
-public class TranslateToCenter implements Function<Collection<Displacement>, List<Displacement>> {
+public final class TranslateToCenter implements Function<Collection<Displacement>, List<Displacement>> {
 
 	private OptionalDouble meanx = OptionalDouble.empty();
 	

@@ -20,7 +20,7 @@ import java.util.stream.Stream.Builder;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class AffineModelEquation {
+public final class AffineModelEquation {
     
     public static Stream<AffineModelEquation> from(Displacement d) {
         

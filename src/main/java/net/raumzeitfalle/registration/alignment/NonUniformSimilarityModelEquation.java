@@ -20,9 +20,9 @@ import java.util.stream.Stream.Builder;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class NonUniformSimilarityModelEquation {
+final class NonUniformSimilarityModelEquation {
     
-    public static Stream<NonUniformSimilarityModelEquation> from(Displacement d) {
+    static Stream<NonUniformSimilarityModelEquation> from(Displacement d) {
         
         Builder<NonUniformSimilarityModelEquation> builder = Stream.builder();
         
@@ -37,11 +37,11 @@ public class NonUniformSimilarityModelEquation {
         return builder.build();
     }
     
-    public static NonUniformSimilarityModelEquation forX(Displacement d) {
+    static NonUniformSimilarityModelEquation forX(Displacement d) {
         return new NonUniformSimilarityModelEquation(d.getX(), 0.0, -d.getY(), 1.0, 0.0, d.dX());
     }
     
-    public static NonUniformSimilarityModelEquation forY(Displacement d) {
+    static NonUniformSimilarityModelEquation forY(Displacement d) {
         return new NonUniformSimilarityModelEquation(0.0, d.getY(), d.getX(), 0.0, 1.0, d.dY());
     }
         

@@ -36,7 +36,7 @@ import Jama.QRDecomposition;
  * @author oliver
  *
  */
-public class SimilarityModel {
+final class SimilarityModel {
 	
 	private final int rows;
 	

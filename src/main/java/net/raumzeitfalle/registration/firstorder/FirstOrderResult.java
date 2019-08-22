@@ -25,7 +25,7 @@ import net.raumzeitfalle.registration.distortions.AffineTransform;
 /*
  * TODO: Consider storing of total (unaligned) alignment&first order, then also corrected alignment&first order.
  */
-public class FirstOrderResult {
+public final class FirstOrderResult {
 	
 	private final RigidTransform alignment;
 	
