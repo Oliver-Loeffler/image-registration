@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.la4j.LinearAlgebra.InverterFactory;
 import org.la4j.decomposition.QRDecompositor;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 public class La4JAlignment implements BiFunction<Collection<Displacement>, Predicate<Displacement>, SimpleRigidTransform>{
 

@@ -3,7 +3,7 @@ package mask.registration.alignment;
 import java.util.Collection;
 import java.util.function.Function;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 /**
  * 

@@ -3,7 +3,7 @@ package mask.registration.distortions;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 public class AffineModelEquation {
     

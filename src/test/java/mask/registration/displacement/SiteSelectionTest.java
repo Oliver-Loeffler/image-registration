@@ -1,4 +1,4 @@
-package mask.registration;
+package mask.registration.displacement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import mask.registration.displacement.Displacement;
+import mask.registration.displacement.SiteClass;
+import mask.registration.displacement.SiteSelection;
 
 public class SiteSelectionTest {
 	

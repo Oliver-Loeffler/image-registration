@@ -3,7 +3,7 @@ package mask.registration.firstorder;
 import java.util.EnumSet;
 import java.util.Set;
 
-import mask.registration.SiteSelection;
+import mask.registration.displacement.SiteSelection;
 
 public class FirstOrderSetup {
 	

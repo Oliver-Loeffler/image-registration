@@ -10,8 +10,8 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mask.registration.Displacement;
-import mask.registration.SiteClass;
+import mask.registration.displacement.Displacement;
+import mask.registration.displacement.SiteClass;
 
 public class FileLoader implements Function<Path,List<Displacement>> {
 

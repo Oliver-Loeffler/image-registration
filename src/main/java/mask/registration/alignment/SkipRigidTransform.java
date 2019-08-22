@@ -2,7 +2,7 @@ package mask.registration.alignment;
 
 import java.util.Collection;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 public class SkipRigidTransform implements RigidTransform {
 	

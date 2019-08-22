@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import Jama.Matrix;
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 public class NonUniformSimilarityCalculation
 		implements BiFunction<Collection<Displacement>, Predicate<Displacement>, NonUniformSimilarityTransform> {

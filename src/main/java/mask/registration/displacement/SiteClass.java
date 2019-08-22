@@ -1,4 +1,4 @@
-package mask.registration;
+package mask.registration.displacement;
 
 public enum SiteClass {
 	

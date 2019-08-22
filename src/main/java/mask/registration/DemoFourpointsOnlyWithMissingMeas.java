@@ -4,6 +4,10 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 
+import mask.registration.displacement.Displacement;
+import mask.registration.displacement.DisplacementSummary;
+import mask.registration.displacement.SiteClass;
+import mask.registration.displacement.SiteSelection;
 import mask.registration.file.FileLoader;
 import mask.registration.firstorder.Alignments;
 import mask.registration.firstorder.Compensations;

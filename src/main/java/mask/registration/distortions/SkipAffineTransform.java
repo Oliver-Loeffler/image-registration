@@ -1,6 +1,6 @@
 package mask.registration.distortions;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 /**
  * The {@link SkipAffineTransform} is ised in cases where an {@link AffineTransform} is integrated into a processing pipeline but no modification to given data is expeced as all affine transform parameters have been set to zero (0.0).
