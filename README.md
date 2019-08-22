@@ -107,3 +107,13 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+## External libraries used with their licenses
+
+   This project makes use of NIST.gov JAMA library. JAMA is public domain, see:
+   https://math.nist.gov/javanumerics/jama/#license.
+
+   Also this project uses LA4J library, which also follows Apache 2.0 license.
+   See http://la4j.org for details, sources can be found at https://github.com/vkostyukov/la4j.
+
+ 
