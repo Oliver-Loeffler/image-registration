@@ -43,7 +43,7 @@
      * 10980.0,73512.5,10980.009388937700,73512.484174799200,0.009388937700,-0.015825200800,"REG_MARK"
      * 10980.0,143387.5,10980.004598393400,143387.490394277000,0.004598393400,-0.009605722700,"ALIGN"
      * ....
-     * 146975.0,13925.0,146975.030283248000,NaN,0.030283248900,NaN,"INFO_ONLY"
+     * 146975.0,14925.0,146975.030283248000,NaN,0.030283248900,NaN,"INFO_ONLY"
      * 
      * All values are stored with the same unit, in this example all columns consist
      * of values in microns. The values in columns (diffx,diffy) are not used.
