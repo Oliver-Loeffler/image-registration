@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 public class AffineTransformCorrection implements BiFunction<AffineTransform, Collection<Displacement>, Collection<Displacement>> {
     

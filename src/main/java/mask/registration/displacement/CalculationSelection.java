@@ -1,4 +1,4 @@
-package mask.registration;
+package mask.registration.displacement;
 
 import java.util.Objects;
 import java.util.function.Predicate;

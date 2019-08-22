@@ -2,7 +2,7 @@ package mask.registration.distortions;
 
 import java.util.function.Function;
 
-import mask.registration.Displacement;
+import mask.registration.displacement.Displacement;
 
 public class AffineTransform implements Function<Displacement, Displacement> {
 

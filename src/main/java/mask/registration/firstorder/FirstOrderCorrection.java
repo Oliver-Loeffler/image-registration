@@ -5,10 +5,10 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-import mask.registration.Displacement;
-import mask.registration.SiteSelection;
 import mask.registration.alignment.RigidTransform;
 import mask.registration.alignment.RigidTransformCalculation;
+import mask.registration.displacement.Displacement;
+import mask.registration.displacement.SiteSelection;
 import mask.registration.distortions.AffineTransform;
 import mask.registration.distortions.AffineTransformBuilder;
 import mask.registration.distortions.AffineTransformCalculation;

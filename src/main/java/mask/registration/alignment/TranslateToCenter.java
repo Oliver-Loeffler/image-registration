@@ -6,8 +6,8 @@ import java.util.OptionalDouble;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import mask.registration.Displacement;
-import mask.registration.DisplacementSummary;
+import mask.registration.displacement.Displacement;
+import mask.registration.displacement.DisplacementSummary;
 
 public class TranslateToCenter implements Function<Collection<Displacement>, List<Displacement>> {
 

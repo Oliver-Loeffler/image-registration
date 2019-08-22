@@ -3,6 +3,8 @@ package mask.registration;
 import java.nio.file.Paths;
 import java.util.List;
 
+import mask.registration.displacement.Displacement;
+import mask.registration.displacement.SiteSelection;
 import mask.registration.file.FileLoader;
 
 public class DemoMultipointOneDimensional {

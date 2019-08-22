@@ -1,4 +1,4 @@
-package mask.registration;
+package mask.registration.displacement;
 
 import java.util.Collection;
 import java.util.Objects;
