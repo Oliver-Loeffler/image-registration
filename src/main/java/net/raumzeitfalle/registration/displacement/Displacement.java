@@ -53,6 +53,20 @@ public class Displacement {
 	}
 	
 	/**
+	 * Creates a new {@link Displacement} object from scratch, belonging to DisplacementClass REG.
+	 * 
+	 * @param index Usually a consecutive number (e.g. from a table) reflecting the order of {@link Displacement} object creation.
+	 * @param id An arbitrary ID value which can be assigned.
+	 * @param x Actual design location (X-direction) for a displacement result.
+	 * @param y Actual design location (Y-direction) for a displacement result.
+	 * 
+	 * @return {@link Displacement}
+	 */
+	public static Displacement at(int index, int id, double x, double y, double xd, double yd) {
+		return at(index,id, x, y, xd, yd, DisplacementClass.REG);
+	}
+	
+	/**
 	 * Creates a new {@link Displacement} object from scratch.
 	 * 
 	 * @param index Usually a consecutive number (e.g. from a table) reflecting the order of {@link Displacement} object creation.
