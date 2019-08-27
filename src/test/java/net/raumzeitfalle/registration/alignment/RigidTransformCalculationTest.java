@@ -104,6 +104,66 @@ class RigidTransformCalculationTest {
 	}
 	
 	@Test
+	void rotation() {
+		
+		List<Displacement> undisplaced = new ArrayList<>(4);
+		
+		double rotated = Math.sqrt(2)*1E3;
+		
+		undisplaced.add(Displacement.at(0, 0, -1000, -1000,        0,  -rotated));
+		undisplaced.add(Displacement.at(0, 0, -1000,  1000, -rotated,         0));
+		undisplaced.add(Displacement.at(0, 0,  1000,  1000,        0,   rotated));
+		undisplaced.add(Displacement.at(0, 0,  1000, -1000,  rotated,         0));
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertNotNull(result);
+		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		
+		assertEquals(   0.0, result.getTranslationX(), TOLERANCE);
+		assertEquals(   0.0, result.getTranslationY(), TOLERANCE);
+		
+		
+		/*
+		 * As linear approximation is only valid for small angles,
+		 * linear rotation will not yield with 45 degree after 
+		 * rad to degree conversion.
+		 */
+		assertEquals(  0.7071067811865474, result.getRotation()    , TOLERANCE);
+		assertEquals( 40.514, 180 * result.getRotation() / Math.PI , 1E-3);
+	}
+	
+	@Test
+	void rotationAndTranslation() {
+		
+		List<Displacement> undisplaced = new ArrayList<>(4);
+		
+		double rotated = Math.sqrt(2)*1E3;
+		
+		undisplaced.add(Displacement.at(0, 0, -1000, -1000,        0+10,  -rotated-4));
+		undisplaced.add(Displacement.at(0, 0, -1000,  1000, -rotated+10,         0-4));
+		undisplaced.add(Displacement.at(0, 0,  1000,  1000,        0+10,   rotated-4));
+		undisplaced.add(Displacement.at(0, 0,  1000, -1000,  rotated+10,         0-4));
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertNotNull(result);
+		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		
+		assertEquals(  10.0, result.getTranslationX(), TOLERANCE);
+		assertEquals(  -4.0, result.getTranslationY(), TOLERANCE);
+		
+		
+		/*
+		 * As linear approximation is only valid for small angles,
+		 * linear rotation will not yield with 45 degree after 
+		 * rad to degree conversion.
+		 */
+		assertEquals(  0.7071067811865474, result.getRotation()    , TOLERANCE);
+		assertEquals( 40.514, 180 * result.getRotation() / Math.PI , 1E-3);
+	}
+	
+	@Test
 	void skipTransform() {
 		
 		List<Displacement> displacements = new ArrayList<>(4);
