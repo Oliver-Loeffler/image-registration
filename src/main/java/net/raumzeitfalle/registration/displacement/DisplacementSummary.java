@@ -32,6 +32,12 @@ import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
 import net.raumzeitfalle.util.DoubleStatisticsSummary;
 
 
+/**
+ * Creates summary for any collection of displacements showing min/max/mean/3sigma values of deviations from reference for (x,y)-Directions. Also first order (scaling, non-orthogonality) and alignment (translation, rotation) details are shown.
+ * 
+ * @author Oliver Loeffler
+ *
+ */
 public final class DisplacementSummary {
 
 	/**

@@ -25,7 +25,7 @@ import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 
 /**
- * The {@link Displacement} class is a pure data class. Its purpose is to bind all details together, which are needed to calculate image registration for a single location.
+ * Binds all details together, which are needed to calculate image registration for a single location. {@link Displacement} class is a data class. 
  * <p>
  * Each displacement is bound to a specific location on a mask (x,y).<br>
  * The measured position of the structure is specified by (x<sub>d</sub>, y<sub>d</sub>).<br>
@@ -33,7 +33,7 @@ import java.util.function.ToDoubleFunction;
  * <p>
  * Depending of the location on a mask, a geometrical feature has a specific task. To distinguish between different features, the {@link DisplacementClass} enum category type is used. 
  * 
- * @author oliver
+ * @author Oliver Loeffler
  *
  */
 public class Displacement {
@@ -57,8 +57,10 @@ public class Displacement {
 	 * 
 	 * @param index Usually a consecutive number (e.g. from a table) reflecting the order of {@link Displacement} object creation.
 	 * @param id An arbitrary ID value which can be assigned.
-	 * @param x Actual design location (X-direction) for a displacement result.
-	 * @param y Actual design location (Y-direction) for a displacement result.
+	 * @param x Given design (reference) location (X-direction) for a displacement result.
+	 * @param y Given design (reference) location (Y-direction) for a displacement result.
+	 * @param xd displaced (measured) X-coordinate
+	 * @param yd displaced (measured) Y-coordinate
 	 * 
 	 * @return {@link Displacement}
 	 */
@@ -73,6 +75,8 @@ public class Displacement {
 	 * @param id An arbitrary ID value which can be assigned.
 	 * @param x Actual design location (X-direction) for a displacement result.
 	 * @param y Actual design location (Y-direction) for a displacement result.
+	 * @param xd displaced (measured) X-coordinate
+	 * @param yd displaced (measured) Y-coordinate
 	 * @param type Category type to distinguish different {@link Displacement} groups.
 	 * 
 	 * @return {@link Displacement}
@@ -85,14 +89,22 @@ public class Displacement {
 	 * Creates a statistical summary for the given collection of {@link Displacement} instances.
 	 * For both axes (X,Y) descriptive statistics such as average (mean), min, max, 3Sigma etc. are provided.
 	 * 
-	 * @param t
-	 * @param calculationSelection
-	 * @return
+	 * @param t Given {@link Collection}ollection of {@link Displacement} items.
+	 * @param calculationSelection {@link Predicate} for {@link Displacement} which determines, which Displacements will be considered for summary creation.
+	 * @return {@link DisplacementSummary} Table with descriptive statistics of positionals, alignment details (translation, rotation) and and first order systematics (scaling and shear aka. non-orthogonality).
 	 */
 	public static DisplacementSummary summarize(Collection<Displacement> t, Predicate<Displacement> calculationSelection) {
 		return DisplacementSummary.over(t, calculationSelection);
 	}
 	
+	/**
+	 * Creates the average value for a given double property of a {@link Displacement} while considering only Displacements which match the filter {@link Predicate}.
+	 *
+	 * @param t Given {@link Collection}ollection of {@link Displacement} items.
+	 * @param filter {@link Predicate} to {@link Displacement} which determines which Displacements will be considered for averaging.
+	 * @param mapper {@link ToDoubleFunction} which extracts a double value from a {@link Displacement} 
+	 * @return double 
+	 */
 	public static double average(Collection<Displacement> t, Predicate<Displacement> filter, ToDoubleFunction<Displacement> mapper) {
 		return t.stream()
 				.filter(filter)
@@ -131,10 +143,35 @@ public class Displacement {
 		this.siteClass = Objects.requireNonNull(type, "type must not be null");
 	}
 	
+	/**
+	 * Moves a displacement to a new location by adding an offset<sub>X</sub> and offset<sub>Y</sub> to given design coordinates (x,y) and to displaced coordinates (xd,yd).
+	 * 
+	 * @param offsetX Offset for X direction, will be applied to x, xd.
+	 * @param offsetY Offset for Y direction, will be applied to y, yd.
+	 * 
+     * @return Displacement where: 
+     * <ul>
+     * 	<li>x<sub>moved</sub> = x<sub>old</sub> + offsetX 
+     *  <li>y<sub>moved</sub> = y<sub>old</sub> + offsetY
+     *  <li>xd<sub>moved</sub> = xd<sub>old</sub> + offsetX 
+     *  <li>yd<sub>moved</sub> = yd<sub>old</sub> + offsetY
+     * </ul>
+	 */
 	public Displacement moveBy(double offsetX, double offsetY) {
 		return new Displacement(index, id, offsetX + x, offsetY + y, offsetX + xd, offsetY + yd, siteClass);
 	}
 	
+	/**
+	 * Corrects (xd,yd) by subtracting the corresponding (dx,dy) whereas the design coordinates (x,y) remain unmodified.
+	 * 
+	 * @param dx Difference in X direction to be subtracted from xd.
+	 * @param dy Difference in Y direction to be subtracted from yd.
+	 * @return Displacement where: 
+	 * <ul>
+	 * 	<li>xd<sub>corrected</sub> = xd<sub>old</sub> - dx
+	 *  <li>yd<sub>corrected</sub> = yd<sub>old</sub> - dy
+	 * </ul>
+	 */
 	public Displacement correctBy(double dx, double dy) {
 		return new Displacement(index, id, x, y, xd - dx, yd - dy, siteClass);
 	}
@@ -147,30 +184,58 @@ public class Displacement {
 		return id;
 	}
 	
+	/**
+	 * Provides the X component of design coordinate.
+	 * @return double x
+	 */
 	public double getX() {
 		return x;
 	}
 
+	/**
+	 * Provides the Y component of design coordinate.
+	 * @return double y
+	 */
 	public double getY() {
 		return y;
 	}
 
+	/**
+	 * Provides the X component of displaced (measured) coordinate.
+	 * @return double xd
+	 */
 	public double getXd() {
 		return xd;
 	}
 
+	/**
+	 * Provides the Y component of displaced (measured) coordinate.
+	 * @return double yd
+	 */
 	public double getYd() {
 		return yd;
 	}
 	
+	/**
+	 * Difference dx = xd - x 	
+	 * @return double dx
+	 */
 	public double dX() {
 		return dx;
 	}
 
+	/**
+	 * Difference dy = yd - y 	
+	 * @return double dy
+	 */
 	public double dY() {
 		return dy;
 	}
 
+	/**
+	 * Provides a category description for each {@link Displacement}. 
+	 * @return {@link DisplacementClass}
+	 */
 	public DisplacementClass getType() {
 		return siteClass;
 	}
@@ -181,10 +246,12 @@ public class Displacement {
 				+ System.lineSeparator() + "\t\tdx=" + dx + ", dy=" + dy + "]";
 	}
 
+	/**
+	 * Verifies if this {@link Displacement} belongs to a specific {@link DisplacementClass}.
+	 * @param other {@link DisplacementClass} to be tested for
+	 * @return true, when this {@link Displacement} belongs to the provided {@link DisplacementClass}.
+	 */
 	public boolean isOfType(DisplacementClass other) {
 		return this.siteClass.equals(other);
 	}
-	
-	
-
 }
