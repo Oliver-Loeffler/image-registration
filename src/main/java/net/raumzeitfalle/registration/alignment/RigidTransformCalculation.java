@@ -22,10 +22,10 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import Jama.Matrix;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -37,12 +37,14 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  *
  */
 public final class RigidTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
-
+	
+	private final Function<List<RigidModelEquation>,SimpleRigidTransform> model = new RigidBodyJamaModel();
+	
 	/**
 	 * Calculates the alignment parameters (translation<sub>X</sub>, translation<sub>Y</sub> and rotation) for the given collection of displacements.
 	 * When no displacements are left after filtering with the given predicate, then the {@link SkipRigidTransform} is returned. Otherwise the results is returned as {@link SimpleRigidTransform}.
 	 * <p>
-	 * The {@link RigidModel} is used for calculation.
+	 * The {@link RigidBodyJamaModel} is used for calculation.
 	 * <p>
 	 * For cases where no sites are selected for calculation (e.g. the predicate does not match any given displacement),
 	 * A {@link SkipRigidTransform} is returned instead of a {@link SimpleRigidTransform}. When used in data processing, 
@@ -65,16 +67,7 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 			return continueUnaligned();
 		}
 		
-		RigidModel model = new RigidModel(equations);
-		
-		Matrix result = model.solve();
-		
-        double translationX = result.get(0, 0);
-        double translationY = result.get(1, 0);
-        double rotation = result.get(2, 0);
-        
-        return SimpleRigidTransform
-        		.with(translationX, translationY, rotation);
+		return model.apply(equations);
 	}
 
 	private RigidTransform continueUnaligned() {
