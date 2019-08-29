@@ -19,7 +19,8 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
@@ -37,41 +38,44 @@ import Jama.QRDecomposition;
  * @author oliver
  * 
  */
-final class RigidModel {
+final class RigidBodyJamaModel implements Function<List<RigidModelEquation>,SimpleRigidTransform> {
 	
-	private final int rows;
-	private final Matrix references;
-	private final Matrix deltas;
+	private void prepare(List<RigidModelEquation> equations, Matrix references, Matrix deltas) {
+		for (int m = 0; m < equations.size(); m++) {
+			RigidModelEquation eq = equations.get(m);
+			references.set(m, 0, eq.getXf());
+			references.set(m, 1, eq.getYf());
+			references.set(m, 2, eq.getDesignValue());
+			deltas.set(m, 0, eq.getDeltaValue());
+		}
+	}
 	
-	public RigidModel(Collection<RigidModelEquation> equations) {
+	private SimpleRigidTransform solve(Matrix references, Matrix deltas) {
+		
+		QRDecomposition qr = new QRDecomposition(references);
+		Matrix Rinverse = qr.getR().inverse();
+		Matrix Qtransposed = qr.getQ().transpose();
+		Matrix solved = Rinverse.times(Qtransposed).times(deltas);
+	
+		return SimpleRigidTransform
+				.with(solved.get(0, 0), solved.get(1, 0), solved.get(2, 0));
+	}
+
+	@Override
+	public SimpleRigidTransform apply(List<RigidModelEquation> equations) {
 		
 		/* 
 		 * TODO: Depending on equations, the model should decide to include or exclude one dimension
 		 * or instead to populate one axis fully with 0.0.
 		 * 
 		 */
+		int rows = equations.size();
+		Matrix references = new Matrix(rows, 3);
+		Matrix deltas = new Matrix(rows, 1);
 		
-		this.rows = equations.size();
-		this.references = new Matrix(this.rows, 3);
-		this.deltas = new Matrix(this.rows, 1);
+		prepare(equations, references, deltas);
 		
-		populateMatrices(equations.toArray(new RigidModelEquation[0]));
-	}
-
-	private void populateMatrices(RigidModelEquation[] equations) {
-		for (int m = 0; m < equations.length; m++) {
-			RigidModelEquation eq = equations[m];
-			this.references.set(m, 0, eq.getXf());
-			this.references.set(m, 1, eq.getYf());
-			this.references.set(m, 2, eq.getDesignValue());
-			deltas.set(m, 0, eq.getDeltaValue());
-		}
+		return solve(references, deltas);
 	}
 	
-	public Matrix solve() {
-		QRDecomposition qr = new QRDecomposition(references);
-		Matrix Rinverse = qr.getR().inverse();
-		Matrix Qtransposed = qr.getQ().transpose();
-        return Rinverse.times(Qtransposed).times(deltas);
-	}
 }
