@@ -94,7 +94,6 @@ class RigidTransformCalculationTest {
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertNotNull(result);
 		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
 		
 		assertEquals(  10.0, result.getTranslationX(), TOLERANCE);
