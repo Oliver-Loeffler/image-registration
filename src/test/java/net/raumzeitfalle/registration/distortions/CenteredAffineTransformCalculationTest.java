@@ -10,19 +10,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-class AffineTransformCalculationTest {
+class CenteredAffineTransformCalculationTest {
 
 private static final double TOLERANCE = 1E-11;
 	
 	private final BiFunction<Collection<Displacement>, 
 							  Predicate<Displacement>, 
-							          AffineTransform> funtionUnderTest = new AffineTransformCalculation();
+							          AffineTransform> funtionUnderTest = new CenteredAffineTransformCalculation();
 
 	@Test
 	void zeroTransform() {
@@ -194,6 +195,19 @@ private static final double TOLERANCE = 1E-11;
 		BigDecimal bd = BigDecimal.valueOf(value * 1E6);
 	    bd = bd.setScale(3, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
+	}
+	
+	private void test() {
+		
+		// try
+		Collection<Displacement> data = null;
+		Predicate<Displacement> filter = null;
+		
+		BiFunction<Collection<Displacement>,Predicate<Displacement>, Collection<Displacement>> centerDisplacements = null;
+		Function<Collection<Displacement>,AffineTransform> calculation = null;
+		
+		AffineTransform tf = centerDisplacements.andThen(calculation).apply(data, filter);
+		
 	}
 
 }

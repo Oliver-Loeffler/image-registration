@@ -51,7 +51,12 @@ public class AffineTransform implements Function<Displacement, Displacement> {
     protected AffineTransform(double tx, double ty,
                                 double sx, double sy,
                                 double ox, double oy,
-                                double mx, double my) {
+                                
+                                @Deprecated  
+                                double mx, 
+                                
+                                @Deprecated
+                                double my) {
         this.translationX = tx;
         this.translationY = ty;
         this.scaleX = sx;

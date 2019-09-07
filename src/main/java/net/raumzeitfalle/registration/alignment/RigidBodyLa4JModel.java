@@ -1,16 +1,16 @@
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.List;
-import java.util.function.Function;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.la4j.LinearAlgebra.InverterFactory;
-import org.la4j.decomposition.QRDecompositor;
 import org.la4j.Matrix;
+import org.la4j.decomposition.QRDecompositor;
 
-public class RigidBodyLa4JModel implements Function<List<RigidModelEquation>, SimpleRigidTransform> {
+public class RigidBodyLa4JModel implements RigidBodyModel {
 
 	@Override
-	public SimpleRigidTransform apply(List<RigidModelEquation> equations) {
+	public SimpleRigidTransform solve(Collection<RigidModelEquation> equations) {
 		int n = 3;
 
 		Matrix laRef = org.la4j.Matrix.zero(equations.size(), n);
@@ -43,15 +43,20 @@ public class RigidBodyLa4JModel implements Function<List<RigidModelEquation>, Si
 		return laResult;
 	}
 
-	private void prepare(List<RigidModelEquation> equations, Matrix laRef, Matrix laDeltas) {
-		for (int m = 0; m < equations.size(); m++) {
-			RigidModelEquation eq = equations.get(m);
-
-			laRef.set(m, 0, eq.getXf());
-			laRef.set(m, 1, eq.getYf());
-			laRef.set(m, 2, eq.getDesignValue());
-			laDeltas.set(m, 0, eq.getDeltaValue());
+	private void prepare(Collection<RigidModelEquation> equations, Matrix laRef, Matrix laDeltas) {
+		int row = 0;
+		Iterator<RigidModelEquation> it = equations.iterator();
+		while(it.hasNext()) {
+			row = addEquation(laRef, laDeltas, row, it.next());
 		}
 	}
 
+	private int addEquation(Matrix laRef, Matrix laDeltas, int row, RigidModelEquation eq) {
+		laRef.set(row, 0, eq.getXf());
+		laRef.set(row, 1, eq.getYf());
+		laRef.set(row, 2, eq.getDesignValue());
+		laDeltas.set(row, 0, eq.getDeltaValue());
+		row++;
+		return row;
+	}
 }
