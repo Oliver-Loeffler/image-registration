@@ -19,11 +19,7 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Collection;
-import java.util.function.Function;
-
-import net.raumzeitfalle.registration.displacement.Displacement;
-
+import net.raumzeitfalle.registration.Transform;
 
 /**
  * 
@@ -32,7 +28,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public interface RigidTransform extends Function<Collection<Displacement>, Collection<Displacement>> {
+public interface RigidTransform extends Transform {
 	
 	double getTranslationX();
 	double getTranslationY();

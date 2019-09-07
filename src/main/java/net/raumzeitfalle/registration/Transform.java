@@ -6,7 +6,5 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 
 public interface Transform extends Function<Displacement, Displacement> {
 	
-	default boolean skip() {
-		return false;
-	}
+	boolean skip();
 }

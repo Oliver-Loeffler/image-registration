@@ -19,10 +19,7 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Collection;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
+import net.raumzeitfalle.registration.Transform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -32,7 +29,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-final class SimpleRigidTransform implements RigidTransform {
+final class SimpleRigidTransform implements RigidTransform, Transform {
 
 	public static SimpleRigidTransform with(double translationX, double translationY, double rotation) {
 		return new SimpleRigidTransform(translationX, translationY, rotation);
@@ -75,16 +72,15 @@ final class SimpleRigidTransform implements RigidTransform {
 	}
 
 	@Override
-	public Collection<Displacement> apply(Collection<Displacement> d) {
-		return d.stream()
-				 .map(mappper())
-				 .collect(Collectors.toList());
-	}
-	
-	private Function<Displacement,Displacement> mappper() {
-		return source -> Displacement.from(source, 
+	public Displacement apply(Displacement source) {
+		return Displacement.from(source, 
 				source.getXd() - this.getTranslationX() + source.getY() * this.getRotation(), 
 				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
+	}
+	
+	@Override
+	public boolean skip() {
+		return false;
 	}
 	
 }

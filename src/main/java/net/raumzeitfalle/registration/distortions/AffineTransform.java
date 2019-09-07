@@ -131,4 +131,9 @@ public class AffineTransform implements Transform {
                 d.getYd() - d.getY() * this.getScaleY() - d.getX() * this.getOrthoY());
     }
 
+	@Override
+	public boolean skip() {
+		return false;
+	}
+
 }

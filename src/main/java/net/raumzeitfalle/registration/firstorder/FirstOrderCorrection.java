@@ -78,7 +78,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		 * 
 		 */
 		RigidTransform residualAlignment = new RigidTransformCalculation().apply(correctedResults, siteSelection.getAlignment());
-		Collection<Displacement> alignedResults = residualAlignment.apply(correctedResults);
+		Collection<Displacement> alignedResults = new TransformCorrection().apply(residualAlignment, correctedResults);
 
 		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
 		AffineTransform finalFirstOrder = new CenteredAffineTransformCalculation()
