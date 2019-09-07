@@ -31,16 +31,15 @@ public class RigidBodyLa4JModel implements RigidBodyModel {
 		QRDecompositor laQr = new QRDecompositor(laRef);
 		Matrix[] laQrResult = laQr.decompose();
 
-		Matrix Q = laQrResult[0];
-		Matrix Qtrans = Q.transpose();
+		Matrix q = laQrResult[0];
+		Matrix qTrans = q.transpose();
 
-		Matrix R = laQrResult[1];
-		Matrix Rinv = InverterFactory.GAUSS_JORDAN.create(R).inverse();
+		Matrix r = laQrResult[1];
+		Matrix rInv = InverterFactory.GAUSS_JORDAN.create(r).inverse();
 
-		Matrix laRinvQTransp = Rinv.multiply(Qtrans);
-		Matrix laResult = laRinvQTransp.multiply(laDeltas);
-
-		return laResult;
+		Matrix laRinvQTransp = rInv.multiply(qTrans);
+		
+		return laRinvQTransp.multiply(laDeltas);
 	}
 
 	private void prepare(Collection<RigidModelEquation> equations, Matrix laRef, Matrix laDeltas) {
