@@ -19,11 +19,10 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
-import java.util.function.Function;
-
+import net.raumzeitfalle.registration.Transform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class AffineTransform implements Function<Displacement, Displacement> {
+public class AffineTransform implements Transform {
 
     public static AffineTransform with(double transx, double transy,
             double scalex, double scaley,

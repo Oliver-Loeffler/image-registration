@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
+import net.raumzeitfalle.registration.TransformCorrection;
 import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.alignment.RigidTransformCalculation;
 import net.raumzeitfalle.registration.displacement.Displacement;
@@ -31,7 +32,6 @@ import net.raumzeitfalle.registration.displacement.SiteSelection;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformBuilder;
 import net.raumzeitfalle.registration.distortions.CenteredAffineTransformCalculation;
-import net.raumzeitfalle.registration.distortions.AffineTransformCorrection;
 
 public final class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, FirstOrderResult> {
 
@@ -63,7 +63,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		/*
 		 * STEP 3 - Apply all requested compensations
 		 */
-		Collection<Displacement> correctedResults = new AffineTransformCorrection().apply(firstOrder, displacements);
+		Collection<Displacement> correctedResults = new TransformCorrection().apply(firstOrder, displacements);
 		
 		/*
 		 * When no alignment is requested, then the work is done here. The result will be returned then.
