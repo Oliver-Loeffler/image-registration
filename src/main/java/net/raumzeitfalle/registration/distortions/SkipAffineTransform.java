@@ -37,5 +37,10 @@ public final class SkipAffineTransform extends AffineTransform {
 	public Displacement apply(Displacement t) {
 		return t;
 	}
+	
+	@Override
+	public boolean skip() {
+		return true;
+	}
 
 }
