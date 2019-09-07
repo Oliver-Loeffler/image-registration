@@ -19,8 +19,8 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.List;
-import java.util.function.Function;
+import java.util.Collection;
+import java.util.Iterator;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
@@ -38,16 +38,23 @@ import Jama.QRDecomposition;
  * @author oliver
  * 
  */
-final class RigidBodyJamaModel implements Function<List<RigidModelEquation>,SimpleRigidTransform> {
+final class RigidBodyJamaModel implements RigidBodyModel {
 	
-	private void prepare(List<RigidModelEquation> equations, Matrix references, Matrix deltas) {
-		for (int m = 0; m < equations.size(); m++) {
-			RigidModelEquation eq = equations.get(m);
-			references.set(m, 0, eq.getXf());
-			references.set(m, 1, eq.getYf());
-			references.set(m, 2, eq.getDesignValue());
-			deltas.set(m, 0, eq.getDeltaValue());
+	private void prepare(Collection<RigidModelEquation> equations, Matrix references, Matrix deltas) {
+		int row = 0;
+		Iterator<RigidModelEquation> it = equations.iterator();
+		while(it.hasNext()) {
+			row = addEquation(references, deltas, row, it.next());
 		}
+	}
+
+	private int addEquation(Matrix references, Matrix deltas, int row, RigidModelEquation eq) {
+		references.set(row, 0, eq.getXf());
+		references.set(row, 1, eq.getYf());
+		references.set(row, 2, eq.getDesignValue());
+		deltas.set(row, 0, eq.getDeltaValue());
+		row++;
+		return row;
 	}
 	
 	private SimpleRigidTransform solve(Matrix references, Matrix deltas) {
@@ -62,11 +69,12 @@ final class RigidBodyJamaModel implements Function<List<RigidModelEquation>,Simp
 	}
 
 	@Override
-	public SimpleRigidTransform apply(List<RigidModelEquation> equations) {
-		
+	public RigidTransform solve(Collection<RigidModelEquation> equations) {
 		/* 
 		 * TODO: Depending on equations, the model should decide to include or exclude one dimension
 		 * or instead to populate one axis fully with 0.0.
+		 * 
+		 * TODO: How to handle situations where the system of equations cannot be solved?
 		 * 
 		 */
 		int rows = equations.size();

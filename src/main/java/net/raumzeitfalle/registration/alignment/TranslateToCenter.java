@@ -22,13 +22,13 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.Collection;
 import java.util.List;
 import java.util.OptionalDouble;
-import java.util.function.Function;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.DisplacementSummary;
 
-public final class TranslateToCenter implements Function<Collection<Displacement>, List<Displacement>> {
+public final class TranslateToCenter implements BiFunction<Collection<Displacement>,Predicate<Displacement>, Collection<Displacement>> {
 
 	private OptionalDouble meanx = OptionalDouble.empty();
 	
@@ -39,12 +39,11 @@ public final class TranslateToCenter implements Function<Collection<Displacement
 	}
 	
 	@Override
-	public List<Displacement> apply(Collection<Displacement> t) {
+	public Collection<Displacement> apply(Collection<Displacement> t, Predicate<Displacement> u) {
 		
-		DisplacementSummary summary = Displacement.summarize(t, d->true);
-		double mx = summary.designMeanX();
-		double my = summary.designMeanY();
-		
+		double mx = Displacement.average(t, u, Displacement::getX);
+    	double my = Displacement.average(t, u, Displacement::getY);
+    
 		List<Displacement> centered = t.stream()
 									   .map(displacement -> displacement.moveBy(-mx, -my))
 									   .collect(Collectors.toList());

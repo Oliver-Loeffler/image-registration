@@ -30,7 +30,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.SiteSelection;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformBuilder;
-import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
+import net.raumzeitfalle.registration.distortions.CenteredAffineTransformCalculation;
 import net.raumzeitfalle.registration.distortions.AffineTransformCorrection;
 
 public final class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, FirstOrderResult> {
@@ -57,7 +57,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		/*
 		 * STEP 2 - Calculate the 6-parameter model (FirstOrder) and parametrize according to corrections defined in setup
 		 */
-		AffineTransform calculatedFirstOrder = new AffineTransformCalculation().apply(displacements, firstOrderSelector);
+		AffineTransform calculatedFirstOrder = new CenteredAffineTransformCalculation().apply(displacements, firstOrderSelector);
 		AffineTransform firstOrder = updateFirstOrderForCompensation(setup.getCompensations(),calculatedFirstOrder);
 		
 		/*
@@ -81,7 +81,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		Collection<Displacement> alignedResults = residualAlignment.apply(correctedResults);
 
 		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
-		AffineTransform finalFirstOrder = new AffineTransformCalculation()
+		AffineTransform finalFirstOrder = new CenteredAffineTransformCalculation()
 											.apply(alignedResults, siteSelection.getCalculation())
 											.centerAt(0.0, 0.0);
 		
