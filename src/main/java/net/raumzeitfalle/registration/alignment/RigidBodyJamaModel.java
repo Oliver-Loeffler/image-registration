@@ -60,9 +60,10 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 	private SimpleRigidTransform solve(Matrix references, Matrix deltas) {
 		
 		QRDecomposition qr = new QRDecomposition(references);
-		Matrix Rinverse = qr.getR().inverse();
-		Matrix Qtransposed = qr.getQ().transpose();
-		Matrix solved = Rinverse.times(Qtransposed).times(deltas);
+		
+		Matrix rInverse = qr.getR().inverse();
+		Matrix qTransposed = qr.getQ().transpose();
+		Matrix solved = rInverse.times(qTransposed).times(deltas);
 	
 		return SimpleRigidTransform
 				.with(solved.get(0, 0), solved.get(1, 0), solved.get(2, 0));
