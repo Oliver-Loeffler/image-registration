@@ -11,10 +11,14 @@ public class TransformCorrection implements BiFunction<Transform, Collection<Dis
 	@Override
 	public Collection<Displacement> apply(Transform t, Collection<Displacement> u) {
 
+		if (t.skip()) {
+			return u;
+		}
+		
 		return u.stream()
 				.map(t)
 				.collect(Collectors.toList());
-
+		
 	}
 
 }
