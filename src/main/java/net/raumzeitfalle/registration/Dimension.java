@@ -12,7 +12,7 @@ public class Dimension<T extends Orientable> implements Consumer<Orientable>, Fu
 	@Override
 	public void accept(Orientable t) {
 		if (t.matches(Orientation.X)) xCount++;
-		if (t.matches(Orientation.Y)) xCount++;
+		if (t.matches(Orientation.Y)) yCount++;
 	}
 	
 	@Override
