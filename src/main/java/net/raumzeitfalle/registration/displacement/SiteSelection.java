@@ -47,7 +47,7 @@ public class SiteSelection {
 	 */
 	public static SiteSelection multipoint() {
 		Predicate<Displacement> all = d -> true;
-		return SiteSelection.forAlignment(all).forCalculation(all).forFirstOrderCalculation(all);
+		return SiteSelection.forAlignment(all).forCalculation(all).build();
 	}
 
 	/**

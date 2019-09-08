@@ -59,11 +59,7 @@ public class CalculationSelection {
 	 * @return {@link SiteSelection}
 	 */
 	public SiteSelection build() {
-		return new SiteSelection(alignment.get(), calculation, calculation);
-	}
-
-	public SiteSelection forFirstOrderCalculation(Predicate<Displacement> firstOrderSelection) {
-		return new SiteSelection(alignment.get(), calculation, firstOrderSelection);
+		return new SiteSelection(alignment.get(), calculation);
 	}
 
 }
