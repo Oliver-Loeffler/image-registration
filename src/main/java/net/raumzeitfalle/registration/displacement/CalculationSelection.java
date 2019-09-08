@@ -72,8 +72,8 @@ public class CalculationSelection {
 	 * 
 	 * @return {@link SiteSelection}
 	 */
-	public SiteSelection remove(Predicate<Displacement> toBeRemoved) {
-		return new SiteSelection(alignment.get(), calculation, toBeRemoved);
+	public SiteSelection remove(Predicate<Displacement> removalSelector) {
+		return new SiteSelection(alignment.get(), calculation, removalSelector);
 	}
 
 	/**
