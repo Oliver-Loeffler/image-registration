@@ -75,7 +75,7 @@ given data without any modifications.
 
 ![Transforms Interfaces](docs/interfaces.png)
 
-### Models used for Transforms
+### Transform Models
 
 One idea and goal is, to make the underlying transformation models exchangeable. Therefore 
 the `RigidBodyModel` and the `AffineModel` interfaces exist. The idea is to make the 
