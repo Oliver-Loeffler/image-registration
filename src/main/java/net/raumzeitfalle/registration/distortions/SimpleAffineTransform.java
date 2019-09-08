@@ -19,6 +19,8 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
+import java.util.Locale;
+
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public class SimpleAffineTransform implements AffineTransform {
@@ -116,7 +118,7 @@ public class SimpleAffineTransform implements AffineTransform {
     }
 
     protected String format(double value) {
-        return String.format("%10.7f", value);
+        return String.format(Locale.US, "%10.7f", value);
     }
 
     @Override

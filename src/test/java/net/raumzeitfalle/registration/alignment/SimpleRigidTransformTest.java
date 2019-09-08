@@ -57,5 +57,10 @@ class SimpleRigidTransformTest {
 		assertEquals( 60, result.getXd());
 		assertEquals( 10, result.getYd());
 	}
+	
+	@Test
+	void toStringMethod() {
+		assertEquals("RigidTransform [x=10.0000000, y=-20.0000000, rotation=3000000.0000000 urad]", classUnderTest.toString());		
+	}
 
 }
