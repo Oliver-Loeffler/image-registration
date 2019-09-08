@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package net.raumzeitfalle.registration;
+package net.raumzeitfalle.registration.examples;
 
 import java.nio.file.Paths;
 import java.util.Collection;
