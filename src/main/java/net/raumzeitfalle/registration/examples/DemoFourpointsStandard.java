@@ -25,7 +25,7 @@ import java.util.List;
 
 import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.DisplacementClass;
+import net.raumzeitfalle.registration.displacement.Category;
 import net.raumzeitfalle.registration.displacement.DisplacementSummary;
 import net.raumzeitfalle.registration.displacement.SiteSelection;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
@@ -54,10 +54,10 @@ public class DemoFourpointsStandard {
 	
 		// STEP 2, perform site selection 
 		SiteSelection selection = SiteSelection
-						.forAlignment(d -> d.belongsTo(DisplacementClass.ALIGN))
+						.forAlignment(d -> d.belongsTo(Category.ALIGN))
 						.forCalculation(d->true)
 						.build()
-						.remove(d->d.belongsTo(DisplacementClass.INFO_ONLY));
+						.remove(d->d.belongsTo(Category.INFO_ONLY));
 	
 		// STEP 3, parametrize evaluation model 
 		FirstOrderSetup setup = FirstOrderSetup
