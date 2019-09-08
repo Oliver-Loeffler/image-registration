@@ -44,6 +44,8 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
 	
 	@Override
 	public AffineTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+		if (t.isEmpty())
+    		return SkipAffineTransform.centeredAt(0, 0);
 
     	TranslateFunction translate = Displacement.translationToCenter(t, u);
     	
@@ -55,6 +57,9 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
 									                .flatMap(AffineModelEquation::from)
 									                .map(dimension)
 									                .collect(Collectors.toList());
+    	
+    	if (finalEquations.isEmpty())
+    		return SkipAffineTransform.centeredAt(0, 0);
 
         AffineTransform transform = model.solve(finalEquations,dimension);
         
