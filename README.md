@@ -93,10 +93,10 @@ information any kind or matrix based system can be configured.
 
 There are some demos available, how this library is supposed to be used:
 
-* `net/raumzeitfalle/registration/DemoFourpointsOnlyWithMissingMeas.java`
-* `net/raumzeitfalle/registration/DemoFourpointsScanner.java`
-* `net/raumzeitfalle/registration/DemoFourpointsStandard.java`
-* `net/raumzeitfalle/registration/DemoMultipoint.java`
+* `net/raumzeitfalle/registration/examples/DemoFourpointsOnlyWithMissingMeas.java`
+* `net/raumzeitfalle/registration/examples/DemoFourpointsScanner.java`
+* `net/raumzeitfalle/registration/examples/DemoFourpointsStandard.java`
+* `net/raumzeitfalle/registration/examples/DemoMultipoint.java`
 
 * The example for 1D evaluations does not yet work as it is not yet implemented.
 
