@@ -22,13 +22,13 @@ package net.raumzeitfalle.registration.displacement;
 import net.raumzeitfalle.registration.firstorder.Alignments;
 
 /**
- * To control which displacements shall be used for alignment or which can be ignore, the {@link DisplacementClass} enum can be used.
- * Each Displacement has a property which stores the Displacement class. Therefore the getDisplacementClass can be used in Predicates or other ways to filter and sort collections of displacements. 
+ * To control which displacements shall be used for alignment or which can be ignore, the {@link Category} enum can be used.
+ * Each Displacement has a property which stores the Displacement category. Therefore the {@code getCategory} can be used in Predicates or other ways to filter and sort collections of displacements. 
  * 
  * @author oliver
  *
  */
-public enum DisplacementClass {
+public enum Category {
 	
 	/**
 	 * This category is and shall be used for positional result calculation and first order result calculation.
@@ -46,11 +46,11 @@ public enum DisplacementClass {
 	INFO_ONLY;
 
 	/**
-	 * Factory method which produces a {@link DisplacementClass} from a given {@link String} whereas a null value will produce an instance of {@code DisplacementClass.REG}
+	 * Factory method which produces a {@link Category} from a given {@link String} whereas a null value will produce an instance of {@link Category} REG.
 	 * @param value String containing align or info
 	 * @return By default REG (also in case of null), in other cases ALIGN (only when value contains &quot;align&quot;) or INFO_ONLY (only when value contains &quot;info&quot;).
 	 */
-	public static DisplacementClass fromString(String value) {
+	public static Category fromString(String value) {
 		
 		if (null == value) {
 			return REG;
@@ -63,7 +63,7 @@ public enum DisplacementClass {
 		}
 		
 		if (description.contains("info")) {
-			return DisplacementClass.INFO_ONLY;
+			return Category.INFO_ONLY;
 		}
 		
 		return REG;

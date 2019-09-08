@@ -35,7 +35,7 @@ public class SiteSelection {
 		return new AlignmentSelection(alignment);
 	}
 	
-	public static AlignmentSelection alignOn(DisplacementClass siteClass) {
+	public static AlignmentSelection alignOn(Category siteClass) {
 		return new AlignmentSelection(d->d.belongsTo(siteClass));
 	}
 	

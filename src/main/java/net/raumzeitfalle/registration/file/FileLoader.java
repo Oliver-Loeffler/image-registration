@@ -30,7 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.DisplacementClass;
+import net.raumzeitfalle.registration.displacement.Category;
 
 
 public class FileLoader implements Function<Path,List<Displacement>> {
@@ -66,10 +66,10 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 					int firstQuote = type.indexOf("\"");
 					int lastQuote = type.lastIndexOf("\"");
 					
-					DisplacementClass category = DisplacementClass.REG;
+					Category category = Category.REG;
 					if (firstQuote >= 0 && lastQuote >= 0) {
 						String siteClass = type.substring(firstQuote+1, lastQuote);
-						category = DisplacementClass.fromString(siteClass);
+						category = Category.fromString(siteClass);
 					} 				
 					
 					Displacement d = Displacement.at(index,index, x, y, xd, yd, category);

@@ -33,7 +33,7 @@ import net.raumzeitfalle.registration.alignment.TranslateFunction;
  * The measured position of the structure is specified by (x<sub>d</sub>, y<sub>d</sub>).<br>
  * The differences between (x,y)<sub>d</sub> and (x,y) are calculated when a {@link Displacement} object is created.<br>
  * <p>
- * Depending of the location on a mask, a geometrical feature has a specific task. To distinguish between different features, the {@link DisplacementClass} enum category type is used. 
+ * Depending of the location on a mask, a geometrical feature has a specific task. To distinguish between different features, the {@link Category} enum category type is used. 
  * 
  * @author Oliver Loeffler
  *
@@ -55,7 +55,7 @@ public class Displacement {
 	}
 	
 	/**
-	 * Creates a new {@link Displacement} object from scratch, belonging to DisplacementClass REG.
+	 * Creates a new {@link Displacement} object from scratch, belonging to {@link Category} REG.
 	 * 
 	 * @param index Usually a consecutive number (e.g. from a table) reflecting the order of {@link Displacement} object creation.
 	 * @param id An arbitrary ID value which can be assigned.
@@ -65,11 +65,11 @@ public class Displacement {
 	 * @return {@link Displacement}
 	 */
 	public static Displacement at(int index, int id, double x, double y) {
-		return at(index,id, x, y, x, y, DisplacementClass.REG);
+		return at(index,id, x, y, x, y, Category.REG);
 	}
 	
 	/**
-	 * Creates a new {@link Displacement} object from scratch, belonging to DisplacementClass REG.
+	 * Creates a new {@link Displacement} object from scratch, belonging to {@link Category} REG.
 	 * 
 	 * @param index Usually a consecutive number (e.g. from a table) reflecting the order of {@link Displacement} object creation.
 	 * @param id An arbitrary ID value which can be assigned.
@@ -81,7 +81,7 @@ public class Displacement {
 	 * @return {@link Displacement}
 	 */
 	public static Displacement at(int index, int id, double x, double y, double xd, double yd) {
-		return at(index,id, x, y, xd, yd, DisplacementClass.REG);
+		return at(index,id, x, y, xd, yd, Category.REG);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class Displacement {
 	 * 
 	 * @return {@link Displacement}
 	 */
-	public static Displacement at(int index, int id, double x, double y, double xd, double yd, DisplacementClass type) {
+	public static Displacement at(int index, int id, double x, double y, double xd, double yd, Category type) {
 		return new Displacement(index,id, x, y, xd, yd, type);
 	}
 	
@@ -150,9 +150,9 @@ public class Displacement {
 	private final double dx;
 	private final double dy;
 	
-	private final DisplacementClass category;
+	private final Category category;
 	
-	private Displacement(int index, int id, double x, double y, double xd, double yd, DisplacementClass type) {
+	private Displacement(int index, int id, double x, double y, double xd, double yd, Category type) {
 		this.index = index;
 		this.id = id;
 		
@@ -258,9 +258,9 @@ public class Displacement {
 
 	/**
 	 * Provides a category description for each {@link Displacement}. 
-	 * @return {@link DisplacementClass}
+	 * @return {@link Category}
 	 */
-	public DisplacementClass getDisplacementClass() {
+	public Category getCategory() {
 		return category;
 	}
 
@@ -271,11 +271,11 @@ public class Displacement {
 	}
 
 	/**
-	 * Verifies if this {@link Displacement} belongs to a specific {@link DisplacementClass}.
-	 * @param other {@link DisplacementClass} to be tested for
-	 * @return true, when this {@link Displacement} belongs to the provided {@link DisplacementClass}.
+	 * Verifies if this {@link Displacement} belongs to a specific {@link Category}.
+	 * @param other {@link Category} to be tested for
+	 * @return true, when this {@link Displacement} belongs to the provided {@link Category}.
 	 */
-	public boolean belongsTo(DisplacementClass other) {
+	public boolean belongsTo(Category other) {
 		return this.category.equals(other);
 	}
 
