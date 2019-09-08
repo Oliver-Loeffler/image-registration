@@ -66,6 +66,39 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 ![Steps to registration correction](docs/process_flow.png)
 
+## Concepts
+
+* Image registration
+* Displacement
+* Rigid Body Transform
+* Affine Transform
+* Alignment and First Order Distortions
+
+* FirstOrderSetup
+* FirstOrderCorrection
+* FirstOrderResult
+
+## Domain types
+
+* Displacement
+* Category
+* SiteSelection
+    * AlignmentSelection
+    * CalculationSelection
+
+* Transform (high level)
+    * RigidTransform
+    * AffineTransform
+    * SimilarityTransform
+* TransformCorrection
+    * SkipTransform
+
+* Transform (low level)
+    * ModelEquation
+    * TransformModel
+    * Dimension
+    * Orientation
+
 ## Interfaces
 
 ### Transforms
