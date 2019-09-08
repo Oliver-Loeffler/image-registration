@@ -60,7 +60,7 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 * Add graphical examples of first order distortions.
 
-# How does the image-registration correction basically work?
+# How does is work?
 
 ## Processing steps
 
