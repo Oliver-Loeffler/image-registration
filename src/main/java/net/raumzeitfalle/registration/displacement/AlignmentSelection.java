@@ -62,4 +62,8 @@ public class AlignmentSelection implements Supplier<Predicate<Displacement>> {
 	public Predicate<Displacement> get() {
 		return this.selection;
 	}
+	
+	public SiteSelection build() {
+		return new SiteSelection(get(), get());
+	}
 }
