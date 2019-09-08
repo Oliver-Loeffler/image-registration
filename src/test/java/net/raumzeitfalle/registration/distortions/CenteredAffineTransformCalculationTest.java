@@ -38,7 +38,8 @@ private static final double TOLERANCE = 1E-11;
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(AffineTransform.class));
+		
+		assertTrue( result.skip() );
 		
 		assertEquals( 0.0, result.getTranslationX(),  TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(),  TOLERANCE);
@@ -71,7 +72,7 @@ private static final double TOLERANCE = 1E-11;
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(AffineTransform.class));
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
 		
 		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
@@ -103,7 +104,7 @@ private static final double TOLERANCE = 1E-11;
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(AffineTransform.class));
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
 		
 		assertEquals( 0.075, result.getTranslationX(),       TOLERANCE);
 		assertEquals( 0.000, result.getTranslationY(),       TOLERANCE);
@@ -135,7 +136,7 @@ private static final double TOLERANCE = 1E-11;
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(AffineTransform.class));
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
 		
 		assertEquals( 0.000, result.getTranslationX(),        TOLERANCE);
 		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);
@@ -168,7 +169,7 @@ private static final double TOLERANCE = 1E-11;
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(AffineTransform.class));
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
 		
 		assertEquals( 0.075, result.getTranslationX(),        TOLERANCE);
 		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);
@@ -204,9 +205,9 @@ private static final double TOLERANCE = 1E-11;
 		Predicate<Displacement> filter = null;
 		
 		BiFunction<Collection<Displacement>,Predicate<Displacement>, Collection<Displacement>> centerDisplacements = null;
-		Function<Collection<Displacement>,AffineTransform> calculation = null;
+		Function<Collection<Displacement>,SimpleAffineTransform> calculation = null;
 		
-		AffineTransform tf = centerDisplacements.andThen(calculation).apply(data, filter);
+		SimpleAffineTransform tf = centerDisplacements.andThen(calculation).apply(data, filter);
 		
 	}
 
