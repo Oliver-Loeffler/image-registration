@@ -139,7 +139,7 @@ public final class DisplacementSummary {
 		}
 	}
 	
-	public double stdev(double mean, Collection<Double> values) {
+	private double stdev(double mean, Collection<Double> values) {
 		
 		if (values.isEmpty()) {
 			return Double.NaN;
@@ -218,27 +218,27 @@ public final class DisplacementSummary {
 		return this.statsPosY.getAverage();
 	}
 	
-	private double minX() {
+	public double minX() {
 		return this.statsDiffX.getMin();
 	}
 	
-	private double minY() {
+	public double minY() {
 		return this.statsDiffY.getMin();
 	}
 	
-	private double maxX() {
+	public double maxX() {
 		return this.statsDiffX.getMax();
 	}
 	
-	private double maxY() {
+	public double maxY() {
 		return this.statsDiffY.getMax();
 	}
 	
-	private double sd3X() {
+	public double sd3X() {
 		return this.sd3x;
 	}
 
-	private double sd3Y() {
+	public double sd3Y() {
 		return this.sd3y;
 	}
 

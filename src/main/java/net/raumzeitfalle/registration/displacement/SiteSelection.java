@@ -36,7 +36,7 @@ public class SiteSelection {
 	}
 	
 	public static AlignmentSelection alignOn(DisplacementClass siteClass) {
-		return new AlignmentSelection(d->d.isOfType(siteClass));
+		return new AlignmentSelection(d->d.belongsTo(siteClass));
 	}
 	
 	private final Predicate<Displacement> alignment;
