@@ -62,7 +62,9 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 ## Interfaces
 
-![Interfaces](docs/interfaces.png)
+![Transforms Interfaces](docs/interfaces.png)
+
+![Models and Transforms Interfaces](docs/interfaces_models_and_transforms.png)
 
 ## Example Code
 
