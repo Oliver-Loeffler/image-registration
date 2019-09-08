@@ -184,8 +184,7 @@ be used.
     SiteSelection selection = SiteSelection
                         .forAlignment(d -> d.isOfType(DisplacementClass.ALIGN))
                         .forCalculation(allSites)
-                        .build()
-                        .remove(d->d.isOfType(DisplacementClass.INFO_ONLY));
+                        .forRemoval(d->d.isOfType(DisplacementClass.INFO_ONLY));
     
     // STEP 3, parametrize evaluation model 
     FirstOrderSetup setup = FirstOrderSetup

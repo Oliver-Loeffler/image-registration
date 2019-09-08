@@ -96,7 +96,7 @@ public class SiteSelection {
 	 * @param sitesToRemove {@link Predicate} for {@link Displacement}
 	 * @return {@link SiteSelection}
 	 */
-	public SiteSelection remove(Predicate<Displacement> sitesToRemove) {
+	public SiteSelection forRemoval(Predicate<Displacement> sitesToRemove) {
 		return new SiteSelection(alignment, calculation, sitesToRemove);
 	}
 

@@ -68,7 +68,7 @@ public class SiteSelectionTest {
 		Predicate<Displacement> toBeRemoved = d->d.belongsTo(Category.ALIGN)
 				   || d.belongsTo(Category.INFO_ONLY);
 		
-		SiteSelection siteSelection = SiteSelection.multipoint().remove(toBeRemoved);
+		SiteSelection siteSelection = SiteSelection.multipoint().forRemoval(toBeRemoved);
 		
 		List<Displacement> displacments = createDisplacementsListWithAlign();
 		
@@ -109,7 +109,7 @@ public class SiteSelectionTest {
 		
 		SiteSelection siteSelection = SiteSelection.forAlignment(d->true)
 											       .forCalculation(d->true)
-											       .remove(toBeRemoved);
+											       .forRemoval(toBeRemoved);
 		
 		List<Displacement> displacments = createDisplacementsListWithAlign();
 		
