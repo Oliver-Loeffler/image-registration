@@ -105,13 +105,13 @@ class RigidTransformCalculationTest {
 	@Test
 	void translationXY() {
 		
-		List<Displacement> undisplaced = new ArrayList<>(4);
-		undisplaced.add(Displacement.at(0, 0, 1000, 1000, 1010,  990));
-		undisplaced.add(Displacement.at(1, 1, 1000, 9000, 1010, 8990));
-		undisplaced.add(Displacement.at(2, 2, 9000, 9000, 9010, 8990));
-		undisplaced.add(Displacement.at(3, 3, 9000, 1000, 9010,  990));
+		List<Displacement> displaced = new ArrayList<>(4);
+		displaced.add(Displacement.at(0, 0, 1000, 1000, 1010,  990));
+		displaced.add(Displacement.at(1, 1, 1000, 9000, 1010, 8990));
+		displaced.add(Displacement.at(2, 2, 9000, 9000, 9010, 8990));
+		displaced.add(Displacement.at(3, 3, 9000, 1000, 9010,  990));
 		
-		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		RigidTransform result = funtionUnderTest.apply(displaced, d->true);
 		
 		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
 		
@@ -124,16 +124,16 @@ class RigidTransformCalculationTest {
 	@Test
 	void rotation() {
 		
-		List<Displacement> undisplaced = new ArrayList<>(4);
+		List<Displacement> displaced = new ArrayList<>(4);
 		
 		double rotated = Math.sqrt(2)*1E3;
 		
-		undisplaced.add(Displacement.at(0, 0, -1000, -1000,        0,  -rotated));
-		undisplaced.add(Displacement.at(0, 0, -1000,  1000, -rotated,         0));
-		undisplaced.add(Displacement.at(0, 0,  1000,  1000,        0,   rotated));
-		undisplaced.add(Displacement.at(0, 0,  1000, -1000,  rotated,         0));
+		displaced.add(Displacement.at(0, 0, -1000, -1000,        0,  -rotated));
+		displaced.add(Displacement.at(0, 0, -1000,  1000, -rotated,         0));
+		displaced.add(Displacement.at(0, 0,  1000,  1000,        0,   rotated));
+		displaced.add(Displacement.at(0, 0,  1000, -1000,  rotated,         0));
 		
-		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		RigidTransform result = funtionUnderTest.apply(displaced, d->true);
 		
 		assertNotNull(result);
 		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
@@ -154,16 +154,16 @@ class RigidTransformCalculationTest {
 	@Test
 	void rotationAndTranslation() {
 		
-		List<Displacement> undisplaced = new ArrayList<>(4);
+		List<Displacement> displaced = new ArrayList<>(4);
 		
 		double rotated = Math.sqrt(2)*1E3;
 		
-		undisplaced.add(Displacement.at(0, 0, -1000, -1000,        0+10,  -rotated-4));
-		undisplaced.add(Displacement.at(0, 0, -1000,  1000, -rotated+10,         0-4));
-		undisplaced.add(Displacement.at(0, 0,  1000,  1000,        0+10,   rotated-4));
-		undisplaced.add(Displacement.at(0, 0,  1000, -1000,  rotated+10,         0-4));
+		displaced.add(Displacement.at(0, 0, -1000, -1000,        0+10,  -rotated-4));
+		displaced.add(Displacement.at(0, 0, -1000,  1000, -rotated+10,         0-4));
+		displaced.add(Displacement.at(0, 0,  1000,  1000,        0+10,   rotated-4));
+		displaced.add(Displacement.at(0, 0,  1000, -1000,  rotated+10,         0-4));
 		
-		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		RigidTransform result = funtionUnderTest.apply(displaced, d->true);
 		
 		assertNotNull(result);
 		assertTrue(result.getClass().equals(SimpleRigidTransform.class));

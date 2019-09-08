@@ -241,6 +241,14 @@ public final class DisplacementSummary {
 	public double sd3Y() {
 		return this.sd3y;
 	}
+	
+	public long sizeX() {
+		return this.statsDiffX.getCount();
+	}
+
+	public long sizeY() {
+		return this.statsDiffY.getCount();
+	}
 
 	private String format(double value) {
 		return String.format("%10.5f", value*1E3);
