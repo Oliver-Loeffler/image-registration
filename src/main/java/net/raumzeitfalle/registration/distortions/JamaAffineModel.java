@@ -19,12 +19,14 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Iterator;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
+import net.raumzeitfalle.registration.Dimension;
+import net.raumzeitfalle.registration.Orientable;
+import net.raumzeitfalle.registration.Orientation;
 
 /**
  * 
@@ -42,84 +44,100 @@ import Jama.QRDecomposition;
  *
  */
 final class JamaAffineModel implements AffineModel {
-	
-	private final int rows;
-	
-	private final Matrix references;
-	
-	private final Matrix deltas;
-	
-    public JamaAffineModel(Collection<AffineModelEquation> equations) {
-    	this.rows = equations.size();
-    	int cols = 6; 
-    	this.references = new Matrix(this.rows, cols);
-    	this.deltas = new Matrix(this.rows, 1);
-    	
-    	populateMatrices(equations.toArray(new AffineModelEquation[0]));
-    }
-    
-    private void populateMatrices(AffineModelEquation[] equations) {
-    	for (int m = 0; m < equations.length; m++) {
-    		AffineModelEquation eq = equations[m];
-			this.references.set(m, 0, eq.getSx());
-			this.references.set(m, 1, eq.getSy());
-			this.references.set(m, 2, eq.getOx());
-			this.references.set(m, 3, eq.getOy());
-			this.references.set(m, 4, eq.getTx());
-			this.references.set(m, 5, eq.getTy());
-			deltas.set(m, 0, eq.getDeltaValue());
-		}
+
+	@Override
+	public <T extends Orientable> AffineTransform solve(Collection<AffineModelEquation> equations,
+			Dimension<T> dimension) {
+		
+		// there are 3 coefficients per direction
+		int cols = dimension.getDimensions() * 3;
+		int rows = equations.size();
+		
+		Matrix references = new Matrix(rows, cols);
+		Matrix deltas = new Matrix(rows, 1);
+		
+		Orientation direction = dimension.getDirection();
+		prepare(equations, references, deltas, direction);
+		
+		return solve(references, deltas, direction);
 	}
 
-    private Matrix performCalculations() {
+	private AffineTransform solve(Matrix references, Matrix deltas, Orientation direction) {
 		QRDecomposition qr = new QRDecomposition(references);
 		Matrix Rinverse = qr.getR().inverse();
 		Matrix Qtransposed = qr.getQ().transpose();
-        return Rinverse.times(Qtransposed).times(deltas);
-	}
-    
-    @Override
-    public SimpleAffineTransform solve() {
-    	
-    	 Matrix distortion = performCalculations();
-         
-         double scalex = distortion.get(0, 0);
-         double scaley = distortion.get(1, 0);
-         double orthox = distortion.get(2, 0);
-         double orthoy = distortion.get(3, 0);
-         double transx = distortion.get(4, 0);
-         double transy = distortion.get(5, 0);
-         
-         return new SimpleAffineTransform(transx, transy, scalex, scaley, orthox, orthoy, 0d, 0d);
+		
+		Matrix solved = Rinverse.times(Qtransposed)
+				                .times(deltas);
+		
+		return createTransform(solved, direction);
 	}
 
-	@Override
-	public String toString() {
-		return "FirstOrderModel [" + System.lineSeparator() +  showMatrix(references) 
-				+ System.lineSeparator()
-				+ "]";
-	}
-    
-	
-	private String showMatrix(Matrix matrix) {
-		int rowDimension = matrix.getRowDimension();
-
-		StringBuilder b = new StringBuilder();
-		double[][] array = matrix.getArray();
-		for (int m = 0; m < rowDimension; m++) {
-			b.append(Arrays.stream(array[m]).mapToObj(this::format).collect(Collectors.joining(", ", "(", ")")));
-			b.append(" => (").append(format(deltas.get(m, 0),6)).append(")").append(System.lineSeparator());
+	private AffineTransform createTransform(Matrix solved, Orientation direction) {
+		
+		double zero = 0d;
+		
+		if (Orientation.X.equals(direction)) {
+			double tx = solved.get(2, 0);
+			double ox = solved.get(1, 0);
+			double sx = solved.get(0, 0);	
+			return new SimpleAffineTransform(tx, zero, sx, zero, ox, zero, zero, zero);
 		}
 		
-		return b.toString();
+		if (Orientation.Y.equals(direction)) {
+			double ty = solved.get(2, 0);
+			double oy = solved.get(1, 0);
+			double sy = solved.get(0, 0);
+			return new SimpleAffineTransform(zero, ty, zero, sy, zero, oy, zero, zero);
+		}
+		
+		double sx = solved.get(0, 0);
+	    double sy = solved.get(1, 0);
+	    double ox = solved.get(2, 0);
+	    double oy = solved.get(3, 0);
+	    double tx = solved.get(4, 0);
+	    double ty = solved.get(5, 0);
+
+		return new SimpleAffineTransform(tx, ty, sx, sy, ox, oy, zero, zero);
 	}
-    
-	private String format(double value) {
-		return format(value, 3);
+
+	private void prepare(Collection<AffineModelEquation> equations, Matrix references, Matrix deltas,
+			Orientation direction) {
+		int row = 0;
+		Iterator<AffineModelEquation> it = equations.iterator();
+		while (it.hasNext()) {
+			row = addEquation(references, deltas, row, it.next(), direction);
+		}
 	}
-	
-	private String format(double value, int digits) {
-		return String.format("%."+digits+"f", value);
+
+	private int addEquation(Matrix references, Matrix deltas, int row, AffineModelEquation eq,
+			Orientation direction) {
+
+		if (Orientation.X.equals(direction)) {
+			references.set(row, 0, eq.getSx());
+			references.set(row, 1, eq.getOx());
+			references.set(row, 2, eq.getTx());
+		}
+		
+		if (Orientation.Y.equals(direction)) {
+			references.set(row, 0, eq.getSy());
+			references.set(row, 1, eq.getOy());
+			references.set(row, 2, eq.getTy());
+		}
+		
+		if (Orientation.XY.equals(direction)) {
+			references.set(row, 0, eq.getSx());
+			references.set(row, 1, eq.getSy());
+			references.set(row, 2, eq.getOx());
+			references.set(row, 3, eq.getOy());
+			references.set(row, 4, eq.getTx());
+			references.set(row, 5, eq.getTy());
+		}
+
+		deltas.set(row, 0, eq.getDeltaValue());
+		row++;
+		
+		return row;
 	}
 
 }

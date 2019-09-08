@@ -22,9 +22,11 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.Orientable;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-final class SimilarityModelEquation {
+final class SimilarityModelEquation implements Orientable {
     
     static Stream<SimilarityModelEquation> from(Displacement d) {
         
@@ -42,11 +44,11 @@ final class SimilarityModelEquation {
     }
     
     static SimilarityModelEquation forX(Displacement d) {
-        return new SimilarityModelEquation(d.getX(), -d.getY(), 1.0, 0.0, d.dX());
+        return new SimilarityModelEquation(d.getX(), -d.getY(), 1.0, 0.0, d.dX(), Orientation.X);
     }
     
     static SimilarityModelEquation forY(Displacement d) {
-        return new SimilarityModelEquation(d.getY(), d.getX(), 0.0, 1.0, d.dY());
+        return new SimilarityModelEquation(d.getY(), d.getX(), 0.0, 1.0, d.dY(), Orientation.Y);
     }
         
     private final double mag;
@@ -59,12 +61,15 @@ final class SimilarityModelEquation {
     
     private final double deltaValue;
     
-    private SimilarityModelEquation(double mag, double rot, double tx, double ty, double delta) {
+    private final Orientation direction;
+    
+    private SimilarityModelEquation(double mag, double rot, double tx, double ty, double delta, Orientation direction) {
         this.mag = mag;
         this.rot = rot;
         this.tx = tx;
         this.ty = ty;
         this.deltaValue = delta;
+        this.direction = direction;
     }
 
     @Override
@@ -91,5 +96,10 @@ final class SimilarityModelEquation {
     double getDeltaValue() {
         return deltaValue;
     }
+
+	@Override
+	public Orientation getOrientation() {
+		return direction;
+	}
        
 }

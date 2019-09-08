@@ -22,10 +22,11 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import net.raumzeitfalle.registration.Direction;
+import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.Orientable;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-final class RigidModelEquation {
+final class RigidModelEquation implements Orientable {
 	
 	public static Stream<RigidModelEquation> from(Displacement d) {
 		
@@ -50,7 +51,7 @@ final class RigidModelEquation {
 		double design = -d.getY();
 		double delta = d.dX();
 		
-		return new RigidModelEquation(xf, yf, design, delta, Direction.X);
+		return new RigidModelEquation(xf, yf, design, delta, Orientation.X);
 	}
 	
 	public static RigidModelEquation forY(Displacement d) {
@@ -61,7 +62,7 @@ final class RigidModelEquation {
 		double design = d.getX();
 		double delta = d.dY();
 		
-		return new RigidModelEquation(xf, yf, design, delta, Direction.Y);
+		return new RigidModelEquation(xf, yf, design, delta, Orientation.Y);
 	}
 	
 	private final double xf;
@@ -72,9 +73,9 @@ final class RigidModelEquation {
 	
 	private final double deltaValue;
 	
-	private final Direction direction;
+	private final Orientation direction;
 	
-	private RigidModelEquation(double xf, double yf, double design, double delta, Direction direction) {
+	private RigidModelEquation(double xf, double yf, double design, double delta, Orientation direction) {
 		this.xf = xf;
 		this.yf = yf;
 		this.designValue = design;
@@ -104,7 +105,7 @@ final class RigidModelEquation {
 		return deltaValue;
 	}
 	
-	public Direction getDirection() {
+	public Orientation getOrientation() {
 		return direction;
 	}
 	

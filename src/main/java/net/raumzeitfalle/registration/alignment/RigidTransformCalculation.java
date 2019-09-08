@@ -57,11 +57,12 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 	@Override
 	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 						
-		Dimension dimension = new Dimension();
+		Dimension<RigidModelEquation> dimension = new Dimension<>();
+		
 		List<RigidModelEquation> equations = t.stream()
 											 .filter(u)
 											 .flatMap(RigidModelEquation::from)
-											 .peek(eq->dimension.accept(eq.getDirection()))
+											 .map(dimension)
 											 .collect(Collectors.toList());
 		
 		if (equations.isEmpty()) {

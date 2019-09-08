@@ -8,11 +8,13 @@ import org.la4j.Matrix;
 import org.la4j.decomposition.QRDecompositor;
 
 import net.raumzeitfalle.registration.Dimension;
+import net.raumzeitfalle.registration.Orientable;
 
 public class RigidBodyLa4JModel implements RigidBodyModel {
 
 	@Override
-	public RigidTransform solve(Collection<RigidModelEquation> equations, Dimension dimension) {
+	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, Dimension<T> dimension) {
+		
 		int n = 3;
 
 		Matrix laRef = org.la4j.Matrix.zero(equations.size(), n);

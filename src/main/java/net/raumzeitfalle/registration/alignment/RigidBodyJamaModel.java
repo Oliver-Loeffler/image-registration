@@ -25,7 +25,8 @@ import java.util.Iterator;
 import Jama.Matrix;
 import Jama.QRDecomposition;
 import net.raumzeitfalle.registration.Dimension;
-import net.raumzeitfalle.registration.Direction;
+import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.Orientable;
 
 /**
  * 
@@ -42,7 +43,7 @@ import net.raumzeitfalle.registration.Direction;
  */
 final class RigidBodyJamaModel implements RigidBodyModel {
 
-	private void prepare(Collection<RigidModelEquation> equations, Matrix references, Matrix deltas, Direction direction) {
+	private void prepare(Collection<RigidModelEquation> equations, Matrix references, Matrix deltas, Orientation direction) {
 		int row = 0;
 		Iterator<RigidModelEquation> it = equations.iterator();
 		while (it.hasNext()) {
@@ -50,19 +51,19 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 		}
 	}
 
-	private int addEquation(Matrix references, Matrix deltas, int row, RigidModelEquation eq, Direction direction) {
+	private int addEquation(Matrix references, Matrix deltas, int row, RigidModelEquation eq, Orientation direction) {
 
-		if (Direction.X.equals(direction)) {
+		if (Orientation.X.equals(direction)) {
 			references.set(row, 0, eq.getXf());
 			references.set(row, 1, eq.getDesignValue());
 		}
 		
-		if (Direction.Y.equals(direction)) {
+		if (Orientation.Y.equals(direction)) {
 			references.set(row, 0, eq.getYf());
 			references.set(row, 1, eq.getDesignValue());
 		}
 		
-		if (Direction.XY.equals(direction)) {
+		if (Orientation.XY.equals(direction)) {
 			references.set(row, 0, eq.getXf());
 			references.set(row, 1, eq.getYf());
 			references.set(row, 2, eq.getDesignValue());
@@ -73,7 +74,7 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 		return row;
 	}
 
-	private RigidTransform solve(Matrix references, Matrix deltas, Direction direction) {
+	private RigidTransform solve(Matrix references, Matrix deltas, Orientation direction) {
 
 		QRDecomposition qr = new QRDecomposition(references);
 		
@@ -84,14 +85,14 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 		return createTransform(solved,direction);
 	}
 
-	private RigidTransform createTransform(Matrix solved, Direction direction) {
+	private RigidTransform createTransform(Matrix solved, Orientation direction) {
 		
-		if (Direction.X.equals(direction)) {
+		if (Orientation.X.equals(direction)) {
 			return SimpleRigidTransform
 					.with(solved.get(0, 0), 0.0, solved.get(1, 0));
 		}
 		
-		if (Direction.Y.equals(direction)) {
+		if (Orientation.Y.equals(direction)) {
 			return SimpleRigidTransform
 					.with(0.0, solved.get(0, 0), solved.get(1, 0));
 		}
@@ -101,23 +102,23 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 	}
 
 	@Override
-	public RigidTransform solve(Collection<RigidModelEquation> equations, Dimension dimension) {
+	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, Dimension<T> dimension) {
+		
 		/* 
 		 * TODO: How to handle situations where the system of equations cannot be
 		 * solved?
 		 * 
 		 */
-
 		int rows = equations.size();
 		int cols = dimension.getDimensions()+1;
 		
 		Matrix references = new Matrix(rows, cols);
 		Matrix deltas = new Matrix(rows, 1);
 
-		Direction direction = dimension.getDirection();
+		Orientation direction = dimension.getDirection();
 		prepare(equations, references, deltas, direction);
 
 		return solve(references, deltas, direction);
 	}
-
+	
 }

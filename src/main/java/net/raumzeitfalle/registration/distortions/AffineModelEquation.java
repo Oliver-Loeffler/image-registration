@@ -22,9 +22,11 @@ package net.raumzeitfalle.registration.distortions;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.Orientable;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public final class AffineModelEquation {
+public final class AffineModelEquation implements Orientable {
     
     public static Stream<AffineModelEquation> from(Displacement d) {
         
@@ -42,11 +44,11 @@ public final class AffineModelEquation {
     }
     
     public static AffineModelEquation forX(Displacement d) {
-        return new AffineModelEquation(d.getX(), 0.0, 0.0, d.getY(), 1.0, 0.0, d.dX());
+        return new AffineModelEquation(d.getX(), 0.0, 0.0, d.getY(), 1.0, 0.0, d.dX(), Orientation.X);
     }
     
     public static AffineModelEquation forY(Displacement d) {
-        return new AffineModelEquation(0.0,     d.getY(), -d.getX(), 0.0, 0.0, 1.0, d.dY());
+        return new AffineModelEquation(0.0, d.getY(), -d.getX(), 0.0, 0.0, 1.0, d.dY(), Orientation.Y);
     }
         
     private final double sx;
@@ -62,8 +64,12 @@ public final class AffineModelEquation {
     private final double ty;
     
     private final double deltaValue;
+
+	private final Orientation direction;
     
-    private AffineModelEquation(double sx, double sy, double ox, double oy, double tx, double ty, double delta) {
+    private AffineModelEquation(double sx, double sy, double ox, double oy,
+    		                    double tx, double ty, double delta, 
+    		                    Orientation direction) {
         this.sx = sx;
         this.sy = sy;
         this.ox = ox;
@@ -71,6 +77,7 @@ public final class AffineModelEquation {
         this.tx = tx;
         this.ty = ty;
         this.deltaValue = delta;
+        this.direction = direction;
         
     }
 
@@ -106,5 +113,10 @@ public final class AffineModelEquation {
     double getDeltaValue() {
         return deltaValue;
     }
+
+	@Override
+	public Orientation getOrientation() {
+		return direction;
+	}
        
 }
