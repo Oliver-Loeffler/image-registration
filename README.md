@@ -62,7 +62,7 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 ## Interfaces
 
-![Interfaces](docs/01_interfaces.png)
+![Interfaces](docs/interfaces.png)
 
 ## Example Code
 
