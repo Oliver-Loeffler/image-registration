@@ -61,10 +61,22 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
     	if (finalEquations.isEmpty())
     		return SkipAffineTransform.centeredAt(0, 0);
 
-        AffineTransform transform = model.solve(finalEquations,dimension);
+        AffineTransform transform = tryCalculation(dimension, finalEquations);
         
         return new AffineTransformBuilder(transform, -translate.getX(), -translate.getY()).build();
 		        						
+	}
+
+	private AffineTransform tryCalculation(Dimension<AffineModelEquation> dimension,
+			List<AffineModelEquation> finalEquations) {
+		try {
+			return model.solve(finalEquations,dimension); 
+		}
+		catch (Exception e) {
+			// Log or consume - or create some side channel
+		}
+		
+		return SkipAffineTransform.centeredAt(0, 0);
 	}
 
 }
