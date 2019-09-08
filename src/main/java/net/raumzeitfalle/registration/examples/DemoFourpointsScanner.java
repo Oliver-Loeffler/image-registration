@@ -54,10 +54,10 @@ public class DemoFourpointsScanner {
 	
 		// STEP 2, perform site selection 
 		SiteSelection selection = SiteSelection
-						.forAlignment(d -> d.isOfType(DisplacementClass.ALIGN))
+						.forAlignment(d -> d.belongsTo(DisplacementClass.ALIGN))
 						.forCalculation(d->true)
 						.build()
-						.remove(d->d.isOfType(DisplacementClass.INFO_ONLY));
+						.remove(d->d.belongsTo(DisplacementClass.INFO_ONLY));
 	
 		// STEP 3, parametrize evaluation model 
 		FirstOrderSetup setup = FirstOrderSetup

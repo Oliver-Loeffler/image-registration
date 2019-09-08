@@ -51,7 +51,7 @@ public class Displacement {
 	 * @return {@link Displacement}
 	 */
 	public static Displacement from(Displacement source, double xd, double yd) {
-		return new Displacement(source.index,source.id, source.x, source.y, xd, yd, source.siteClass);
+		return new Displacement(source.index,source.id, source.x, source.y, xd, yd, source.category);
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class Displacement {
 	private final double dx;
 	private final double dy;
 	
-	private final DisplacementClass siteClass;
+	private final DisplacementClass category;
 	
 	private Displacement(int index, int id, double x, double y, double xd, double yd, DisplacementClass type) {
 		this.index = index;
@@ -164,7 +164,7 @@ public class Displacement {
 		this.dx = xd -x;
 		this.dy = yd -y;
 		
-		this.siteClass = Objects.requireNonNull(type, "type must not be null");
+		this.category = Objects.requireNonNull(type, "type must not be null");
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class Displacement {
      * </ul>
 	 */
 	public Displacement moveBy(double offsetX, double offsetY) {
-		return new Displacement(index, id, offsetX + x, offsetY + y, offsetX + xd, offsetY + yd, siteClass);
+		return new Displacement(index, id, offsetX + x, offsetY + y, offsetX + xd, offsetY + yd, category);
 	}
 	
 	/**
@@ -197,7 +197,7 @@ public class Displacement {
 	 * </ul>
 	 */
 	public Displacement correctBy(double dx, double dy) {
-		return new Displacement(index, id, x, y, xd - dx, yd - dy, siteClass);
+		return new Displacement(index, id, x, y, xd - dx, yd - dy, category);
 	}
 
 	public int getIndex() {
@@ -260,13 +260,13 @@ public class Displacement {
 	 * Provides a category description for each {@link Displacement}. 
 	 * @return {@link DisplacementClass}
 	 */
-	public DisplacementClass getType() {
-		return siteClass;
+	public DisplacementClass getDisplacementClass() {
+		return category;
 	}
 
 	@Override
 	public String toString() {
-		return "Displacement [type="+siteClass.name()+ " id=" + id + " x=" + x + ", y=" + y + ", xd=" + xd + ", yd=" + yd + ", "
+		return "Displacement [type="+category.name()+ " id=" + id + " x=" + x + ", y=" + y + ", xd=" + xd + ", yd=" + yd + ", "
 				+ System.lineSeparator() + "\t\tdx=" + dx + ", dy=" + dy + "]";
 	}
 
@@ -275,8 +275,8 @@ public class Displacement {
 	 * @param other {@link DisplacementClass} to be tested for
 	 * @return true, when this {@link Displacement} belongs to the provided {@link DisplacementClass}.
 	 */
-	public boolean isOfType(DisplacementClass other) {
-		return this.siteClass.equals(other);
+	public boolean belongsTo(DisplacementClass other) {
+		return this.category.equals(other);
 	}
 
 }
