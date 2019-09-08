@@ -19,6 +19,8 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
+import java.util.Locale;
+
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -66,7 +68,7 @@ public final class SimpleRigidTransform implements RigidTransform {
 	}
 	
 	private String format(double value) {
-		return String.format("%10.7f", value);
+		return String.format(Locale.US, "%10.7f", value);
 	}
 
 	@Override

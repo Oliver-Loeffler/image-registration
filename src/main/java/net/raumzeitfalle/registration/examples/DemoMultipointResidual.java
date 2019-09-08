@@ -20,17 +20,19 @@
 package net.raumzeitfalle.registration.examples;
 
 import net.raumzeitfalle.registration.firstorder.Alignments;
+import net.raumzeitfalle.registration.firstorder.Compensations;
 
-public class DemoMultipointOneDimensional {
+public class DemoMultipointResidual {
 
 	public static void main(String ...args) {
 		
-		Demo demo = new Demo("DEMO: Multipoint alignment - one-dimensional data", 
-				             "DemoOneDimensionXonly.csv");
+		Demo demo = new Demo("DEMO: Multipoint", "Demo-4Point.csv");
 		
 		demo.withAlignment(Alignments.ALL)
 			.selectForAlignment(d->true)
-			.selectForCalculation(d->true);
+			.selectForCalculation(d->true)
+			.selectForRemoval(d->false)
+			.withCompensations(Compensations.SCALE, Compensations.ORTHO);
 		
 		demo.run();
 
