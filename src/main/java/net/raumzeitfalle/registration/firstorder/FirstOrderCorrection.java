@@ -56,7 +56,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		}
 		
 		/*
-		 * STEP 2 - Calculate the 6-parameter model (FirstOrder) and parametrize according to corrections defined in setup
+		 * STEP 2 - Calculate the 6-parameter model (FirstOrder) and parameterize according to corrections defined in setup
 		 */
 		AffineTransform calculatedFirstOrder = new CenteredAffineTransformCalculation().apply(displacements, firstOrderSelector);
 		AffineTransform firstOrder = updateFirstOrderForCompensation(setup.getCompensations(),calculatedFirstOrder);
@@ -70,7 +70,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		 * When no alignment is requested, then the work is done here. The result will be returned then.
 		 */
 		if (setup.getAlignment().equals(Alignments.UNALIGNED)) {
-			return new FirstOrderResult(alignment, firstOrder, correctedResults);
+			return new FirstOrderResult(alignment, calculatedFirstOrder, correctedResults);
 		}
 		
 		/*
