@@ -16,14 +16,14 @@ Control point or feature based methods have only limited scope of use in medical
 
 ## How to start?
 
-The API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
-Version 0.0.1 is available on Maven Central using following snippet:
+The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
+Version 0.0.2 is available on Maven Central using following snippet:
 
 ```xml
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>image-registration</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
