@@ -1,0 +1,28 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/Oliver-Loeffler/plantuml-style-c4/master/core.puml
+left to right direction
+
+interface Orientable {
++getOrientation():Orientation
++matches(Orientation):boolean
+}
+
+interface RigidBodyModel {
+ +solve(Collection<RigidModelEquation>, Dimension<T extends Orientable>):RigidTransform 
+}
+
+interface RigidTransform
+
+interface AffineModel {
+ +solve(Collection<AffineModelEquation>, Dimension<T extends Orientable>): AffineTransform 
+}
+
+interface AffineTransform
+
+
+
+RigidBodyModel ...> RigidTransform
+RigidBodyModel ...> Orientable
+AffineModel    ...> AffineTransform
+AffineModel    ...> Orientable
+@enduml
