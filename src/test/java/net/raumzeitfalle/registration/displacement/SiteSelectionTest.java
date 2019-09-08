@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +41,45 @@ public class SiteSelectionTest {
 		long forCalculation = displacments.stream().filter(selection.getCalculation()).count();
 		assertEquals(3, forCalculation);
 		
+	}
+	
+	@Test
+	void alignOn() {
+		
+		AlignmentSelection alignSelection = SiteSelection.alignOn(Category.INFO_ONLY);
+		SiteSelection siteSelection = alignSelection.build();
+		
+		assertEquals(alignSelection.get(), siteSelection.getAlignment());
+		
+		List<Displacement> displacments = createDisplacementsList();
+		
+		long forAlignment = displacments.stream().filter(siteSelection.getAlignment()).count();
+		assertEquals(1, forAlignment);
+		
+		long forCalculation = displacments.stream().filter(siteSelection.getCalculation()).count();
+		assertEquals(1, forCalculation);
+		
+		
+	}
+	
+	@Test
+	void remove() {
+		
+		Predicate<Displacement> toBeRemoved = d->d.belongsTo(Category.ALIGN)
+				   || d.belongsTo(Category.INFO_ONLY);
+		
+		SiteSelection siteSelection = SiteSelection.multipoint().remove(toBeRemoved);
+		
+		List<Displacement> displacments = createDisplacementsList();
+		
+		long forAlignment = displacments.stream().filter(siteSelection.getAlignment()).count();
+		assertEquals(3, forAlignment);
+		
+		long forRemoval = displacments.stream().filter(siteSelection.getSitesToRemove()).count();
+		assertEquals(2, forRemoval);
+		
+		long forCalculation = displacments.stream().filter(siteSelection.getCalculation()).count();
+		assertEquals(1, forCalculation);
 	}
 
 	private List<Displacement> createDisplacementsList() {
