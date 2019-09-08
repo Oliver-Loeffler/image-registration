@@ -136,8 +136,11 @@ There are some demos available, how this library is supposed to be used:
 * `net/raumzeitfalle/registration/examples/DemoFourpointsScanner.java`
 * `net/raumzeitfalle/registration/examples/DemoFourpointsStandard.java`
 * `net/raumzeitfalle/registration/examples/DemoMultipoint.java`
+* `net/raumzeitfalle/registration/examples/DemoMultipointMagnification.java`
+* `net/raumzeitfalle/registration/examples/DemoMultipointOneDimensional.java` (not yet validated)
+* `net/raumzeitfalle/registration/examples/DemoMultipointResidual.java`
 
-* The example for 1D evaluations does not yet work as it is not yet implemented.
+The class `net.raumzeitfalle.registration.examples.Demo` is used to define all examples. This template allows it, to configure and parameterize the evaluation process as needed. 
 
 The following example code shows, how alignment on 4 selected locations works, with 
 info only locations being removed. First order (scale/ortho) will be calculated on 
