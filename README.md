@@ -81,6 +81,11 @@ One idea and goal is, to make the underlying transformation models exchangeable.
 the `RigidBodyModel` and the `AffineModel` interfaces exist. The idea is to make the 
 actual calculation algorithm exchangeable whereas the code used in an applications 
 shall remain unchanged.
+The models are technically bi-functions which consume a `Collection` of equation objects 
+(`<T extends Orientable>`) and a `Dimension` instance. The `Dimension` instance holds the
+information how many X,Y locations exist and how the data is oriented (e.g. 1D one-dimensional, 
+either X or Y or 2D two-dimensional X and Y). Using the equations and the dimensional 
+information any kind or matrix based system can be configured.
 
 ![Models and Transforms Interfaces](docs/interfaces_models_and_transforms.png)
 
