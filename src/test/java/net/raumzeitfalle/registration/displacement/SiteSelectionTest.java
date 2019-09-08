@@ -40,9 +40,6 @@ public class SiteSelectionTest {
 		long forCalculation = displacments.stream().filter(selection.getCalculation()).count();
 		assertEquals(3, forCalculation);
 		
-		long forFirstOrderCalc = displacments.stream().filter(selection.getFirstOrderSelection()).count();
-		assertEquals(3, forFirstOrderCalc);
-		
 	}
 
 	private List<Displacement> createDisplacementsList() {
