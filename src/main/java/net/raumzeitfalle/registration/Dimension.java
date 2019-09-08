@@ -41,6 +41,18 @@ public class Dimension implements Consumer<Direction> {
 	public String toString() {
 		return String.format("Dimension [%s (x=%s,y=%s)]", getDirection(), xCount, yCount);
 	}
+
+	public int getDimensions() {
+		if (xCount == 0 && yCount == 0) {
+			return 0;
+		}
+		
+		if (xCount > 0 && yCount > 0) {
+			return 2;
+		}
+		
+		return 1;
+	}
 	
 	
 

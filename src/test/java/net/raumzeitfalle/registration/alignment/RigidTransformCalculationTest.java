@@ -25,12 +25,12 @@ class RigidTransformCalculationTest {
 	@Test
 	void zeroTransform() {
 		
-		List<Displacement> undisplaced = new ArrayList<>(4);
+		List<Displacement> undisplaced = new ArrayList<>(5);
 		undisplaced.add(Displacement.at(0, 0, 1000, 1000, 1000, 1000));
 		undisplaced.add(Displacement.at(1, 1, 1000, 9000, 1000, 9000));
 		undisplaced.add(Displacement.at(2, 2, 9000, 9000, 9000, 9000));
 		undisplaced.add(Displacement.at(3, 3, 9000, 1000, 9000, 1000));
-		undisplaced.add(Displacement.at(3, 3, 9000, 1000, Double.NaN, Double.NaN));
+		undisplaced.add(Displacement.at(4, 4, 9000, 1000, Double.NaN, Double.NaN));
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
@@ -182,6 +182,44 @@ class RigidTransformCalculationTest {
 		assertEquals( 0.0, result.getTranslationY(), TOLERANCE);
 		assertEquals( 0.0, result.getRotation(),     TOLERANCE);
 	
+	}
+	
+	@Test
+	void translationXonly1D() {
+		
+		List<Displacement> undisplaced = new ArrayList<>(4);
+		undisplaced.add(Displacement.at(0, 0, 1000, 1000, 1010, Double.NaN));
+		undisplaced.add(Displacement.at(1, 1, 1000, 9000, 1010, Double.NaN));
+		undisplaced.add(Displacement.at(2, 2, 9000, 9000, 9010, Double.NaN));
+		undisplaced.add(Displacement.at(3, 3, 9000, 1000, 9010, Double.NaN));
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		
+		assertEquals(  10.0, result.getTranslationX(), TOLERANCE);
+		assertEquals(   0.0, result.getTranslationY(), TOLERANCE);
+		assertEquals(   0.0, result.getRotation(),     TOLERANCE);
+		
+	}
+	
+	@Test
+	void translationYonly1D() {
+		
+		List<Displacement> undisplaced = new ArrayList<>(4);
+		undisplaced.add(Displacement.at(0, 0, 1000, 1000, Double.NaN, 1000));
+		undisplaced.add(Displacement.at(1, 1, 1000, 9000, Double.NaN, 9100));
+		undisplaced.add(Displacement.at(2, 2, 9000, 9000, Double.NaN, 9100));
+		undisplaced.add(Displacement.at(3, 3, 9000, 1000, Double.NaN, 1000));
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		
+		assertEquals(  0.0, result.getTranslationX(), TOLERANCE);
+		assertEquals( 50.0, result.getTranslationY(), TOLERANCE);
+		assertEquals(  0.0, result.getRotation(),     TOLERANCE);
+		
 	}
 
 }
