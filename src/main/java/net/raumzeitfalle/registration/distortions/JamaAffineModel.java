@@ -79,7 +79,7 @@ final class JamaAffineModel implements AffineModel {
 	}
     
     @Override
-    public AffineTransform solve() {
+    public SimpleAffineTransform solve() {
     	
     	 Matrix distortion = performCalculations();
          
@@ -90,7 +90,7 @@ final class JamaAffineModel implements AffineModel {
          double transx = distortion.get(4, 0);
          double transy = distortion.get(5, 0);
          
-         return new AffineTransform(transx, transy, scalex, scaley, orthox, orthoy, 0d, 0d);
+         return new SimpleAffineTransform(transx, transy, scalex, scaley, orthox, orthoy, 0d, 0d);
 	}
 
 	@Override

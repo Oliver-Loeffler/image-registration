@@ -29,6 +29,7 @@ import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.alignment.RigidTransformCalculation;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.SiteSelection;
+import net.raumzeitfalle.registration.distortions.SimpleAffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformBuilder;
 import net.raumzeitfalle.registration.distortions.CenteredAffineTransformCalculation;
@@ -59,7 +60,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		 */
 		AffineTransform calculatedFirstOrder = new CenteredAffineTransformCalculation().apply(displacements, firstOrderSelector);
 		AffineTransform firstOrder = updateFirstOrderForCompensation(setup.getCompensations(),calculatedFirstOrder);
-		
+	
 		/*
 		 * STEP 3 - Apply all requested compensations
 		 */
@@ -82,25 +83,26 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 
 		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
 		AffineTransform finalFirstOrder = new CenteredAffineTransformCalculation()
-											.apply(alignedResults, siteSelection.getCalculation())
-											.centerAt(0.0, 0.0);
+											.apply(alignedResults, siteSelection.getCalculation());
 		
-		return new FirstOrderResult(alignment, finalFirstOrder, alignedResults);
+		AffineTransform centeredFirstOrder = new AffineTransformBuilder(finalFirstOrder, 0, 0).build();
+		
+		return new FirstOrderResult(alignment, centeredFirstOrder, alignedResults);
 	}
 
 	
 	/**
 	 * In order to correct a certain transform, this method ensures that depending on given set of compensations,
-	 * the proper values are selected and set in a given {@link AffineTransform}.
+	 * the proper values are selected and set in a given {@link SimpleAffineTransform}.
 	 * 
 	 * @param compensations {@link Set}t of {@link Compensations} to apply.
 	 * @param transform Calculated {@link AffineTransform}
-	 * @return {@link AffineTransform} prepared on order to perform requested {@link Compensations}
+	 * @return {@link SimpleAffineTransform} prepared on order to perform requested {@link Compensations}
 	 */
 	private AffineTransform updateFirstOrderForCompensation(Set<Compensations> compensations,
 			AffineTransform transform) {
 		
-		AffineTransformBuilder transformBuilder = new AffineTransformBuilder(transform.centerAt(0.0, 0.0));
+		AffineTransformBuilder transformBuilder = new AffineTransformBuilder(transform, 0.0, 0.0);
 		
 		if (compensations.isEmpty()) {
 			transformBuilder.disableAll();

@@ -105,9 +105,12 @@ public final class DisplacementSummary {
 			this.sd3y = Double.NaN;	
 		}
 
-		RigidTransform alignment = new RigidTransformCalculation().apply(displacements, calculationSelection);
+		RigidTransform alignment = new RigidTransformCalculation()
+				.apply(displacements, calculationSelection);
 		
-		AffineTransform firstOrder = new CenteredAffineTransformCalculation().apply(displacements, calculationSelection);
+		AffineTransform firstOrder = new CenteredAffineTransformCalculation()
+				.apply(displacements, calculationSelection);
+				
 		
 		this.rotation = alignment.getRotation();		
 		this.scalex = firstOrder.getScaleX();

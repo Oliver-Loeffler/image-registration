@@ -19,9 +19,10 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
+import net.raumzeitfalle.registration.SkipTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public final class SkipRigidTransform implements RigidTransform {
+public final class SkipRigidTransform implements RigidTransform, SkipTransform {
 
 	@Override
 	public double getTranslationX() { return 0.0; }
@@ -35,11 +36,6 @@ public final class SkipRigidTransform implements RigidTransform {
 	@Override
 	public Displacement apply(Displacement t) {
 		return t;
-	}
-	
-	@Override
-	public boolean skip() {
-		return true;
 	}
 
 }

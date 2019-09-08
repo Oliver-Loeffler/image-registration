@@ -42,9 +42,10 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
 									                .collect(Collectors.toList());
 
         JamaAffineModel distortionModel = new JamaAffineModel(finalEquations);
-        AffineTransform transform = distortionModel.solve();
+        SimpleAffineTransform transform = distortionModel.solve();
+        
+        return new AffineTransformBuilder(transform, meanx, meany).build();
 		        						
-        return transform.centerAt(meanx, meany);
 	}
 
 }

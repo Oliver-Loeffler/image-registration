@@ -60,6 +60,10 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 * Add graphical examples of first order distortions.
 
+## Interfaces
+
+![Interfaces](docs/01_interfaces.png)
+
 ## Example Code
 
 There are some demos available, how this library is supposed to be used:

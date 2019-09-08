@@ -1,0 +1,40 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/Oliver-Loeffler/plantuml-style-c4/master/core.puml
+left to right direction
+
+interface Function<Displacement> {
+ +apply(Displacement) : Displacement
+}
+
+interface Transform {
+ +skip() : boolean
+}
+
+interface SkipTransform {
+ +default skip() : true
+}
+
+interface RigidTransform {
+ +getTranslationX()  : double
+ +getTranslationY()  : double
+ +getRotation()      : double
+}
+
+interface AffineTransform {
+ +getTranslationX() : double
+ +getTranslationY() : double
+ +getScaleX() : double
+ +getScaleY() : double
+ +getMagnification() : double
+ +getOrthoX() : double
+ +getOrthoY() : double
+ +getOrtho() : double
+ +getCenterX() : double
+ +getCenterY() : double
+}
+
+AffineTransform -down-|> Transform
+RigidTransform -down-|> Transform
+SkipTransform-down-|> Transform
+Transform-down-|> Function
+@enduml

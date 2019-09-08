@@ -19,28 +19,63 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
+import net.raumzeitfalle.registration.SkipTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
- * The {@link SkipAffineTransform} is ised in cases where an {@link AffineTransform} is integrated into a processing pipeline but no modification to given data is expeced as all affine transform parameters have been set to zero (0.0).
+ * The {@link SkipAffineTransform} is ised in cases where an {@link SimpleAffineTransform} is integrated into a processing pipeline but no modification to given data is expeced as all affine transform parameters have been set to zero (0.0).
  * 
  * @author oliver
  *
  */
-public final class SkipAffineTransform extends AffineTransform {
-
-	public SkipAffineTransform() {
-		super(0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d);
+public final class SkipAffineTransform implements AffineTransform, SkipTransform {
+	
+	protected static AffineTransform centeredAt(double centerX, double centerY) {
+		return new SkipAffineTransform(centerX, centerY);
 	}
+	
+	private final double cx;
+	
+	private final double cy;
 
+	private SkipAffineTransform(double centerX, double centerY) {
+		this.cx = centerX;
+		this.cy = centerY;
+	}
+	
 	@Override
 	public Displacement apply(Displacement t) {
 		return t;
 	}
-	
+
 	@Override
-	public boolean skip() {
-		return true;
-	}
+	public double getTranslationX() { return 0; }
+
+	@Override
+	public double getTranslationY() { return 0; }
+
+	@Override
+	public double getScaleX() { return 0; }
+
+	@Override
+	public double getScaleY() { return 0; }
+
+	@Override
+	public double getMagnification() { return 0; }
+
+	@Override
+	public double getOrthoX() { return 0; }
+
+	@Override
+	public double getOrthoY() { return 0; }
+
+	@Override
+	public double getOrtho() { return 0; }
+
+	@Override
+	public double getCenterX() { return cx; }
+
+	@Override
+	public double getCenterY() { return cy; }
 
 }

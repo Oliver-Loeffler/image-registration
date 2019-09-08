@@ -34,7 +34,13 @@ public class AffineTransformBuilder {
 	private double orthoX;
 	private double orthoY;
 	
+	private boolean skip;
+	
 	public AffineTransformBuilder(AffineTransform firstOrder) {
+		this(firstOrder, firstOrder.getCenterX(), firstOrder.getCenterY());
+	}
+	
+	public AffineTransformBuilder(AffineTransform firstOrder, double centerX, double centerY) {
 		 this.scaleX = firstOrder.getScaleX();
 	     this.scaleY = firstOrder.getScaleY();
 	     this.magnification = firstOrder.getMagnification();
@@ -45,22 +51,30 @@ public class AffineTransformBuilder {
 	     this.tx = firstOrder.getTranslationX();
 	     this.ty = firstOrder.getTranslationY();
 	     
-	     this.cx = firstOrder.getCenterX();
-	     this.cy = firstOrder.getCenterY();
+	     this.cx = centerX;
+	     this.cy = centerY;
+	     
+	     this.skip = firstOrder.skip();
 	}
 
 	/**
-	 * Creates the final {@link AffineTransform} function. In cases where ortho and
+	 * Creates the final {@link SimpleAffineTransform} function. In cases where ortho and
 	 * scale parameters have been set to zero, a {@link SkipAffineTransform} is
 	 * returned.
 	 * 
 	 * @return {@link AffineTransform} with desired settings
 	 */
 	public AffineTransform build() {
-		if (scaleX == 0.0 && scaleY == 0.0 && orthoX == 0.0 && orthoY == 0.0) {
-			return new SkipAffineTransform();
+		
+		if (skip) {
+			return SkipAffineTransform.centeredAt(cx, cy);
 		}
-		return new AffineTransform(tx, ty, scaleX, scaleY, orthoX, orthoY, cx, cy);
+		
+		if (scaleX == 0.0 && scaleY == 0.0 && orthoX == 0.0 && orthoY == 0.0) {
+			return SkipAffineTransform.centeredAt(cx, cy);
+		}
+		
+		return new SimpleAffineTransform(tx, ty, scaleX, scaleY, orthoX, orthoY, cx, cy);
 	}
 
 	public AffineTransformBuilder disableOrthoXY() {
