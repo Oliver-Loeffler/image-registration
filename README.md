@@ -62,7 +62,25 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 ## Interfaces
 
+### Transforms
+
+Transforms are used to manipulate displacement elements. Depending on the model used, 
+there may exist different transform types and implementations. Each transform is a 
+`Function` which, applied to a `Displacement`, will return a `Displacement`. There 
+are currently two base transforms, the `RigidTransform` and the `AffineTransform`. 
+When transforms are parameterized in a way that there will be actually no change to 
+the displacement data, then in some cases a `SkipTransform` might be created and used. 
+A `SkipTransform` must not perform any calculations, instead it must pass through the 
+given data without any modifications.
+
 ![Transforms Interfaces](docs/interfaces.png)
+
+### Models used for Transforms
+
+One idea and goal is, to make the underlying transformation models exchangeable. Therefore 
+the `RigidBodyModel` and the `AffineModel` interfaces exist. The idea is to make the 
+actual calculation algorithm exchangeable whereas the code used in an applications 
+shall remain unchanged.
 
 ![Models and Transforms Interfaces](docs/interfaces_models_and_transforms.png)
 
