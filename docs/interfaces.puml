@@ -2,12 +2,12 @@
 !includeurl https://raw.githubusercontent.com/Oliver-Loeffler/plantuml-style-c4/master/core.puml
 left to right direction
 
-interface Function<Displacement> {
+interface Function<Displacement,Displacement> {
  +apply(Displacement) : Displacement
 }
 
 interface Transform {
- +skip() : boolean
+ +default skip() : false
 }
 
 interface SkipTransform {
