@@ -107,18 +107,18 @@ class DisplacementSummaryTest {
 		classUnderTest = DisplacementSummary.over(getRotated(), d->true);
 		
 		String text = classUnderTest.toString();
-		
-		String expected = "\n" + 
-				"DisplacementSummary\n" + 
-				"Summary			X		Y		ISO\n" + 
-				"Mean		1000.00000	-500.00000\n" + 
-				"3Sigma		2658041.46653	2802210.01652\n" + 
-				"Min		-999000.00000	-1100500.00000\n" + 
-				"Max		1011000.00000	1099500.00000\n" + 
-				"Scales:		-297893218.81345	-357175653.46677	-327534436.14011\n" + 
-				"Orthos:		-707106781.18655	-642824346.53323	64282434.65332\n" + 
-				"Rotation:					671911421.03699\n" + 
-				"Sites		4		4\n" + 
+		String cr = System.lineSeparator(); 
+		String expected = cr +
+				"DisplacementSummary" + cr + 
+				"Summary			X		Y		ISO" + cr +
+				"Mean		1000.00000	-500.00000" + cr +
+				"3Sigma		2658041.46653	2802210.01652" + cr +
+				"Min		-999000.00000	-1100500.00000" + cr +
+				"Max		1011000.00000	1099500.00000" + cr +
+				"Scales:		-297893218.81345	-357175653.46677	-327534436.14011" + cr +
+				"Orthos:		-707106781.18655	-642824346.53323	64282434.65332" + cr + 
+				"Rotation:					671911421.03699" + cr + 
+				"Sites		4		4" + cr + 
 				"";
 		
 		assertEquals(expected,text);
@@ -130,18 +130,18 @@ class DisplacementSummaryTest {
 		classUnderTest = DisplacementSummary.over(Collections.emptyList(), d->true);
 		
 		String text = classUnderTest.toString();
-		
-		String expected = "\n" + 
-				"DisplacementSummary\n" + 
-				"Summary			X		Y		ISO\n" + 
-				"Mean		   0.00000	   0.00000\n" + 
-				"3Sigma		       NaN	       NaN\n" + 
-				"Min		  Infinity	  Infinity\n" + 
-				"Max		 -Infinity	 -Infinity\n" + 
-				"Scales:		   0.00000	   0.00000	   0.00000\n" + 
-				"Orthos:		   0.00000	   0.00000	   0.00000\n" + 
-				"Rotation:					   0.00000\n" + 
-				"Sites		0		0\n" + 
+		String cr = System.lineSeparator(); 
+		String expected = cr + 
+				"DisplacementSummary" + cr + 
+				"Summary			X		Y		ISO" + cr + 
+				"Mean		   0.00000	   0.00000" + cr +
+				"3Sigma		       NaN	       NaN" + cr + 
+				"Min		  Infinity	  Infinity" + cr +
+				"Max		 -Infinity	 -Infinity" + cr + 
+				"Scales:		   0.00000	   0.00000	   0.00000" + cr + 
+				"Orthos:		   0.00000	   0.00000	   0.00000" + cr +
+				"Rotation:					   0.00000" + cr + 
+				"Sites		0		0" + cr + 
 				"";
 		
 		assertEquals(expected,text);

@@ -174,7 +174,7 @@ class DisplacementTest {
 	void toStringMethod() {
 		classUnderTest = Displacement.at(0, 0, 1000, 1000, 1010,  990);
 		
-		assertEquals("Displacement [type=REG id=0 x=1000.0, y=1000.0, xd=1010.0, yd=990.0, \n" + 
+		assertEquals("Displacement [type=REG id=0 x=1000.0, y=1000.0, xd=1010.0, yd=990.0, " + System.lineSeparator()+ 
 				"\t\tdx=10.0, dy=-10.0]", classUnderTest.toString());
 	}
 
