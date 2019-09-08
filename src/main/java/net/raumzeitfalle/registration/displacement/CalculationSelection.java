@@ -51,6 +51,30 @@ public class CalculationSelection {
 		this.alignment = alignmentSelection;
 		this.calculation = positionalCalculationSelection;
 	}
+	
+	/**
+	 * Builds a new {@link SiteSelection} instance, using the given {@link AlignmentSelection} and this {@link CalculationSelection} while removing later on all {@link Displacement} instances of the given {@link Category}.
+	 * {@link SiteSelection} instances are immutable.
+	 * 
+	 * @param categoryToRemove {@link Category} All displacements of the given category will be removed.
+	 * 
+	 * @return {@link SiteSelection}
+	 */
+	public SiteSelection remove(Category categoryToRemove) {
+		return new SiteSelection(alignment.get(), calculation, d->d.belongsTo(categoryToRemove));
+	}
+	
+	/**
+	 * Builds a new {@link SiteSelection} instance, using the given {@link AlignmentSelection} and this {@link CalculationSelection}.
+	 * {@link SiteSelection} instances are immutable.
+	 * 
+	 * @param removalSelector {@link Predicate} to match {@link Displacement} instances which shall be removed.
+	 * 
+	 * @return {@link SiteSelection}
+	 */
+	public SiteSelection remove(Predicate<Displacement> toBeRemoved) {
+		return new SiteSelection(alignment.get(), calculation, toBeRemoved);
+	}
 
 	/**
 	 * Builds a new {@link SiteSelection} instances, whereas {@link SiteSelection} allows it to futher specify {@link Predicate} instances to select {@link Displacement} instances for removal.
