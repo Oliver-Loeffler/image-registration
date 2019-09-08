@@ -102,6 +102,17 @@ public class Displacement {
 	}
 	
 	/**
+	 * Creates a statistical summary for all elements in the given collection of {@link Displacement} instances.
+	 * For both axes (X,Y) descriptive statistics such as average (mean), min, max, 3Sigma etc. are provided.
+	 * 
+	 * @param t Given {@link Collection}ollection of {@link Displacement} items.
+	 * @return {@link DisplacementSummary} Table with descriptive statistics of positionals, alignment details (translation, rotation) and and first order systematics (scaling and shear aka. non-orthogonality).
+	 */
+	public static DisplacementSummary summarize(Collection<Displacement> t) {
+		return DisplacementSummary.over(t, d->true);
+	}
+	
+	/**
 	 * Creates a statistical summary for the given collection of {@link Displacement} instances.
 	 * For both axes (X,Y) descriptive statistics such as average (mean), min, max, 3Sigma etc. are provided.
 	 * 
