@@ -77,7 +77,7 @@ public class Demo implements Runnable {
 		SiteSelection selection = SiteSelection
 						.forAlignment(alignmentSelector)
 						.forCalculation(calculationSelector)
-						.remove(removalSelector);
+						.forRemoval(removalSelector);
 		
 		// STEP 3 
 		FirstOrderSetup setup = FirstOrderSetup
