@@ -3,7 +3,7 @@
 left to right direction
 
 interface Function<Displacement,Displacement> {
- +apply(Displacement) : Displacement
+ +apply(Displacement):Displacement
 }
 
 interface Transform {
@@ -15,9 +15,9 @@ interface SkipTransform {
 }
 
 interface RigidTransform {
- +getTranslationX()  : double
- +getTranslationY()  : double
- +getRotation()      : double
+ +getTranslationX() : double
+ +getTranslationY() : double
+ +getRotation() : double
 }
 
 interface AffineTransform {
