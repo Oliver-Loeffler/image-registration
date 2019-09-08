@@ -19,11 +19,11 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public final class TranslateFunction implements Function<Displacement, Displacement> {
+public final class TranslateFunction implements UnaryOperator<Displacement> {
 	
 	private final double x;
 	

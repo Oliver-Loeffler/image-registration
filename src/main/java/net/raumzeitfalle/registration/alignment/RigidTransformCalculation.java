@@ -21,6 +21,7 @@ package net.raumzeitfalle.registration.alignment;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -38,8 +39,16 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  */
 public final class RigidTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, RigidTransform>{
 	
-	private final RigidBodyModel model = new RigidBodyJamaModel();
+	private final RigidBodyModel model;
 	
+	public RigidTransformCalculation() {
+		this(new RigidBodyJamaModel());
+	}
+
+	public RigidTransformCalculation(RigidBodyModel model) {
+		this.model = Objects.requireNonNull(model, "The used model for calculation must not be null (RigidBodyModel).");
+	}
+
 	/**
 	 * Calculates the alignment parameters (translation<sub>X</sub>, translation<sub>Y</sub> and rotation) for the given collection of displacements.
 	 * When no displacements are left after filtering with the given predicate, then the {@link SkipRigidTransform} is returned. Otherwise the results is returned as {@link SimpleRigidTransform}.

@@ -20,9 +20,9 @@
 package net.raumzeitfalle.registration;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
-public class Dimension<T extends Orientable> implements Consumer<Orientable>, Function<T,T> {
+public class Dimension<T extends Orientable> implements Consumer<Orientable>, UnaryOperator<T> {
 
 	private int xCount = 0;
 	
