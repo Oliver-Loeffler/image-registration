@@ -115,13 +115,13 @@ final class JamaAffineModel implements AffineModel {
 
 		if (Orientation.X.equals(direction)) {
 			references.set(row, 0, eq.getSx());
-			references.set(row, 1, eq.getOx());
+			references.set(row, 1, eq.getOy());
 			references.set(row, 2, eq.getTx());
 		}
 		
 		if (Orientation.Y.equals(direction)) {
 			references.set(row, 0, eq.getSy());
-			references.set(row, 1, eq.getOy());
+			references.set(row, 1, eq.getOx());
 			references.set(row, 2, eq.getTy());
 		}
 		
