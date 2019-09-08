@@ -21,6 +21,7 @@ package net.raumzeitfalle.registration.distortions;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -31,6 +32,16 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class CenteredAffineTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform> {
 
+	private final AffineModel model;
+	
+	public CenteredAffineTransformCalculation() {
+		this(new JamaAffineModel());
+	}
+	
+	public CenteredAffineTransformCalculation(AffineModel model) {
+		this.model = Objects.requireNonNull(model, "The used model for calculation must not be null (AffineModel).");
+	}
+	
 	@Override
 	public AffineTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 
@@ -42,12 +53,10 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
     												.filter(u)
     												.map(translate)
 									                .flatMap(AffineModelEquation::from)
-									                .peek(dimension)
+									                .map(dimension)
 									                .collect(Collectors.toList());
 
-        JamaAffineModel distortionModel = new JamaAffineModel();
-      
-        AffineTransform transform = distortionModel.solve(finalEquations,dimension);
+        AffineTransform transform = model.solve(finalEquations,dimension);
         
         return new AffineTransformBuilder(transform, -translate.getX(), -translate.getY()).build();
 		        						

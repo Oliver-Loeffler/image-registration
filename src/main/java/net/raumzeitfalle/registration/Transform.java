@@ -21,6 +21,7 @@ package net.raumzeitfalle.registration;
 
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
@@ -36,7 +37,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public interface Transform extends Function<Displacement,Displacement> {
+public interface Transform extends UnaryOperator<Displacement> {
 	
 	/**
 	 * When the relevant transform parameters (i.e. rotation, translation-x and y) are set to 0.0,
