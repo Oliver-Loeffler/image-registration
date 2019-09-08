@@ -25,6 +25,7 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import net.raumzeitfalle.registration.Dimension;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -56,23 +57,22 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 	@Override
 	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 						
-		
+		Dimension dimension = new Dimension();
 		List<RigidModelEquation> equations = t.stream()
 											 .filter(u)
 											 .flatMap(RigidModelEquation::from)
+											 .peek(eq->dimension.accept(eq.getDirection()))
 											 .collect(Collectors.toList());
 		
 		if (equations.isEmpty()) {
 			return continueUnaligned();
 		}
 		
-		return model.solve(equations);
+		return model.solve(equations, dimension);
 	}
 
 	private RigidTransform continueUnaligned() {
 		return new SkipRigidTransform();
 	}
-
 	
-
 }

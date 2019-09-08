@@ -22,6 +22,7 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import net.raumzeitfalle.registration.Direction;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 final class RigidModelEquation {
@@ -49,7 +50,7 @@ final class RigidModelEquation {
 		double design = -d.getY();
 		double delta = d.dX();
 		
-		return new RigidModelEquation(xf, yf, design, delta);
+		return new RigidModelEquation(xf, yf, design, delta, Direction.X);
 	}
 	
 	public static RigidModelEquation forY(Displacement d) {
@@ -60,7 +61,7 @@ final class RigidModelEquation {
 		double design = d.getX();
 		double delta = d.dY();
 		
-		return new RigidModelEquation(xf, yf, design, delta);
+		return new RigidModelEquation(xf, yf, design, delta, Direction.Y);
 	}
 	
 	private final double xf;
@@ -71,17 +72,20 @@ final class RigidModelEquation {
 	
 	private final double deltaValue;
 	
-	private RigidModelEquation(double xf, double yf, double design, double delta) {
+	private final Direction direction;
+	
+	private RigidModelEquation(double xf, double yf, double design, double delta, Direction direction) {
 		this.xf = xf;
 		this.yf = yf;
 		this.designValue = design;
 		this.deltaValue = delta;
+		this.direction = direction;
 	}
 
 	@Override
 	public String toString() {
-		return "AlignmentEquation [xf=" + xf + ", yf=" + yf + ", designValue=" + designValue + ", deltaValue="
-				+ deltaValue + "]";
+		return String.format("RigidModelEquation [xf=%s, yf=%s, designValue=%s, deltaValue=%s, direction=%s]",
+                              xf, yf, designValue, deltaValue, direction);
 	}
 
 	public double getXf() {
@@ -98,6 +102,10 @@ final class RigidModelEquation {
 
 	public double getDeltaValue() {
 		return deltaValue;
+	}
+	
+	public Direction getDirection() {
+		return direction;
 	}
 	
 	

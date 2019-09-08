@@ -16,12 +16,15 @@ class DimensionTest {
 		assertEquals(0, classUnderTest.getXCoordinateCount());
 		assertEquals(0, classUnderTest.getYCoordinateCount());
 		assertEquals(Direction.UNKNOWN, classUnderTest.getDirection());
+		assertEquals(0, classUnderTest.getDimensions());
 		
 		classUnderTest.accept(Direction.X);
+		
 		
 		assertEquals(1, classUnderTest.getXCoordinateCount());
 		assertEquals(0, classUnderTest.getYCoordinateCount());
 		assertEquals(Direction.X, classUnderTest.getDirection());
+		assertEquals(1, classUnderTest.getDimensions());
 		
 		classUnderTest.accept(Direction.Y);
 		classUnderTest.accept(Direction.X);
@@ -29,6 +32,7 @@ class DimensionTest {
 		assertEquals(2, classUnderTest.getXCoordinateCount());
 		assertEquals(1, classUnderTest.getYCoordinateCount());
 		assertEquals(Direction.XY, classUnderTest.getDirection());
+		assertEquals(2, classUnderTest.getDimensions());
 		
 		assertEquals("Dimension [XY (x=2,y=1)]", classUnderTest.toString());
 		
@@ -38,6 +42,7 @@ class DimensionTest {
 		assertEquals(0, classUnderTest.getXCoordinateCount());
 		assertEquals(1, classUnderTest.getYCoordinateCount());
 		assertEquals(Direction.Y, classUnderTest.getDirection());
+		assertEquals(1, classUnderTest.getDimensions());
 		
 		
 	}
