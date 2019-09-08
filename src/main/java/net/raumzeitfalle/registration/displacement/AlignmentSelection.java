@@ -23,18 +23,41 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * Controls how displacements are selected for data alignment.
+ * <p>
+ * {@link AlignmentSelection} instances are immutable.
+ * 
+ * @author Oliver Loeffler
+ *
+ */
 public class AlignmentSelection implements Supplier<Predicate<Displacement>> {
 	
 	private final Predicate<Displacement> selection;
 
+	/**
+	 * Creates a new {@link AlignmentSelection} with the given {@link Predicate}
+	 * 
+	 * @param selection Selection criterion for data alignment
+	 */
 	AlignmentSelection(Predicate<Displacement> selection) {
 		this.selection = Objects.requireNonNull(selection, "Predicate for alignment selection must not be null.");
 	}
 	
+	/**
+	 * Uses the given {@link Predicate} and creates a {@link CalculationSelection} instances based from this {@link AlignmentSelection}.
+	 * @param selection for calculation (positional and first order)
+	 * @return {@link CalculationSelection}
+	 */
 	public CalculationSelection forCalculation(Predicate<Displacement> selection) {
 		return new CalculationSelection(this, selection);
 	}
 
+	/**
+	 * Provides the {@link Predicate} used to select displacements for alignment.
+	 * 
+	 * @return {@link Predicate}
+	 */
 	@Override
 	public Predicate<Displacement> get() {
 		return this.selection;

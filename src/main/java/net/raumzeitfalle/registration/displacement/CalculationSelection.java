@@ -22,19 +22,42 @@ package net.raumzeitfalle.registration.displacement;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+/**
+ * Combines the selection criteria for data alignment and calculation.<br>
+ * Usually each calculation is prepared by an alignment step. This class
+ * provides the required predicates to select displacements for alignment and
+ * for subsequent calculation.
+ * <br>
+ * {@link CalculationSelection} instances are immutable.
+ * 
+ * @author Oliver Loeffler
+ *
+ */
 public class CalculationSelection {
-	
+
 	private final AlignmentSelection alignment;
-	
+
 	private final Predicate<Displacement> calculation;
-	
-	CalculationSelection(AlignmentSelection alignmentSelection, Predicate<Displacement> positionalCalculationSelection) {
+
+	/**
+	 * Creates a new {@link CalculationSelection} from the given {@link AlignmentSelection} and a {@link Predicate} to select sites for calculation.
+	 * @param alignmentSelection
+	 * @param positionalCalculationSelection
+	 */
+	CalculationSelection(AlignmentSelection alignmentSelection,
+			Predicate<Displacement> positionalCalculationSelection) {
 		Objects.requireNonNull(alignmentSelection, "AlignmentSelection must not be null");
 		Objects.requireNonNull(positionalCalculationSelection, "Predicate for calculation selection must not be null");
 		this.alignment = alignmentSelection;
 		this.calculation = positionalCalculationSelection;
 	}
-	
+
+	/**
+	 * Builds a new {@link SiteSelection} instances, whereas {@link SiteSelection} allows it to futher specify {@link Predicate} instances to select {@link Displacement} instances for removal.
+	 * {@link SiteSelection} instances are immutable.
+	 * 
+	 * @return {@link SiteSelection}
+	 */
 	public SiteSelection build() {
 		return new SiteSelection(alignment.get(), calculation, calculation);
 	}
@@ -42,5 +65,5 @@ public class CalculationSelection {
 	public SiteSelection forFirstOrderCalculation(Predicate<Displacement> firstOrderSelection) {
 		return new SiteSelection(alignment.get(), calculation, firstOrderSelection);
 	}
-	
+
 }
