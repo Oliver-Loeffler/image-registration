@@ -1,0 +1,26 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/Oliver-Loeffler/plantuml-style-c4/master/core.puml
+scale 1
+GREEN_ARROW
+
+start
+
+:load displacements;
+:select displacements for (alignment, calculation, removal);
+:define alignment and compensation;
+:calculate alignment (RigidTransform);
+:correct alignment;
+:select displacements for calculation of AffineTransform;
+:calculate AffineTransform;
+:correct AffineTransform;
+if (Alignment skipped?) then (yes)
+    :skip residual alignment correction;
+    :keep calculated first order;
+else (no)
+    :calculate residual alignment (RigidTransform);
+    :correct residual alignment;
+    :update first order;
+endif
+:return FirstOrderResult;
+stop
+@enduml

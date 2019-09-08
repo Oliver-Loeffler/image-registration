@@ -60,6 +60,12 @@ Version 0.0.1 is available on Maven Central using following snippet:
 
 * Add graphical examples of first order distortions.
 
+# How does the image-registration correction basically work?
+
+## Processing steps
+
+![Steps to registration correction](docs/process_flow.png)
+
 ## Interfaces
 
 ### Transforms
@@ -89,7 +95,7 @@ information any kind or matrix based system can be configured.
 
 ![Models and Transforms Interfaces](docs/interfaces_models_and_transforms.png)
 
-## Example Code
+# Examples
 
 There are some demos available, how this library is supposed to be used:
 
@@ -184,13 +190,18 @@ be used.
     System.out.println(correctedFirstOrder);
 ```
 
-## Further Reading
+# References for further reading
+
+## Links
+
 * https://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2/pdfs/Ch2.pdf
 * https://www.uni-muenster.de/AMM/num/Vorlesungen/VarBioMed_WS10/skript/Kapitel_3_4_Registrierung.pdf
 * http://www.mathe.tu-freiberg.de/~tochten/gkhm/skript_Matrizen_Gleichungssysteme_Determinanten_ws07.pdf
 * https://www.cs.tau.ac.il/~dcor/Graphics/cg-slides/trans3d.pdf 
 
-## Licensing
+# License
+
+## Apache License, Version 2.0 
 
    Copyright 2019 Oliver Löffler, Raumzeitfalle.net
 
@@ -206,7 +217,7 @@ be used.
    See the License for the specific language governing permissions and
    limitations under the License.
 
-## External libraries used with their licenses
+## Attributions, external libraries used with their licenses
 
    This project makes use of NIST.gov JAMA library. JAMA is public domain, see:
    https://math.nist.gov/javanumerics/jama/#license.
