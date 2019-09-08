@@ -70,7 +70,48 @@ public class SiteSelectionTest {
 		
 		SiteSelection siteSelection = SiteSelection.multipoint().remove(toBeRemoved);
 		
+		List<Displacement> displacments = createDisplacementsListWithAlign();
+		
+		long forAlignment = displacments.stream().filter(siteSelection.getAlignment()).count();
+		assertEquals(3, forAlignment);
+		
+		long forRemoval = displacments.stream().filter(siteSelection.getSitesToRemove()).count();
+		assertEquals(2, forRemoval);
+		
+		long forCalculation = displacments.stream().filter(siteSelection.getCalculation()).count();
+		assertEquals(1, forCalculation);
+	}
+	
+	@Test
+	void removeByCategory() {
+		
+		SiteSelection siteSelection = SiteSelection.alignOn(Category.REG)
+											       .forCalculation(d->true)
+											       .remove(Category.INFO_ONLY);
+		
 		List<Displacement> displacments = createDisplacementsList();
+		
+		long forAlignment = displacments.stream().filter(siteSelection.getAlignment()).count();
+		assertEquals(2, forAlignment);
+		
+		long forRemoval = displacments.stream().filter(siteSelection.getSitesToRemove()).count();
+		assertEquals(1, forRemoval);
+		
+		long forCalculation = displacments.stream().filter(siteSelection.getCalculation()).count();
+		assertEquals(2, forCalculation);
+	}
+	
+	@Test
+	void removeByPredicate() {
+		
+		Predicate<Displacement> toBeRemoved = d->d.belongsTo(Category.ALIGN)
+				   || d.belongsTo(Category.INFO_ONLY);
+		
+		SiteSelection siteSelection = SiteSelection.forAlignment(d->true)
+											       .forCalculation(d->true)
+											       .remove(toBeRemoved);
+		
+		List<Displacement> displacments = createDisplacementsListWithAlign();
 		
 		long forAlignment = displacments.stream().filter(siteSelection.getAlignment()).count();
 		assertEquals(3, forAlignment);
@@ -83,6 +124,14 @@ public class SiteSelectionTest {
 	}
 
 	private List<Displacement> createDisplacementsList() {
+		Displacement alignMark = Displacement.at(1,1,0, 0, 10, 10, Category.REG);
+		Displacement regMark = Displacement.at(2,2,0, 0, 10, 10, Category.REG);
+		Displacement infoOnlyMark = Displacement.at(3,3,0, 0, 10, 10, Category.INFO_ONLY);
+		
+		return Arrays.asList(alignMark,regMark, infoOnlyMark);
+	}
+	
+	private List<Displacement> createDisplacementsListWithAlign() {
 		Displacement alignMark = Displacement.at(1,1,0, 0, 10, 10, Category.ALIGN);
 		Displacement regMark = Displacement.at(2,2,0, 0, 10, 10, Category.REG);
 		Displacement infoOnlyMark = Displacement.at(3,3,0, 0, 10, 10, Category.INFO_ONLY);
