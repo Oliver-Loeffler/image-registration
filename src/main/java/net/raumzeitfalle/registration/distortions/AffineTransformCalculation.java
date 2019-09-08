@@ -23,23 +23,34 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import net.raumzeitfalle.registration.Dimension;
 import net.raumzeitfalle.registration.alignment.TranslateFunction;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public final class CenteredAffineTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform> {
+public final class AffineTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform> {
 
 	private final AffineModel model;
 	
-	public CenteredAffineTransformCalculation() {
-		this(new JamaAffineModel());
+	private Function<Exception, AffineTransform> errorHandler;
+	
+	private static final Logger LOGGER = Logger.getLogger(AffineTransformCalculation.class.getName());
+	
+	public AffineTransformCalculation() {
+		this(new JamaAffineModel(), ex->{
+			LOGGER.log(Level.WARNING, "Model calculation error: {0}, continuing with a SkipTransform.", ex);
+			return SkipAffineTransform.centeredAt(0, 0);
+		});
 	}
 	
-	public CenteredAffineTransformCalculation(AffineModel model) {
-		this.model = Objects.requireNonNull(model, "The used model for calculation must not be null (AffineModel).");
+	public AffineTransformCalculation(AffineModel model, Function<Exception, AffineTransform> onError) {
+		this.model = Objects.requireNonNull(model, "The used AffineModel for calculation must not be null.");
+		this.errorHandler = Objects.requireNonNull(onError, "The error handler (onError) must not be null.");
 	}
 	
 	@Override
@@ -73,10 +84,8 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
 			return model.solve(finalEquations,dimension); 
 		}
 		catch (Exception e) {
-			// Log or consume - or create some side channel
+			return errorHandler.apply(e);
 		}
-		
-		return SkipAffineTransform.centeredAt(0, 0);
 	}
 
 }

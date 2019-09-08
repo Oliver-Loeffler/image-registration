@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.alignment.RigidTransformCalculation;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
-import net.raumzeitfalle.registration.distortions.CenteredAffineTransformCalculation;
+import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
 import net.raumzeitfalle.util.DoubleStatisticsSummary;
 
 
@@ -100,7 +100,7 @@ public final class DisplacementSummary {
 		RigidTransform alignment = new RigidTransformCalculation()
 				.apply(displacements, calculationSelection);
 		
-		AffineTransform firstOrder = new CenteredAffineTransformCalculation()
+		AffineTransform firstOrder = new AffineTransformCalculation()
 				.apply(displacements, calculationSelection);
 				
 		
