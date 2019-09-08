@@ -1,17 +1,24 @@
 package net.raumzeitfalle.registration;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class Dimension implements Consumer<Direction> {
+public class Dimension<T extends Orientable> implements Consumer<Orientable>, Function<T,T> {
 
 	private int xCount = 0;
 	
 	private int yCount = 0;
 	
 	@Override
-	public void accept(Direction t) {
-		if (t.equals(Direction.X)) xCount++;
-		if (t.equals(Direction.Y)) yCount++;
+	public void accept(Orientable t) {
+		if (Orientation.X.equals(t.getOrientation())) xCount++;
+		if (Orientation.Y.equals(t.getOrientation())) yCount++;
+	}
+	
+	@Override
+	public T apply(T t) {
+		this.accept(t);
+		return t;
 	}
 
 	public int getXCoordinateCount() {
@@ -22,38 +29,33 @@ public class Dimension implements Consumer<Direction> {
 		return yCount;
 	}
 	
-	public Direction getDirection() {
+	public Orientation getDirection() {
 		if (xCount == 0 && yCount == 0) {
-			return Direction.UNKNOWN;
+			return Orientation.UNKNOWN;
 		}
 		
 		if (xCount > 0 && yCount > 0) {
-			return Direction.XY;
+			return Orientation.XY;
 		}
 		
 		if (xCount > 0) {
-			return Direction.X;
+			return Orientation.X;
 		}
-		return Direction.Y;	
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Dimension [%s (x=%s,y=%s)]", getDirection(), xCount, yCount);
+		return Orientation.Y;	
 	}
 
 	public int getDimensions() {
 		if (xCount == 0 && yCount == 0) {
 			return 0;
 		}
-		
 		if (xCount > 0 && yCount > 0) {
 			return 2;
 		}
-		
 		return 1;
 	}
 	
-	
-
+	@Override
+	public String toString() {
+		return String.format("Dimension [%s (x=%s,y=%s)]", getDirection(), xCount, yCount);
+	}
 }

@@ -19,30 +19,32 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public final class Translate implements Function<Collection<Displacement>, List<Displacement>> {
+public final class TranslateFunction implements Function<Displacement, Displacement> {
 	
 	private final double x;
 	
 	private final double y;
 	
-	public Translate(double x, double y) {
+	public TranslateFunction(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
 	@Override
-	public List<Displacement> apply(Collection<Displacement> t) {
-		return t.stream()
-				   .map(displacement -> displacement.moveBy(x,y))
-				   .collect(Collectors.toList());
-
+	public Displacement apply(Displacement displacement) {
+		return displacement.moveBy(x,y);
 	}
-	
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+		
 }

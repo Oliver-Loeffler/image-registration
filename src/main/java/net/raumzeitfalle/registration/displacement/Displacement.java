@@ -24,6 +24,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 
+import net.raumzeitfalle.registration.alignment.TranslateFunction;
+
 /**
  * Binds all details together, which are needed to calculate image registration for a single location. {@link Displacement} class is a data class. 
  * <p>
@@ -128,6 +130,14 @@ public class Displacement {
 				.orElse(Double.NaN);
 	}
 	
+	public static TranslateFunction translationToCenter(Collection<Displacement> displacements, Predicate<Displacement> u) {
+
+		double meanx = Displacement.average(displacements, u, Displacement::getX);
+    	double meany = Displacement.average(displacements, u, Displacement::getY);
+    	
+    	return new TranslateFunction(-meanx, -meany);
+	}
+	
 	private final int index;
 	
 	private final int id;
@@ -156,7 +166,7 @@ public class Displacement {
 		
 		this.siteClass = Objects.requireNonNull(type, "type must not be null");
 	}
-	
+
 	/**
 	 * Moves a displacement to a new location by adding an offset<sub>X</sub> and offset<sub>Y</sub> to given design coordinates (x,y) and to displaced coordinates (xd,yd).
 	 * 
@@ -268,4 +278,5 @@ public class Displacement {
 	public boolean isOfType(DisplacementClass other) {
 		return this.siteClass.equals(other);
 	}
+
 }

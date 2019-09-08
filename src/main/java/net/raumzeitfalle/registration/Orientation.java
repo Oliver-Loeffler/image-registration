@@ -1,5 +1,5 @@
 package net.raumzeitfalle.registration;
 
-public enum Direction {
+public enum Orientation {
 	X,Y,XY,UNKNOWN;
 }

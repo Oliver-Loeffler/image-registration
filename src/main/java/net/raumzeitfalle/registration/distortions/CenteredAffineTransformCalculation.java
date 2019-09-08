@@ -25,6 +25,8 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import net.raumzeitfalle.registration.Dimension;
+import net.raumzeitfalle.registration.alignment.TranslateFunction;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class CenteredAffineTransformCalculation implements BiFunction<Collection<Displacement>, Predicate<Displacement>, AffineTransform> {
@@ -32,19 +34,22 @@ public final class CenteredAffineTransformCalculation implements BiFunction<Coll
 	@Override
 	public AffineTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 
-    	double meanx = Displacement.average(t, u, Displacement::getX);
-    	double meany = Displacement.average(t, u, Displacement::getY);
+    	TranslateFunction translate = Displacement.translationToCenter(t, u);
+    	
+    	Dimension<AffineModelEquation> dimension = new Dimension<>();
     	
     	List<AffineModelEquation> finalEquations = t.stream()
     												.filter(u)
-    												.map(d->d.moveBy(-meanx, -meany))
+    												.map(translate)
 									                .flatMap(AffineModelEquation::from)
+									                .peek(dimension)
 									                .collect(Collectors.toList());
 
-        JamaAffineModel distortionModel = new JamaAffineModel(finalEquations);
-        SimpleAffineTransform transform = distortionModel.solve();
+        JamaAffineModel distortionModel = new JamaAffineModel();
+      
+        AffineTransform transform = distortionModel.solve(finalEquations,dimension);
         
-        return new AffineTransformBuilder(transform, meanx, meany).build();
+        return new AffineTransformBuilder(transform, -translate.getX(), -translate.getY()).build();
 		        						
 	}
 
