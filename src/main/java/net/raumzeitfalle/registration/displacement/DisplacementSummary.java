@@ -22,6 +22,7 @@ package net.raumzeitfalle.registration.displacement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.DoubleConsumer;
 import java.util.function.Predicate;
 
@@ -93,18 +94,9 @@ public final class DisplacementSummary {
 						 update(d);
 					 });
 		
-		if (Double.isFinite(this.statsDiffX.getAverage())) {
-			this.sd3x = 3 * stdev(this.statsDiffX.getAverage(), dx);	
-		} else {
-			this.sd3x = Double.NaN;	
-		}
+		this.sd3x = 3 * stdev(this.statsDiffX.getAverage(), dx);	
+		this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);	
 		
-		if (Double.isFinite(this.statsDiffY.getAverage())) {
-			this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);	
-		} else {
-			this.sd3y = Double.NaN;	
-		}
-
 		RigidTransform alignment = new RigidTransformCalculation()
 				.apply(displacements, calculationSelection);
 		
@@ -251,7 +243,7 @@ public final class DisplacementSummary {
 	}
 
 	private String format(double value) {
-		return String.format("%10.5f", value*1E3);
+		return String.format(Locale.US, "%10.5f", value*1E3);
 	}
 	
 }
