@@ -81,13 +81,13 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		RigidTransform residualAlignment = new RigidTransformCalculation().apply(correctedResults, siteSelection.getAlignment());
 		Collection<Displacement> alignedResults = new TransformCorrection().apply(residualAlignment, correctedResults);
 
-		alignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
+		RigidTransform finalAlignment = new RigidTransformCalculation().apply(alignedResults, siteSelection.getCalculation());
 		AffineTransform finalFirstOrder = new CenteredAffineTransformCalculation()
 											.apply(alignedResults, siteSelection.getCalculation());
 		
 		AffineTransform centeredFirstOrder = new AffineTransformBuilder(finalFirstOrder, 0, 0).build();
 		
-		return new FirstOrderResult(alignment, centeredFirstOrder, alignedResults);
+		return new FirstOrderResult(alignment, calculatedFirstOrder, alignedResults);
 	}
 
 	
