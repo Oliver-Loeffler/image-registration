@@ -19,7 +19,6 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import net.raumzeitfalle.registration.Transform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -29,9 +28,9 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public final class SimpleRigidTransform implements RigidTransform, Transform {
+public final class SimpleRigidTransform implements RigidTransform {
 
-	public static SimpleRigidTransform with(double translationX, double translationY, double rotation) {
+	public static RigidTransform with(double translationX, double translationY, double rotation) {
 		return new SimpleRigidTransform(translationX, translationY, rotation);
 	}
 	
@@ -61,7 +60,6 @@ public final class SimpleRigidTransform implements RigidTransform, Transform {
 
 	@Override
 	public String toString() {
-		
 		return    "RigidTransform [x=" + format(translationX) 
 				+ ", y=" + format(translationY) + ", rotation="
 				+ format(rotation * 1E6) + " urad]";
@@ -76,11 +74,6 @@ public final class SimpleRigidTransform implements RigidTransform, Transform {
 		return Displacement.from(source, 
 				source.getXd() - this.getTranslationX() + source.getY() * this.getRotation(), 
 				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
-	}
-	
-	@Override
-	public boolean skip() {
-		return false;
 	}
 	
 }

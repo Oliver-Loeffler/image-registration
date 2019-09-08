@@ -57,7 +57,7 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 		return row;
 	}
 	
-	private SimpleRigidTransform solve(Matrix references, Matrix deltas) {
+	private RigidTransform solve(Matrix references, Matrix deltas) {
 		
 		QRDecomposition qr = new QRDecomposition(references);
 		

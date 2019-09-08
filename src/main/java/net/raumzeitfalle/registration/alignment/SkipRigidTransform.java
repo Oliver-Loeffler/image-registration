@@ -24,6 +24,10 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class SkipRigidTransform implements RigidTransform, SkipTransform {
 
+	protected SkipRigidTransform() {
+		// Object creation limited to package level
+	}
+	
 	@Override
 	public double getTranslationX() { return 0.0; }
 
@@ -34,8 +38,6 @@ public final class SkipRigidTransform implements RigidTransform, SkipTransform {
 	public double getRotation() { return 0.0; }
 
 	@Override
-	public Displacement apply(Displacement t) {
-		return t;
-	}
+	public Displacement apply(Displacement t) { return t; }
 
 }

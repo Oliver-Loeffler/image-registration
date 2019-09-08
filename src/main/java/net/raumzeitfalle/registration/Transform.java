@@ -17,7 +17,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * @author oliver
  *
  */
-public interface Transform extends Function<Displacement, Displacement> {
+public interface Transform extends Function<Displacement,Displacement> {
 	
 	/**
 	 * When the relevant transform parameters (i.e. rotation, translation-x and y) are set to 0.0,
@@ -26,6 +26,8 @@ public interface Transform extends Function<Displacement, Displacement> {
 	 * 
 	 * @return boolean indicating if the given transform can be skipped.
 	 */
-	boolean skip();
+	default boolean skip() {
+		return false;
+	}
 	
 }

@@ -10,7 +10,7 @@ import org.la4j.decomposition.QRDecompositor;
 public class RigidBodyLa4JModel implements RigidBodyModel {
 
 	@Override
-	public SimpleRigidTransform solve(Collection<RigidModelEquation> equations) {
+	public RigidTransform solve(Collection<RigidModelEquation> equations) {
 		int n = 3;
 
 		Matrix laRef = org.la4j.Matrix.zero(equations.size(), n);
