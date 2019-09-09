@@ -38,7 +38,7 @@ public final class SkipAffineTransform implements AffineTransform, SkipTransform
 	
 	private final double cy;
 
-	private SkipAffineTransform(double centerX, double centerY) {
+	protected SkipAffineTransform(double centerX, double centerY) {
 		this.cx = centerX;
 		this.cy = centerY;
 	}
