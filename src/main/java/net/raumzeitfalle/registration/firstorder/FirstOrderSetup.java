@@ -21,7 +21,9 @@ package net.raumzeitfalle.registration.firstorder;
 
 import java.util.EnumSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.SiteSelection;
 
 public final class FirstOrderSetup {
@@ -59,9 +61,7 @@ public final class FirstOrderSetup {
 		return this;
 	}
 	
-	public SiteSelection getSiteSelection() {
-		return siteSelection;
-	}
+	
 
 	public Alignments getAlignment() {
 		return alignment;
@@ -75,6 +75,17 @@ public final class FirstOrderSetup {
 	public String toString() {
 		return "FirstOrderSetup [siteSelection=" + siteSelection + ", alignment=" + alignment + ", compensations="
 				+ compensations + "]";
+	}
+
+	public Predicate<Displacement> getAlignmenSelection() {
+		return this.siteSelection.getAlignment();
+	}
+
+	public Predicate<Displacement> getCalculationSelection() {
+		if (alignment.equals(Alignments.SCANNER_SELECTED)) {
+			return siteSelection.getAlignment();
+		}
+		return siteSelection.getCalculation();
 	}
 	
 	
