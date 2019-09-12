@@ -28,11 +28,10 @@ import net.raumzeitfalle.registration.TransformCorrection;
 import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.alignment.RigidTransformCalculation;
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.SiteSelection;
-import net.raumzeitfalle.registration.distortions.SimpleAffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformBuilder;
 import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
+import net.raumzeitfalle.registration.distortions.SimpleAffineTransform;
 
 public final class FirstOrderCorrection implements BiFunction<Collection<Displacement>, FirstOrderSetup, FirstOrderResult> {
 
@@ -43,17 +42,15 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 	@Override
 	public FirstOrderResult apply(Collection<Displacement> displacements, FirstOrderSetup setup) {
 		
-		SiteSelection siteSelection = setup.getSiteSelection();
+		Predicate<Displacement> alignmentSelection = setup.getAlignmenSelection();
 		
 		/* 
 		 * STEP 1 - Calculate corrected first order based on unaligned data
 		 */
-		RigidTransform alignment = new RigidTransformCalculation().apply(displacements, siteSelection.getAlignment());
+		RigidTransform alignment = new RigidTransformCalculation()
+									   .apply(displacements, alignmentSelection);
 		
-		Predicate<Displacement> firstOrderSelector = siteSelection.getCalculation();
-		if (setup.getAlignment().equals(Alignments.SCANNER_SELECTED)) {
-			firstOrderSelector = siteSelection.getAlignment();
-		}
+		Predicate<Displacement> firstOrderSelector = setup.getCalculationSelection();
 		
 		/*
 		 * STEP 2 - Calculate the 6-parameter model (FirstOrder) and parameterize according to corrections defined in setup
@@ -78,7 +75,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		 * Calculate and correct residual rotation correction for custom alignment methods
 		 * 
 		 */
-		RigidTransform residualAlignment = new RigidTransformCalculation().apply(correctedResults, siteSelection.getAlignment());
+		RigidTransform residualAlignment = new RigidTransformCalculation().apply(correctedResults, alignmentSelection);
 		Collection<Displacement> alignedResults = new TransformCorrection().apply(residualAlignment, correctedResults);
 				
 		return new FirstOrderResult(alignment, calculatedFirstOrder, alignedResults);
