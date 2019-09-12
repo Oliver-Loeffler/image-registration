@@ -17,27 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package net.raumzeitfalle.registration;
+package net.raumzeitfalle.registration.examples;
 
-import java.util.Collection;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
+import net.raumzeitfalle.registration.displacement.Category;
+import net.raumzeitfalle.registration.firstorder.Alignments;
 
-import net.raumzeitfalle.registration.displacement.Displacement;
+public class DemoUnaligned {
 
-public class TransformCorrection implements BiFunction<Transform, Collection<Displacement>, Collection<Displacement>> {
-	
-	@Override
-	public Collection<Displacement> apply(Transform t, Collection<Displacement> u) {
-
-		if (t.skip()) {
-			return u;
-		}
+	public static void main(String ...args) {
 		
-		return u.stream()
-				.map(t)
-				.collect(Collectors.toList());
+		Demo demo = new Demo("DEMO: Multipoint", "Demo-4Point.csv");
 		
+		demo.withAlignment(Alignments.UNALIGNED)
+			.selectForAlignment(d->true)
+			.selectForCalculation(d->true)
+			.selectForRemoval(d->d.belongsTo(Category.INFO_ONLY));
+		
+		demo.run();
+
 	}
-
+	
 }
