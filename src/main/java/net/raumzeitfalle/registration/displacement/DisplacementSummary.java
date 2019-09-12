@@ -44,7 +44,7 @@ public final class DisplacementSummary {
 	/**
 	 * Generates a summary table for (x,y)-Directions showing min/max/mean/3sigma values for deviations from reference. Also first order and alignment details are shown.
 	 * @param displacements Collection of displacements
-	 * @param calculationSelection Use {@link SiteSelection} to define which site shall be used for positional calculation, alignment and first order calculation.
+	 * @param calculationSelection A {@link Predicate} to select Displacements which shall be considered for summary creation.
 	 * @return Summary table
 	 */
 	public static DisplacementSummary over(Collection<Displacement> displacements, Predicate<Displacement> calculationSelection) {
