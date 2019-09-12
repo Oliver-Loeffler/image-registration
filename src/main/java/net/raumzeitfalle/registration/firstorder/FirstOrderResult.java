@@ -26,9 +26,6 @@ import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 
-/*
- * TODO: Consider storing of total (unaligned) alignment&first order, then also corrected alignment&first order.
- */
 public final class FirstOrderResult {
 	
 	private final RigidTransform alignment;
@@ -36,7 +33,7 @@ public final class FirstOrderResult {
 	private final AffineTransform firstOrder;
 	
 	private final Collection<Displacement> displacements;
-	
+		
 	protected FirstOrderResult(RigidTransform alignment, AffineTransform firstOrder, Collection<Displacement> results) {
 		this.alignment = Objects.requireNonNull(alignment, "Alignment (RigidTransform) must not be null.");
 		this.firstOrder = Objects.requireNonNull(firstOrder, "FirstOrder (AffineTransform) must not be null.");

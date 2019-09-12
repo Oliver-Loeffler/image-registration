@@ -61,7 +61,8 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 		/*
 		 * STEP 3 - Apply all requested compensations
 		 */
-		Collection<Displacement> correctedResults = new TransformCorrection().apply(firstOrder, displacements);
+		Collection<Displacement> correctedResults = new TransformCorrection()
+				.apply(firstOrder, displacements);
 		
 		/*
 		 * When no alignment is requested, then the work is done here. The result will be returned then.

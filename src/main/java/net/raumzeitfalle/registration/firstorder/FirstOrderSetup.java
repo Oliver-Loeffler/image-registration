@@ -20,26 +20,32 @@
 package net.raumzeitfalle.registration.firstorder;
 
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.SiteSelection;
 
 public final class FirstOrderSetup {
-	
-	private SiteSelection siteSelection;
-	
+		
 	private Alignments alignment;
 	
 	private Set<Compensations> compensations;
+	
+	private Predicate<Displacement> calculationSelection;
+	
+	private Predicate<Displacement> alignmentSelection;
+	
+	private Predicate<Displacement> removalSelection;
 	
 	public static FirstOrderSetup usingAlignment(Alignments alignment) {
 		return new FirstOrderSetup().withAlignment(alignment);
 	}
 	
 	public FirstOrderSetup() {
-		this.siteSelection = SiteSelection.multipoint();
+		this.alignmentSelection = d->true;   // use all displacements for alignment calculation
+		this.calculationSelection = d->true; // calculate distortions on all displacements
+		this.removalSelection = d->false;    // no displacements to be removed 
 		this.alignment = Alignments.UNALIGNED;
 		this.compensations = EnumSet.noneOf(Compensations.class);
 	}
@@ -56,12 +62,23 @@ public final class FirstOrderSetup {
 		return this;
 	}
 	
-	public FirstOrderSetup withSiteSelection(SiteSelection selection) {
-		this.siteSelection = selection;
+	public FirstOrderSetup selectForAlignment(Predicate<Displacement> selection) {
+		Objects.requireNonNull(selection, "Predicate for alignment selection must not be null.");
+		this.alignmentSelection = selection;
 		return this;
 	}
 	
+	public FirstOrderSetup selectForCalculation(Predicate<Displacement> selection) {
+		Objects.requireNonNull(selection, "Predicate for calculation selection must not be null.");
+		this.calculationSelection = selection;
+		return this;
+	}
 	
+	public FirstOrderSetup removeDisplacments(Predicate<Displacement> selection) {
+		Objects.requireNonNull(selection, "Predicate for displacement removal must not be null.");
+		this.removalSelection = selection;
+		return this;
+	}
 
 	public Alignments getAlignment() {
 		return alignment;
@@ -71,21 +88,34 @@ public final class FirstOrderSetup {
 		return compensations;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "FirstOrderSetup [siteSelection=" + siteSelection + ", alignment=" + alignment + ", compensations="
-				+ compensations + "]";
+		return String.format(
+				"FirstOrderSetup [alignment=%s, compensations=%s, calculationSelection=%s, alignmentSelection=%s, removalSelection=%s]",
+				alignment, compensations, calculationSelection, alignmentSelection, removalSelection);
 	}
 
 	public Predicate<Displacement> getAlignmenSelection() {
-		return this.siteSelection.getAlignment();
+		if (alignment.equals(Alignments.ALL))
+			return d->true; // select all sites
+			
+		if (alignment.equals(Alignments.UNALIGNED))
+			return d->true; // alignment is not performed but calculated 
+
+		return this.alignmentSelection;
 	}
 
 	public Predicate<Displacement> getCalculationSelection() {
 		if (alignment.equals(Alignments.SCANNER_SELECTED)) {
-			return siteSelection.getAlignment();
+			return this.alignmentSelection;
 		}
-		return siteSelection.getCalculation();
+		return this.calculationSelection;
+	}
+
+	public Predicate<Displacement> withoutRemovedDisplacements() {
+		return this.removalSelection.negate();
 	}
 	
 	

@@ -10,7 +10,6 @@ import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.alignment.RigidTransformCalculation;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.DisplacementSummary;
-import net.raumzeitfalle.registration.displacement.SiteSelection;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
 import net.raumzeitfalle.registration.file.FileLoader;
@@ -74,33 +73,29 @@ public class Demo implements Runnable {
 		List<Displacement> displacements = new FileLoader().load(source);
 		
 		// STEP 2 
-		SiteSelection selection = SiteSelection
-						.forAlignment(alignmentSelector)
-						.forCalculation(calculationSelector)
-						.forRemoval(removalSelector);
-		
-		// STEP 3 
 		FirstOrderSetup setup = FirstOrderSetup
 						.usingAlignment(alignments)
 						.withCompensations(compensations)
-						.withSiteSelection(selection);
+						.selectForAlignment(alignmentSelector)
+						.selectForCalculation(calculationSelector)
+						.removeDisplacments(removalSelector);
 		
-		// STEP 4
+		// STEP 3
 		FirstOrderResult result = FirstOrderCorrection.using(displacements, setup);
 		Collection<Displacement> results = result.getDisplacements();
 
-		// STEP 5 
-		DisplacementSummary uncorrectedSummary = Displacement.summarize(displacements, selection.getCalculation());
+		// STEP 4 
+		DisplacementSummary uncorrectedSummary = Displacement.summarize(displacements, setup.withoutRemovedDisplacements());
 		section("unaligned - before correction (raw evaluation)");
 		print(uncorrectedSummary);
 		
-		RigidTransform uncorrectedAlignment = new RigidTransformCalculation().apply(displacements, d->true);
+		RigidTransform uncorrectedAlignment = new RigidTransformCalculation().apply(displacements, setup.withoutRemovedDisplacements());
 		print(uncorrectedAlignment);
 		
-		AffineTransform uncorrectedFirstOrder = new AffineTransformCalculation().apply(displacements, d->true);
+		AffineTransform uncorrectedFirstOrder = new AffineTransformCalculation().apply(displacements, setup.withoutRemovedDisplacements());
 		print(uncorrectedFirstOrder);
 		
-		DisplacementSummary correctedSummary = Displacement.summarize(results, selection.getCalculation());
+		DisplacementSummary correctedSummary = Displacement.summarize(results, setup.withoutRemovedDisplacements());
 		section("aligned and corrected (evaluation using setup)");
 		print(correctedSummary);
 		
@@ -108,7 +103,9 @@ public class Demo implements Runnable {
 		print(correctedAlignment);
 		
 		AffineTransform correctedFirstOrder = result.getFirstOrder();
-		print(correctedFirstOrder);		
+		print(correctedFirstOrder);	
+		
+		
 	}
 
 	private void print(Object object) {
