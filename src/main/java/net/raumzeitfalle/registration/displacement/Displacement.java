@@ -22,6 +22,7 @@ package net.raumzeitfalle.registration.displacement;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 
 import net.raumzeitfalle.registration.alignment.TranslateFunction;
@@ -39,6 +40,10 @@ import net.raumzeitfalle.registration.alignment.TranslateFunction;
  *
  */
 public class Displacement {
+	
+	public static Displacement.Builder builder() {
+		return new Displacement.Builder();
+	}
 
 	/**
 	 * Creates a new {@link Displacement} object based on a given source object.
@@ -290,4 +295,98 @@ public class Displacement {
 		return this.category.equals(other);
 	}
 
+	
+	public static class Builder implements Supplier<Displacement> {
+		
+		private Integer index = null;
+		
+		private Integer id = null;
+		
+		private Double x = null;
+		private Double y = null;
+		private Double xd = null;
+		private Double yd = null;
+		
+		private Category category = Category.REG;
+		
+		public Builder withIndex(Integer index) {
+			Objects.requireNonNull(index, "Index must not be null");
+			this.index = index;
+			return this;
+		}
+		
+		public Builder withId(Integer id) {
+			Objects.requireNonNull(id, "ID must not be null");
+			this.id = id;
+			return this;
+		}
+		
+		public Builder ofCategory(Category category) {
+			Objects.requireNonNull(category, "Category must not be null");
+			this.category = category;
+			return this;
+		}
+		
+		public Builder atLocation(Double refx, Double refy) {
+			Objects.requireNonNull(refx, "refx must not be null");
+			Objects.requireNonNull(refy, "refy must not be null");
+			this.x = refx;
+			this.y = refy;
+			return this;
+		}
+		
+		public Builder displacedTo(Double xd, Double yd) {
+			Objects.requireNonNull(xd, "xd must not be null");
+			Objects.requireNonNull(yd, "yd must not be null");
+			this.xd = xd;
+			this.yd = yd;
+			return this;
+		}
+		
+		public Builder xDisplacedTo(Double xd) {
+			Objects.requireNonNull(xd, "xd must not be null");
+			this.xd = xd;
+			return this;
+		}
+		
+		public Builder yDisplacedTo(Double yd) {
+			Objects.requireNonNull(yd, "yd must not be null");
+			this.yd = yd;
+			return this;
+		}
+		
+		public Builder withXDeviation(Double deltaX) {
+			Objects.requireNonNull(deltaX, "deltaX must not be null");
+			this.xd = deltaX + this.xd;
+			return this;
+		}
+		
+		public Builder withYDeviation(Double deltaY) {
+			Objects.requireNonNull(deltaY, "deltaY must not be null");
+			this.xd = deltaY + this.yd;
+			return this;
+		}
+		
+		public Displacement build() {
+			
+			Objects.requireNonNull(index, "Index must not be null. Displacement Builder is not properly initialized.");
+			
+			if (null == id) 
+				id = index;
+			
+			Objects.requireNonNull(x, "x must not be null.");
+			Objects.requireNonNull(y, "y must not be null.");
+			Objects.requireNonNull(xd, "xd must not be null.");
+			Objects.requireNonNull(yd, "yd must not be null.");
+			
+			return Displacement.at(index, id, x, y, xd, yd, category);
+			
+		}
+
+		@Override
+		public Displacement get() {
+			return build();
+		}
+
+	}
 }
