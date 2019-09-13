@@ -72,13 +72,14 @@ public class Demo implements Runnable {
 		// STEP 1
 		List<Displacement> displacements = new FileLoader().load(source);
 		
-		// STEP 2 
-		FirstOrderSetup setup = FirstOrderSetup
-						.usingAlignment(alignments)
-						.withCompensations(compensations)
-						.selectForAlignment(alignmentSelector)
-						.selectForCalculation(calculationSelector)
-						.removeDisplacments(removalSelector);
+		
+		// STEP 2
+		FirstOrderSetup setup = FirstOrderSetup.usingAlignment(alignments)
+					   .selectForAlignment(alignmentSelector)
+					   .withCompensations(compensations)
+					   .selectCalculationSites(calculationSelector)
+					   .removeDisplacments(removalSelector);
+					   
 		
 		// STEP 3
 		FirstOrderResult result = FirstOrderCorrection.using(displacements, setup);
