@@ -47,6 +47,7 @@ public class SimpleAlignmentSetup implements AlignmentSetup {
 
 	@Override
 	public CompensationSetup withCompensations(Compensations... compensations) {
-		return new SimpleCompensationSetup(this, d->true, compensations);
+		Predicate<Displacement> useAllForCalculation = d->true;
+		return new SimpleCompensationSetup(this, useAllForCalculation, compensations);
 	}
 }

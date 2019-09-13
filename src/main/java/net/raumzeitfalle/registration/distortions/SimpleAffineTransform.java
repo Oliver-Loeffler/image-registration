@@ -51,12 +51,7 @@ public class SimpleAffineTransform implements AffineTransform {
     protected SimpleAffineTransform(double tx, double ty,
                                 double sx, double sy,
                                 double ox, double oy,
-                                
-                                @Deprecated  
-                                double mx, 
-                                
-                                @Deprecated
-                                double my) {
+                                double mx, double my) {
         this.translationX = tx;
         this.translationY = ty;
         this.scaleX = sx;
