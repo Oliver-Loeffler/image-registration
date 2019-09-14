@@ -242,13 +242,13 @@ private static final double TOLERANCE = 1E-11;
 		// 1ppm rotation
 
 		List<Displacement> undisplaced = new ArrayList<>(5);
-		undisplaced.add(Displacement.at(0, 0, 70000,  20000, 70000    ,   20000- .02));
-		undisplaced.add(Displacement.at(1, 1, 70000,  40000, 70000+ .02,  40000     ));
-		undisplaced.add(Displacement.at(2, 2, 70000,  60000, 70000+ .04,  60000+ .02));
-		undisplaced.add(Displacement.at(3, 3, 70000,  80000, 70000+ .06,  80000+ .04));
-		undisplaced.add(Displacement.at(4, 4, 70000, 100000, 70000+ .08, 100000+ .06));
-		undisplaced.add(Displacement.at(5, 5, 70000, 120000, 70000+ .1 , 120000+ .08));
-		undisplaced.add(Displacement.at(6, 6, 70000, 140000, 70000+ .12, 140000+ .1 ));
+		undisplaced.add(Displacement.at(0, 0, 70000,  20000, 70000+.06,  20000-.06));
+		undisplaced.add(Displacement.at(1, 1, 70000,  40000, 70000+.04,  40000-.04));
+		undisplaced.add(Displacement.at(2, 2, 70000,  60000, 70000+.02,  60000-.02));
+		undisplaced.add(Displacement.at(3, 3, 70000,  80000, 70000    ,  80000    ));
+		undisplaced.add(Displacement.at(4, 4, 70000, 100000, 70000-.02, 100000+.02));
+		undisplaced.add(Displacement.at(5, 5, 70000, 120000, 70000-.04, 120000+.04));
+		undisplaced.add(Displacement.at(6, 6, 70000, 140000, 70000-.06, 140000+.06));
 		
 		
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
