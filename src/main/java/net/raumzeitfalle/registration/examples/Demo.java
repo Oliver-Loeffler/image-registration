@@ -76,9 +76,10 @@ public class Demo implements Runnable {
 		// STEP 2
 		FirstOrderSetup setup = FirstOrderSetup.usingAlignment(alignments)
 					   .selectForAlignment(alignmentSelector)
-					   .withCompensations(compensations)
-					   .selectCalculationSites(calculationSelector)
-					   .removeDisplacments(removalSelector);
+					   .compensate(compensations)
+					   .selectForCalculation(calculationSelector)
+					   .removeDisplacements(removalSelector)
+					   .build();
 					   
 		
 		// STEP 3

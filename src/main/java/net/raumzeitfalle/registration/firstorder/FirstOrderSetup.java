@@ -19,6 +19,8 @@
  */
 package net.raumzeitfalle.registration.firstorder;
 
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -26,47 +28,187 @@ import java.util.function.Predicate;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class FirstOrderSetup {
-		
-	private AlignmentSetup alignmentSetup;
 	
-	private CompensationSetup compensationSetup;
-
-	private Predicate<Displacement> removalSelection;
-	
-	public static SimpleAlignmentSetup usingAlignment(Alignments alignment) {
-		return new SimpleAlignmentSetup(alignment, d->true);
+	public static FirstOrderSetup.Builder usingAlignment(Alignments alignment) {
+		return builder().withAlignment(alignment);
 	}
 	
-	FirstOrderSetup(AlignmentSetup alignment, CompensationSetup compensation, Predicate<Displacement> toBeRemoved) {
-		this.alignmentSetup = alignment;
-		this.compensationSetup = compensation;
+	public static FirstOrderSetup.Builder builder() {
+		return new Builder();
 	}
 	
+	static final Predicate<Displacement> ANY = d->true;
 	
-	public FirstOrderSetup removeDisplacments(Predicate<Displacement> selection) {
-		Objects.requireNonNull(selection, "Predicate for displacement removal must not be null.");
+	static final Predicate<Displacement> NONE = d->false;
 		
-		return new FirstOrderSetup(this.alignmentSetup, this.compensationSetup, selection);
+	private final Alignments alignmentMethod;
+	
+	private final Set<Compensations> compensationMethods;
+	
+	private final Predicate<Displacement> alignmentSelection;
+	
+	private final Predicate<Displacement> calculationSelection;
+	
+	private final Predicate<Displacement> removalSelection;
+	
+	private FirstOrderSetup(Alignments alignMethod,EnumSet<Compensations> compensationMethods,
+					Predicate<Displacement> align,Predicate<Displacement> calc,
+					Predicate<Displacement> removal) {
+		
+		this.alignmentMethod = alignMethod;
+		this.compensationMethods = Collections.unmodifiableSet(EnumSet.copyOf(compensationMethods));
+		
+		this.alignmentSelection = align;
+		this.calculationSelection = calc;
+		this.removalSelection = removal;
+		
 	}
 
 	public Alignments getAlignment() {
-		return this.alignmentSetup.getAlignment();
+		return this.alignmentMethod;
 	}
 
 	public Set<Compensations> getCompensations() {
-		return this.compensationSetup.getCompensations();
+		return this.compensationMethods;
 	}
 
 	public Predicate<Displacement> getAlignmenSelection() {
-		return this.alignmentSetup.getAlignmenSelection();
+		return this.alignmentSelection;
 	}
 
 	public Predicate<Displacement> getCalculationSelection() {
-		return this.compensationSetup.getCalculationSelection();
+		return this.calculationSelection;
+	}
+	
+	public Predicate<Displacement> getRemovalSelection() {
+		return this.removalSelection;
 	}
 
 	public Predicate<Displacement> withoutRemovedDisplacements() {
-		return this.removalSelection.negate();
+		return getRemovalSelection().negate();
 	}
 	
+	
+	public static class Builder {
+		
+		/*
+		 * default:
+		 *  no changes will be made to data as the standard
+		 *  alignment method is unaligned.
+		 *  
+		 *  This means that all parameters like translation, rotation
+		 *  are calculated but no correction will be applied.
+		 *  
+		 */
+		private Alignments alignment = Alignments.UNALIGNED;
+		
+		/*
+		 * default:
+		 *  
+		 *  All first order distortions such as scale and
+		 *  non-orthogonality (shear) will be calculated but
+		 *  no correction will be applied.
+		 *  
+		 */
+		private EnumSet<Compensations> compensationMethods = EnumSet.noneOf(Compensations.class);
+		
+		/*
+		 * default:
+		 *  all displacements will be used for alignment (rigid body model)
+		 *  calculation
+		 *  
+		 */
+		private Predicate<Displacement> forAlignment = ANY;
+		
+		/*
+		 * default: 
+		 *  all displacements will be used for first-order
+		 *  and statistics calculation
+		 *  
+		 */
+		private Predicate<Displacement> forCalculation = ANY;
+		
+		/*
+		 * default:
+		 *  no sites will be removed from final result
+		 *   
+		 */
+		private Predicate<Displacement> forRemoval = NONE;
+
+		
+		public FirstOrderSetup build() {
+			
+			Predicate<Displacement> alignmentSelector = getAlignmentSelector();
+			Predicate<Displacement> calculationSelector = getCalculationSelector();
+			
+			return new FirstOrderSetup(alignment, 
+					                   compensationMethods,
+					                   alignmentSelector, 
+					                   calculationSelector,
+					                   forRemoval);
+		}
+
+
+		public FirstOrderSetup.Builder withAlignment(Alignments alignment) {
+			this.alignment = Objects.requireNonNull(alignment, "The alignment method given must not be null");
+			return this;
+		}
+		
+		public FirstOrderSetup.Builder compensate(Compensations ...methods) {
+			for (Compensations m : methods) {
+				this.compensationMethods.add(m);
+			}
+			return this;
+		}
+		
+		public FirstOrderSetup.Builder selectForAlignment(Predicate<Displacement> selector) {
+			this.forAlignment = Objects.requireNonNull(selector, "Selector for displacements used during alignment must not be null.");
+			return this;
+		}
+		
+		public FirstOrderSetup.Builder selectForCalculation(Predicate<Displacement> selector) {
+			this.forCalculation = Objects.requireNonNull(selector, "Selector for displacements used for first-order-calculation must not be null.");
+			return this;
+		}
+		
+		public FirstOrderSetup.Builder removeDisplacements(Predicate<Displacement> selector) {
+			this.forRemoval = Objects.requireNonNull(selector, "Selector for displacements to be removed must not be null.");
+			return this;
+		}
+
+		private Predicate<Displacement> getCalculationSelector() {
+			if (alignment.equals(Alignments.SCANNER_SELECTED)) {
+				/* 
+				 * This alignment method requires to calculate all first order
+				 * details (scale,ortho,translation,rotation) on the alignment marks.
+				 *
+				 * In case of any corrections, only the amount of distortion 
+				 * calculated on selected displacements is corrected.
+				 * Thus, there will be a remaining first order distortion,
+				 * which technically means that residual values for: translation, 
+				 * rotation, scale and ortho will not equal zero.
+				 */
+				
+				return forAlignment;
+			}
+			
+			/*
+			 * For all other alignment methods, first order distortions
+			 * are calculated on all available displacements (except these
+			 * which are matched by the removal predicate).
+			 */
+			return forCalculation;
+		}
+
+		private Predicate<Displacement> getAlignmentSelector() {
+			if (alignment.equals(Alignments.ALL))
+				return ANY; // select all sites
+				
+			if (alignment.equals(Alignments.UNALIGNED))
+				return ANY; // alignment is not performed but calculated 
+
+			return this.forAlignment;
+		}
+		
+	}
 }
