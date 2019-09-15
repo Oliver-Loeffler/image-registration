@@ -13,8 +13,6 @@ import net.raumzeitfalle.registration.SpatialDistribution;
 
 class JamaOneDimensionalAffineModel implements AffineModel {
 	
-	private static final double zero = 0d;
-	
 	private final Distribution spatialOrientation;
 	
 	JamaOneDimensionalAffineModel(SpatialDistribution distribution) {
@@ -110,11 +108,11 @@ class JamaOneDimensionalAffineModel implements AffineModel {
 	    double ty = solved.get(3, 0);
 	    
 		if (Distribution.HORIZONTAL.equals(spatialOrientation)) {
-			return new SimpleAffineTransform(tx, ty, scale, zero, rot, zero, zero, zero);
+			return SimpleAffineTransform.horizontal(tx, ty, scale, rot);
 		}
 		
 		if (Distribution.VERTICAL.equals(spatialOrientation)) {
-			return new SimpleAffineTransform(tx, ty, zero, scale, zero, rot, zero, zero);
+			return SimpleAffineTransform.vertical(tx, ty, scale, rot);
 		}
 		
 		String message = String.format("Evaluation of data with %s spatial orientation not supported.", spatialOrientation);
