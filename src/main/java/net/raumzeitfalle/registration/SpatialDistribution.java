@@ -49,7 +49,13 @@ public class SpatialDistribution implements Consumer<Displacement>, UnaryOperato
 		if (xLocations.size() == 1 && yLocations.size() > 1)
 			return Distribution.VERTICAL;
 		
+		if (xLocations.size() ==1 && yLocations.isEmpty())
+			return Distribution.VERTICAL;
+		
 		if (yLocations.size() == 1 && xLocations.size() > 1)
+			return Distribution.HORIZONTAL;
+		
+		if (yLocations.size() == 1 && xLocations.isEmpty())
 			return Distribution.HORIZONTAL;
 		
 		throw new IllegalArgumentException("Could not determine data distribution as no valid displacements have been processed yet.");
