@@ -43,14 +43,12 @@ public final class AffineModelEquation implements Orientable {
         return builder.build();
     }
     
-    public static AffineModelEquation forX(Displacement d) {
-        return new AffineModelEquation(d.getX(), 0.0, 0.0, d.getY(), 1.0, 0.0, d.dX(), Orientation.X);
-//      return new AffineModelEquation(d.getX(), d.getY(), d.dX(), Orientation.X);
+    public static AffineModelEquation forX(Displacement d) {	
+    	return new AffineModelEquation(d.getX(), d.getY(), d.dX(), Orientation.X);
     }
     
     public static AffineModelEquation forY(Displacement d) {
-        return new AffineModelEquation(0.0, d.getY(), -d.getX(), 0.0, 0.0, 1.0, d.dY(), Orientation.Y);
-//      return new AffineModelEquation(d.getX(), d.getY(), d.dY(), Orientation.Y);
+    	return new AffineModelEquation(d.getX(), d.getY(), d.dY(), Orientation.Y);
     }
         
     private final double sx;
@@ -69,33 +67,19 @@ public final class AffineModelEquation implements Orientable {
 
 	private final Orientation direction;
     
-//	private AffineModelEquation(double refx, double refy, double delta, Orientation direction) {
-//		this.sx = Orientation.X.equals(direction) ? refx : 0.0;
-//		this.sy = Orientation.X.equals(direction) ? 0.0  : refy;
-//		
-//		this.ox = Orientation.X.equals(direction) ? 0.0  : -refx;
-//		this.oy = Orientation.X.equals(direction) ? refy : 0.0;
-//		
-//		this.tx = Orientation.X.equals(direction) ? 1.0  : 0.0;
-//		this.ty = Orientation.X.equals(direction) ? 0.0  : 1.0;
-//		
-//		this.deltaValue = delta;
-//		this.direction = direction;
-//	}
-	
-	private AffineModelEquation(double sx, double sy, double ox, double oy,
-    		                    double tx, double ty, double delta, 
-    		                    Orientation direction) {
-        this.sx = sx;
-        this.sy = sy;
-        this.ox = ox;
-        this.oy = oy;
-        this.tx = tx;
-        this.ty = ty;
-        this.deltaValue = delta;
-        this.direction = direction;
-        
-    }
+	private AffineModelEquation(double refx, double refy, double delta, Orientation direction) {
+		this.sx = Orientation.X.equals(direction) ? refx : 0.0;
+		this.sy = Orientation.X.equals(direction) ? 0.0  : refy;
+		
+		this.ox = Orientation.X.equals(direction) ? 0.0  : -refx;
+		this.oy = Orientation.X.equals(direction) ? refy : 0.0;
+		
+		this.tx = Orientation.X.equals(direction) ? 1.0  : 0.0;
+		this.ty = Orientation.X.equals(direction) ? 0.0  : 1.0;
+		
+		this.deltaValue = delta;
+		this.direction = direction;
+	}
 
     @Override
     public String toString() {

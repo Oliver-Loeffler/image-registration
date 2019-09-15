@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import net.raumzeitfalle.registration.Dimension;
+import net.raumzeitfalle.registration.SpatialDistribution;
 import net.raumzeitfalle.registration.alignment.TranslateFunction;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
@@ -61,10 +62,12 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
     	TranslateFunction translate = Displacement.translationToCenter(t, u);
     	
     	Dimension<AffineModelEquation> dimension = new Dimension<>();
+    	SpatialDistribution distribution = new SpatialDistribution();
     	
     	List<AffineModelEquation> finalEquations = t.stream()
     												.filter(u)
     												.map(translate)
+    												.map(distribution)
 									                .flatMap(AffineModelEquation::from)
 									                .map(dimension)
 									                .collect(Collectors.toList());
@@ -72,20 +75,33 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
     	if (finalEquations.isEmpty())
     		return SkipAffineTransform.centeredAt(0, 0);
 
-        AffineTransform transform = tryCalculation(dimension, finalEquations);
+        AffineTransform transform = tryCalculation(finalEquations, dimension, distribution);
         
         return new AffineTransformBuilder(transform, -translate.getX(), -translate.getY()).build();
 		        						
 	}
 
-	private AffineTransform tryCalculation(Dimension<AffineModelEquation> dimension,
-			List<AffineModelEquation> finalEquations) {
+	private AffineTransform tryCalculation( List<AffineModelEquation> finalEquations,
+											Dimension<AffineModelEquation> dimension,
+											SpatialDistribution distribution ) {
 		try {
 			return model.solve(finalEquations,dimension); 
+		}
+		catch (Exception e) {
+			return tryOneDimModel(finalEquations, dimension, distribution);
+		}
+	}
+
+	private AffineTransform tryOneDimModel( List<AffineModelEquation> finalEquations,
+											Dimension<AffineModelEquation> dimension,
+											SpatialDistribution distribution ) {
+		
+		try {	
+			JamaOneDimensionalAffineModel oneDimModel = new JamaOneDimensionalAffineModel(distribution);
+			return oneDimModel.solve(finalEquations, dimension);			
 		}
 		catch (Exception e) {
 			return errorHandler.apply(e);
 		}
 	}
-
 }

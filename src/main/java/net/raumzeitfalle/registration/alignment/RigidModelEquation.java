@@ -109,5 +109,4 @@ final class RigidModelEquation implements Orientable {
 		return direction;
 	}
 	
-	
 }
