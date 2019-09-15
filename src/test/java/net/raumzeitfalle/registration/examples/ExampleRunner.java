@@ -23,11 +23,8 @@ public class ExampleRunner {
 		examples.add(()->DemoUnaligned.main());
 		
 		
-		examples.forEach(this::runDemo);
+		assertDoesNotThrow(()->examples.forEach(Runnable::run));
+		
 	}
 	
-	private void runDemo(Runnable runnable) {
-		assertDoesNotThrow(()->runnable.run());
-	}
-
 }
