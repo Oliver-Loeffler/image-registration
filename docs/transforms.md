@@ -22,10 +22,9 @@
 
 ## Cases
 
-* References (Refs): X, Y
-* Readings (Readings): Xd, Yd
-
 ### #1 common case, references and readings in 2D (X,Y)
+
+![2D references with readings in XY](images/01_reference-2D_readings-XY.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -37,6 +36,8 @@
 
 ### #2 special case, references 2D, readings 1D (X)
 
+![2D references with readings in X](images/02_reference-2D_readings-X.png)
+
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
 | X (count) | > 1  | > 1      |
@@ -47,6 +48,8 @@
 
 ### #3 special case, references 2D, readings 1D (Y)
 
+![2D references with readings in Y](images/03_reference-2D_readings-Y.png)
+
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
 | X (count) | > 1  | = 0      |
@@ -56,6 +59,8 @@
 * Result: ty,sy,oy
 
 ### #4 common case, references in 2D, most readings (X,Y), *some readings (X or Y)*
+
+![2D references with partially missing X or Y](images/04_reference-2D_readings-XY-partial-X-Y.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
