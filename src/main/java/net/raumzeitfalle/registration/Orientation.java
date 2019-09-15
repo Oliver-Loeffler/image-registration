@@ -20,5 +20,15 @@
 package net.raumzeitfalle.registration;
 
 public enum Orientation {
-	X,Y,XY,UNKNOWN;
+	X(1),Y(1),XY(2),UNKNOWN(0);
+	
+	private final int dimensions;
+	
+	private Orientation(int dimension) {
+		this.dimensions = dimension;
+	}
+	
+	public int getDimensions() {
+		return this.dimensions;
+	}
 }

@@ -45,6 +45,8 @@ import net.raumzeitfalle.registration.Orientation;
  */
 final class JamaAffineModel implements AffineModel {
 
+	private static final double zero = 0d;
+	
 	@Override
 	public <T extends Orientable> AffineTransform solve(Collection<AffineModelEquation> equations,
 			Dimension<T> dimension) {
@@ -74,8 +76,6 @@ final class JamaAffineModel implements AffineModel {
 	}
 
 	private AffineTransform createTransform(Matrix solved, Orientation direction) {
-		
-		double zero = 0d;
 		
 		if (Orientation.X.equals(direction)) {
 			double tx = solved.get(2, 0);
