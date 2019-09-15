@@ -107,3 +107,4 @@
 
 ### #9 special case, references along vertical line, readings in 1D (X)
 ### #10 special case, references along vertical line, readings in 1D (Y)
+### #11 special case, only one reference position, readings in (X and Y) or (X or Y)
