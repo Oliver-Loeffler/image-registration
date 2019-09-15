@@ -65,7 +65,7 @@
 * Input: X,Y,Xd,Yd; __*some readings have either Xd or Yd only*__
 * Result: tx,ty,sx,sy,ox,oy
 
-### #4 special case, references along horizontal line, readings in 2D (X,Y)
+### #5 special case, references along horizontal line, readings in 2D (X,Y)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -75,7 +75,7 @@
 * Input: X,Y,Xd,Yd
 * Result: tx,ty,sx,ox
 
-### #5 special case, references along vertical line, readings in 2D (X,Y)
+### #6 special case, references along vertical line, readings in 2D (X,Y)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -85,7 +85,7 @@
 * Input: X,Y,Xd,Yd
 * Result: tx,ty,sy,oy
 
-### #6 special case, references along horizontal line, readings in 1D (X)
+### #7 special case, references along horizontal line, readings in 1D (X)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -95,7 +95,7 @@
 * Input: X,Y,Xd
 * Result: tx,sx
 
-### #7 special case, references along horizontal line, readings in 1D (Y)
+### #8 special case, references along horizontal line, readings in 1D (Y)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -105,5 +105,5 @@
 * Input: X,Y,Yd
 * Result: ty,ox
 
-### #8 special case, references along vertical line, readings in 1D (X)
-### #9 special case, references along vertical line, readings in 1D (Y)
+### #9 special case, references along vertical line, readings in 1D (X)
+### #10 special case, references along vertical line, readings in 1D (Y)
