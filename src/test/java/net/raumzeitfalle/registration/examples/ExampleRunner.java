@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-class ExampleRunner {
+public class ExampleRunner {
 
 	@Test
 	void runDemos() {
@@ -23,7 +23,7 @@ class ExampleRunner {
 		examples.add(()->DemoUnaligned.main());
 		
 		
-		examples.parallelStream().forEach(this::runDemo);
+		examples.forEach(this::runDemo);
 	}
 	
 	private void runDemo(Runnable runnable) {
