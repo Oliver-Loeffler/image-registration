@@ -1,11 +1,12 @@
-| Transform  | tx | ty | sx | sy | mag | ox | oy | ortho/rot |
-| ---------- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Rigid      | +  | +  |    |    |     |    |    | +         |
-| Affine     | +  | +  | +  | +  | o   | +  | +  | o         |
-| Similarity | +  | +  | +  | +  | o   | +  | +  | o         |
+| Legend                                         |
+| ---------------------------------------------- |
+| + is directly calculated by model              |
+| O can be derived/approximated from results     |
 
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| Transform              | tx  | ty  | sx  | sy  | mag | ox  | oy  | ortho/rot |
+| ---------------------- | --- | --- | --- | --- | --- | --- | --- | --------- |
+| Rigid                  | +   | +   |     |     |     |     |     | +         |
+| Affine                 | +   | +   | +   | +   | o   | +   | +   | o         |
+| Similarity             | +   | +   |     |     | +   |     |     | o         |
+| Non-Uniform Similarity | +   | +   | +   | +   | o   |     |     | o         |
