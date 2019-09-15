@@ -32,8 +32,8 @@
 | X (count) | > 1  | > 1      |
 | Y (count) | > 1  | > 1      |
 
-Input: X,Y,Xd,Yd
-Result: tx,ty,sx,sy,ox,oy
+* Input: X,Y,Xd,Yd
+* Result: tx,ty,sx,sy,ox,oy
 
 ### #2 special case, references 2D, readings 1D, x
 
@@ -42,8 +42,8 @@ Result: tx,ty,sx,sy,ox,oy
 | X (count) | > 1  | > 1      |
 | Y (count) | > 1  | = 0      |
 
-Input: X,Y,Xd
-Result: tx,sx,ox
+* Input: X,Y,Xd
+* Result: tx,sx,ox
 
 ### #3 special case, references 2D, readings 1D, y
 
@@ -52,8 +52,8 @@ Result: tx,sx,ox
 | X (count) | > 1  | = 0      |
 | Y (count) | > 1  | > 1      |
 
-Input: X,Y,Yd
-Result: ty,sy,oy
+* Input: X,Y,Yd
+* Result: ty,sy,oy
 
 ### #4 special case, references along horizontal line, readings in 2D
 
@@ -62,8 +62,8 @@ Result: ty,sy,oy
 | X (count) | > 1  | > 1      |
 | Y (count) | = 1  | > 1      |
 
-Input: X,Y,Xd,Yd
-Result: tx,ty,sx,ox
+* Input: X,Y,Xd,Yd
+* Result: tx,ty,sx,ox
 
 ### #5 special case, references along vertical line, readings in 2D
 
@@ -72,5 +72,5 @@ Result: tx,ty,sx,ox
 | X (count) | = 1  | > 1      |
 | Y (count) | > 1  | > 1      |
 
-Input: X,Y,Xd,Yd
-Result: tx,ty,sy,oy
+* Input: X,Y,Xd,Yd
+* Result: tx,ty,sy,oy
