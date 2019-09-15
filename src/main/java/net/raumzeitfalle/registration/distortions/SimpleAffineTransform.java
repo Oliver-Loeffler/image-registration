@@ -24,6 +24,26 @@ import java.util.Locale;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public class SimpleAffineTransform implements AffineTransform {
+	
+	static AffineTransform forX(double transx, double scalex, double orthox) {
+		return new SimpleAffineTransform(transx, 0d, scalex, 0d, orthox, 0d, 0d, 0d);
+	}
+	
+	static AffineTransform forY(double transy, double scaley, double orthoy) {
+		return new SimpleAffineTransform(0d, transy, 0d, scaley, 0d, orthoy, 0d, 0d);
+	}
+	
+	static AffineTransform forXY(double tx, double ty, double sx, double sy, double ox, double oy) {
+		return new SimpleAffineTransform(tx, ty, sx, sy, ox, oy, 0d, 0d);
+	}
+	
+	static AffineTransform horizontal(double tx, double ty, double scale, double rot) {
+		return new SimpleAffineTransform(tx, ty, scale, 0d, rot, 0d, 0d, 0d);
+	}
+	
+	static AffineTransform vertical(double tx, double ty, double scale, double rot) {
+		return new SimpleAffineTransform(tx, ty, 0d, scale, 0d, rot, 0d, 0d);
+	}
 
     public static SimpleAffineTransform with(double transx, double transy,
             double scalex, double scaley,
