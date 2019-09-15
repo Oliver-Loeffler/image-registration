@@ -22,45 +22,26 @@
 
 ## Cases
 
-* References: X, Y
-* Readings: Xd, Yd
+* References (Refs): X, Y
+* Readings (Readings): Xd, Yd
 
 ### #1 Common case, references and readings in 2D
 
-| Dimension        | Condition |
-| ---------------- | --------- |
-| # of unique Xd   | > 1       |
-| # of unique Yd   | > 1       |
-
-
-| Spatial Distribution | Condition |
-| -------------------- | --------- |
-| # of unique X        | > 1       |
-| # of unique Y        | > 1       |
-
+| Direction | Refs | Readings |
+| --------- | -----| -------- |
+| X (count) | > 1  | > 1      |
+| Y (count) | > 1  | > 1      |
 
 ### #2 special case, references 2D, readings 1D, x
 
-| Dimension        | Condition |
-| ---------------- | --------- |
-| # of unique Xd   | > 1       |
-| # of unique Yd   | = 0       |
-
-
-| Spatial Distribution | Condition |
-| -------------------- | --------- |
-| # of unique X        | > 1       |
-| # of unique Y        | > 1       |
+| Direction | Refs | Readings |
+| --------- | -----| -------- |
+| X (count) | > 1  | > 1      |
+| Y (count) | > 1  | = 0      |
 
 ### #3 special case, references 2D, readings 1D, y
 
-| Dimension        | Condition |
-| ---------------- | --------- |
-| # of unique Xd   | = 0       |
-| # of unique Yd   | > 1       |
-
-
-| Spatial Distribution | Condition |
-| -------------------- | --------- |
-| # of unique X        | > 1       |
-| # of unique Y        | > 1       |
+| Direction | Refs | Readings |
+| --------- | -----| -------- |
+| X (count) | > 1  | = 0      |
+| Y (count) | > 1  | > 1      |
