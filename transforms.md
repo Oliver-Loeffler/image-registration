@@ -55,6 +55,16 @@
 * Input: X,Y,Yd
 * Result: ty,sy,oy
 
+### #4 common case, references in 2D, most readings (X,Y), *some readings (X or Y)*
+
+| Direction | Refs | Readings |
+| --------- | -----| -------- |
+| X (count) | > 1  | > 1      |
+| Y (count) | > 1  | > 1      |
+
+* Input: X,Y,Xd,Yd; __*some readings have either Xd or Yd only*__
+* Result: tx,ty,sx,sy,ox,oy
+
 ### #4 special case, references along horizontal line, readings in 2D (X,Y)
 
 | Direction | Refs | Readings |
