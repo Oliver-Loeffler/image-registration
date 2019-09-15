@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class ExampleRunner {
+public class DemoTest {
 
 	@Test
 	void runDemos() {
