@@ -22,10 +22,9 @@
 
 ## Cases
 
-* References (Refs): X, Y
-* Readings (Readings): Xd, Yd
-
 ### #1 common case, references and readings in 2D (X,Y)
+
+![2D references with readings in XY](images/01_reference-2D_readings-XY.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -37,6 +36,8 @@
 
 ### #2 special case, references 2D, readings 1D (X)
 
+![2D references with readings in X](images/02_reference-2D_readings-X.png)
+
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
 | X (count) | > 1  | > 1      |
@@ -47,6 +48,8 @@
 
 ### #3 special case, references 2D, readings 1D (Y)
 
+![2D references with readings in Y](images/03_reference-2D_readings-Y.png)
+
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
 | X (count) | > 1  | = 0      |
@@ -55,7 +58,21 @@
 * Input: X,Y,Yd
 * Result: ty,sy,oy
 
-### #4 special case, references along horizontal line, readings in 2D (X,Y)
+### #4 common case, references in 2D, most readings (X,Y), *some readings (X or Y)*
+
+![2D references with partially missing X or Y](images/04_reference-2D_readings-XY-partial-X-Y.png)
+
+| Direction | Refs | Readings |
+| --------- | -----| -------- |
+| X (count) | > 1  | > 1      |
+| Y (count) | > 1  | > 1      |
+
+* Input: X,Y,Xd,Yd; __*some readings have either Xd or Yd only*__
+* Result: tx,ty,sx,sy,ox,oy
+
+### #5 special case, references along horizontal line, readings in 2D (X,Y)
+
+![references along horizontal line (1D) with X and Y](images/05_reference-1D-hor_readings-XY.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -65,7 +82,9 @@
 * Input: X,Y,Xd,Yd
 * Result: tx,ty,sx,ox
 
-### #5 special case, references along vertical line, readings in 2D (X,Y)
+### #6 special case, references along vertical line, readings in 2D (X,Y)
+
+![references along vertical line (1D) with X and Y](images/06_reference-1D-ver_readings-XY.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -75,7 +94,9 @@
 * Input: X,Y,Xd,Yd
 * Result: tx,ty,sy,oy
 
-### #6 special case, references along horizontal line, readings in 1D (X)
+### #7 special case, references along horizontal line, readings in 1D (X)
+
+![references along horizontal line (1D) with X only](images/07_reference-1D-hor_readings-X.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -85,7 +106,9 @@
 * Input: X,Y,Xd
 * Result: tx,sx
 
-### #7 special case, references along horizontal line, readings in 1D (Y)
+### #8 special case, references along horizontal line, readings in 1D (Y)
+
+![references along horizontal line (1D) with Y only](images/08_reference-1D-hor_readings-Y.png)
 
 | Direction | Refs | Readings |
 | --------- | -----| -------- |
@@ -95,5 +118,8 @@
 * Input: X,Y,Yd
 * Result: ty,ox
 
-### #8 special case, references along vertical line, readings in 1D (X)
-### #9 special case, references along vertical line, readings in 1D (Y)
+### #9 special case, references along vertical line, readings in 1D (X)
+### #10 special case, references along vertical line, readings in 1D (Y)
+### #11 special case, only one reference position, readings in (X and Y) or (X or Y)
+
+![references on one single location, partially with X and Y, some XY](images/11_single-reference-singularity.png)
