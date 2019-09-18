@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.raumzeitfalle.registration</groupId>
 	<artifactId>image-registration</artifactId>
-	<version>v0.0.3</version>
+	<version>v0.0.4-SNAPSHOT</version>
 	<description>A colletion of functions to perform rigid and affine transforms for image registration.</description>
 	<inceptionYear>2019</inceptionYear>
 	<organization>
@@ -238,7 +238,7 @@
 		<url>https://github.com/Oliver-Loeffler/image-registration</url>
 		<connection>scm:git:git@github.com/oliver-loeffler/image-registration.git</connection>
 		<developerConnection>scm:git:git@github.com:oliver-loeffler/image-registration.git</developerConnection>
-		<tag>v0.0.3</tag>
+		<tag>v@{project.version}</tag>
 	</scm>
 
 	<licenses>
