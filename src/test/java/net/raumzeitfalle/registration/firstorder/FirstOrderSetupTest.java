@@ -19,17 +19,15 @@
  */
 package net.raumzeitfalle.registration.firstorder;
 
-import static net.raumzeitfalle.registration.firstorder.FirstOrderSetup.ANY;
-import static net.raumzeitfalle.registration.firstorder.FirstOrderSetup.NONE;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -47,17 +45,27 @@ class FirstOrderSetupTest {
 	
 	private FirstOrderSetup classUnderTest;
 
+	private static final Predicate<Displacement> ANY = d -> true;
+	
 	private static final Predicate<Displacement> FIRST_SITE = d -> d.getIndex() == 1;
 
+	private static final Predicate<Displacement> THIRD_SITE = d -> d.getIndex() == 3;
+	
 	@Test
 	void testDefaults() {
 
 		classUnderTest = FirstOrderSetup.builder().build();
 
+		List<Displacement> source = getDisplacements(3);
+		
+		List<Displacement> alignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> calculation = filter(source, classUnderTest.getCalculationSelection());
+		List<Displacement> removed = filter(source, classUnderTest.getRemovalSelection());
+		
 		assertAll(
-				() -> assertEquals(ANY, classUnderTest.getAlignmenSelection()),
-				() -> assertEquals(ANY, classUnderTest.getCalculationSelection()),
-				() -> assertEquals(NONE, classUnderTest.getRemovalSelection()),
+				() -> assertEquals(source.size(), alignment.size(), "# of alignment sites matches # of source sites"),
+				() -> assertEquals(source.size(), calculation.size(), "# of calculation sites matches # of source sites"),
+				() -> assertEquals(0, removed.size(), "By default no sites are removed."),
 				() -> assertEquals(Alignments.UNALIGNED, classUnderTest.getAlignment()),
 				() -> assertTrue(classUnderTest.getCompensations().isEmpty()));
 
@@ -143,24 +151,54 @@ class FirstOrderSetupTest {
 	@EnumSource(value = Alignments.class, names = { "UNALIGNED", "ALL" })
 	void standardAlignmentPredicates(Alignments alignment) {
 
-		classUnderTest = FirstOrderSetup.usingAlignment(alignment).selectForAlignment(FIRST_SITE).build();
+		classUnderTest = FirstOrderSetup.usingAlignment(alignment)
+				              .selectForAlignment(FIRST_SITE)
+				              .build();
 
-		assertNotEquals(FIRST_SITE, classUnderTest.getAlignmenSelection());
-
-		assertEquals(ANY, classUnderTest.getAlignmenSelection());
-
+		
+		List<Displacement> source = getDisplacements(3);
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forCalculation = filter(source, classUnderTest.getCalculationSelection());
+		
+		assertEquals(source.size(), forAlignment.size());
+		assertEquals(source.size(), forCalculation.size());
 	}
+	
+	@ParameterizedTest
+	@EnumSource(value = Alignments.class, names = { "UNALIGNED", "ALL" })
+	void standardAlignmentPredicates_withRemovedSite(Alignments alignment) {
+
+		classUnderTest = FirstOrderSetup.usingAlignment(alignment)
+				              .selectForAlignment(FIRST_SITE)
+				              .removeDisplacements(THIRD_SITE)
+				              .build();
+
+		
+		List<Displacement> source = getDisplacements(3);
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forCalculation = filter(source, classUnderTest.getCalculationSelection());
+		List<Displacement> forRemoval = filter(source, classUnderTest.getRemovalSelection());
+		
+		assertEquals(source.size() - forRemoval.size(), forAlignment.size());
+		assertEquals(source.size() - forRemoval.size(), forCalculation.size());
+	}
+
 
 	@ParameterizedTest
 	@EnumSource(value = Alignments.class, names = { "SCANNER_SELECTED", "SELECTED" })
 	void selectedAlignmentPredicates(Alignments alignment) {
 
-		classUnderTest = FirstOrderSetup.usingAlignment(alignment).selectForAlignment(FIRST_SITE).build();
+		classUnderTest = FirstOrderSetup.usingAlignment(alignment)
+				                        .selectForAlignment(FIRST_SITE)
+				                        .build();
 
-		assertEquals(FIRST_SITE, classUnderTest.getAlignmenSelection());
-
-		assertNotEquals(ANY, classUnderTest.getAlignmenSelection());
-
+		List<Displacement> source = getDisplacements(3);
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forRemoval = filter(source, classUnderTest.getRemovalSelection());
+		
+		assertEquals(1, forAlignment.size());
+		assertEquals(0, forRemoval.size());
+		
 	}
 
 	@ParameterizedTest
@@ -191,29 +229,52 @@ class FirstOrderSetupTest {
 	}
 
 	@ParameterizedTest
-	@EnumSource(value = Alignments.class, names = { "ALL", "UNALIGNED", "SELECTED" })
+	@EnumSource(value = Alignments.class, names = { "ALL", "UNALIGNED" })
 	void selectedForCalculationPredicates_standard(Alignments alignment) {
 
-		classUnderTest = FirstOrderSetup.usingAlignment(alignment).selectForAlignment(FIRST_SITE)
-				.selectForCalculation(ANY).build();
+		classUnderTest = FirstOrderSetup.usingAlignment(alignment)
+				.selectForAlignment(FIRST_SITE)
+				.selectForCalculation(ANY)
+				.build();
+		
+		List<Displacement> source = getDisplacements(3);
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
 
-		assertEquals(ANY, classUnderTest.getCalculationSelection());
+		assertEquals(source.size(), forAlignment.size());
 
-		assertNotEquals(FIRST_SITE, classUnderTest.getCalculationSelection());
+	} 
+
+	@ParameterizedTest
+	@EnumSource(value = Alignments.class, names = { "SELECTED" })
+	void selectedForCalculationPredicates(Alignments alignment) {
+
+		classUnderTest = FirstOrderSetup.usingAlignment(alignment)
+							.selectForAlignment(FIRST_SITE)
+							.selectForCalculation(ANY)
+							.build();
+
+		List<Displacement> source = getDisplacements(3);
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+
+		assertEquals(1, forAlignment.size());
 
 	}
-
+	
 	@ParameterizedTest
 	@EnumSource(value = Alignments.class, names = { "SCANNER_SELECTED" })
 	void selectedForCalculationPredicates_scanner(Alignments alignment) {
 
-		classUnderTest = FirstOrderSetup.usingAlignment(alignment).selectForAlignment(FIRST_SITE)
-				.selectForCalculation(ANY).build();
+		classUnderTest = FirstOrderSetup.usingAlignment(alignment)
+				.selectForAlignment(FIRST_SITE)
+				.selectForCalculation(ANY)
+				.build();
 
-		assertEquals(FIRST_SITE, classUnderTest.getCalculationSelection());
-
-		assertNotEquals(ANY, classUnderTest.getCalculationSelection());
-
+		List<Displacement> source = getDisplacements(3);
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forCalculation = filter(source, classUnderTest.getCalculationSelection());
+		
+		assertEquals(1, forAlignment.size());
+		assertEquals(1, forCalculation.size());
 	}
 
 	@Test
@@ -238,5 +299,26 @@ class FirstOrderSetupTest {
 			() -> assertEquals(displacements.size() - 1, filtered.size(), "number of sites after filtering"),
 			() -> assertTrue(sitesMatchingRemovalPred.isEmpty(),
 						"No sites left which match the removal criterion."));
+	}
+	
+	private List<Displacement> filter(List<Displacement> displacements, Predicate<Displacement> filter) {
+		return displacements.stream()
+					        .filter(filter)
+					        .collect(Collectors.toList());
+	}
+	
+	
+	private List<Displacement> getDisplacements(int count) {
+		
+		Random xr = new Random();
+		Random yr = new Random();
+		List<Displacement> displacements = new ArrayList<>(count);
+		for (int d = 1; d < count+1; d++) {
+			double x = xr.nextDouble()*1E5;
+			double y = yr.nextDouble()*1E5;
+			Displacement displacement = Displacement.at(d, d, x, y);
+			displacements.add(displacement);	
+		}
+		return displacements;
 	}
 }
