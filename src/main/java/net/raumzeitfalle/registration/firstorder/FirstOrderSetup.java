@@ -37,9 +37,9 @@ public final class FirstOrderSetup {
 		return new Builder();
 	}
 	
-	static final Predicate<Displacement> ANY = d->true;
+	private static final Predicate<Displacement> ANY = d->true;
 	
-	static final Predicate<Displacement> NONE = d->false;
+	private static final Predicate<Displacement> NONE = d->false;
 		
 	private final Alignments alignmentMethod;
 	
@@ -197,15 +197,15 @@ public final class FirstOrderSetup {
 			 * are calculated on all available displacements (except these
 			 * which are matched by the removal predicate).
 			 */
-			return forCalculation;
+			return forCalculation.and(forRemoval.negate());
 		}
 
 		private Predicate<Displacement> getAlignmentSelector() {
 			if (alignment.equals(Alignments.ALL))
-				return ANY; // select all sites
+				return ANY.and(forRemoval.negate()); // select all sites, except the ones to be removed or excluded
 				
 			if (alignment.equals(Alignments.UNALIGNED))
-				return ANY; // alignment is not performed but calculated 
+				return ANY.and(forRemoval.negate()); // alignment is not performed but calculated, except the one to be excluded
 
 			return this.forAlignment;
 		}
