@@ -6,6 +6,8 @@
 ## TL;DR;
 
 Image registration is the process of finding the transform to match a given image with a desired reference. This library supports rigid body transforms (translation and rotation) as well as affine transforms (anisotropic scaling, anisotropic rotation/shear aka. non-orthogonality). Currently non-linear transforms are not supported.
+Versions up to and including 0.0.4 run with Java-8, all later version starting with 
+0.0.5 require Java-11.
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
 Control point or feature based methods have only limited scope of use in medical imaging, there intensity based or voxel based methods are preferred due to the natural structure of medical image data. These additional intensity and voxel based methods are not supported by this library.
@@ -17,13 +19,13 @@ Control point or feature based methods have only limited scope of use in medical
 ## How to start?
 
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
-Version 0.0.2 is available on Maven Central using following snippet:
+Version 0.0.4 is available on Maven Central using following snippet:
 
 ```xml
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>image-registration</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4</version>
 </dependency>
 ```
 
