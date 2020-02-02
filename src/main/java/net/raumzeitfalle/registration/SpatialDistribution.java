@@ -62,7 +62,11 @@ public class SpatialDistribution implements Consumer<Displacement>, UnaryOperato
 	}
 
 	public Distribution getDistribution() {
-		if (xLocations.size() > 1 && yLocations.size() > 1)
+		if (xLocations.isEmpty() && yLocations.isEmpty()) {
+			throw new IllegalArgumentException("Could not determine data distribution as no valid displacements have been processed yet.");	
+		}
+		
+		if (xLocations.size() > 1  && yLocations.size() > 1)
 			return Distribution.AREA;
 		
 		if (xLocations.size() == 1 && yLocations.size() > 1)
@@ -71,17 +75,7 @@ public class SpatialDistribution implements Consumer<Displacement>, UnaryOperato
 		if (yLocations.size() == 1 && xLocations.size() > 1)
 			return Distribution.HORIZONTAL;
 		
-		if (yLocations.size() == 1 && xLocations.isEmpty())
-			return Distribution.SINGULARITY;
-		
-		if (xLocations.size() == 1 && yLocations.isEmpty()) {
-			return Distribution.SINGULARITY;
-		}
-		
-		if (xLocations.size() == 1 && yLocations.size() == 1) 
-			return Distribution.SINGULARITY;
-		
-		throw new IllegalArgumentException("Could not determine data distribution as no valid displacements have been processed yet.");
+		return Distribution.SINGULARITY;
 	}
 	
 	

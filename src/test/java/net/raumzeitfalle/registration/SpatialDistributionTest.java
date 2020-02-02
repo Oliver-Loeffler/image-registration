@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.HORIZONTAL, distribution);
+		assertEquals("Distribution [xLocations=2, yLocations=1]", classUnderTest.toString());
 		
 	}
 	
@@ -72,7 +74,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.VERTICAL, distribution);
-		
+		assertEquals("Distribution [xLocations=1, yLocations=2]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -90,7 +92,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.SINGULARITY, distribution);
-		
+		assertEquals("Distribution [xLocations=1, yLocations=1]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -104,7 +106,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.SINGULARITY, distribution);
-		
+		assertEquals("Distribution [xLocations=1, yLocations=0]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -118,7 +120,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.SINGULARITY, distribution);
-		
+		assertEquals("Distribution [xLocations=0, yLocations=1]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -128,10 +130,35 @@ class SpatialDistributionTest {
 			
 		points.forEach(classUnderTest);
 		
+		assertEquals("Distribution [xLocations=0, yLocations=0]", classUnderTest.toString());
+		
 		Throwable t = assertThrows(IllegalArgumentException.class,
 				()->classUnderTest.getDistribution());
 		
 		assertEquals("Could not determine data distribution as no valid displacements have been processed yet.", t.getMessage());
+		
+	}
+	
+	
+	@Test
+	void useAsMappingFunction() {
+		
+		List<Displacement> points = new ArrayList<>(5);
+		points.add(Displacement.at(0, 0,      0,      0,      0,         0));
+		points.add(Displacement.at(1, 1,      0, 140000,      0,    140000));
+		points.add(Displacement.at(2, 2, 150000, 140000, 150000,    140000));
+		points.add(Displacement.at(3, 3, 150000,      0, 150000,         0));
+		points.add(Displacement.at(4, 4,  75000,  70000, Double.NaN, Double.NaN));
+		
+		List<Displacement> copyOfPoints = points.stream()
+				                                .map(classUnderTest)
+				                                .collect(Collectors.toList());
+		
+		Distribution distribution = classUnderTest.getDistribution();
+		
+		
+		assertEquals(points,copyOfPoints);
+		assertEquals(Distribution.AREA, distribution);
 		
 	}
 
