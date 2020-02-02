@@ -26,7 +26,6 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * 
  * Allows to correct rotation and translation (x,y) for a given displacement.
  * 
- * @author oliver
  *
  */
 public interface RigidTransform extends Transform {
@@ -41,4 +40,5 @@ public interface RigidTransform extends Transform {
 				source.getXd() - this.getTranslationX() + source.getY() * this.getRotation(), 
 				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
 	}
+	
 }
