@@ -37,9 +37,11 @@ class RigidTransformCalculationTest {
 	
 	private static final double TOLERANCE = 1E-11;
 	
+	private final RigidBodyModel model = new RigidBodyJamaModel();
+	
 	private final BiFunction<Collection<Displacement>, 
 							  Predicate<Displacement>, 
-							          RigidTransform> funtionUnderTest = new RigidTransformCalculation();
+							          RigidTransform> funtionUnderTest = new RigidTransformCalculation(model);
 
 	@Test
 	void zeroTransform() {
@@ -263,6 +265,63 @@ class RigidTransformCalculationTest {
 		assertEquals(  69.999 , result.getTranslationX()*1E3, 1E-3);
 		assertEquals( -79.999 , result.getTranslationY()*1E3, 1E-3);
 		assertEquals(    1E-6 , result.getRotation(),     TOLERANCE);
+		
+	}
+	
+	@Test
+	void singularityXY() {
+			
+		double dx =   0.075; 
+		double dy =  -0.075; 
+	
+		List<Displacement> undisplaced = 
+				List.of(Displacement.at(0, 0, 4500, 4500, 4500+dx, 4500+dy));
+		
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertNotNull(result);
+		
+		assertEquals(  75.0 , result.getTranslationX()*1E3, 1E-3);
+		assertEquals( -75.0 , result.getTranslationY()*1E3, 1E-3);
+		assertEquals(   0.0 , result.getRotation(),     TOLERANCE);
+		
+	}
+	
+	@Test
+	void singularityX() {
+			
+		double dx =   0.075; 
+	
+		List<Displacement> undisplaced = 
+				List.of(Displacement.at(0, 0, 4500, Double.NaN, 4500+dx, Double.NaN));
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertNotNull(result);
+		
+		assertEquals(  75.0 , result.getTranslationX()*1E3, 1E-3);
+		assertEquals(   0.0 , result.getTranslationY()*1E3, 1E-3);
+		assertEquals(   0.0 , result.getRotation(),     TOLERANCE);
+		
+	}
+	
+	@Test
+	void singularityY() {
+			 
+		double dy =  -0.075; 
+	
+		List<Displacement> undisplaced = 
+				List.of(Displacement.at(0, 0, Double.NaN, 4500, Double.NaN, 4500+dy));
+		
+		
+		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
+		
+		assertNotNull(result);
+		
+		assertEquals(   0.0 , result.getTranslationX()*1E3, 1E-3);
+		assertEquals( -75.0 , result.getTranslationY()*1E3, 1E-3);
+		assertEquals(   0.0 , result.getRotation(),     TOLERANCE);
 		
 	}
 

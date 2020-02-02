@@ -20,6 +20,7 @@
 package net.raumzeitfalle.registration.alignment;
 
 import net.raumzeitfalle.registration.Transform;
+import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
  * 
@@ -34,4 +35,10 @@ public interface RigidTransform extends Transform {
 	double getTranslationY();
 	double getRotation();
 	
+	@Override
+	default Displacement apply(Displacement source) {
+		return Displacement.from(source, 
+				source.getXd() - this.getTranslationX() + source.getY() * this.getRotation(), 
+				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
+	}
 }
