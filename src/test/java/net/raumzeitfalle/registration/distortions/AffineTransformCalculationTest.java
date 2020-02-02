@@ -75,6 +75,104 @@ class AffineTransformCalculationTest {
 	}
 	
 	@Test
+	void scalingX() {
+		
+		double dx =  0.075; // 150nm over 150um is 1ppm
+		double dy =  0.0;   // no impact on y-axis
+		
+		List<Displacement> undisplaced = new ArrayList<>(5);
+		undisplaced.add(Displacement.at(0, 0,      0,      0,      0-dx,      0-dy));
+		undisplaced.add(Displacement.at(1, 1,      0, 140000,      0-dx, 140000+dy));
+		undisplaced.add(Displacement.at(2, 2, 150000, 140000, 150000+dx, 140000+dy));
+		undisplaced.add(Displacement.at(3, 3, 150000,      0, 150000+dx,      0-dy));
+		undisplaced.add(Displacement.at(4, 4,  75000,  70000, Double.NaN, Double.NaN));
+		
+		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
+		
+		assertNotNull(result);
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		
+		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		
+		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
+		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		
+		assertEquals(  1.0, toPPM(result.getScaleX()),        TOLERANCE);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
+		assertEquals(  0.5, toPPM(result.getMagnification()), TOLERANCE);
+		
+		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
+		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
+		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+	}
+	
+	@Test
+	void scalingY_withoutX() {
+		
+		double dx =  0.0;   // 150nm over 150um is 1ppm
+		double dy = -0.140; // 140nm over 140um is 1ppm
+		
+		List<Displacement> undisplaced = new ArrayList<>(5);
+		undisplaced.add(Displacement.at(0, 0,      0,      0,      0-dx,      0-dy));
+		undisplaced.add(Displacement.at(1, 1,      0, 140000,      0-dx, 140000+dy));
+		undisplaced.add(Displacement.at(2, 2, 150000, 140000, 150000+dx, 140000+dy));
+		undisplaced.add(Displacement.at(3, 3, 150000,      0, 150000+dx,      0-dy));
+		undisplaced.add(Displacement.at(4, 4,  75000,  70000, Double.NaN, Double.NaN));
+		
+		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
+		
+		assertNotNull(result);
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		
+		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		
+		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
+		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		
+		assertEquals(  0.0, toPPM(result.getScaleX()),        TOLERANCE);
+		assertEquals( -2.0, toPPM(result.getScaleY()),        TOLERANCE);
+		assertEquals( -1.0, toPPM(result.getMagnification()), TOLERANCE);
+		
+		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
+		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
+		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+	}
+	
+	@Test
+	void scalingX_withoutY() {
+		
+		double dx =  0.075; // 150nm over 150um is 1ppm
+		
+		List<Displacement> undisplaced = new ArrayList<>(5);
+		undisplaced.add(Displacement.at(0, 0,      0,      0,      0-dx,  Double.NaN));
+		undisplaced.add(Displacement.at(1, 1,      0, 140000,      0-dx,  Double.NaN));
+		undisplaced.add(Displacement.at(2, 2, 150000, 140000, 150000+dx,  Double.NaN));
+		undisplaced.add(Displacement.at(3, 3, 150000,      0, 150000+dx,  Double.NaN));
+		undisplaced.add(Displacement.at(4, 4,  75000,  70000, Double.NaN, Double.NaN));
+		
+		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
+		
+		assertNotNull(result);
+		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		
+		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		
+		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
+		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		
+		assertEquals(  1.0, toPPM(result.getScaleX()),        TOLERANCE);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
+		assertEquals(  0.5, toPPM(result.getMagnification()), TOLERANCE);
+		
+		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
+		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
+		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+	}
+	
+	@Test
 	void scalingXY() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm

@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -43,7 +44,12 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
 	private static final Logger LOGGER = Logger.getLogger(AffineTransformCalculation.class.getName());
 	
 	public AffineTransformCalculation() {
-		this(new JamaAffineModel(), ex->{
+		this(()->new JamaAffineModel());
+	}
+	
+	
+	public AffineTransformCalculation(Supplier<AffineModel> modelFactory) {
+		this(modelFactory.get(), ex->{
 			LOGGER.log(Level.WARNING, "Model calculation error: {0}, continuing with a SkipTransform.", ex);
 			return SkipAffineTransform.centeredAt(0, 0);
 		});
