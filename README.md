@@ -83,7 +83,9 @@ Version 0.0.4 is available on Maven Central using following snippet:
 ## Domain types
 
 * Displacement
+
 * Category
+
 * SiteSelection
     * AlignmentSelection
     * CalculationSelection
@@ -92,14 +94,20 @@ Version 0.0.4 is available on Maven Central using following snippet:
     * RigidTransform
     * AffineTransform
     * SimilarityTransform
+    * NonUniformSimilarityTransform
+    * HighOrderTransform (not yet implemented)
+      
 * TransformCorrection
     * SkipTransform
+    * SkippableOperation
 
 * Transform (low level)
     * ModelEquation
     * TransformModel
     * Dimension
     * Orientation
+    * SpatialDistribution
+    * Distribution
 
 ## Interfaces
 
