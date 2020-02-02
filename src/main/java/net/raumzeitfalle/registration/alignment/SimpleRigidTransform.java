@@ -21,25 +21,33 @@ package net.raumzeitfalle.registration.alignment;
 
 import java.util.Locale;
 
-import net.raumzeitfalle.registration.displacement.Displacement;
-
 /**
  * 
  * Allows to correct rotation and translation (x,y) for a given displacement.
- *  
- * @author oliver
  *
  */
 public final class SimpleRigidTransform implements RigidTransform {
 
+	public static RigidTransform shiftX(double translationX) {
+		return new SimpleRigidTransform(translationX, 0.0, 0.0);
+	}
+
+	public static RigidTransform shiftY(double translationY) {
+		return new SimpleRigidTransform(0.0, translationY, 0.0);
+	}
+
+	public static RigidTransform translation(double translationX, double translationY) {
+		return new SimpleRigidTransform(translationX, translationY, 0.0);
+	}
+
 	public static RigidTransform with(double translationX, double translationY, double rotation) {
 		return new SimpleRigidTransform(translationX, translationY, rotation);
 	}
-	
+
 	private final double translationX;
-	
+
 	private final double translationY;
-	
+
 	private final double rotation;
 
 	private SimpleRigidTransform(double tx, double ty, double rot) {
@@ -62,20 +70,12 @@ public final class SimpleRigidTransform implements RigidTransform {
 
 	@Override
 	public String toString() {
-		return    "RigidTransform [x=" + format(translationX) 
-				+ ", y=" + format(translationY) + ", rotation="
+		return "RigidTransform [x=" + format(translationX) + ", y=" + format(translationY) + ", rotation="
 				+ format(rotation * 1E6) + " urad]";
 	}
-	
+
 	private String format(double value) {
 		return String.format(Locale.US, "%10.7f", value);
 	}
 
-	@Override
-	public Displacement apply(Displacement source) {
-		return Displacement.from(source, 
-				source.getXd() - this.getTranslationX() + source.getY() * this.getRotation(), 
-				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
-	}
-	
 }

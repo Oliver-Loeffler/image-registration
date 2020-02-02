@@ -104,20 +104,32 @@ final class RigidBodyJamaModel implements RigidBodyModel {
 	@Override
 	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, Dimension<T> dimension) {
 		
-		/* 
-		 * TODO: How to handle situations where the system of equations cannot be
-		 * solved?
-		 * 
-		 */
 		int rows = equations.size();
 		int cols = dimension.getDimensions()+1;
 		
-		Matrix references = new Matrix(rows, cols);
-		Matrix deltas = new Matrix(rows, 1);
-
 		Orientation direction = dimension.getDirection();
+		
+		Matrix deltas = new Matrix(rows, 1);
+		Matrix references = new Matrix(rows, cols);
 		prepare(equations, references, deltas, direction);
-
+		
+		// escape here before singular matrix exception can be thrown
+		if (Orientation.XY.equals(direction) && equations.size() == 2) {
+			double tx = deltas.get(0, 0);
+			double ty = deltas.get(1, 0);
+			return SimpleRigidTransform.translation(tx, ty);
+		}
+		
+		if (Orientation.X.equals(direction) && equations.size() == 1) {
+			double tx = deltas.get(0, 0);
+			return SimpleRigidTransform.shiftX(tx);
+		}
+		
+		if (Orientation.Y.equals(direction) && equations.size() == 1) {
+			double ty = deltas.get(0, 0);
+			return SimpleRigidTransform.shiftY(ty);
+		}
+				
 		return solve(references, deltas, direction);
 	}
 	
