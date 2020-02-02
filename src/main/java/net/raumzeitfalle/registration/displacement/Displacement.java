@@ -357,13 +357,13 @@ public class Displacement {
 		
 		public Builder withXDeviation(Double deltaX) {
 			Objects.requireNonNull(deltaX, "deltaX must not be null");
-			this.xd = deltaX + this.xd;
+			this.xd = deltaX + this.x;
 			return this;
 		}
 		
 		public Builder withYDeviation(Double deltaY) {
 			Objects.requireNonNull(deltaY, "deltaY must not be null");
-			this.xd = deltaY + this.yd;
+			this.yd = deltaY + this.y;
 			return this;
 		}
 		
