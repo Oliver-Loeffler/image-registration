@@ -28,7 +28,7 @@
 
 		<maven.enforcer.plugin.version>3.0.0-M3</maven.enforcer.plugin.version>
 		<maven.versions.plugin.version>2.5</maven.versions.plugin.version>
-		<maven.jacoco.plugin.version>0.8.0</maven.jacoco.plugin.version>
+		<maven.jacoco.plugin.version>0.8.5</maven.jacoco.plugin.version>
 		<maven.source.plugin.version>3.0.1</maven.source.plugin.version>
 		<maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
 		<maven.jar.plugin.version>3.1.1</maven.jar.plugin.version>
