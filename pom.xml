@@ -5,7 +5,7 @@
 	<groupId>net.raumzeitfalle.registration</groupId>
 	<artifactId>image-registration</artifactId>
 	<version>0.0.5-SNAPSHOT</version>
-	<description>A colletion of functions to perform rigid and affine transforms for image registration.</description>
+	<description>A collection of functions to perform rigid and affine transforms for image registration.</description>
 	<inceptionYear>2019</inceptionYear>
 	<organization>
 		<name>Oliver Loeffler, Raumzeitfalle.net</name>
