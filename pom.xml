@@ -22,7 +22,9 @@
 
 		<org.la4j.version>0.6.0</org.la4j.version>
 		<gov.nist.math.jama.version>1.1.1</gov.nist.math.jama.version>
-
+		<org.ejml.version>0.39</org.ejml.version>
+		<org.apache.math.commons.version>3.6.1</org.apache.math.commons.version>
+		
 		<junit.jupiter.version>5.6.0</junit.jupiter.version>
 
 		<maven.enforcer.plugin.version>3.0.0-M3</maven.enforcer.plugin.version>
@@ -254,6 +256,19 @@
 			<artifactId>gov.nist.math.jama</artifactId>
 			<version>${gov.nist.math.jama.version}</version>
 			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.ejml</groupId>
+			<artifactId>ejml-simple</artifactId>
+			<version>${org.ejml.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>${org.apache.math.commons.version}</version>
 		</dependency>
 
 		<dependency>
