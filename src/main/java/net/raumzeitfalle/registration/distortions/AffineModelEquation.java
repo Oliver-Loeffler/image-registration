@@ -22,11 +22,11 @@ package net.raumzeitfalle.registration.distortions;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import net.raumzeitfalle.registration.ModelEquation;
 import net.raumzeitfalle.registration.Orientation;
-import net.raumzeitfalle.registration.Orientable;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public final class AffineModelEquation implements Orientable {
+public final class AffineModelEquation implements ModelEquation {
     
     public static Stream<AffineModelEquation> from(Displacement d) {
         
@@ -86,31 +86,31 @@ public final class AffineModelEquation implements Orientable {
         return "FirstOrderEquation [REF: (" + sx + ", " + sy + ", " + ox + ", " + oy + ", " + tx + ", " + ty + "), Delta: (" + deltaValue + ") ]";
     }
 
-    double getSx() {
+    public double getSx() {
         return sx;
     }
 
-    double getSy() {
+    public double getSy() {
         return sy;
     }
 
-    double getOx() {
+    public double getOx() {
         return ox;
     }
 
-    double getOy() {
+    public double getOy() {
         return oy;
     }
 
-    double getTx() {
+    public double getTx() {
         return tx;
     }
 
-    double getTy() {
+    public double getTy() {
         return ty;
     }
 
-    double getDeltaValue() {
+    public double getDeltaValue() {
         return deltaValue;
     }
 
