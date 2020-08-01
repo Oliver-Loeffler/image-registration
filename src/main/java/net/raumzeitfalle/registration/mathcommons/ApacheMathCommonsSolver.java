@@ -1,9 +1,11 @@
-package net.raumzeitfalle.registration.solver;
+package net.raumzeitfalle.registration.mathcommons;
 
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.QRDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
+
+import net.raumzeitfalle.registration.solver.*;
 
 
 class ApacheMathCommonsSolver implements Solver {
