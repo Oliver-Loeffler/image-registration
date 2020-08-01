@@ -2,11 +2,11 @@ package net.raumzeitfalle.registration.solver;
 
 import net.raumzeitfalle.registration.ModelEquation;
 
-public final class Deltas {
+public final class DeltasImpl {
 
 	private final double[] deltas;
 	
-	public Deltas(int rows) {
+	public DeltasImpl(int rows) {
 		this.deltas = new double[rows];
 	}
 
