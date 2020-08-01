@@ -1,5 +1,6 @@
 plugins {
    id 'java'
+   id 'jacoco'
    id 'com.github.hierynomus.license-base' version '0.15.0'
    id "org.sonarqube" version "3.0"
 }
@@ -12,6 +13,7 @@ allprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'com.github.hierynomus.license-base'
+    apply plugin: 'jacoco'
     apply plugin: 'org.sonarqube'
 
     version = '0.0.5-SNAPSHOT'
@@ -29,6 +31,25 @@ allprojects {
             property "sonar.organization", System.getenv('SONARCLOUD_ORG')
         }
     }
+    
+    jacoco {
+	    toolVersion = "0.8.5"
+	}
+	
+	jacocoTestReport {
+		reports {
+		    xml.enabled true
+		    csv.enabled false
+		}
+    }
+    
+	test {
+	    finalizedBy jacocoTestReport
+	}
+	
+	jacocoTestReport {
+	    dependsOn test
+	}
 }
 
 wrapper {
