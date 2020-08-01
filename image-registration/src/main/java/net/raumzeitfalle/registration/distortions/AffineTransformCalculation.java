@@ -49,7 +49,7 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
 	
 	public AffineTransformCalculation(AffineModel model) {
 		this(model, ex->{
-			LOGGER.log(Level.WARNING, "Model calculation error: {0}, continuing with a SkipTransform.", ex);
+			LOGGER.log(Level.WARNING, "Model calculation error -> continuing with a SkipTransform.", ex);
 			return SkipAffineTransform.centeredAt(0, 0);
 		});
 	}
