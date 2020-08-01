@@ -19,17 +19,11 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Predicate;
+import java.math.*;
+import java.util.*;
+import java.util.function.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -90,7 +84,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
@@ -123,7 +117,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
@@ -155,7 +149,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
@@ -188,7 +182,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
@@ -220,7 +214,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.075, result.getTranslationX(),       TOLERANCE);
 		assertEquals( 0.000, result.getTranslationY(),       TOLERANCE);
@@ -252,7 +246,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.000, result.getTranslationX(),        TOLERANCE);
 		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);
@@ -285,7 +279,7 @@ class AffineTransformCalculationTest {
 		AffineTransform result = funtionUnderTest.apply(undisplaced, displacement->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0.075, result.getTranslationX(),        TOLERANCE);
 		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);

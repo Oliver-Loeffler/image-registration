@@ -19,13 +19,10 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Predicate;
+import java.util.function.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +51,8 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals( 0.0, result.getTranslationX(), TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(), TOLERANCE);
@@ -74,7 +72,7 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals( 10.0, result.getTranslationX(), TOLERANCE);
 		assertEquals(  0.0, result.getTranslationY(), TOLERANCE);
@@ -94,7 +92,7 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(   0.0, result.getTranslationX(), TOLERANCE);
 		assertEquals( -10.0, result.getTranslationY(), TOLERANCE);
@@ -113,7 +111,7 @@ class RigidTransformCalculationTest {
 		
 		RigidTransform result = funtionUnderTest.apply(displaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(  10.0, result.getTranslationX(), TOLERANCE);
 		assertEquals( -10.0, result.getTranslationY(), TOLERANCE);
@@ -136,7 +134,7 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(displaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(   0.0, result.getTranslationX(), TOLERANCE);
 		assertEquals(   0.0, result.getTranslationY(), TOLERANCE);
@@ -166,7 +164,7 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(displaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(  10.0, result.getTranslationX(), TOLERANCE);
 		assertEquals(  -4.0, result.getTranslationY(), TOLERANCE);
@@ -195,7 +193,7 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(displacements,selectNone);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SkipRigidTransform.class));
+		assertEquals(SkipRigidTransform.class, result.getClass());
 	
 		assertEquals( 0.0, result.getTranslationX(), TOLERANCE);
 		assertEquals( 0.0, result.getTranslationY(), TOLERANCE);
@@ -214,7 +212,7 @@ class RigidTransformCalculationTest {
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(  10.0, result.getTranslationX(), TOLERANCE);
 		assertEquals(   0.0, result.getTranslationY(), TOLERANCE);
@@ -233,7 +231,7 @@ class RigidTransformCalculationTest {
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(  0.0, result.getTranslationX(), TOLERANCE);
 		assertEquals( 50.0, result.getTranslationY(), TOLERANCE);
@@ -258,7 +256,7 @@ class RigidTransformCalculationTest {
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
 		assertNotNull(result);
-		assertTrue(result.getClass().equals(SimpleRigidTransform.class));
+		assertEquals(SimpleRigidTransform.class, result.getClass());
 		
 		assertEquals(  69.999 , result.getTranslationX()*1E3, 1E-3);
 		assertEquals( -79.999 , result.getTranslationY()*1E3, 1E-3);

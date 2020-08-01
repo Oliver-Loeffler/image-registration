@@ -129,7 +129,7 @@ class OneDimensionalAffineTransformCalculationTest {
 		
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( tx, result.getTranslationX(),  TOLERANCE);
 		assertEquals( 0d, result.getTranslationY(),  TOLERANCE);
@@ -163,7 +163,7 @@ class OneDimensionalAffineTransformCalculationTest {
 			
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals(  tx, result.getTranslationX(),  TOLERANCE);
 		assertEquals(  ty, result.getTranslationY(),  TOLERANCE);
@@ -198,7 +198,7 @@ class OneDimensionalAffineTransformCalculationTest {
 			
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals(  tx, result.getTranslationX(),  TOLERANCE);
 		assertEquals(  ty, result.getTranslationY(),  TOLERANCE);
@@ -233,7 +233,7 @@ class OneDimensionalAffineTransformCalculationTest {
 			
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals(  tx, result.getTranslationX(),  TOLERANCE);
 		assertEquals(  ty, result.getTranslationY(),  TOLERANCE);

@@ -20,17 +20,13 @@
 package net.raumzeitfalle.registration.file;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.*;
 import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.displacement.Category;
 
 
 public class FileLoader implements Function<Path,List<Displacement>> {
@@ -44,10 +40,12 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 	
 	public List<Displacement> load(Path file) {
 		try {
-			List<String> lines = Files.readAllLines(file, Charset.forName("UTF-8"));
+			List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
 			
 			List<Displacement> dp = new ArrayList<>(lines.size());
 
+			DisplacementParser parser = new DisplacementParser();
+			
 			int index = 1;
 			for (String line : lines) {
 				if (line.startsWith("\"") && line.toLowerCase().contains("refx")) {
@@ -55,24 +53,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 				}
 				
 				try {
-					String[] e = line.split(",");
-					
-					double x = Double.parseDouble(e[0]);
-					double xd = Double.parseDouble(e[2]);
-					double y = Double.parseDouble(e[1]);
-					double yd = Double.parseDouble(e[3]);
-					
-					String type = e[6];
-					int firstQuote = type.indexOf("\"");
-					int lastQuote = type.lastIndexOf("\"");
-					
-					Category category = Category.REG;
-					if (firstQuote >= 0 && lastQuote >= 0) {
-						String siteClass = type.substring(firstQuote+1, lastQuote);
-						category = Category.fromString(siteClass);
-					} 				
-					
-					Displacement d = Displacement.at(index,index, x, y, xd, yd, category);
+					Displacement d = parser.apply(index, line);
 					dp.add(d);
 					index++;
 				} catch(NumberFormatException nfe) {
@@ -82,7 +63,7 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 			return dp;
 			
 		} catch (IOException e) {
-			throw new RuntimeException();
+			throw new DisplacementParsingError(e);
 		}
 	}
 
