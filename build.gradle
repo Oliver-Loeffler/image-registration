@@ -1,12 +1,16 @@
-allprojects {
-    repositories {
-        jcenter() 
-    }
+plugins {
+   id 'java'
+   id 'com.github.hierynomus.license-base' version '0.15.0'
 }
 
 allprojects {
 
+    repositories {
+      mavenCentral()
+    }
+
     apply plugin: 'java'
+    apply plugin: 'com.github.hierynomus.license-base'
 
     version = '0.0.5-SNAPSHOT'
 
