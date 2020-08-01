@@ -14,7 +14,7 @@ addons:
     packages:
       - oracle-java8-installer
 
-script: ./gradlew clean check sonar
+script: ./gradlew check
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
