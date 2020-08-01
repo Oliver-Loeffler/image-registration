@@ -16,6 +16,7 @@ allprojects {
     apply plugin: 'jacoco'
     apply plugin: 'org.sonarqube'
 
+    group = 'net.raumzeitfalle.registration'
     version = '0.0.5-SNAPSHOT'
 
     java {
