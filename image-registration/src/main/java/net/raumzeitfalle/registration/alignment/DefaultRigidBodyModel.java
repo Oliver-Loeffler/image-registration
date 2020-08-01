@@ -60,7 +60,7 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 
 	private RigidTransform solve(ReferencesMatrix references, DifferencesVector deltas, Orientation direction) {
 
-		Solver solver = new SolverProvider().getSolver();
+		Solver solver = SolverProvider.getInstance().getSolver();
 		Solution solution = solver.apply(references, deltas);
 		
 		return createTransform(solution,direction);
