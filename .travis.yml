@@ -14,8 +14,7 @@ addons:
     packages:
       - oracle-java8-installer
 
-script: ./gradlew check
+script: ./gradlew check jacocoTestReport sonar
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - ./gradlew sonar
