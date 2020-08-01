@@ -5,7 +5,7 @@ import org.ejml.simple.SimpleMatrix;
 import net.raumzeitfalle.registration.solver.*;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
-class EjmlSolver implements Solver {
+public class EjmlSolver implements Solver {
 
 	public Solution solve(References references, Deltas deviations) {
 		

@@ -71,9 +71,11 @@ class OneDimensionalAffineTransformCalculationTest {
 		assertEquals(   1.000, result.getScaleY()*1E6,        1E-6);
 		assertEquals(   0.5  , result.getMagnification()*1E6, 1E-6);
 		
-		assertEquals(   0.000, result.getOrthoX()*1E6,        TOLERANCE);
 		assertEquals(  -1.000, result.getOrthoY()*1E6,        1E-6);
 		assertEquals(  -1.000, result.getOrtho()*1E6,         1E-6);
+		
+		// larger tolerance due to Apache Math Commons Solver
+		assertEquals(   0.000, result.getOrthoX()*1E6,        2.6E-11);
 	}
 	
 	@Disabled("Functionality to be implemented")
