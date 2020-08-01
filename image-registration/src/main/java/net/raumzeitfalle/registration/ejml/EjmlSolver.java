@@ -3,6 +3,7 @@ package net.raumzeitfalle.registration.ejml;
 import org.ejml.simple.SimpleMatrix;
 
 import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.Solver;
 
 class EjmlSolver implements Solver {
 

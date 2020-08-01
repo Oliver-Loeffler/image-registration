@@ -1,6 +1,8 @@
-package net.raumzeitfalle.registration.solver;
+package net.raumzeitfalle.registration.solver.spi;
 
 import java.util.function.BiFunction;
+
+import net.raumzeitfalle.registration.solver.*;
 
 public interface Solver extends BiFunction<References, Deltas, Solution> {
 

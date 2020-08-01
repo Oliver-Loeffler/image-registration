@@ -6,6 +6,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
 
 import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.Solver;
 
 
 class ApacheMathCommonsSolver implements Solver {

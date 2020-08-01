@@ -1,6 +1,7 @@
 package net.raumzeitfalle.registration.jama;
 
 import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.Solver;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;

@@ -1,5 +1,7 @@
 package net.raumzeitfalle.registration.solver;
 
+import net.raumzeitfalle.registration.solver.spi.Solver;
+
 public class SolverProvider {
 	
 	public Solver getSolver() {
