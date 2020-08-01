@@ -10,8 +10,6 @@ dependencies {
 	implementation 'org.la4j:la4j:0.6.0'
     implementation 'org.ejml:ejml-simple:0.39'
     
-    runtimeOnly project(':jama-solver')
-    
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.6.2'
     
