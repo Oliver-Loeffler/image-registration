@@ -62,7 +62,7 @@ final class DefaultAffineModel implements AffineModel {
 
 	private AffineTransform solve(References references, Deltas deltas, Orientation direction) {
 		
-		Solver solver = new SolverProvider().getSolver();
+		Solver solver = SolverProvider.getInstance().getSolver();
 		Solution solution = solver.apply(references, deltas);
 		
 		return createTransform(solution, direction);
