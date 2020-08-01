@@ -5,6 +5,7 @@ import org.la4j.Matrix;
 import org.la4j.decomposition.QRDecompositor;
 
 import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.Solver;
 
 
 class La4jSolver implements Solver {

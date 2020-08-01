@@ -24,6 +24,7 @@ import java.util.*;
 import net.raumzeitfalle.registration.*;
 import net.raumzeitfalle.registration.core.*;
 import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.Solver;
 
 /**
  * 
