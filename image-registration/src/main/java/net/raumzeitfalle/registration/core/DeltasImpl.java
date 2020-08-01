@@ -1,8 +1,9 @@
-package net.raumzeitfalle.registration.solver;
+package net.raumzeitfalle.registration.core;
 
 import net.raumzeitfalle.registration.ModelEquation;
+import net.raumzeitfalle.registration.solver.Deltas;
 
-public final class DeltasImpl {
+public final class DeltasImpl implements Deltas {
 
 	private final double[] deltas;
 	
