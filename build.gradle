@@ -1,0 +1,59 @@
+plugins {
+   id 'java'
+   id 'jacoco'
+   id 'com.github.hierynomus.license-base' version '0.15.0'
+   id "org.sonarqube" version "3.0"
+}
+
+allprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java-library'
+    apply plugin: 'com.github.hierynomus.license-base'
+    apply plugin: 'jacoco'
+    apply plugin: 'org.sonarqube'
+
+    group = 'net.raumzeitfalle.registration'
+    version = '0.0.5-SNAPSHOT'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    
+    sonarqube {
+        properties {
+            property "sonar.host.url", "https://sonarcloud.io"
+            property "sonar.projectKey", System.getenv('SONARCLOUD_PROJECT_KEY')
+            property "sonar.login", System.getenv('SONARCLOUD_LOGIN')
+            property "sonar.organization", System.getenv('SONARCLOUD_ORG')
+        }
+    }
+    
+    jacoco {
+	    toolVersion = "0.8.5"
+	}
+	
+	jacocoTestReport {
+		reports {
+		    xml.enabled true
+		    csv.enabled false
+		}
+    }
+    
+	test {
+	    finalizedBy jacocoTestReport
+	}
+	
+	jacocoTestReport {
+	    dependsOn test
+	}
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+    gradleVersion = "6.5.1"
+}

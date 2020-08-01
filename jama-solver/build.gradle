@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+
+	implementation project(':solver-api')
+	
+	implementation 'gov.nist.math.jama:gov.nist.math.jama:1.1.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation project(':jama-solver')
+    
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    
+}
+
+test {
+    useJUnitPlatform()
+}
