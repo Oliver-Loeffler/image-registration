@@ -1,10 +1,11 @@
-package net.raumzeitfalle.registration.solver;
+package net.raumzeitfalle.registration.core;
 
 import net.raumzeitfalle.registration.Orientation;
 import net.raumzeitfalle.registration.alignment.RigidModelEquation;
 import net.raumzeitfalle.registration.distortions.AffineModelEquation;
+import net.raumzeitfalle.registration.solver.References;
 
-public final class ReferencesImpl {
+public final class ReferencesImpl implements References {
 	
 	private final double[][] matrix;
 	

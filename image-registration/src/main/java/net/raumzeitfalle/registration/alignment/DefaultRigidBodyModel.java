@@ -22,6 +22,7 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.*;
 
 import net.raumzeitfalle.registration.*;
+import net.raumzeitfalle.registration.core.*;
 import net.raumzeitfalle.registration.solver.*;
 
 /**
@@ -39,7 +40,7 @@ import net.raumzeitfalle.registration.solver.*;
  */
 final class DefaultRigidBodyModel implements RigidBodyModel {
 
-	private void prepare(Collection<RigidModelEquation> equations, References references, Deltas deltas, Orientation direction) {
+	private void prepare(Collection<RigidModelEquation> equations, ReferencesImpl references, DeltasImpl deltas, Orientation direction) {
 		int row = 0;
 		Iterator<RigidModelEquation> it = equations.iterator();
 		while (it.hasNext()) {
@@ -47,7 +48,7 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		}
 	}
 
-	private int addEquation(References references, Deltas deltas, int row, RigidModelEquation eq, Orientation direction) {
+	private int addEquation(ReferencesImpl references, DeltasImpl deltas, int row, RigidModelEquation eq, Orientation direction) {
 
 		references.set(row, eq, direction);
 		deltas.set(row, eq);
@@ -56,7 +57,7 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		return row;
 	}
 
-	private RigidTransform solve(References references, Deltas deltas, Orientation direction) {
+	private RigidTransform solve(ReferencesImpl references, DeltasImpl deltas, Orientation direction) {
 
 		Solver solver = new SolverProvider().getSolver();
 		Solution solution = solver.apply(references, deltas);
@@ -88,8 +89,8 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		
 		Orientation direction = dimension.getDirection();
 		
-		Deltas deltas = new Deltas(rows);
-		References references = new References(rows, cols);
+		DeltasImpl deltas = new DeltasImpl(rows);
+		ReferencesImpl references = new ReferencesImpl(rows, cols);
 		prepare(equations, references, deltas, direction);
 		
 		// escape here before singular matrix exception can be thrown

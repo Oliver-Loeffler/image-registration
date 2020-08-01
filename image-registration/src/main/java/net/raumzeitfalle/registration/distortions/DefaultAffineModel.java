@@ -22,6 +22,7 @@ package net.raumzeitfalle.registration.distortions;
 import java.util.*;
 
 import net.raumzeitfalle.registration.*;
+import net.raumzeitfalle.registration.core.*;
 import net.raumzeitfalle.registration.solver.*;
 
 /**
@@ -49,8 +50,8 @@ final class DefaultAffineModel implements AffineModel {
 		int cols = dimension.getDimensions() * 3;
 		int rows = equations.size();
 		
-		References references = new References(rows, cols);
-		Deltas deltas = new Deltas(rows);
+		ReferencesImpl references = new ReferencesImpl(rows, cols);
+		DeltasImpl deltas = new DeltasImpl(rows);
 		
 		Orientation direction = dimension.getDirection();
 		prepare(equations, references, deltas, direction);
@@ -92,7 +93,7 @@ final class DefaultAffineModel implements AffineModel {
 		return SimpleAffineTransform.forXY(tx, ty, sx, sy, ox, oy);
 	}
 
-	private void prepare(Collection<AffineModelEquation> equations, References references, Deltas deltas,
+	private void prepare(Collection<AffineModelEquation> equations, ReferencesImpl references, DeltasImpl deltas,
 			Orientation direction) {
 		int row = 0;
 		Iterator<AffineModelEquation> it = equations.iterator();
@@ -101,7 +102,7 @@ final class DefaultAffineModel implements AffineModel {
 		}
 	}
 
-	private int addEquation(References references, Deltas deltas, int row, AffineModelEquation eq,
+	private int addEquation(ReferencesImpl references, DeltasImpl deltas, int row, AffineModelEquation eq,
 			Orientation direction) {
 
 		references.set2D(row, eq, direction);
