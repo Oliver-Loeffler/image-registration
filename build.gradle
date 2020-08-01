@@ -1,6 +1,7 @@
 plugins {
    id 'java'
    id 'com.github.hierynomus.license-base' version '0.15.0'
+   id "org.sonarqube" version "3.0"
 }
 
 allprojects {
@@ -11,12 +12,22 @@ allprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'com.github.hierynomus.license-base'
+    apply plugin: 'org.sonarqube'
 
     version = '0.0.5-SNAPSHOT'
 
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    
+    sonarqube {
+        properties {
+            property "sonar.host.url", "https://sonarcloud.io"
+            property "sonar.projectKey", System.getenv('SONARCLOUD_PROJECT_KEY')
+            property "sonar.login", System.getenv('SONARCLOUD_LOGIN')
+            property "sonar.organization", System.getenv('SONARCLOUD_ORG')
+        }
     }
 }
 
