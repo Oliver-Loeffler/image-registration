@@ -20,7 +20,7 @@ class EjmlSolver implements Solver {
 			coefficients[i] = coeffs.get(i, 0);
 		}
 		
-		return new Solution(coefficients);
+		return Solutions.fromArray(coefficients);
 		
 	}
 

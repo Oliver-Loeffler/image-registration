@@ -19,17 +19,10 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
-import net.raumzeitfalle.registration.Dimension;
-import net.raumzeitfalle.registration.Orientable;
-import net.raumzeitfalle.registration.Orientation;
-import net.raumzeitfalle.registration.solver.Deltas;
-import net.raumzeitfalle.registration.solver.References;
-import net.raumzeitfalle.registration.solver.Solution;
-import net.raumzeitfalle.registration.solver.Solver;
-import net.raumzeitfalle.registration.solver.SolverProvider;
+import net.raumzeitfalle.registration.*;
+import net.raumzeitfalle.registration.solver.*;
 
 /**
  * 
