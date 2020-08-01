@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.jama.JamaSolver;
-import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.*;
+
 
 class JamaSolverTest {
 	

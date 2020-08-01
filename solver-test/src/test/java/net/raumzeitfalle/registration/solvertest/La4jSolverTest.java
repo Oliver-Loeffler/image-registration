@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.la4j.La4jSolver;
-import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.*;
+
 
 class La4jSolverTest {
 	

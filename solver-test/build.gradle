@@ -4,11 +4,13 @@ plugins {
 
 dependencies {
 
+	implementation project(':solver-api')
 	implementation project(':image-registration')
-	implementation project(':jama-solver')
-	implementation project(':la4j-solver')
-	implementation project(':ejml-solver')
-	implementation project(':apache-math-solver')
+	
+	testImplementation project(':jama-solver')
+	testImplementation project(':la4j-solver')
+	testImplementation project(':ejml-solver')
+	testImplementation project(':apache-math-solver')
     
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.6.2'
