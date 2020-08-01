@@ -3,11 +3,11 @@ package net.raumzeitfalle.registration.core;
 import net.raumzeitfalle.registration.ModelEquation;
 import net.raumzeitfalle.registration.solver.Deltas;
 
-public final class DeltasImpl implements Deltas {
+public final class DifferencesVector implements Deltas {
 
 	private final double[] deltas;
 	
-	public DeltasImpl(int rows) {
+	public DifferencesVector(int rows) {
 		this.deltas = new double[rows];
 	}
 

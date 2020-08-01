@@ -5,11 +5,11 @@ import net.raumzeitfalle.registration.alignment.RigidModelEquation;
 import net.raumzeitfalle.registration.distortions.AffineModelEquation;
 import net.raumzeitfalle.registration.solver.References;
 
-public final class ReferencesImpl implements References {
+public final class ReferencesMatrix implements References {
 	
 	private final double[][] matrix;
 	
-	public ReferencesImpl(int rows, int cols) {
+	public ReferencesMatrix(int rows, int cols) {
 		this.matrix = new double[rows][cols];
 	}
 
