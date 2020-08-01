@@ -4,7 +4,7 @@ public final class Solution {
 	
 	private final double[] coefficients;
 	
-	Solution(double[] coefficients) {
+	public Solution(double[] coefficients) {
 		this.coefficients = coefficients;
 	}
 	

@@ -1,5 +1,7 @@
 package net.raumzeitfalle.registration.solver;
 
+import net.raumzeitfalle.registration.jama.JamaSolver;
+
 public class SolverProvider {
 	
 	public Solver getSolver() {
