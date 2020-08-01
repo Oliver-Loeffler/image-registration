@@ -59,7 +59,7 @@ class OneDimensionalAffineTransformCalculationTest {
 		
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( tx, result.getTranslationX(),  TOLERANCE);
 		assertEquals( ty, result.getTranslationY(),  TOLERANCE);
@@ -76,7 +76,7 @@ class OneDimensionalAffineTransformCalculationTest {
 		assertEquals(  -1.000, result.getOrtho()*1E6,         1E-6);
 	}
 	
-	@Disabled("Not yet implemented")
+	@Disabled("Functionality to be implemented")
 	@Test
 	void displacementsAlongVerticalLine_oneDimensional_y() {
 		// 1ppm rotation
@@ -94,7 +94,7 @@ class OneDimensionalAffineTransformCalculationTest {
 		
 		AffineTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
-		assertTrue(result.getClass().equals(SimpleAffineTransform.class));
+		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
 		assertEquals( 0d, result.getTranslationX(),  TOLERANCE);
 		assertEquals( ty, result.getTranslationY(),  TOLERANCE);

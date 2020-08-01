@@ -42,7 +42,7 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 	private final RigidBodyModel model;
 	
 	public RigidTransformCalculation() {
-		this(new RigidBodyJamaModel());
+		this(new DefaultRigidBodyModel());
 	}
 
 	public RigidTransformCalculation(RigidBodyModel model) {
@@ -53,7 +53,7 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 	 * Calculates the alignment parameters (translation<sub>X</sub>, translation<sub>Y</sub> and rotation) for the given collection of displacements.
 	 * When no displacements are left after filtering with the given predicate, then the {@link SkipRigidTransform} is returned. Otherwise the results is returned as {@link SimpleRigidTransform}.
 	 * <p>
-	 * The {@link RigidBodyJamaModel} is used for calculation.
+	 * The {@link DefaultRigidBodyModel} is used for calculation.
 	 * <p>
 	 * For cases where no sites are selected for calculation (e.g. the predicate does not match any given displacement),
 	 * A {@link SkipRigidTransform} is returned instead of a {@link SimpleRigidTransform}. When used in data processing, 
