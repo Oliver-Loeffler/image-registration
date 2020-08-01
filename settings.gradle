@@ -2,5 +2,6 @@ rootProject.name = 'image-registration'
 
 include 'solver-api'
 include 'jama-solver'
+include 'la4j-solver'
 include 'image-registration'
 include 'solver-test'
