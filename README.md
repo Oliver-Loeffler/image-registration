@@ -7,7 +7,13 @@
 
 Image registration is the process of finding the transform to match a given image with a desired reference. This library supports rigid body transforms (translation and rotation) as well as affine transforms (anisotropic scaling, anisotropic rotation/shear aka. non-orthogonality). Currently non-linear transforms are not supported.
 Versions up to and including 0.0.4 run with Java-8, all later version starting with 
-0.0.5 require Java-11.
+0.0.6 require Java-11.
+
+Version 0.0.5 will introduce a method to select different linear algebra frameworks to 
+be used in `image-registration`. Here it will be possible to choose either `gov.nist.math.jama`, 
+`org.la4j`, `org.ejml` or `org.apache.commons.math3`. There will be a core or api JAR 
+for `image-registration` and there will be a group of JARs providing a solver implementation. 
+The solver will be selected using the Java SPI (Service Provider Interface) mechanism. 
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
 Control point or feature based methods have only limited scope of use in medical imaging, there intensity based or voxel based methods are preferred due to the natural structure of medical image data. These additional intensity and voxel based methods are not supported by this library.
