@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.mathcommons.ApacheMathCommonsSolver;
-import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.*;
+import net.raumzeitfalle.registration.solver.spi.*;
 
 class ApacheMathCommonsSolverTest {
 	
