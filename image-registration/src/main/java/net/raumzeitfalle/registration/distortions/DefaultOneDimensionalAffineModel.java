@@ -61,8 +61,8 @@ class DefaultOneDimensionalAffineModel implements AffineModel {
 		int cols = 4; // dimension.getDimensions() * 2;  
 		int rows = equations.size();
 		
-		ReferencesImpl references = new ReferencesImpl(rows, cols);
-		DeltasImpl deltas = new DeltasImpl(rows);
+		ReferencesMatrix references = new ReferencesMatrix(rows, cols);
+		DifferencesVector deltas = new DifferencesVector(rows);
 
 		Orientation direction = dimension.getDirection();
 
@@ -71,7 +71,7 @@ class DefaultOneDimensionalAffineModel implements AffineModel {
 		return solve(references, deltas, direction);
 	}
 
-	private void prepare(Collection<AffineModelEquation> equations, ReferencesImpl references, DeltasImpl deltas,
+	private void prepare(Collection<AffineModelEquation> equations, ReferencesMatrix references, DifferencesVector deltas,
 			Orientation direction) {
 		int row = 0;
 		Iterator<AffineModelEquation> it = equations.iterator();
@@ -80,7 +80,7 @@ class DefaultOneDimensionalAffineModel implements AffineModel {
 		}
 	}
 
-	private int addEquation(ReferencesImpl references, DeltasImpl deltas, int row, AffineModelEquation eq,
+	private int addEquation(ReferencesMatrix references, DifferencesVector deltas, int row, AffineModelEquation eq,
 			Orientation direction) {
 		
 		references.set1D(row, eq, direction);

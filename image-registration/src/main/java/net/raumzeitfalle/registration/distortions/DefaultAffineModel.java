@@ -50,8 +50,8 @@ final class DefaultAffineModel implements AffineModel {
 		int cols = dimension.getDimensions() * 3;
 		int rows = equations.size();
 		
-		ReferencesImpl references = new ReferencesImpl(rows, cols);
-		DeltasImpl deltas = new DeltasImpl(rows);
+		ReferencesMatrix references = new ReferencesMatrix(rows, cols);
+		DifferencesVector deltas = new DifferencesVector(rows);
 		
 		Orientation direction = dimension.getDirection();
 		prepare(equations, references, deltas, direction);
@@ -93,7 +93,7 @@ final class DefaultAffineModel implements AffineModel {
 		return SimpleAffineTransform.forXY(tx, ty, sx, sy, ox, oy);
 	}
 
-	private void prepare(Collection<AffineModelEquation> equations, ReferencesImpl references, DeltasImpl deltas,
+	private void prepare(Collection<AffineModelEquation> equations, ReferencesMatrix references, DifferencesVector deltas,
 			Orientation direction) {
 		int row = 0;
 		Iterator<AffineModelEquation> it = equations.iterator();
@@ -102,7 +102,7 @@ final class DefaultAffineModel implements AffineModel {
 		}
 	}
 
-	private int addEquation(ReferencesImpl references, DeltasImpl deltas, int row, AffineModelEquation eq,
+	private int addEquation(ReferencesMatrix references, DifferencesVector deltas, int row, AffineModelEquation eq,
 			Orientation direction) {
 
 		references.set2D(row, eq, direction);
