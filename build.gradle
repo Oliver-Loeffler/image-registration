@@ -6,10 +6,10 @@ plugins {
 allprojects {
 
     repositories {
-      mavenCentral()
+        mavenCentral()
     }
 
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'com.github.hierynomus.license-base'
 
     version = '0.0.5-SNAPSHOT'
