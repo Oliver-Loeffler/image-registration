@@ -33,7 +33,7 @@ class La4jSolver implements Solver {
 			coefficients[i] = solved.get(i, 0);
 		}
 		
-		return new Solution(coefficients);
+		return Solutions.fromArray(coefficients);
 		
 	}
 	

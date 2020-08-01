@@ -24,7 +24,7 @@ class ApacheMathCommonsSolver implements Solver {
 		RealMatrix solution = rInverse.multiply(qTransposed)
 				                      .multiply(deltas);
 		
-		return new Solution(solution.getColumn(0));
+		return Solutions.fromArray(solution.getColumn(0));
 		
 	}
 

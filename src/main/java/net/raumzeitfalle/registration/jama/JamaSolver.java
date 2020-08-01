@@ -19,7 +19,7 @@ public class JamaSolver implements Solver {
 		Matrix solution = rInverse.times(qTransposed)
 								  .times(deltas);
 		
-		return new Solution(solution.getColumnVector(0));
+		return Solutions.fromArray(solution.getColumnVector(0));
 		
 	}
 
