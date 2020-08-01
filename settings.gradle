@@ -1,0 +1,5 @@
+rootProject.name = 'image-registration'
+
+include 'solver-api'
+include 'jama-solver'
+include 'image-registration'

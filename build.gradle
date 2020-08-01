@@ -1,0 +1,22 @@
+allprojects {
+    repositories {
+        jcenter() 
+    }
+}
+
+allprojects {
+
+    apply plugin: 'java'
+
+    version = '0.0.5-SNAPSHOT'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+    gradleVersion = "6.5.1"
+}
