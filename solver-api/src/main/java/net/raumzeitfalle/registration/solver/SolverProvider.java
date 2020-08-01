@@ -5,6 +5,15 @@ import java.util.*;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
 public class SolverProvider {
+	
+	public static void setPreferredImplementation(String className) {
+		if ("".equalsIgnoreCase(className)) {
+			throw new IllegalArgumentException("className must not be empty.");
+		}
+		preferredImplementation = className;
+	}
+	
+	private static String preferredImplementation = null;
 
 	public static synchronized SolverProvider getInstance() {
         if (service == null) {
@@ -32,7 +41,20 @@ public class SolverProvider {
     }
 	
 	public Solver getSolver() {
-		List<Solver> solver = getAllAvailableImplementations();		
+		List<Solver> solver = getAllAvailableImplementations();	
+		
+		if (preferredImplementation != null) {
+			Optional<Solver> option = solver.stream()
+										    .filter(s->s.getClass().getName().equals(preferredImplementation))
+										    .findAny();
+			
+			if (option.isPresent()) {
+				return option.get();
+			}
+			
+			throw new IllegalArgumentException(String.format("There is no solver with class [%s] configured.", preferredImplementation));				  
+		}
+		
 		return getLastImplementation(solver);
 	}
 
