@@ -1,8 +1,10 @@
-package net.raumzeitfalle.registration.solver;
+package net.raumzeitfalle.registration.la4j;
 
 import org.la4j.LinearAlgebra.InverterFactory;
 import org.la4j.Matrix;
 import org.la4j.decomposition.QRDecompositor;
+
+import net.raumzeitfalle.registration.solver.*;
 
 
 class La4jSolver implements Solver {
