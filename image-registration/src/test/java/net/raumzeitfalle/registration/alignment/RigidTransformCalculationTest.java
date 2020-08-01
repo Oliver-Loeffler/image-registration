@@ -23,9 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
@@ -274,8 +272,7 @@ class RigidTransformCalculationTest {
 		double dx =   0.075; 
 		double dy =  -0.075; 
 	
-		List<Displacement> undisplaced = 
-				List.of(Displacement.at(0, 0, 4500, 4500, 4500+dx, 4500+dy));
+		List<Displacement> undisplaced = listOf(Displacement.at(0, 0, 4500, 4500, 4500+dx, 4500+dy));
 		
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
@@ -293,8 +290,7 @@ class RigidTransformCalculationTest {
 			
 		double dx =   0.075; 
 	
-		List<Displacement> undisplaced = 
-				List.of(Displacement.at(0, 0, 4500, Double.NaN, 4500+dx, Double.NaN));
+		List<Displacement> undisplaced = listOf(Displacement.at(0, 0, 4500, Double.NaN, 4500+dx, Double.NaN));
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
 		
@@ -311,8 +307,7 @@ class RigidTransformCalculationTest {
 			 
 		double dy =  -0.075; 
 	
-		List<Displacement> undisplaced = 
-				List.of(Displacement.at(0, 0, Double.NaN, 4500, Double.NaN, 4500+dy));
+		List<Displacement> undisplaced = listOf(Displacement.at(0, 0, Double.NaN, 4500, Double.NaN, 4500+dy));
 		
 		
 		RigidTransform result = funtionUnderTest.apply(undisplaced, d->true);
@@ -323,6 +318,10 @@ class RigidTransformCalculationTest {
 		assertEquals( -75.0 , result.getTranslationY()*1E3, 1E-3);
 		assertEquals(   0.0 , result.getRotation(),     TOLERANCE);
 		
+	}
+
+	private List<Displacement> listOf(Displacement ... d) {
+		return Arrays.asList(d);
 	}
 
 }
