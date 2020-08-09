@@ -1,4 +1,4 @@
-package net.raumzeitfalle.registration.solvertest;
+package net.raumzeitfalle.registration.solvertest.spi;
 
 import static org.junit.jupiter.api.Assertions.*;
 

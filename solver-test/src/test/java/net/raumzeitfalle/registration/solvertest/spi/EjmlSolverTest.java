@@ -1,12 +1,12 @@
-package net.raumzeitfalle.registration.solvertest;
+package net.raumzeitfalle.registration.solvertest.spi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.ejml.EjmlSolver;
-import net.raumzeitfalle.registration.solver.*;
-import net.raumzeitfalle.registration.solver.spi.*;
+import net.raumzeitfalle.registration.solver.SolverProvider;
+import net.raumzeitfalle.registration.solver.spi.Solver;
 
 class EjmlSolverTest {
 	
