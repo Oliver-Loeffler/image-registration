@@ -1,4 +1,4 @@
-package net.raumzeitfalle.registration.core;
+package net.raumzeitfalle.registration.api;
 
 import net.raumzeitfalle.registration.Orientation;
 import net.raumzeitfalle.registration.alignment.RigidModelEquation;

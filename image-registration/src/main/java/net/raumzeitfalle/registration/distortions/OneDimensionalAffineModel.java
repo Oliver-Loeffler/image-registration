@@ -22,15 +22,15 @@ package net.raumzeitfalle.registration.distortions;
 import java.util.*;
 
 import net.raumzeitfalle.registration.*;
-import net.raumzeitfalle.registration.core.*;
+import net.raumzeitfalle.registration.api.*;
 import net.raumzeitfalle.registration.solver.*;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
-class DefaultOneDimensionalAffineModel implements AffineModel {
+class OneDimensionalAffineModel implements AffineModel {
 	
 	private final Distribution spatialOrientation;
 	
-	DefaultOneDimensionalAffineModel(SpatialDistribution distribution) {
+	OneDimensionalAffineModel(SpatialDistribution distribution) {
 		this.spatialOrientation = distribution.getDistribution();
 	}
 

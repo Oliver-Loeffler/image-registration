@@ -10,11 +10,18 @@ public class SolverProvider {
 		if ("".equalsIgnoreCase(className)) {
 			throw new IllegalArgumentException("className must not be empty.");
 		}
-		preferredImplementation = className;
+		
+		if (!Objects.equals(className, preferredSolverClass)) {
+			getInstance().forceRediscovery();
+		}
+		
+		preferredSolverClass = className;
 	}
-	
-	private static String preferredImplementation = null;
 
+	private static String preferredSolverClass = null;
+
+	private Solver preferredImplementation = null;
+	
 	public static synchronized SolverProvider getInstance() {
         if (service == null) {
             service = new SolverProvider();
@@ -41,21 +48,37 @@ public class SolverProvider {
     }
 	
 	public Solver getSolver() {
-		List<Solver> solver = getAllAvailableImplementations();	
+		if (this.preferredImplementation != null) {
+			return this.preferredImplementation;
+		}
 		
-		if (preferredImplementation != null) {
+		List<Solver> solver = getAllAvailableImplementations();
+		if (preferredSolverClass != null) {
 			Optional<Solver> option = solver.stream()
-										    .filter(s->s.getClass().getName().equals(preferredImplementation))
+										    .filter(s->s.getClass().getName().equals(preferredSolverClass))
 										    .findAny();
 			
 			if (option.isPresent()) {
-				return option.get();
+				
+				Solver newPreference = option.get();
+				setPreferredSolver(newPreference);
+				return newPreference;
 			}
 			
-			throw new IllegalArgumentException(String.format("There is no solver with class [%s] configured.", preferredImplementation));				  
+			throw new IllegalArgumentException(String.format("There is no solver with class [%s] configured.", preferredSolverClass));				  
 		}
 		
-		return getLastImplementation(solver);
+		Solver lastFound = getLastImplementation(solver); 
+		setPreferredSolver(lastFound);
+		return this.preferredImplementation;
+	}
+
+	private void setPreferredSolver(Solver newPreference) {
+		this.preferredImplementation = newPreference;
+	}
+	
+	private void forceRediscovery() {
+		this.preferredImplementation = null;
 	}
 
 	private Solver getLastImplementation(List<Solver> solver) {

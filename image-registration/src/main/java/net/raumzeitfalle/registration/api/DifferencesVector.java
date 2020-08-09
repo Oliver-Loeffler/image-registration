@@ -1,4 +1,4 @@
-package net.raumzeitfalle.registration.core;
+package net.raumzeitfalle.registration.api;
 
 import net.raumzeitfalle.registration.ModelEquation;
 import net.raumzeitfalle.registration.solver.Deltas;

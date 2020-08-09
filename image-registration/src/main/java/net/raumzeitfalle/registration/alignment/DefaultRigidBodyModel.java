@@ -22,7 +22,7 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.*;
 
 import net.raumzeitfalle.registration.*;
-import net.raumzeitfalle.registration.core.*;
+import net.raumzeitfalle.registration.api.*;
 import net.raumzeitfalle.registration.solver.*;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 

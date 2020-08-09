@@ -43,7 +43,7 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
 	private static final Logger LOGGER = Logger.getLogger(AffineTransformCalculation.class.getName());
 	
 	public AffineTransformCalculation() {
-		this(new DefaultAffineModel());
+		this(new BasicAffineModel());
 	}
 	
 	
@@ -102,7 +102,7 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
 											SpatialDistribution distribution ) {
 		
 		try {	
-			DefaultOneDimensionalAffineModel oneDimModel = new DefaultOneDimensionalAffineModel(distribution);
+			OneDimensionalAffineModel oneDimModel = new OneDimensionalAffineModel(distribution);
 			return oneDimModel.solve(finalEquations, dimension);			
 		}
 		catch (Exception e) {
