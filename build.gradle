@@ -36,10 +36,24 @@ allprojects {
     jacoco {
 	    toolVersion = "0.8.5"
 	}
-  
-}
-
-tasks.register("codeCoverageReport", JacocoReport) {
+	
+	jacocoTestReport {
+		reports {
+		    xml.enabled true
+		    csv.enabled false
+		    html.enabled true
+		}
+    }
+    
+	test {
+	    finalizedBy jacocoTestReport
+	}
+	
+	jacocoTestReport {
+	    dependsOn test
+	}
+	
+	tasks.register("codeCoverageReport", JacocoReport) {
     // If a subproject applies the 'jacoco' plugin, add the result it to the report
     subprojects { subproject ->
         subproject.plugins.withType(JacocoPlugin).configureEach {
@@ -69,6 +83,10 @@ tasks.register("codeCoverageReport", JacocoReport) {
         html.enabled true
     }
 }
+  
+}
+
+
 
 wrapper {
     distributionType = Wrapper.DistributionType.BIN
