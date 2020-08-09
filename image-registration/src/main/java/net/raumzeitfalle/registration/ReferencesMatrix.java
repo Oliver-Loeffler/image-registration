@@ -76,4 +76,5 @@ public final class ReferencesMatrix implements References {
 			set(row, 3, eq.getTy());
 		}
 	}
+
 }

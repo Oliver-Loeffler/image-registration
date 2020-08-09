@@ -4,4 +4,7 @@ public interface References {
 
 	double[][] getArray();
 	
+	default int rows() {
+		return getArray().length;
+	}
 }

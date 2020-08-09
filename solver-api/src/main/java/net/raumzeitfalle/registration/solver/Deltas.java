@@ -4,6 +4,8 @@ public interface Deltas {
 
 	double[] getArray();
 
-	int rows();
+	default int rows() {
+		return getArray().length;
+	}
 	
 }

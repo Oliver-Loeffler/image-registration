@@ -4,6 +4,7 @@ import java.util.function.BiFunction;
 
 import net.raumzeitfalle.registration.solver.*;
 
+@FunctionalInterface
 public interface Solver extends BiFunction<References, Deltas, Solution> {
 
 	public Solution solve(References t, Deltas u);
