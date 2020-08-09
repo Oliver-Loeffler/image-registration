@@ -1,6 +1,5 @@
-package net.raumzeitfalle.registration.api;
+package net.raumzeitfalle.registration;
 
-import net.raumzeitfalle.registration.Orientation;
 import net.raumzeitfalle.registration.alignment.RigidModelEquation;
 import net.raumzeitfalle.registration.distortions.AffineModelEquation;
 import net.raumzeitfalle.registration.solver.References;

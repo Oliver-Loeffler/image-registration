@@ -1,6 +1,5 @@
-package net.raumzeitfalle.registration.api;
+package net.raumzeitfalle.registration;
 
-import net.raumzeitfalle.registration.ModelEquation;
 import net.raumzeitfalle.registration.solver.Deltas;
 
 public final class DifferencesVector implements Deltas {

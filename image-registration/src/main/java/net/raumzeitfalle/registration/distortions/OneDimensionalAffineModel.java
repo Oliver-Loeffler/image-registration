@@ -22,7 +22,6 @@ package net.raumzeitfalle.registration.distortions;
 import java.util.*;
 
 import net.raumzeitfalle.registration.*;
-import net.raumzeitfalle.registration.api.*;
 import net.raumzeitfalle.registration.solver.*;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
