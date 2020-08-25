@@ -1,3 +1,5 @@
+// SOLVER TEST
+
 plugins {
     id 'java-library'
 }

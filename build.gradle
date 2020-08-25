@@ -1,7 +1,9 @@
+// ROOT PROJECT
+
 plugins {
-   id 'java'
-   id 'jacoco'
-   id 'com.github.hierynomus.license-base' version '0.15.0'
+   id "java"
+   id "jacoco"
+   id "com.github.hierynomus.license-base" version '0.15.0'
    id "org.sonarqube" version "3.0"
 }
 
@@ -12,9 +14,9 @@ allprojects {
     }
 
     apply plugin: 'java-library'
-    apply plugin: 'com.github.hierynomus.license-base'
     apply plugin: 'jacoco'
     apply plugin: 'org.sonarqube'
+    apply plugin: 'com.github.hierynomus.license-base'
 
     group = 'net.raumzeitfalle.registration'
     version = '0.0.5-SNAPSHOT'
@@ -22,8 +24,19 @@ allprojects {
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        
+        withJavadocJar()
+    	withSourcesJar()
     }
     
+    artifacts {
+    	archives javadocJar, sourcesJar
+	}
+	
+	tasks.withType(GenerateModuleMetadata) {
+        enabled = false
+    }
+
     sonarqube {
         properties {
             property "sonar.host.url", "https://sonarcloud.io"
@@ -54,41 +67,38 @@ allprojects {
 	}
 	
 	tasks.register("codeCoverageReport", JacocoReport) {
-    // If a subproject applies the 'jacoco' plugin, add the result it to the report
-    subprojects { subproject ->
-        subproject.plugins.withType(JacocoPlugin).configureEach {
-            subproject.tasks.matching({ t -> t.extensions.findByType(JacocoTaskExtension) }).configureEach { testTask ->
-                sourceSets subproject.sourceSets.main
-                executionData(testTask)
-            }
+    	// If a subproject applies the 'jacoco' plugin, add the result it to the report
+	    subprojects { subproject ->
+	        subproject.plugins.withType(JacocoPlugin).configureEach {
+	            subproject.tasks.matching({ t -> t.extensions.findByType(JacocoTaskExtension) }).configureEach { testTask ->
+	                sourceSets subproject.sourceSets.main
+	                executionData(testTask)
+	            }
+	
+	            // To automatically run `test` every time `./gradlew codeCoverageReport` is called,
+	            // you may want to set up a task dependency between them as shown below.
+	            // Note that this requires the `test` tasks to be resolved eagerly (see `forEach`) which
+	            // may have a negative effect on the configuration time of your build.
+	            subproject.tasks.matching({ t -> t.extensions.findByType(JacocoTaskExtension) }).forEach {
+	                rootProject.tasks.codeCoverageReport.dependsOn(it)
+	            }
+	        }
+	    }
 
-            // To automatically run `test` every time `./gradlew codeCoverageReport` is called,
-            // you may want to set up a task dependency between them as shown below.
-            // Note that this requires the `test` tasks to be resolved eagerly (see `forEach`) which
-            // may have a negative effect on the configuration time of your build.
-            subproject.tasks.matching({ t -> t.extensions.findByType(JacocoTaskExtension) }).forEach {
-                rootProject.tasks.codeCoverageReport.dependsOn(it)
-            }
-        }
-    }
-
-    // enable the different report types (html, xml, csv)
-    reports {
-        // xml is usually used to integrate code coverage with
-        // other tools like SonarQube, Coveralls or Codecov
-        xml.enabled true
-
-        // HTML reports can be used to see code coverage
-        // without any external tools
-        html.enabled true
-    }
+   	 	// enable the different report types (html, xml, csv)
+	    reports {
+	        // xml is usually used to integrate code coverage with
+	        // other tools like SonarQube, Coveralls or Codecov
+	        xml.enabled true
+	
+	        // HTML reports can be used to see code coverage
+	        // without any external tools
+	        html.enabled true
+	    }
+	}
 }
-  
-}
-
-
 
 wrapper {
     distributionType = Wrapper.DistributionType.BIN
-    gradleVersion = "6.5.1"
+    gradleVersion = "6.6.1"
 }
