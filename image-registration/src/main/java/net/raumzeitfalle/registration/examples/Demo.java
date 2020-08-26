@@ -19,6 +19,8 @@
  */
 package net.raumzeitfalle.registration.examples;
 
+import java.io.Console;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -53,12 +55,24 @@ public class Demo implements Runnable {
 	private Compensations[] compensations = new Compensations[0];
 	
 	private final String title;
+		
+	private final PrintWriter out;
 	
 	public Demo(String title, String filename) {
 		this.source = Paths.get(filename);
 		this.title = title;
+		this.out = getWriter();
 	}
 	
+	private PrintWriter getWriter() {
+		
+		Console console = System.console();
+		if (null != console) {
+			return console.writer();
+		}
+		return new PrintWriter(System.out);
+	}
+
 	public Demo withAlignment(Alignments alignments) {
 		this.alignments = alignments;
 		return this;
@@ -130,7 +144,7 @@ public class Demo implements Runnable {
 	}
 
 	private void print(Object object) {
-		System.out.println(System.lineSeparator() + object);
+		this.out.println(System.lineSeparator() + object);
 	}
 	
 	private void section(String name) {
@@ -149,7 +163,7 @@ public class Demo implements Runnable {
 			remaining--;
 		}
 
-		System.out.println(builder.toString());
+		this.out.println(builder.toString());
 	}
 
 }
