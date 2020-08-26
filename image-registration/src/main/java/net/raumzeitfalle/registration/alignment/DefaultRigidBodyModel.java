@@ -68,17 +68,14 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 	private RigidTransform createTransform(Solution solved, Orientation direction) {
 		
 		if (Orientation.X.equals(direction)) {
-			return SimpleRigidTransform
-					.with(solved.get(0), 0.0, solved.get(1));
+			return RigidTransform.with(solved.get(0), 0.0, solved.get(1));
 		}
 		
 		if (Orientation.Y.equals(direction)) {
-			return SimpleRigidTransform
-					.with(0.0, solved.get(0), solved.get(1));
+			return RigidTransform.with(0.0, solved.get(0), solved.get(1));
 		}
 		
-		return SimpleRigidTransform
-				.with(solved.get(0), solved.get(1), solved.get(2));
+		return RigidTransform.with(solved.get(0), solved.get(1), solved.get(2));
 	}
 
 	@Override
@@ -97,17 +94,17 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		if (Orientation.XY.equals(direction) && equations.size() == 2) {
 			double tx = deltas.get(0);
 			double ty = deltas.get(1);
-			return SimpleRigidTransform.translation(tx, ty);
+			return RigidTransform.translation(tx, ty);
 		}
 		
 		if (Orientation.X.equals(direction) && equations.size() == 1) {
 			double tx = deltas.get(0);
-			return SimpleRigidTransform.shiftX(tx);
+			return RigidTransform.shiftX(tx);
 		}
 		
 		if (Orientation.Y.equals(direction) && equations.size() == 1) {
 			double ty = deltas.get(0);
-			return SimpleRigidTransform.shiftY(ty);
+			return RigidTransform.shiftY(ty);
 		}
 				
 		return solve(references, deltas, direction);

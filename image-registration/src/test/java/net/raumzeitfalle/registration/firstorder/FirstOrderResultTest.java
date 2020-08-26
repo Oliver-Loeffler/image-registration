@@ -12,7 +12,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.alignment.RigidTransform;
-import net.raumzeitfalle.registration.alignment.SimpleRigidTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.SimpleAffineTransform;
@@ -21,7 +20,7 @@ class FirstOrderResultTest {
 	
 	private FirstOrderResult classUnderTest;
 	
-	private RigidTransform rigid = SimpleRigidTransform.with(10.0, 20.0, 42.17);
+	private RigidTransform rigid = RigidTransform.with(10.0, 20.0, 42.17);
 	
 	private AffineTransform affine = SimpleAffineTransform.with(rigid.getTranslation(), 0d,0d,0d,0d,0d,0d);
 

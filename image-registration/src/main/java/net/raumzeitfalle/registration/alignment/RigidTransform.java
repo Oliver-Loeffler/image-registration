@@ -19,6 +19,8 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
+import java.util.Objects;
+
 import net.raumzeitfalle.registration.Transform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
@@ -29,6 +31,32 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  *
  */
 public interface RigidTransform extends Transform {
+	
+	public static RigidTransform translation(double tx, double ty) {
+		return new SimpleRigidTransform(tx, ty, 0.0);
+	}
+	
+	public static RigidTransform shiftX(double tx) {
+		return new SimpleRigidTransform(tx, 0.0, 0.0);
+	}
+	
+	public static RigidTransform shiftY(double ty) {
+		return new SimpleRigidTransform(0.0, ty, 0.0);
+	}
+	
+	public static RigidTransform with(double tx, double ty, double rotation) {
+		return new SimpleRigidTransform(tx, ty, rotation);
+	}
+	
+	public static RigidTransform with(Translation translation) {
+		Objects.requireNonNull(translation, "translation must not be null");
+		return RigidTransform.with(translation.getTranslationX(), translation.getTranslationY(), 0.0);
+	}
+	
+	public static RigidTransform with(Translation translation, double rotation) {
+		Objects.requireNonNull(translation, "translation must not be null");
+		return RigidTransform.with(translation.getTranslationX(), translation.getTranslationY(), rotation);
+	}
 	
 	double getTranslationX();
 	double getTranslationY();
