@@ -18,7 +18,7 @@ The solver will be selected using the Java SPI (Service Provider Interface) mech
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
 Control point or feature based methods have only limited scope of use in medical imaging, there intensity based or voxel based methods are preferred due to the natural structure of medical image data. These additional intensity and voxel based methods are not supported by this library.
 
-* Photomask related:http://www.lithoguru.com/scientist/glossary/R.html#registration, http://www.lithoguru.com/scientist/glossary/O.html#overlay,  https://www.nist.gov/sites/default/files/documents/pml/div683/conference/Hughes.pdf
+* Photomask related:http://www.lithoguru.com/scientist/glossary/R.html#registration, http://www.lithoguru.com/scientist/glossary/O.html#overlay,  https://www.nist.gov/system/files/documents/pml/div683/conference/Hughes.pdf
 * Medical imaging: http://www.iro.umontreal.ca/~sherknie/articles/medImageRegAnOverview/brussel_bvz.pdf
 * Geo-Registration: http://www.georeference.org/doc/georegistration.htm 
 
