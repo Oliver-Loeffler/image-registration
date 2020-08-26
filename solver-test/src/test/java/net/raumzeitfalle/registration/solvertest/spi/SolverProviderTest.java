@@ -10,14 +10,18 @@ import net.raumzeitfalle.registration.solver.SolverProvider;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
 class SolverProviderTest {
+	
+	private SolverProvider classUnderTest;
 
 	@Test
-	void unknownSolverRequested() {
+	void unknownSolver_getInstance() {
 		
 		SolverProvider.setPreferredImplementation("thisClassDoesNotExist");
 		
+		classUnderTest = SolverProvider.getInstance();
+		
 		Throwable t = assertThrows(IllegalArgumentException.class,
-				()->SolverProvider.getInstance().getSolver());	
+				()->classUnderTest.getSolver());	
 		
 		assertEquals("There is no solver with class [thisClassDoesNotExist] configured.", t.getMessage());
 		
@@ -28,9 +32,11 @@ class SolverProviderTest {
 		
 		SolverProvider.setPreferredImplementation(null);
 		
+		classUnderTest = SolverProvider.getInstance();
+		
 		assertDoesNotThrow(()->{
 			
-			Solver solver = SolverProvider.getInstance().getSolver();
+			Solver solver = classUnderTest.getSolver();
 			
 			assertNotNull(solver);
 			
@@ -43,13 +49,13 @@ class SolverProviderTest {
 	void cachingAndRediscovery() {
 
 		SolverProvider.setPreferredImplementation(ApacheMathCommonsSolver.class.getName());
-		SolverProvider instance = SolverProvider.getInstance();
-		Solver solver = instance.getSolver();
+		SolverProvider classUnderTest = SolverProvider.getInstance();
+		Solver solver = classUnderTest.getSolver();
 		
 		assertEquals(ApacheMathCommonsSolver.class.getName(), solver.getClass().getName());
 
 		// use cache
-		Solver otherSolver = instance.getSolver();
+		Solver otherSolver = classUnderTest.getSolver();
 		
 		assertEquals(ApacheMathCommonsSolver.class.getName(), otherSolver.getClass().getName());
 		assertEquals(solver, otherSolver, "due to caching, both should be the same instance");
@@ -57,13 +63,13 @@ class SolverProviderTest {
 		// Now force SolverProvider to prefer different Solver class
 		SolverProvider.setPreferredImplementation(EjmlSolver.class.getName());
 
-		Solver ejmlSolver = instance.getSolver();
+		Solver ejmlSolver = classUnderTest.getSolver();
 		assertEquals(EjmlSolver.class.getName(), ejmlSolver.getClass().getName());
 
 		// Now require SolverProvider to perform full discovery of implementations (no caching, no preference)
 		SolverProvider.setPreferredImplementation(null);
 
-		Solver bySpi = instance.getSolver();
+		Solver bySpi = classUnderTest.getSolver();
 		assertNotNull(bySpi);
 
 	}
