@@ -17,6 +17,7 @@ allprojects {
     apply plugin: 'jacoco'
     apply plugin: 'org.sonarqube'
     apply plugin: 'com.github.hierynomus.license-base'
+    apply plugin: 'signing'
 
     group = 'net.raumzeitfalle.registration'
     version = '0.0.5-SNAPSHOT'
@@ -28,7 +29,7 @@ allprojects {
         withJavadocJar()
     	withSourcesJar()
     }
-    
+        	
     artifacts {
     	archives javadocJar, sourcesJar
 	}

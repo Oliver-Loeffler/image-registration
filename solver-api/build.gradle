@@ -16,7 +16,9 @@ test {
 }
 
 signing {
-    sign configurations.archives
+	if (!project.hasProperty("skipSigning")) {
+	    sign configurations.archives
+	}
 }
 
 publishing {
