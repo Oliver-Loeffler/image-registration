@@ -33,6 +33,8 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 
 	private final Logger logger = Logger.getLogger(FileLoader.class.getName());
 	
+	private final DisplacementParser parser = new DisplacementParser();
+	
 	@Override
 	public List<Displacement> apply(Path file) {
 		return load(file);
@@ -41,30 +43,37 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 	public List<Displacement> load(Path file) {
 		try {
 			List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
-			
-			List<Displacement> dp = new ArrayList<>(lines.size());
-
-			DisplacementParser parser = new DisplacementParser();
-			
-			int index = 1;
-			for (String line : lines) {
-				if (line.startsWith("\"") && line.toLowerCase().contains("refx")) {
-					continue;
-				}
-				
-				try {
-					Displacement d = parser.apply(index, line);
-					dp.add(d);
-					index++;
-				} catch(NumberFormatException nfe) {
-					logger.log(Level.WARNING, "Could not parse value of (x,xd,y,yd). Either file is incomplete or file format is unknown.");
-				}	
-			}
-			return dp;
-			
+			return readLines(lines);			
 		} catch (IOException e) {
 			throw new DisplacementParsingError(e);
 		}
+	}
+
+	private List<Displacement> readLines(List<String> lines) {
+		List<Displacement> dp = new ArrayList<>(lines.size());
+		int index = 1;
+		for (String line : lines) {
+			if (isDisplacementLine(line)) {
+				continue;
+			}
+			index = readDisplacement(dp, index, line);	
+		}
+		return dp;
+	}
+
+	private int readDisplacement(List<Displacement> target, int index, String line) {
+		try {
+			Displacement d = parser.apply(index, line);
+			target.add(d);
+			index++;
+		} catch(NumberFormatException nfe) {
+			logger.log(Level.WARNING, "Could not parse value of (x,xd,y,yd). Either file is incomplete or file format is unknown.");
+		}
+		return index;
+	}
+
+	private boolean isDisplacementLine(String line) {
+		return line.startsWith("\"") && line.toLowerCase().contains("refx");
 	}
 
 }
