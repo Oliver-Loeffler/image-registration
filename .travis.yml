@@ -10,7 +10,7 @@ matrix:
     # Headed Linux
     - os: linux
       dist: trusty
-      jdk: oraclejdk11
+      jdk: openjdk8
     
 addons:
   apt:
