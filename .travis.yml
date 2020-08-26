@@ -2,6 +2,9 @@ language: java
 
 sudo: false
 
+env:
+  - ORG_GRADLE_PROJECT_skipSigning=yes
+  
 matrix:
   include:
     # Headed Linux
