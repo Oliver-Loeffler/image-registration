@@ -41,4 +41,8 @@ public interface RigidTransform extends Transform {
 				source.getYd() - this.getTranslationY() - source.getX() * this.getRotation());
 	}
 	
+	default Translation getTranslation() {
+		return SimpleTranslation.with(getTranslationX(), getTranslationY());
+	}
+	
 }

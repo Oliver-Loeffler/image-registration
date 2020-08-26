@@ -19,6 +19,9 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
+import net.raumzeitfalle.registration.alignment.SimpleTranslation;
+import net.raumzeitfalle.registration.alignment.Translation;
+
 public class AffineTransformBuilder {
 	
 	private final double cx;
@@ -74,7 +77,8 @@ public class AffineTransformBuilder {
 			return SkipAffineTransform.centeredAt(cx, cy);
 		}
 		
-		return new SimpleAffineTransform(tx, ty, scaleX, scaleY, orthoX, orthoY, cx, cy);
+		Translation translation = SimpleTranslation.with(tx, ty);
+		return new SimpleAffineTransform(translation, scaleX, scaleY, orthoX, orthoY, cx, cy);
 	}
 
 	public AffineTransformBuilder disableOrthoXY() {

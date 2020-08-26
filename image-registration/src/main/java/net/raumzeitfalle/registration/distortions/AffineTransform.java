@@ -20,6 +20,8 @@
 package net.raumzeitfalle.registration.distortions;
 
 import net.raumzeitfalle.registration.Transform;
+import net.raumzeitfalle.registration.alignment.SimpleTranslation;
+import net.raumzeitfalle.registration.alignment.Translation;
 
 public interface AffineTransform extends Transform {
 	
@@ -43,4 +45,7 @@ public interface AffineTransform extends Transform {
 
     public double getCenterY();
     
+    default Translation getTranslation() {
+		return SimpleTranslation.with(getTranslationX(), getTranslationY());
+	}
 }

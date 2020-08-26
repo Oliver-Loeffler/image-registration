@@ -20,36 +20,40 @@
 package net.raumzeitfalle.registration.distortions;
 
 import java.util.Locale;
+import java.util.Objects;
 
+import net.raumzeitfalle.registration.alignment.SimpleTranslation;
+import net.raumzeitfalle.registration.alignment.Translation;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public class SimpleAffineTransform implements AffineTransform {
 	
 	static AffineTransform forX(double transx, double scalex, double orthox) {
-		return new SimpleAffineTransform(transx, 0d, scalex, 0d, orthox, 0d, 0d, 0d);
+		return new SimpleAffineTransform(SimpleTranslation.with(transx, 0d), scalex, 0d, orthox, 0d, 0d, 0d);
 	}
 	
 	static AffineTransform forY(double transy, double scaley, double orthoy) {
-		return new SimpleAffineTransform(0d, transy, 0d, scaley, 0d, orthoy, 0d, 0d);
+		return new SimpleAffineTransform(SimpleTranslation.with(0d, transy), 0d, scaley, 0d, orthoy, 0d, 0d);
 	}
 	
 	static AffineTransform forXY(double tx, double ty, double sx, double sy, double ox, double oy) {
-		return new SimpleAffineTransform(tx, ty, sx, sy, ox, oy, 0d, 0d);
+		return new SimpleAffineTransform(SimpleTranslation.with(tx, ty), sx, sy, ox, oy, 0d, 0d);
 	}
 	
 	static AffineTransform horizontal(double tx, double ty, double scale, double rot) {
-		return new SimpleAffineTransform(tx, ty, scale, 0d, rot, 0d, 0d, 0d);
+		return new SimpleAffineTransform(SimpleTranslation.with(tx, ty), scale, 0d, rot, 0d, 0d, 0d);
 	}
 	
 	static AffineTransform vertical(double tx, double ty, double scale, double rot) {
-		return new SimpleAffineTransform(tx, ty, 0d, scale, 0d, rot, 0d, 0d);
+		return new SimpleAffineTransform(SimpleTranslation.with(tx, ty), 0d, scale, 0d, rot, 0d, 0d);
 	}
 
-    public static SimpleAffineTransform with(double transx, double transy,
+    public static SimpleAffineTransform with(Translation translation,
             double scalex, double scaley,
             double orthox, double orthoy,
             double meanx, double meany) {
-        return new SimpleAffineTransform(transx, transy, scalex, scaley, orthox, orthoy, meanx, meany);
+    	
+        return new SimpleAffineTransform(translation, scalex, scaley, orthox, orthoy, meanx, meany);
     }
 
     private final double translationX;
@@ -68,12 +72,13 @@ public class SimpleAffineTransform implements AffineTransform {
 
     private final double meanY;
 
-    protected SimpleAffineTransform(double tx, double ty,
+    protected SimpleAffineTransform(Translation translation,
                                 double sx, double sy,
                                 double ox, double oy,
                                 double mx, double my) {
-        this.translationX = tx;
-        this.translationY = ty;
+    	Objects.requireNonNull(translation, "translation must not be null");
+        this.translationX = translation.getTranslationX();
+        this.translationY = translation.getTranslationY();
         this.scaleX = sx;
         this.scaleY = sy;
         this.orthoX = ox;

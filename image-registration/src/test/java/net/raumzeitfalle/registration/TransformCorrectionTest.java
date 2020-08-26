@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.raumzeitfalle.registration.alignment.SimpleTranslation;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformBuilder;
@@ -65,7 +66,7 @@ class TransformCorrectionTest {
 	@Test
 	void skip() {
 		
-		AffineTransform template = SimpleAffineTransform.with(0,0,0,0,0,0,0,0);
+		AffineTransform template = SimpleAffineTransform.with(SimpleTranslation.with(0, 0),0,0,0,0,0,0);
 		AffineTransform skipTransform = new AffineTransformBuilder(template).build();
 		
 		assertTrue(skipTransform.skip());

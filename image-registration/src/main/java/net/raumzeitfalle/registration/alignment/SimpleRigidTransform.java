@@ -20,6 +20,7 @@
 package net.raumzeitfalle.registration.alignment;
 
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * 
@@ -39,17 +40,26 @@ public final class SimpleRigidTransform implements RigidTransform {
 	public static RigidTransform translation(double translationX, double translationY) {
 		return new SimpleRigidTransform(translationX, translationY, 0.0);
 	}
+	
+	public static RigidTransform with(Translation translation) {
+		return with(translation, 0.0);
+	}
+	
+	public static RigidTransform with(Translation translation, double rotation) {
+		Objects.requireNonNull(translation, "translation must not be null");
+		return new SimpleRigidTransform(translation.getTranslationX(), translation.getTranslationY(), rotation);
+	}
 
 	public static RigidTransform with(double translationX, double translationY, double rotation) {
 		return new SimpleRigidTransform(translationX, translationY, rotation);
 	}
 
 	private final double translationX;
-
+	
 	private final double translationY;
-
+	
 	private final double rotation;
-
+	
 	private SimpleRigidTransform(double tx, double ty, double rot) {
 		this.translationX = tx;
 		this.translationY = ty;
