@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +25,14 @@ class FirstOrderResultTest {
 	
 	private AffineTransform affine = SimpleAffineTransform.with(rigid.getTranslation(), 0d,0d,0d,0d,0d,0d);
 
+	private List<Displacement> emptyListOfDisplacements = Collections.emptyList();
+	
 	@Test
 	void thatRigidTransformNullThrowsException() {
 		
+		
 		Throwable t = assertThrows(NullPointerException.class,
-				()->new FirstOrderResult(null, affine, Collections.emptyList()));
+				()->new FirstOrderResult(null, affine, emptyListOfDisplacements));
 				
 
 		assertEquals("Alignment (RigidTransform) must not be null.", t.getMessage());
@@ -39,7 +43,7 @@ class FirstOrderResultTest {
 	void thatAffineTransformNullThrowsException() {
 		
 		Throwable t = assertThrows(NullPointerException.class,
-				()->new FirstOrderResult(rigid, null, Collections.emptyList()));
+				()->new FirstOrderResult(rigid, null, emptyListOfDisplacements));
 				
 
 		assertEquals("FirstOrder (AffineTransform) must not be null.", t.getMessage());
@@ -70,8 +74,6 @@ class FirstOrderResultTest {
 		assertEquals(affine, classUnderTest.getFirstOrder(), "Affine Transform (First order scale-ortho model parameters)");
 		assertEquals(samples, classUnderTest.getDisplacements(), "Collection of displacements");
 
-
-		
 	}
 
 }

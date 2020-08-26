@@ -48,8 +48,10 @@ class DisplacementBuilderTest {
 	@Test
 	void indexOnly() {
 		
+		Displacement.Builder builder = Displacement.builder().withIndex(42);
+		
 		Throwable t = assertThrows(NullPointerException.class,
-				()->classUnderTest.withIndex(42).build());
+				()->builder.build());
 		
 		assertEquals("x must not be null.",
 				t.getMessage());
