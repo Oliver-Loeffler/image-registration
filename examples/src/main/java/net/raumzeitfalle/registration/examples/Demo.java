@@ -39,9 +39,11 @@ import net.raumzeitfalle.registration.firstorder.Compensations;
 import net.raumzeitfalle.registration.firstorder.FirstOrderCorrection;
 import net.raumzeitfalle.registration.firstorder.FirstOrderResult;
 import net.raumzeitfalle.registration.firstorder.FirstOrderSetup;
+import net.raumzeitfalle.registration.jama.JamaSolver;
+import net.raumzeitfalle.registration.solver.SolverProvider;
 
 public class Demo implements Runnable {
-	
+		
 	private final Path source;
 	
 	private Predicate<Displacement> alignmentSelector = d->true;
@@ -62,6 +64,8 @@ public class Demo implements Runnable {
 		this.source = Paths.get(filename);
 		this.title = title;
 		this.out = getWriter();
+		
+		SolverProvider.setPreferredImplementation(JamaSolver.class.getName());
 	}
 	
 	private PrintWriter getWriter() {
