@@ -1,9 +1,12 @@
 rootProject.name = 'image-registration'
 
 include 'solver-api'
+include 'image-registration'
+
 include 'jama-solver'
 include 'la4j-solver'
 include 'ejml-solver'
 include 'apache-math-solver'
-include 'image-registration'
+
 include 'solver-test'
+include 'examples'
