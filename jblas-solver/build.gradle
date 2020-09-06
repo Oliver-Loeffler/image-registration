@@ -1,0 +1,79 @@
+// JBLAS SOLVER
+
+plugins {
+    id 'java-library'
+    id 'signing'
+    id 'maven-publish'
+}
+
+dependencies {
+
+    implementation project(':solver-api')
+	
+    implementation 'org.jblas:jblas:1.2.4'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    
+}
+
+test {
+    useJUnitPlatform()
+}
+
+signing {
+	if (!project.hasProperty("skipSigning")) {
+	    sign configurations.archives
+	}
+}
+
+publishing {
+    repositories {
+    	mavenLocal()
+        maven {
+            url = version.endsWith('SNAPSHOT') ? sonatypeSnapshotsUrl : sonatypeReleasesUrl
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
+    }
+    
+    publications {
+        maven(MavenPublication) {
+        	groupId = group
+            from components.java
+            pom {
+                description = "$projectDescription"
+                url = "$projectUrl"
+                inceptionYear = "$projectInceptionYear"
+                organization {
+                	name = "$projectVendor"
+                	url  = "$projectVendorUrl"
+                }
+                licenses {
+                    license {
+                        name = "$projectLicense"
+                        url  = "$projectLicenseUrl"
+                    }
+                }
+                issueManagement {
+                	system = "Github Issues"
+                	url = "$projectIssues"
+                }
+                developers {
+                    developer {
+                        id = "$projectDeveloperId"
+                        name = "$projectDeveloper"
+                        email = "$projectDeveloperMail"
+                    }
+                }
+                scm {
+                    connection = "scm:git:$projectScm"
+                    developerConnection = "scm:git:$projectScm"
+                    url = "$projectUrl"
+                }
+            }
+        }
+    }
+}
