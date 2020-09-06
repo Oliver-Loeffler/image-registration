@@ -14,7 +14,7 @@ import net.raumzeitfalle.registration.solvertest.numerics.AffineTransformNumeric
 import net.raumzeitfalle.registration.solvertest.numerics.RigidTransformNumerics;
 
 
-class JblasSolverNumericsTest {
+class JblasNumericsTest {
 	
 	@BeforeAll
 	public static void prepare() {
