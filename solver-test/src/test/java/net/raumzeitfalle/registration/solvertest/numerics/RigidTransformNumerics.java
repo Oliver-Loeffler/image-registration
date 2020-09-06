@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.alignment.*;
@@ -264,6 +265,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
+	@Disabled
 	@Test
 	void singularityX() {
 			
@@ -283,6 +285,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
+	@Disabled
 	@Test
 	void singularityY() {
 			 
