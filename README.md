@@ -11,7 +11,7 @@ Versions up to and including 0.0.4 run with Java-8, all later version starting w
 
 Version 0.0.5 will introduce a method to select different linear algebra frameworks to 
 be used in `image-registration`. Here it will be possible to choose either `gov.nist.math.jama`, 
-`org.la4j`, `org.ejml` or `org.apache.commons.math3`. There will be a core or api JAR 
+`org.la4j`, `org.ejml`, `org.apache.commons.math3` or even `org.jblas`. There will be a core or api JAR 
 for `image-registration` and there will be a group of JARs providing a solver implementation. 
 The solver will be selected using the Java SPI (Service Provider Interface) mechanism. 
 
