@@ -48,36 +48,4 @@ class JblasSolverTest {
 
 	}
 
-	/* 
-	 * Singularity X
-	 * 
-	 * FirstOrderEquation [REF: (0.0, 0.0, 0.0, NaN, 1.0, 0.0), Delta: (0.075) ]
-	 * 
-	 */
-	
-	@Test
-	void singularityX() {
-
-		double[][] design = { 
-				{ 0.0, 0.0, 0.0, Double.NaN, 1.0, 0.0 }};
-
-		double[] differences = { 0.075 };
-
-		
-		Solution solution = classUnderTest.apply(() -> design, () -> differences);
-
-		double[] result = { 1.0E-6, -2.0E-6, 0.0, 0.0, 0.0, 0.0 };
-
-		assertAll(() -> assertNotNull(solution, "must not be null"),
-
-				() -> assertEquals(result[0], solution.get(0), TOLERANCE, "scale x"),
-				() -> assertEquals(result[1], solution.get(1), TOLERANCE, "scale y"),
-
-				() -> assertEquals(result[2], solution.get(2), TOLERANCE, "ortho x"),
-				() -> assertEquals(result[3], solution.get(3), TOLERANCE, "ortho y"),
-
-				() -> assertEquals(result[4], solution.get(4), TOLERANCE, "trans x"),
-				() -> assertEquals(result[5], solution.get(5), TOLERANCE, "trans y"));
-
-	}
 }
