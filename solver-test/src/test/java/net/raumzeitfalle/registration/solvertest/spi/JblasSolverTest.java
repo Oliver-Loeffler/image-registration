@@ -5,16 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import net.raumzeitfalle.registration.jblas.JBlasSolver;
+import net.raumzeitfalle.registration.jblas.JblasSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
 
-class JBlasSolverTest {
+class JblasSolverTest {
 	
 	@BeforeAll
 	public static void prepare() {
-		SolverProvider.setPreferredImplementation(JBlasSolver.class.getName());
+		SolverProvider.setPreferredImplementation(JblasSolver.class.getName());
 	}
 
 	@Test
@@ -22,7 +22,7 @@ class JBlasSolverTest {
 		
 		Solver solver = SolverProvider.getInstance().getSolver();
 		
-		assertEquals(JBlasSolver.class.getName(), solver.getClass().getName());
+		assertEquals(JblasSolver.class.getName(), solver.getClass().getName());
 		
 	}
 

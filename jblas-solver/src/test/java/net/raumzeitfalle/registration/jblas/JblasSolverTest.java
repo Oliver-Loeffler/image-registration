@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import net.raumzeitfalle.registration.solver.Solution;
 import net.raumzeitfalle.registration.solver.spi.Solver;
 
-class JBlasSolverTest {
+class JblasSolverTest {
 
-	private final Solver classUnderTest = new JBlasSolver();
+	private final Solver classUnderTest = new JblasSolver();
 
 	private static final double TOLERANCE = 1E-11;
 	
