@@ -19,14 +19,11 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.BiFunction;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 import java.util.stream.Collectors;
 
-import net.raumzeitfalle.registration.Dimension;
+import net.raumzeitfalle.registration.DegreeOfFreedom;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -66,19 +63,19 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 	@Override
 	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
 						
-		Dimension<RigidModelEquation> dimension = new Dimension<>();
-		
+		DegreeOfFreedom dof = new DegreeOfFreedom();
+				
 		List<RigidModelEquation> equations = t.stream()
 											 .filter(u)
+											 .map(dof)
 											 .flatMap(RigidModelEquation::from)
-											 .map(dimension)
 											 .collect(Collectors.toList());
 		
 		if (equations.isEmpty()) {
 			return continueUnaligned();
 		}
 		
-		return model.solve(equations, dimension);
+		return model.solve(equations, dof);
 	}
 
 	private RigidTransform continueUnaligned() {

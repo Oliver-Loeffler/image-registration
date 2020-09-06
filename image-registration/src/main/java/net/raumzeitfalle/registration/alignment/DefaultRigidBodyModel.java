@@ -65,49 +65,44 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		return createTransform(solution,direction);
 	}
 
-	private RigidTransform createTransform(Solution solved, Orientation direction) {
-		
-		if (Orientation.X.equals(direction)) {
-			return RigidTransform.with(solved.get(0), 0.0, solved.get(1));
+	private RigidTransform createTransform(Solution solved, Orientation direction) {		
+		switch (direction) {
+			case X:
+				return RigidTransform.with(solved.get(0), 0.0, solved.get(1));
+			
+			case Y:
+				return RigidTransform.with(0.0, solved.get(0), solved.get(1));
+				
+			default:
+				return RigidTransform.with(solved.get(0), solved.get(1), solved.get(2));
 		}
-		
-		if (Orientation.Y.equals(direction)) {
-			return RigidTransform.with(0.0, solved.get(0), solved.get(1));
-		}
-		
-		return RigidTransform.with(solved.get(0), solved.get(1), solved.get(2));
 	}
 
 	@Override
-	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, Dimension<T> dimension) {
+	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreeOfFreedom dof) {
 		
 		int rows = equations.size();
-		int cols = dimension.getDimensions()+1;
-		
-		Orientation direction = dimension.getDirection();
-		
+		int cols = dof.getDimensions()+1;
+		Orientation ori = dof.getDirection();
+				
 		DifferencesVector deltas = new DifferencesVector(rows);
 		ReferencesMatrix references = new ReferencesMatrix(rows, cols);
-		prepare(equations, references, deltas, direction);
+		prepare(equations, references, deltas, dof.getDirection());
 		
 		// escape here before singular matrix exception can be thrown
-		if (Orientation.XY.equals(direction) && equations.size() == 2) {
-			double tx = deltas.get(0);
-			double ty = deltas.get(1);
-			return RigidTransform.translation(tx, ty);
-		}
-		
-		if (Orientation.X.equals(direction) && equations.size() == 1) {
-			double tx = deltas.get(0);
-			return RigidTransform.shiftX(tx);
-		}
-		
-		if (Orientation.Y.equals(direction) && equations.size() == 1) {
-			double ty = deltas.get(0);
-			return RigidTransform.shiftY(ty);
-		}
+		if (0 == dof.getCombined()) {
+			switch (ori) {
+				case X: 
+					return RigidTransform.shiftX(deltas.get(0));
+					
+				case Y: 
+					return RigidTransform.shiftY(deltas.get(0));
 				
-		return solve(references, deltas, direction);
+				default:
+					return RigidTransform.translation(deltas.get(0), deltas.get(1));
+			}
+		}				
+		return solve(references, deltas, ori);
 	}
 	
 }

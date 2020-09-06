@@ -21,9 +21,8 @@ package net.raumzeitfalle.registration.alignment;
 
 import java.util.Collection;
 
-import net.raumzeitfalle.registration.Dimension;
-import net.raumzeitfalle.registration.Orientable;
+import net.raumzeitfalle.registration.*;
 
 public interface RigidBodyModel {
-	<T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, Dimension<T> dimension);
+	<T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreeOfFreedom dof);
 }
