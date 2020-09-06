@@ -1,29 +1,26 @@
 package net.raumzeitfalle.registration.solvertest.numerics;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-import net.raumzeitfalle.registration.alignment.*;
+import net.raumzeitfalle.registration.alignment.RigidTransform;
+import net.raumzeitfalle.registration.alignment.SimpleRigidTransform;
+import net.raumzeitfalle.registration.alignment.SkipRigidTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.solvertest.NumericsTestBase;
 
 /**
  * Holds all common test cases for rigid transform calculations AND corrections.
  */
-/*
- * TODO: Add assertions for properly performed corrections.
- */
-public abstract class RigidTransformNumerics extends NumericsTestBase {
+public class RigidTransformNumerics extends NumericsTestBase {
 
 	private static final double TOLERANCE = 1E-11;
 	
-	@Test
-	void translationX() {
+	public void translationX() {
 
 		List<Displacement> displacements = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1010, 1000),
@@ -43,8 +40,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 
 	}
 	
-	@Test
-	void translationY() {
+	public void translationY() {
 		
 		List<Displacement> displacements = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1000,  990),
@@ -65,8 +61,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Test
-	void translationXY() {
+	public void translationXY() {
 		
 		List<Displacement> displaced = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1010,  990),
@@ -86,8 +81,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Test
-	void rotation() {
+	public void rotation() {
 		
 		
 		double rotated = Math.sqrt(2)*1E3;
@@ -118,8 +112,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		assertEquals( 40.514, 180 * result.getRotation() / Math.PI , 1E-3);
 	}
 	
-	@Test
-	void rotationAndTranslation() {
+	public void rotationAndTranslation() {
 		
 		
 		double rotated = Math.sqrt(2)*1E3;
@@ -150,8 +143,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		assertEquals( 40.514, 180 * result.getRotation() / Math.PI , 1E-3);
 	}
 	
-	@Test
-	void skipTransform() {
+	public void skipTransform() {
 		
 		List<Displacement> displacements = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1010,  990),
@@ -177,8 +169,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 	
 	}
 	
-	@Test
-	void translationXonly1D() {
+	public void translationXonly1D() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
 		undisplaced.add(Displacement.at(0, 0, 1000, 1000, 1010, Double.NaN));
@@ -198,8 +189,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Test
-	void translationYonly1D() {
+	public void translationYonly1D() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
 		undisplaced.add(Displacement.at(0, 0, 1000, 1000, Double.NaN, 1000));
@@ -219,8 +209,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Test
-	void displacementsAlongHorizontalLine() {
+	public void displacementsAlongHorizontalLine() {
 		
 		// 1ppm rotation	
 		List<Displacement> undisplaced = new ArrayList<>(5);
@@ -245,8 +234,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Test
-	void singularityXY() {
+	public void singularityXY() {
 			
 		double dx =   0.075; 
 		double dy =  -0.075; 
@@ -265,9 +253,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Disabled
-	@Test
-	void singularityX() {
+	public void singularityX() {
 			
 		double dx =   0.075; 
 	
@@ -285,9 +271,7 @@ public abstract class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	@Disabled
-	@Test
-	void singularityY() {
+	public void singularityY() {
 			 
 		double dy =  -0.075; 
 	

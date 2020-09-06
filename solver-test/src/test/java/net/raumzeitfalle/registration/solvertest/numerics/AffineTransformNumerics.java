@@ -1,28 +1,29 @@
 package net.raumzeitfalle.registration.solvertest.numerics;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.*;
-import java.util.*;
-
-import org.junit.jupiter.api.Test;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.distortions.*;
-import net.raumzeitfalle.registration.firstorder.*;
+import net.raumzeitfalle.registration.distortions.AffineTransform;
+import net.raumzeitfalle.registration.distortions.SimpleAffineTransform;
+import net.raumzeitfalle.registration.firstorder.Alignments;
+import net.raumzeitfalle.registration.firstorder.Compensations;
+import net.raumzeitfalle.registration.solvertest.NumericsTestBase;
 
 /**
  * Holds all common test cases for affine transform calculations AND corrections.
  */
-/*
- * TODO: Add assertions for properly performed corrections.
- */
-public abstract class AffineTransformNumerics extends RigidTransformNumerics {
+public class AffineTransformNumerics extends NumericsTestBase {
 	
 	private static final double TOLERANCE = 1E-11;
 
-	@Test
-	void zeroTransform() {
+	public void zeroTransform() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
 		undisplaced.add(Displacement.at(0, 0,    0,    0,    0,    0));
@@ -54,8 +55,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals( 0.0, result.getOrtho(),         TOLERANCE);
 	}
 	
-	@Test
-	void scalingX() {
+	public void scalingX() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm
 		double dy =  0.0;   // no impact on y-axis
@@ -90,8 +90,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
 	}
 	
-	@Test
-	void scalingY_withoutX() {
+	public void scalingY_withoutX() {
 		
 		double dx =  0.0;   // 150nm over 150um is 1ppm
 		double dy = -0.140; // 140nm over 140um is 1ppm
@@ -126,8 +125,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
 	}
 	
-	@Test
-	void scalingX_withoutY() {
+	public void scalingX_withoutY() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm
 		
@@ -161,8 +159,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
 	}
 	
-	@Test
-	void scalingXY() {
+	public void scalingXY() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm
 		double dy = -0.140; // 140nm over 140um is 1ppm
@@ -197,8 +194,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
 	}
 	
-	@Test
-	void shearingX() {
+	public void shearingX() {
 		
 		double dx = 0.150; // 150nm over 150um is 1ppm
 		
@@ -232,8 +228,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals( 1.0, toPPM(result.getOrtho()) ,        TOLERANCE);
 	}
 	
-	@Test
-	void shearingY() {
+	public void shearingY() {
 		
 		double dy = 0.150; // 150nm over 150um is 1ppm
 		
@@ -267,8 +262,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals(  1.0, toPPM(result.getOrtho()) ,        TOLERANCE);
 	}
 	
-	@Test
-	void shearingXY() {
+	public void shearingXY() {
 		
 		double dx = 0.150; // 150nm over 150um is 1ppm
 		double dy = 0.150;
@@ -321,8 +315,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals(  2.0, toPPM(result.getOrtho()) ,        TOLERANCE);
 	}
 	
-	@Test
-	void displacementsAlongVerticalLine() {
+	public void displacementsAlongVerticalLine() {
 		// 1ppm rotation
 
 		double tx = 0.1;
@@ -358,8 +351,7 @@ public abstract class AffineTransformNumerics extends RigidTransformNumerics {
 		assertEquals(   0.000, result.getOrthoX()*1E6,        2.6E-11);
 	}
 	
-	@Test
-	void displacementsAlongHorizontalLine() {
+	public void displacementsAlongHorizontalLine() {
 		// 1ppm rotation
 
 		double tx = 0.1;

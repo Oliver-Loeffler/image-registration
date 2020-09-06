@@ -18,12 +18,9 @@ class JamaSolverTest {
 
 	@Test
 	void testServiceDiscovery() {
-		
 		Solver solver = SolverProvider.getInstance().getSolver();
-		assertEquals(JamaSolver.class.getName(), solver.getClass().getName());
-		
+		assertEquals(JamaSolver.class.getName(), solver.getClass().getName());		
 	}
-	
-	
+		
 
 }
