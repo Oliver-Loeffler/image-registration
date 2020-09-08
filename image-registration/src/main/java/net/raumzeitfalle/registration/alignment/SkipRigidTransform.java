@@ -19,25 +19,50 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
+import java.util.Objects;
+
 import net.raumzeitfalle.registration.SkipTransform;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class SkipRigidTransform implements RigidTransform, SkipTransform {
+	
+	private final double tx = 0.0;
+	
+	private final double ty = 0.0;
+	
+	private final double rot = 0.0;
 
 	protected SkipRigidTransform() {
 		// Object creation limited to package level
 	}
 	
 	@Override
-	public double getTranslationX() { return 0.0; }
+	public double getTranslationX() { return tx; }
 
 	@Override
-	public double getTranslationY() { return 0.0; }
+	public double getTranslationY() { return ty; }
 
 	@Override
-	public double getRotation() { return 0.0; }
+	public double getRotation() { return rot; }
 
 	@Override
 	public Displacement apply(Displacement t) { return t; }
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(getRotation(), getTranslationX(), getTranslationY());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof RigidTransform))
+			return false;
+		RigidTransform other = (RigidTransform) obj;
+		return Double.doubleToLongBits(getRotation()) == Double.doubleToLongBits(other.getRotation())
+				&& Double.doubleToLongBits(getTranslationX()) == Double.doubleToLongBits(other.getTranslationX())
+				&& Double.doubleToLongBits(getTranslationY()) == Double.doubleToLongBits(other.getTranslationY());
+	}
 
 }

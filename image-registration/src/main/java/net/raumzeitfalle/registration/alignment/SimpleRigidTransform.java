@@ -19,7 +19,7 @@
  */
 package net.raumzeitfalle.registration.alignment;
 
-import java.util.Locale;
+import java.util.*;
 
 /**
  * 
@@ -61,5 +61,24 @@ public final class SimpleRigidTransform implements RigidTransform {
 	private String format(double value) {
 		return String.format(Locale.US, "%10.7f", value);
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getRotation(), getTranslationX(), getTranslationY());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof RigidTransform))
+			return false;
+		RigidTransform other = (RigidTransform) obj;
+		return Double.doubleToLongBits(rotation) == Double.doubleToLongBits(other.getRotation())
+				&& Double.doubleToLongBits(translationX) == Double.doubleToLongBits(other.getTranslationX())
+				&& Double.doubleToLongBits(translationY) == Double.doubleToLongBits(other.getTranslationY());
+	}
+	
+	
 
 }
