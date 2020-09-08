@@ -33,7 +33,6 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 import net.raumzeitfalle.registration.displacement.DisplacementSummary;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
-import net.raumzeitfalle.registration.file.FileLoader;
 import net.raumzeitfalle.registration.firstorder.Alignments;
 import net.raumzeitfalle.registration.firstorder.Compensations;
 import net.raumzeitfalle.registration.firstorder.FirstOrderCorrection;

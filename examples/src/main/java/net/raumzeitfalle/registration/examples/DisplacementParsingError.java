@@ -1,4 +1,4 @@
-package net.raumzeitfalle.registration.file;
+package net.raumzeitfalle.registration.examples;
 
 public class DisplacementParsingError extends RuntimeException {
 

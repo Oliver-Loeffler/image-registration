@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package net.raumzeitfalle.registration.file;
+package net.raumzeitfalle.registration.examples;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

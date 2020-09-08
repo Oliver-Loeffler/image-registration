@@ -29,11 +29,6 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * A transform applies to {@link Displacement} and returns a {@link Displacement}.
  * <p>
  * To properly apply any given {@link Transform} to a {@link Collection} of displacements, the {@link Function} {@link TransformCorrection} shall be used.
- * {@code
- * 
- * 
- * }
- * @author oliver
  *
  */
 public interface Transform extends SkippableOperation {

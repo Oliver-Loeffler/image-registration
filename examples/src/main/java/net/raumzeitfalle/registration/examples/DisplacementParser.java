@@ -1,4 +1,4 @@
-package net.raumzeitfalle.registration.file;
+package net.raumzeitfalle.registration.examples;
 
 import java.util.function.*;
 
