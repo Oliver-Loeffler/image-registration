@@ -1,5 +1,7 @@
 package net.raumzeitfalle.registration;
 
+import java.util.Collection;
+
 public final class Orientations {
 
 	public static final Orientation X = new XOrientation();
@@ -7,6 +9,26 @@ public final class Orientations {
 	public static final Orientation Y = new YOrientation();
 
 	public static final Orientation XY = new XYOrientation();
+	
+	public <N> Orientation determine(Collection<N> x, Collection<N> y) {
+		return determine(x.size(), y.size());
+	}
+	
+	public Orientation determine(int xCount, int yCount) {
+		if (0 == xCount && 0 == yCount) {
+			return XY;
+		}
+		
+		if (0 == xCount) {
+			return Y;
+		}
+		
+		if (0 == yCount) {
+			return X;
+		}
+		
+		return XY;
+	}
 	
 	private static abstract class OrientationBase implements Orientation {
 		protected String orientation;

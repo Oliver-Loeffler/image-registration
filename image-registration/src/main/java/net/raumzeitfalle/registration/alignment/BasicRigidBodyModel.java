@@ -34,11 +34,9 @@ import net.raumzeitfalle.registration.solver.spi.Solver;
  * <li>Translation</li>
  * <li>Rotation</li>
  * </ul>
- *
- * @author oliver
  * 
  */
-final class DefaultRigidBodyModel implements RigidBodyModel {
+final class BasicRigidBodyModel implements RigidBodyModel {
 
 	private void prepare(Collection<RigidModelEquation> equations, ReferencesMatrix references, DifferencesVector deltas, Orientation direction) {
 		int row = 0;

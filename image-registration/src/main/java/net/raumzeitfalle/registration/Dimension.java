@@ -49,18 +49,7 @@ public class Dimension<T extends Orientable> implements Consumer<Orientable>, Un
 	}
 	
 	public Orientation getDirection() {
-		if (xCount == 0 && yCount == 0) {
-			return Orientations.XY;
-		}
-		
-		if (xCount > 0 && yCount > 0) {
-			return Orientations.XY;
-		}
-		
-		if (xCount > 0) {
-			return Orientations.X;
-		}
-		return Orientations.Y;	
+		return new Orientations().determine(xCount, yCount);	
 	}
 
 	public int getDimensions() {

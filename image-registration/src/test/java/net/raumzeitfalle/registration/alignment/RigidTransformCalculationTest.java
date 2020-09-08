@@ -32,7 +32,7 @@ class RigidTransformCalculationTest {
 	
 	private static final double TOLERANCE = 1E-11;
 	
-	private final RigidBodyModel model = new DefaultRigidBodyModel();
+	private final RigidBodyModel model = new BasicRigidBodyModel();
 	
 	private final BiFunction<Collection<Displacement>, 
 							  Predicate<Displacement>, 
