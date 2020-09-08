@@ -22,8 +22,7 @@ package net.raumzeitfalle.registration.distortions;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import net.raumzeitfalle.registration.ModelEquation;
-import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.*;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class AffineModelEquation implements ModelEquation {
@@ -44,11 +43,11 @@ public final class AffineModelEquation implements ModelEquation {
     }
     
     public static AffineModelEquation forX(Displacement d) {	
-    	return new AffineModelEquation(d.getX(), d.getY(), d.dX(), Orientation.X);
+    	return new AffineModelEquation(d.getX(), d.getY(), d.dX(), Orientations.X);
     }
     
     public static AffineModelEquation forY(Displacement d) {
-    	return new AffineModelEquation(d.getX(), d.getY(), d.dY(), Orientation.Y);
+    	return new AffineModelEquation(d.getX(), d.getY(), d.dY(), Orientations.Y);
     }
         
     private final double sx;
@@ -68,14 +67,14 @@ public final class AffineModelEquation implements ModelEquation {
 	private final Orientation direction;
     
 	private AffineModelEquation(double refx, double refy, double delta, Orientation direction) {
-		this.sx = Orientation.X.equals(direction) ? refx : 0.0;
-		this.sy = Orientation.X.equals(direction) ? 0.0  : refy;
+		this.sx = Orientations.X.equals(direction) ? refx : 0.0;
+		this.sy = Orientations.X.equals(direction) ? 0.0  : refy;
 		
-		this.ox = Orientation.X.equals(direction) ? 0.0  : -refx;
-		this.oy = Orientation.X.equals(direction) ? refy : 0.0;
+		this.ox = Orientations.X.equals(direction) ? 0.0  : -refx;
+		this.oy = Orientations.X.equals(direction) ? refy : 0.0;
 		
-		this.tx = Orientation.X.equals(direction) ? 1.0  : 0.0;
-		this.ty = Orientation.X.equals(direction) ? 0.0  : 1.0;
+		this.tx = Orientations.X.equals(direction) ? 1.0  : 0.0;
+		this.ty = Orientations.X.equals(direction) ? 0.0  : 1.0;
 		
 		this.deltaValue = delta;
 		this.direction = direction;

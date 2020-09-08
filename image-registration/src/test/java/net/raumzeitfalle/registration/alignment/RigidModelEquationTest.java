@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.*;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 class RigidModelEquationTest {
@@ -21,7 +21,7 @@ class RigidModelEquationTest {
 		
 		assertEquals( 8.0, equation.getDeltaValue(), TOLERANCE, "X: DeltaValue");
 		assertEquals(-3.0, equation.getDesignValue(), TOLERANCE, "X: DesignValue");
-		assertEquals(Orientation.X, equation.getOrientation(), "Orientation");
+		assertEquals(Orientations.X, equation.getOrientation(), "Orientation");
 		
 		assertEquals("RigidModelEquation [xf=1.0, yf=0.0, designValue=-3.0, deltaValue=8.0, direction=X]",
 				equation.toString());
@@ -35,7 +35,7 @@ class RigidModelEquationTest {
 		
 		assertEquals(-13.0, equation.getDeltaValue(), TOLERANCE, "Y: DeltaValue");
 		assertEquals(  2.0, equation.getDesignValue(), TOLERANCE, "Y: DesignValue");
-		assertEquals(Orientation.Y, equation.getOrientation(), "Orientation");
+		assertEquals(Orientations.Y, equation.getOrientation(), "Orientation");
 		
 		assertEquals("RigidModelEquation [xf=0.0, yf=1.0, designValue=2.0, deltaValue=-13.0, direction=Y]",
 				equation.toString());

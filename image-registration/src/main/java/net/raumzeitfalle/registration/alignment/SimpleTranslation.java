@@ -57,7 +57,6 @@ public final class SimpleTranslation implements Translation {
 		return translationY;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Translation [x=" + format(translationX) + ", y=" + format(translationY) + "]";

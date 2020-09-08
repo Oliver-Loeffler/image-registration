@@ -30,8 +30,8 @@ public class Dimension<T extends Orientable> implements Consumer<Orientable>, Un
 	
 	@Override
 	public void accept(Orientable t) {
-		if (t.matches(Orientation.X)) xCount++;
-		if (t.matches(Orientation.Y)) yCount++;
+		if (t.matches(Orientations.X)) xCount++;
+		if (t.matches(Orientations.Y)) yCount++;
 	}
 	
 	@Override
@@ -50,20 +50,23 @@ public class Dimension<T extends Orientable> implements Consumer<Orientable>, Un
 	
 	public Orientation getDirection() {
 		if (xCount == 0 && yCount == 0) {
-			return Orientation.UNKNOWN;
+			return Orientations.XY;
 		}
 		
 		if (xCount > 0 && yCount > 0) {
-			return Orientation.XY;
+			return Orientations.XY;
 		}
 		
 		if (xCount > 0) {
-			return Orientation.X;
+			return Orientations.X;
 		}
-		return Orientation.Y;	
+		return Orientations.Y;	
 	}
 
 	public int getDimensions() {
+		if (0 == this.xCount && 0 == this.yCount) {
+			return 0;
+		}
 		return getDirection().getDimensions();
 	}
 	

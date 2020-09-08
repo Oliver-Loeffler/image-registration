@@ -68,29 +68,8 @@ final class BasicAffineModel implements AffineModel {
 	}
 
 	private AffineTransform createTransform(Solution solved, Orientation direction) {
-		
-		if (Orientation.X.equals(direction)) {
-			double tx = solved.get(2);
-			double ox = solved.get(1);
-			double sx = solved.get(0);	
-			return SimpleAffineTransform.forX(tx, sx, ox);
-		}
-		
-		if (Orientation.Y.equals(direction)) {
-			double ty = solved.get(2);
-			double oy = solved.get(1);
-			double sy = solved.get(0);
-			return SimpleAffineTransform.forX(ty, sy, oy);
-		}
-		
-		double sx = solved.get(0);
-	    double sy = solved.get(1);
-	    double ox = solved.get(2);
-	    double oy = solved.get(3);
-	    double tx = solved.get(4);
-	    double ty = solved.get(5);
-
-		return SimpleAffineTransform.forXY(tx, ty, sx, sy, ox, oy);
+		BasicAffineTransformFactory transformFactory = new BasicAffineTransformFactory(solved);
+		return direction.runOperation(transformFactory);
 	}
 
 	private void prepare(Collection<AffineModelEquation> equations, ReferencesMatrix references, DifferencesVector deltas,

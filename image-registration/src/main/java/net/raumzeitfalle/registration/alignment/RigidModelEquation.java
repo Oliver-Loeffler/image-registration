@@ -22,8 +22,7 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import net.raumzeitfalle.registration.ModelEquation;
-import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.*;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class RigidModelEquation implements ModelEquation {
@@ -51,7 +50,7 @@ public final class RigidModelEquation implements ModelEquation {
 		double design = -d.getY();
 		double delta = d.dX();
 		
-		return new RigidModelEquation(xf, yf, design, delta, Orientation.X);
+		return new RigidModelEquation(xf, yf, design, delta, Orientations.X);
 	}
 	
 	public static RigidModelEquation forY(Displacement d) {
@@ -62,7 +61,7 @@ public final class RigidModelEquation implements ModelEquation {
 		double design = d.getX();
 		double delta = d.dY();
 		
-		return new RigidModelEquation(xf, yf, design, delta, Orientation.Y);
+		return new RigidModelEquation(xf, yf, design, delta, Orientations.Y);
 	}
 	
 	private final double xf;

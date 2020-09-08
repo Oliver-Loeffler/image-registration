@@ -8,11 +8,11 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 
 class RigidBodyDegreesOfFreedomTest {
 	
-	private DegreeOfFreedom classUnderTest;
+	private DegreesOfFreedom classUnderTest;
 	
 	@BeforeEach
 	public void prepare() {
-		 classUnderTest = new DegreeOfFreedom();
+		 classUnderTest = new DegreesOfFreedom();
 	}
 	
 	@Test

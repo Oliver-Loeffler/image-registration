@@ -65,21 +65,13 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		return createTransform(solution,direction);
 	}
 
-	private RigidTransform createTransform(Solution solved, Orientation direction) {		
-		switch (direction) {
-			case X:
-				return RigidTransform.with(solved.get(0), 0.0, solved.get(1));
-			
-			case Y:
-				return RigidTransform.with(0.0, solved.get(0), solved.get(1));
-				
-			default:
-				return RigidTransform.with(solved.get(0), solved.get(1), solved.get(2));
-		}
+	private RigidTransform createTransform(Solution solved, Orientation direction) {
+		RigidTransformFactory transformFactory = new RigidTransformFactory(solved);
+		return direction.runOperation(transformFactory);
 	}
 
 	@Override
-	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreeOfFreedom dof) {
+	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreesOfFreedom dof) {
 		
 		int rows = equations.size();
 		int cols = dof.getDimensions()+1;
@@ -91,16 +83,8 @@ final class DefaultRigidBodyModel implements RigidBodyModel {
 		
 		// escape here before singular matrix exception can be thrown
 		if (0 == dof.getCombined()) {
-			switch (ori) {
-				case X: 
-					return RigidTransform.shiftX(deltas.get(0));
-					
-				case Y: 
-					return RigidTransform.shiftY(deltas.get(0));
-				
-				default:
-					return RigidTransform.translation(deltas.get(0), deltas.get(1));
-			}
+			RigidTransformTranslationsFactory transformFactory = new RigidTransformTranslationsFactory(deltas);
+			return ori.runOperation(transformFactory);
 		}				
 		return solve(references, deltas, ori);
 	}

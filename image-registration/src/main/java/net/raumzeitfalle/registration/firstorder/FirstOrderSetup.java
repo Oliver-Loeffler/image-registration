@@ -72,7 +72,7 @@ public final class FirstOrderSetup {
 		return this.compensationMethods;
 	}
 
-	public Predicate<Displacement> getAlignmenSelection() {
+	public Predicate<Displacement> getAlignmentSelection() {
 		return this.alignmentSelection;
 	}
 

@@ -21,17 +21,17 @@ public final class ReferencesMatrix implements References {
 	}
 	
 	public final void set(int row, RigidModelEquation eq, Orientation direction) {
-		if (Orientation.X.equals(direction)) {
+		if (Orientations.X.equals(direction)) {
 			set(row, 0, eq.getXf());
 			set(row, 1, eq.getDesignValue());
 		}
 		
-		if (Orientation.Y.equals(direction)) {
+		if (Orientations.Y.equals(direction)) {
 			set(row, 0, eq.getYf());
 			set(row, 1, eq.getDesignValue());
 		}
 		
-		if (Orientation.XY.equals(direction)) {
+		if (Orientations.XY.equals(direction)) {
 			set(row, 0, eq.getXf());
 			set(row, 1, eq.getYf());
 			set(row, 2, eq.getDesignValue());
@@ -39,19 +39,19 @@ public final class ReferencesMatrix implements References {
 	}
 	
 	public final void set2D(int row, AffineModelEquation eq, Orientation direction) {
-		if (Orientation.X.equals(direction)) {
+		if (Orientations.X.equals(direction)) {
 			set(row, 0, eq.getSx());
 			set(row, 1, eq.getOy());
 			set(row, 2, eq.getTx());
 		}
 		
-		if (Orientation.Y.equals(direction)) {
+		if (Orientations.Y.equals(direction)) {
 			set(row, 0, eq.getSy());
 			set(row, 1, eq.getOx());
 			set(row, 2, eq.getTy());
 		}
 		
-		if (Orientation.XY.equals(direction)) {
+		if (Orientations.XY.equals(direction)) {
 			set(row, 0, eq.getSx());
 			set(row, 1, eq.getSy());
 			set(row, 2, eq.getOx());
@@ -62,14 +62,14 @@ public final class ReferencesMatrix implements References {
 	}
 	
 	public final void set1D(int row, AffineModelEquation eq, Orientation direction) {
-		if (eq.matches(Orientation.X)) {
+		if (eq.matches(Orientations.X)) {
 			set(row, 0, eq.getSx());
 			set(row, 1, eq.getOy());
 			set(row, 2, eq.getTx());
 			set(row, 3, eq.getTy());
 		}
 		
-		if (eq.matches(Orientation.Y)) {
+		if (eq.matches(Orientations.Y)) {
 			set(row, 0, eq.getSy());
 			set(row, 1, eq.getOx());
 			set(row, 2, eq.getTx());

@@ -42,7 +42,7 @@ public final class FirstOrderCorrection implements BiFunction<Collection<Displac
 	@Override
 	public FirstOrderResult apply(Collection<Displacement> displacements, FirstOrderSetup setup) {
 		
-		Predicate<Displacement> alignmentSelection = setup.getAlignmenSelection();
+		Predicate<Displacement> alignmentSelection = setup.getAlignmentSelection();
 		
 		/* 
 		 * STEP 1 - Calculate corrected first order based on unaligned data

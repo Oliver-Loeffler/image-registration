@@ -33,7 +33,7 @@ class AlignmentNoneTest {
 	void alignmentResidual() {
 		
 		FirstOrderResult result = new FirstOrderCorrection().apply(displacements, setup);
-		RigidTransform residual = new RigidTransformCalculation().apply(result.getDisplacements(), setup.getAlignmenSelection());
+		RigidTransform residual = new RigidTransformCalculation().apply(result.getDisplacements(), setup.getAlignmentSelection());
 		
 		assertAll(
 				()->assertEquals(-10.0, residual.getTranslationX() , 1E-11, "residual x-translation"),
@@ -47,7 +47,7 @@ class AlignmentNoneTest {
 	void alignmentSelection() {
 			
 		List<Displacement> alignmentSelection = displacements.stream()
-														     .filter(setup.getAlignmenSelection())
+														     .filter(setup.getAlignmentSelection())
 														     .collect(Collectors.toList());
 		
 		assertEquals(displacements, alignmentSelection);

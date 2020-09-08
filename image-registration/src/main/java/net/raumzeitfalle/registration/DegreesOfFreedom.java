@@ -5,7 +5,7 @@ import java.util.function.*;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
-public class DegreeOfFreedom implements Consumer<Displacement>, UnaryOperator<Displacement> {
+public class DegreesOfFreedom implements Consumer<Displacement>, UnaryOperator<Displacement>, OrientedOperation<Integer> {
 	
 	private final Set<Double> xLocations = new HashSet<>(1000);
 	
@@ -30,17 +30,17 @@ public class DegreeOfFreedom implements Consumer<Displacement>, UnaryOperator<Di
 	
 	public Orientation getDirection() {
 		if (xLocations.size() == 0 && yLocations.size() == 0) {
-			return Orientation.UNKNOWN;
+			return Orientations.XY;
 		}
 		
 		if (xLocations.size() > 0 && yLocations.size() > 0) {
-			return Orientation.XY;
+			return Orientations.XY;
 		}
 		
 		if (xLocations.size() > 0) {
-			return Orientation.X;
+			return Orientations.X;
 		}
-		return Orientation.Y;	
+		return Orientations.Y;	
 	}
 	
 	@Override
@@ -49,15 +49,15 @@ public class DegreeOfFreedom implements Consumer<Displacement>, UnaryOperator<Di
 		return t;
 	}
 	
-	public int getX() {
+	public Integer getX() {
 		return this.xLocations.size()-1;
 	}
 
-	public int getY() {
+	public Integer getY() {
 		return this.yLocations.size()-1;
 	}
 	
-	public int getCombined() {
+	public Integer getCombined() {
 		return Math.max(this.getX(),this.getY());
 	}
 
@@ -65,4 +65,8 @@ public class DegreeOfFreedom implements Consumer<Displacement>, UnaryOperator<Di
 		return getDirection().getDimensions();
 	}
 
+	public int getDegrees() {
+		Orientation orientation = this.getDirection();
+		return orientation.runOperation(this);
+	}
 }

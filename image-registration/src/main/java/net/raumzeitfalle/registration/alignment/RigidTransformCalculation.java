@@ -23,7 +23,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
-import net.raumzeitfalle.registration.DegreeOfFreedom;
+import net.raumzeitfalle.registration.DegreesOfFreedom;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
@@ -56,26 +56,26 @@ public final class RigidTransformCalculation implements BiFunction<Collection<Di
 	 * A {@link SkipRigidTransform} is returned instead of a {@link SimpleRigidTransform}. When used in data processing, 
 	 * the {@link SkipRigidTransform} will just pass through all given data without any modification.
 	 * 
-	 * @param t Collection of {@link Displacement}
-	 * @param u {@link Predicate} which describes which {@link Displacement} elements shall be used for alignment
+	 * @param displacements Collection of {@link Displacement}
+	 * @param selector {@link Predicate} which describes which {@link Displacement} elements shall be used for alignment
 	 * @return {@link RigidTransform} providing translation (x,y) and rotation values.
 	 */
 	@Override
-	public RigidTransform apply(Collection<Displacement> t, Predicate<Displacement> u) {
+	public RigidTransform apply(Collection<Displacement> displacements, Predicate<Displacement> selector) {
 						
-		DegreeOfFreedom dof = new DegreeOfFreedom();
+		DegreesOfFreedom degreesOfFreedom = new DegreesOfFreedom();
 				
-		List<RigidModelEquation> equations = t.stream()
-											 .filter(u)
-											 .map(dof)
-											 .flatMap(RigidModelEquation::from)
-											 .collect(Collectors.toList());
+		List<RigidModelEquation> equations = displacements.stream()
+											  .filter(selector)
+											  .map(degreesOfFreedom)
+											  .flatMap(RigidModelEquation::from)
+											  .collect(Collectors.toList());
 		
 		if (equations.isEmpty()) {
 			return continueUnaligned();
 		}
 		
-		return model.solve(equations, dof);
+		return model.solve(equations, degreesOfFreedom);
 	}
 
 	private RigidTransform continueUnaligned() {

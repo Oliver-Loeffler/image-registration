@@ -24,5 +24,5 @@ import java.util.Collection;
 import net.raumzeitfalle.registration.*;
 
 public interface RigidBodyModel {
-	<T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreeOfFreedom dof);
+	<T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreesOfFreedom dof);
 }

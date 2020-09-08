@@ -58,7 +58,7 @@ class FirstOrderSetupTest {
 
 		List<Displacement> source = getDisplacements(3);
 		
-		List<Displacement> alignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> alignment = filter(source, classUnderTest.getAlignmentSelection());
 		List<Displacement> calculation = filter(source, classUnderTest.getCalculationSelection());
 		List<Displacement> removed = filter(source, classUnderTest.getRemovalSelection());
 		
@@ -88,7 +88,7 @@ class FirstOrderSetupTest {
 		displacements.add(Displacement.at(2, 2, 0d, 0d));
 		displacements.add(Displacement.at(3, 3, 0d, 0d));
 
-		Predicate<Displacement> align = classUnderTest.getAlignmenSelection();
+		Predicate<Displacement> align = classUnderTest.getAlignmentSelection();
 		
 		List<Displacement> forAlignment = displacements.stream()
 													   .filter(align)
@@ -99,7 +99,7 @@ class FirstOrderSetupTest {
 		
 		
 		
-		Predicate<Displacement> calc = classUnderTest.getAlignmenSelection();
+		Predicate<Displacement> calc = classUnderTest.getAlignmentSelection();
 		List<Displacement> forCalculation = displacements.stream()
 				   .filter(calc)
 				   .collect(Collectors.toList());
@@ -157,7 +157,7 @@ class FirstOrderSetupTest {
 
 		
 		List<Displacement> source = getDisplacements(3);
-		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmentSelection());
 		List<Displacement> forCalculation = filter(source, classUnderTest.getCalculationSelection());
 		
 		assertEquals(source.size(), forAlignment.size());
@@ -175,7 +175,7 @@ class FirstOrderSetupTest {
 
 		
 		List<Displacement> source = getDisplacements(3);
-		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmentSelection());
 		List<Displacement> forCalculation = filter(source, classUnderTest.getCalculationSelection());
 		List<Displacement> forRemoval = filter(source, classUnderTest.getRemovalSelection());
 		
@@ -193,7 +193,7 @@ class FirstOrderSetupTest {
 				                        .build();
 
 		List<Displacement> source = getDisplacements(3);
-		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmentSelection());
 		List<Displacement> forRemoval = filter(source, classUnderTest.getRemovalSelection());
 		
 		assertEquals(1, forAlignment.size());
@@ -238,7 +238,7 @@ class FirstOrderSetupTest {
 				.build();
 		
 		List<Displacement> source = getDisplacements(3);
-		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmentSelection());
 
 		assertEquals(source.size(), forAlignment.size());
 
@@ -254,7 +254,7 @@ class FirstOrderSetupTest {
 							.build();
 
 		List<Displacement> source = getDisplacements(3);
-		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmentSelection());
 
 		assertEquals(1, forAlignment.size());
 
@@ -270,7 +270,7 @@ class FirstOrderSetupTest {
 				.build();
 
 		List<Displacement> source = getDisplacements(3);
-		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmenSelection());
+		List<Displacement> forAlignment = filter(source, classUnderTest.getAlignmentSelection());
 		List<Displacement> forCalculation = filter(source, classUnderTest.getCalculationSelection());
 		
 		assertEquals(1, forAlignment.size());
