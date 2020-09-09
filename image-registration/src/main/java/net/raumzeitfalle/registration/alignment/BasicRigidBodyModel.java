@@ -71,18 +71,17 @@ final class BasicRigidBodyModel implements RigidBodyModel {
 	@Override
 	public <T extends Orientable> RigidTransform solve(Collection<RigidModelEquation> equations, DegreesOfFreedom dof) {
 		
-		int rows = equations.size();
-		int cols = dof.getDimensions()+1;
 		Orientation ori = dof.getDirection();
+		int rows = equations.size();
+		int cols = ori.getDimensions()+1;
 				
 		DifferencesVector deltas = new DifferencesVector(rows);
 		ReferencesMatrix references = new ReferencesMatrix(rows, cols);
-		prepare(equations, references, deltas, dof.getDirection());
+		prepare(equations, references, deltas, ori);
 		
 		// escape here before singular matrix exception can be thrown
-		if (0 == dof.getCombined()) {
-			RigidTransformTranslationsFactory transformFactory = new RigidTransformTranslationsFactory(deltas);
-			return ori.runOperation(transformFactory);
+		if (1 == dof.getCombined()) {
+			return ori.runOperation(new RigidTransformTranslationsFactory(deltas));
 		}				
 		return solve(references, deltas, ori);
 	}

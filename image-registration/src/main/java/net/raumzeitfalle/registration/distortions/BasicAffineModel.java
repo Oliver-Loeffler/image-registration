@@ -44,16 +44,16 @@ final class BasicAffineModel implements AffineModel {
 	
 	@Override
 	public <T extends Orientable> AffineTransform solve(Collection<AffineModelEquation> equations,
-			Dimension<T> dimension) {
+			DegreesOfFreedom degreesOfFreedom) {
 		
 		// there are 3 coefficients per direction
-		int cols = dimension.getDimensions() * 3;
+		int cols = degreesOfFreedom.getDimensions() * 3;
 		int rows = equations.size();
 		
 		ReferencesMatrix references = new ReferencesMatrix(rows, cols);
 		DifferencesVector deltas = new DifferencesVector(rows);
 		
-		Orientation direction = dimension.getDirection();
+		Orientation direction = degreesOfFreedom.getDirection();
 		prepare(equations, references, deltas, direction);
 		
 		return solve(references, deltas, direction);

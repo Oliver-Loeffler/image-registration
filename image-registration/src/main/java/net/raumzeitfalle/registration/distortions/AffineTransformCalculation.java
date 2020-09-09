@@ -29,8 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import net.raumzeitfalle.registration.Dimension;
-import net.raumzeitfalle.registration.SpatialDistribution;
+import net.raumzeitfalle.registration.*;
 import net.raumzeitfalle.registration.alignment.TranslateFunction;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
@@ -65,45 +64,41 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
     		return SkipAffineTransform.centeredAt(0, 0);
 
     	TranslateFunction translate = Displacement.translationToCenter(t, u);
-    	
-    	Dimension<AffineModelEquation> dimension = new Dimension<>();
-    	SpatialDistribution distribution = new SpatialDistribution();
+    
+    	DegreesOfFreedom degreesOfFreedom = new DegreesOfFreedom();
     	
     	List<AffineModelEquation> finalEquations = t.stream()
     												.filter(u)
     												.map(translate)
-    												.map(distribution)
+    												.map(degreesOfFreedom)
 									                .flatMap(AffineModelEquation::from)
-									                .map(dimension)
 									                .collect(Collectors.toList());
     	
     	if (finalEquations.isEmpty())
     		return SkipAffineTransform.centeredAt(0, 0);
 
-        AffineTransform transform = tryCalculation(finalEquations, dimension, distribution);
+        AffineTransform transform = tryCalculation(finalEquations, degreesOfFreedom);
         
         return new AffineTransformBuilder(transform, -translate.getX(), -translate.getY()).build();
 		        						
 	}
 
 	private AffineTransform tryCalculation( List<AffineModelEquation> finalEquations,
-											Dimension<AffineModelEquation> dimension,
-											SpatialDistribution distribution ) {
+											DegreesOfFreedom degreesOfFreedom ) {
 		try {
-			return model.solve(finalEquations,dimension); 
+			return model.solve(finalEquations,degreesOfFreedom); 
 		}
 		catch (Exception e) {
-			return tryOneDimModel(finalEquations, dimension, distribution);
+			return tryOneDimModel(finalEquations, degreesOfFreedom);
 		}
 	}
 
 	private AffineTransform tryOneDimModel( List<AffineModelEquation> finalEquations,
-											Dimension<AffineModelEquation> dimension,
-											SpatialDistribution distribution ) {
+											DegreesOfFreedom degreesOfFreedom ) {
 		
 		try {	
-			OneDimensionalAffineModel oneDimModel = new OneDimensionalAffineModel(distribution);
-			return oneDimModel.solve(finalEquations, dimension);			
+			OneDimensionalAffineModel oneDimModel = new OneDimensionalAffineModel();
+			return oneDimModel.solve(finalEquations, degreesOfFreedom);			
 		}
 		catch (Exception e) {
 			return errorHandler.apply(e);

@@ -34,11 +34,11 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 
 class SpatialDistributionTest {
 	
-	private SpatialDistribution classUnderTest;
+	private DegreesOfFreedom classUnderTest;
 
 	@BeforeEach
 	void prepare() {
-		 classUnderTest = new SpatialDistribution();
+		 classUnderTest = new DegreesOfFreedom();
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.HORIZONTAL, distribution);
-		assertEquals("Distribution [xLocations=2, yLocations=1]", classUnderTest.toString());
+		assertEquals("DegreesOfFreedom [xLocations=2, yLocations=1]", classUnderTest.toString());
 		
 	}
 	
@@ -93,7 +93,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.VERTICAL, distribution);
-		assertEquals("Distribution [xLocations=1, yLocations=2]", classUnderTest.toString());
+		assertEquals("DegreesOfFreedom [xLocations=1, yLocations=2]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -111,7 +111,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.SINGULARITY, distribution);
-		assertEquals("Distribution [xLocations=1, yLocations=1]", classUnderTest.toString());
+		assertEquals("DegreesOfFreedom [xLocations=1, yLocations=1]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -125,7 +125,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.SINGULARITY, distribution);
-		assertEquals("Distribution [xLocations=1, yLocations=0]", classUnderTest.toString());
+		assertEquals("DegreesOfFreedom [xLocations=1, yLocations=0]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -139,7 +139,7 @@ class SpatialDistributionTest {
 		Distribution distribution = classUnderTest.getDistribution();
 		
 		assertEquals(Distribution.SINGULARITY, distribution);
-		assertEquals("Distribution [xLocations=0, yLocations=1]", classUnderTest.toString());
+		assertEquals("DegreesOfFreedom [xLocations=0, yLocations=1]", classUnderTest.toString());
 	}
 	
 	@Test
@@ -149,7 +149,7 @@ class SpatialDistributionTest {
 			
 		points.forEach(classUnderTest);
 		
-		assertEquals("Distribution [xLocations=0, yLocations=0]", classUnderTest.toString());
+		assertEquals("DegreesOfFreedom [xLocations=0, yLocations=0]", classUnderTest.toString());
 		
 		Throwable t = assertThrows(IllegalArgumentException.class,
 				()->classUnderTest.getDistribution());

@@ -317,6 +317,8 @@ class RigidTransformCalculationTest {
 		assertEquals(   0.0 , result.getRotation(),     TOLERANCE);
 		
 	}
+	
+	
 
 	private List<Displacement> listOf(Displacement ... d) {
 		return Arrays.asList(d);

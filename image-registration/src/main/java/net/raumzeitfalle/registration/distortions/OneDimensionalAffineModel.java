@@ -27,15 +27,13 @@ import net.raumzeitfalle.registration.solver.spi.Solver;
 
 class OneDimensionalAffineModel implements AffineModel {
 	
-	private final Distribution spatialOrientation;
-	
-	OneDimensionalAffineModel(SpatialDistribution distribution) {
-		this.spatialOrientation = distribution.getDistribution();
+	OneDimensionalAffineModel() {
+		
 	}
 
 	@Override
 	public <T extends Orientable> AffineTransform solve(Collection<AffineModelEquation> equations,
-			Dimension<T> dimension) {
+			DegreesOfFreedom degreesOfFreedom) {
 		
 		/*
 		 * Assumption:
@@ -64,11 +62,11 @@ class OneDimensionalAffineModel implements AffineModel {
 		ReferencesMatrix references = new ReferencesMatrix(rows, cols);
 		DifferencesVector deltas = new DifferencesVector(rows);
 
-		Orientation direction = dimension.getDirection();
+		Orientation direction = degreesOfFreedom.getDirection();
 
 		prepare(equations, references, deltas, direction);
 		
-		return solve(references, deltas, direction);
+		return solve(references, deltas, degreesOfFreedom);
 	}
 
 	private void prepare(Collection<AffineModelEquation> equations, ReferencesMatrix references, DifferencesVector deltas,
@@ -91,30 +89,30 @@ class OneDimensionalAffineModel implements AffineModel {
 		
 	}
 	
-	private AffineTransform solve(References references, Deltas deltas, Orientation direction) {
+	private AffineTransform solve(References references, Deltas deltas, DegreesOfFreedom dof) {
 		
 		Solver solver = SolverProvider.getInstance().getSolver();
 		Solution solution = solver.apply(references, deltas);
 		
-		return createTransform(solution, direction);
+		return createTransform(solution, dof);
 	}
 
-	private AffineTransform createTransform(Solution solved, Orientation direction) {
+	private AffineTransform createTransform(Solution solved, DegreesOfFreedom dof) {
 		
 		double scale = solved.get(0);
 	    double rot = solved.get(1);
 	    double tx = solved.get(2);
 	    double ty = solved.get(3);
 	    
-		if (Distribution.HORIZONTAL.equals(spatialOrientation)) {
+		if (Distribution.HORIZONTAL.equals(dof.getDistribution())) {
 			return SimpleAffineTransform.horizontal(tx, ty, scale, rot);
 		}
 		
-		if (Distribution.VERTICAL.equals(spatialOrientation)) {
+		if (Distribution.VERTICAL.equals(dof.getDistribution())) {
 			return SimpleAffineTransform.vertical(tx, ty, scale, rot);
 		}
 		
-		String message = String.format("Evaluation of data with %s spatial orientation not supported.", spatialOrientation);
+		String message = String.format("Evaluation of data with %s spatial orientation not supported.", dof.getDistribution());
 		throw new UnsupportedOperationException(message);
 	}
 

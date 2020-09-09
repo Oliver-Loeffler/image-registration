@@ -5,6 +5,17 @@ import java.util.function.*;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 
+/**
+ * 
+ * <h1>Rigid Body 3-parameter Model</h1>
+ * <ul>
+ * 	<li>DoF  = 0 -> no calculation possible</li>
+ *  <li>DoF  = 1 -> translation only</li>
+ *  <li>DoF >= 2 -> translation and rotation</li>
+ * </ul>
+ * 
+ *
+ */
 public class DegreesOfFreedom implements Consumer<Displacement>, UnaryOperator<Displacement>, OrientedOperation<Integer> {
 	
 	private final Set<Double> xLocations = new HashSet<>(1000);
@@ -13,19 +24,13 @@ public class DegreesOfFreedom implements Consumer<Displacement>, UnaryOperator<D
 
 	@Override
 	public void accept(Displacement t) {
-		double x  = t.getX();
-		double dx = t.dX();
 		
-		double y = t.getY();
-		double dy = t.dY();
+		if (Double.isFinite(t.getXd())) 
+			xLocations.add(Double.valueOf(t.getX()));
 		
-		if (Double.isFinite(x) && Double.isFinite(dx)) {
-			xLocations.add(x);
-		}
+		if (Double.isFinite(t.getYd())) 
+			yLocations.add(Double.valueOf(t.getY()));
 		
-		if (Double.isFinite(y) && Double.isFinite(dy)) {
-			yLocations.add(y);
-		}
 	}
 	
 	public Orientation getDirection() {
@@ -43,6 +48,23 @@ public class DegreesOfFreedom implements Consumer<Displacement>, UnaryOperator<D
 		return Orientations.Y;	
 	}
 	
+	public Distribution getDistribution() {
+		if (xLocations.isEmpty() && yLocations.isEmpty()) {
+			throw new IllegalArgumentException("Could not determine data distribution as no valid displacements have been processed yet.");	
+		}
+		
+		if (xLocations.size() > 1  && yLocations.size() > 1)
+			return Distribution.AREA;
+		
+		if (xLocations.size() == 1 && yLocations.size() > 1)
+			return Distribution.VERTICAL;
+		
+		if (yLocations.size() == 1 && xLocations.size() > 1)
+			return Distribution.HORIZONTAL;
+		
+		return Distribution.SINGULARITY;
+	}
+	
 	@Override
 	public Displacement apply(Displacement t) {
 		accept(t);
@@ -50,15 +72,16 @@ public class DegreesOfFreedom implements Consumer<Displacement>, UnaryOperator<D
 	}
 	
 	public Integer getX() {
-		return this.xLocations.size()-1;
+		return this.xLocations.size();
 	}
 
 	public Integer getY() {
-		return this.yLocations.size()-1;
+		return this.yLocations.size();
 	}
 	
 	public Integer getCombined() {
 		return Math.max(this.getX(),this.getY());
+		// return this.xLocations.size() + this.yLocations.size();
 	}
 
 	public int getDimensions() {
@@ -69,4 +92,11 @@ public class DegreesOfFreedom implements Consumer<Displacement>, UnaryOperator<D
 		Orientation orientation = this.getDirection();
 		return orientation.runOperation(this);
 	}
+
+	@Override
+	public String toString() {
+		return String.format("DegreesOfFreedom [xLocations=%s, yLocations=%s]", xLocations.size(), yLocations.size());
+	}
+	
+	
 }

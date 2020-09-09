@@ -21,9 +21,8 @@ package net.raumzeitfalle.registration.distortions;
 
 import java.util.Collection;
 
-import net.raumzeitfalle.registration.Dimension;
-import net.raumzeitfalle.registration.Orientable;
+import net.raumzeitfalle.registration.*;
 
 public interface AffineModel {
-	<T extends Orientable> AffineTransform solve(Collection<AffineModelEquation> equations, Dimension<T> dimension);
+	<T extends Orientable> AffineTransform solve(Collection<AffineModelEquation> equations, DegreesOfFreedom dimension);
 }
