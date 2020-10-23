@@ -20,8 +20,17 @@ public class JamaSolver implements Solver {
 		Matrix solution = rInverse.times(qTransposed)
 								  .times(deltas);
 		
-		return Solutions.fromArray(solution.getColumnVector(0));
+		double[] firstColumn = getFirstColumn(solution);
+		return Solutions.fromArray(firstColumn);
 		
+	}
+
+	private double[] getFirstColumn(Matrix solution) {	
+		double[] column = new double[solution.getRowDimension()];
+		for (int row = 0; row < column.length; row++) {
+			column[row] = solution.get(row, 0);
+		}
+		return column;
 	}
 
 	@Override
