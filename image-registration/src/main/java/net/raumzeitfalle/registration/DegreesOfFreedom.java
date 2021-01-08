@@ -7,7 +7,7 @@ import net.raumzeitfalle.registration.displacement.Displacement;
 
 /**
  * 
- * <h1>Rigid Body 3-parameter Model</h1>
+ * Rigid Body 3-parameter Model
  * <ul>
  * 	<li>DoF  = 0 -> no calculation possible</li>
  *  <li>DoF  = 1 -> translation only</li>
