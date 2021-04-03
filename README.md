@@ -53,6 +53,7 @@ For version 0.0.5 the setup will look different. Starting with 0.0.5, there will
 ### Following solver implementations will be available
 
 | Solver Module | Dependency to: |
+|-|-|
 | `apache-math3-solver` | `org.apache.commons:commons-math3` |
 | `ejml-solver`        |  `org.ejml:ejml-simple` |
 | `jama-solver`        | `gov.nist.math:jama` |
