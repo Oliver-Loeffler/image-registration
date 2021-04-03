@@ -17,6 +17,7 @@ The solver will be selected using the Java SPI (Service Provider Interface) mech
 * Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
 * Version 0.0.6 will support Java-8 and Java-11 (utilize multi-release JARs)
 * Version 0.0.8 will support Java-15 with records
+* Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
 Control point or feature based methods have only limited scope of use in medical imaging, there intensity based or voxel based methods are preferred due to the natural structure of medical image data. These additional intensity and voxel based methods are not supported by this library.
