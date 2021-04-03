@@ -12,10 +12,10 @@ dependencies {
 	
 	implementation 'gov.nist.math:jama:1.0.3'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testImplementation project(':jama-solver')
     
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
     
 }
 

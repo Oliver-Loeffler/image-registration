@@ -10,10 +10,10 @@ dependencies {
 
     implementation project(':solver-api')
 	
-    implementation 'org.ejml:ejml-simple:0.39'
+    implementation 'org.ejml:ejml-simple:0.40'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
     
 }
 

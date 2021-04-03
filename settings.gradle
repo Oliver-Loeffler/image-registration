@@ -6,7 +6,7 @@ include 'image-registration'
 include 'jama-solver'
 include 'la4j-solver'
 include 'ejml-solver'
-include 'apache-math-solver'
+include 'apache-math3-solver'
 include 'jblas-solver'
 
 include 'solver-test'

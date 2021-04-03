@@ -6,14 +6,17 @@
 ## TL;DR;
 
 Image registration is the process of finding the transform to match a given image with a desired reference. This library supports rigid body transforms (translation and rotation) as well as affine transforms (anisotropic scaling, anisotropic rotation/shear aka. non-orthogonality). Currently non-linear transforms are not supported.
-Versions up to and including 0.0.4 run with Java-8, all later version starting with 
-0.0.6 require Java-11.
 
 Version 0.0.5 will introduce a method to select different linear algebra frameworks to 
 be used in `image-registration`. Here it will be possible to choose either `gov.nist.math.jama`, 
 `org.la4j`, `org.ejml`, `org.apache.commons.math3` or even `org.jblas`. There will be a core or api JAR 
 for `image-registration` and there will be a group of JARs providing a solver implementation. 
 The solver will be selected using the Java SPI (Service Provider Interface) mechanism. 
+
+* Versions up to and including 0.0.5 run with Java-8
+* Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
+* Version 0.0.6 will support Java-8 and Java-11 (utilize multi-release JARs)
+* Version 0.0.8 will support Java-15 with records
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
 Control point or feature based methods have only limited scope of use in medical imaging, there intensity based or voxel based methods are preferred due to the natural structure of medical image data. These additional intensity and voxel based methods are not supported by this library.
@@ -26,6 +29,8 @@ Control point or feature based methods have only limited scope of use in medical
 
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
 Version 0.0.4 is available on Maven Central using following snippet:
+Version 0.0.5 will be ready until end of April'2021.
+
 
 ```xml
 <dependency>
@@ -34,6 +39,32 @@ Version 0.0.4 is available on Maven Central using following snippet:
   <version>0.0.4</version>
 </dependency>
 ```
+
+For version 0.0.5 the setup will look different. Starting with 0.0.5, there will be a separated Solver-API, the actual image-registration API and a dependency to a Solver-implementation. The plan is, to provide following solver implementations:
+
+### New API structure
+
+| Module | Purpose |
+|-|-|
+| `core-api`   | Image Registration API |
+| `solver-api` | API to utilize different linear algebra frameworks for calculation |
+| `image-registration` | A convenience package where a JAMA-based solver is included. When the consumer project utilizes a different linear algebra library, the appropriate solver module can be used instead.|
+
+### Following solver implementations will be available
+
+| Solver Module | Dependency to: |
+| `apache-math3-solver` | `org.apache.commons:commons-math3` |
+| `ejml-solver`        |  `org.ejml:ejml-simple` |
+| `jama-solver`        | `gov.nist.math:jama` |
+| `jblas-solver`       | `org.jblas:jblas` |
+| `la4j-solver`        | `org.la4j:la4j` |
+
+### More Linear Algebra libraries:
+* https://ojalgo.org/
+* https://dst.lbl.gov/ACSSoftware/colt/
+* https://github.com/fommil/matrix-toolkits-java
+* https://github.com/deeplearning4j/nd4j
+
 
 ## Goals
 
@@ -64,7 +95,9 @@ Version 0.0.4 is available on Maven Central using following snippet:
 * Sum up learnings and reshape structure of alignment/correction classes, possibly add 
   higher level functions to do the all-in-one-job as its done in the demos.   
 
-* Move to Java 14 and play with project Valhalla (Value Types/Value Objects, JEP169)
+* Create a multi-release JAR where Java-8 and Java-11 are supported
+* Move to Java 11 and introduce modules
+* Move to Java 15 and introduce records
 
 * Add graphical examples of first order distortions.
 

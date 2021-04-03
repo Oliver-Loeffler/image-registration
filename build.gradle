@@ -46,17 +46,13 @@ allprojects {
             property "sonar.organization", System.getenv('SONARCLOUD_ORG')
         }
     }
-    
-    jacoco {
-	    toolVersion = "0.8.5"
-	}
 	
-	jacocoTestReport {
-		reports {
-		    xml.enabled true
-		    csv.enabled false
-		    html.enabled true
-		}
+   jacocoTestReport {
+	reports {
+             xml.enabled true
+             csv.enabled false
+             html.enabled true
+        }
     }
     
 	test {
@@ -101,5 +97,5 @@ allprojects {
 
 wrapper {
     distributionType = Wrapper.DistributionType.BIN
-    gradleVersion = "6.8"
+    gradleVersion = "6.8.3"
 }
