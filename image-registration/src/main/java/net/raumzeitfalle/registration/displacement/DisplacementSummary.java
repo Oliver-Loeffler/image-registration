@@ -19,9 +19,8 @@
  */
 package net.raumzeitfalle.registration.displacement;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.DoubleSummaryStatistics;
 import java.util.Locale;
 import java.util.function.DoubleConsumer;
 import java.util.function.Predicate;
@@ -55,17 +54,13 @@ public final class DisplacementSummary {
 	
 	private final DoubleStatisticsSummary statsDiffY = new DoubleStatisticsSummary();
 	
-	private final DoubleStatisticsSummary statsRefX = new DoubleStatisticsSummary();
+	private final DoubleSummaryStatistics statsRefX = new DoubleSummaryStatistics();
 	
-	private final DoubleStatisticsSummary statsRefY = new DoubleStatisticsSummary();
+	private final DoubleSummaryStatistics statsRefY = new DoubleSummaryStatistics();
 	
-	private final DoubleStatisticsSummary statsPosX = new DoubleStatisticsSummary();
+	private final DoubleSummaryStatistics statsPosX = new DoubleSummaryStatistics();
 	
-	private final DoubleStatisticsSummary statsPosY = new DoubleStatisticsSummary();
-	
-	private final double sd3x;
-	
-	private final double sd3y;
+	private final DoubleSummaryStatistics statsPosY = new DoubleSummaryStatistics();
 	
 	private final double rotation;
 	
@@ -82,20 +77,10 @@ public final class DisplacementSummary {
 	private final double ortho;
 	
 	private DisplacementSummary(Collection<Displacement> displacements, Predicate<Displacement> calculationSelection) {
-		
-		List<Double> dx = new ArrayList<>(displacements.size());
-		List<Double> dy = new ArrayList<>(displacements.size());
-		
+
 		displacements.stream()
-					 .filter(calculationSelection)
-					 .forEach(d -> {
-						 if (Double.isFinite(d.dX())) { dx.add(d.dX()); }
-						 if (Double.isFinite(d.dY())) { dy.add(d.dY()); }
-						 update(d);
-					 });
-		
-		this.sd3x = 3 * stdev(this.statsDiffX.getAverage(), dx);	
-		this.sd3y = 3* stdev(this.statsDiffY.getAverage(), dy);	
+		 			 .filter(calculationSelection)
+		             .forEach(this::update);
 		
 		RigidTransform alignment = new RigidTransformCalculation()
 				.apply(displacements, calculationSelection);
@@ -112,6 +97,7 @@ public final class DisplacementSummary {
 		this.orthox = firstOrder.getOrthoX();
 		this.orthoy = firstOrder.getOrthoY();
 		this.ortho =  firstOrder.getOrtho();
+		
 	}	
 	
 	private void update(Displacement d) {
@@ -129,20 +115,6 @@ public final class DisplacementSummary {
 		if (Double.isFinite(value)) {
 			consumer.accept(value);
 		}
-	}
-	
-	private double stdev(double mean, Collection<Double> values) {
-		
-		if (values.isEmpty()) {
-			return Double.NaN;
-		}
-
-		double sum = values.stream()
-					       .map(d -> Double.valueOf(Math.pow(d.doubleValue() - mean, 2)))
-					       .mapToDouble(Double::doubleValue)
-					       .sum();
-
-		return Math.sqrt(sum / (values.size() - 1));
 	}
 
 	@Override
@@ -227,11 +199,11 @@ public final class DisplacementSummary {
 	}
 	
 	public double sd3X() {
-		return this.sd3x;
+		return this.statsDiffX.getStdDevOfSample() * 3;
 	}
 
 	public double sd3Y() {
-		return this.sd3y;
+		return this.statsDiffY.getStdDevOfSample() * 3;
 	}
 	
 	public long sizeX() {
