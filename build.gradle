@@ -97,5 +97,5 @@ allprojects {
 
 wrapper {
     distributionType = Wrapper.DistributionType.BIN
-    gradleVersion = "6.8.3"
+    gradleVersion = "7.1"
 }
