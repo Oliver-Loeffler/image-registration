@@ -5,6 +5,7 @@ plugins {
    id "jacoco"
    id "com.github.hierynomus.license-base" version '0.15.0'
    id "org.sonarqube" version "3.0"
+   
 }
 
 allprojects {
@@ -18,7 +19,8 @@ allprojects {
     apply plugin: 'org.sonarqube'
     apply plugin: 'com.github.hierynomus.license-base'
     apply plugin: 'signing'
-
+	apply plugin: 'project-report'
+	
     group = 'net.raumzeitfalle.registration'
     version = '0.0.5-SNAPSHOT'
 
@@ -61,6 +63,10 @@ allprojects {
 	
 	jacocoTestReport {
 	    dependsOn test
+	}
+	
+	htmlDependencyReport {
+    	projects = project.allprojects
 	}
 	
 	tasks.register("codeCoverageReport", JacocoReport) {
