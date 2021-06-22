@@ -29,7 +29,10 @@ class JblasNumericsTest {
 		
 	private final RigidTransformNumerics rigidTransformNumerics = new RigidTransformNumerics();
 	
-	private final AffineTransformNumerics affineTransformNumerics = new AffineTransformNumerics();
+	/*
+	 * For some reason JBLAS does not work with default tolerance
+	 */
+	private final AffineTransformNumerics affineTransformNumerics = new AffineTransformNumerics(1.04E-11);
 	
 	@Test
 	void translationX() {

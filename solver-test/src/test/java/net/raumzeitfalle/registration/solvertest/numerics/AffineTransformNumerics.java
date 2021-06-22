@@ -21,8 +21,16 @@ import net.raumzeitfalle.registration.solvertest.NumericsTestBase;
  */
 public class AffineTransformNumerics extends NumericsTestBase {
 	
-	private static final double TOLERANCE = 1E-11;
+	private final double tolerance;
 
+	public AffineTransformNumerics() {
+	    this(1E-11);
+	}
+	
+	public AffineTransformNumerics(double tolerance) {
+	    this.tolerance = tolerance;
+	}
+	
 	public void zeroTransform() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
@@ -40,19 +48,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		
 		assertTrue( result.skip() );
 		
-		assertEquals( 0.0, result.getTranslationX(),  TOLERANCE);
-		assertEquals( 0.0, result.getTranslationY(),  TOLERANCE);
+		assertEquals( 0.0, result.getTranslationX(),  tolerance);
+		assertEquals( 0.0, result.getTranslationY(),  tolerance);
 		
-		assertEquals( 4500.0, result.getCenterX(),    TOLERANCE);
-		assertEquals( 4000.0, result.getCenterY(),    TOLERANCE);
+		assertEquals( 4500.0, result.getCenterX(),    tolerance);
+		assertEquals( 4000.0, result.getCenterY(),    tolerance);
 		
-		assertEquals( 0.0, result.getScaleX(),        TOLERANCE);
-		assertEquals( 0.0, result.getScaleY(),        TOLERANCE);
-		assertEquals( 0.0, result.getMagnification(), TOLERANCE);
+		assertEquals( 0.0, result.getScaleX(),        tolerance);
+		assertEquals( 0.0, result.getScaleY(),        tolerance);
+		assertEquals( 0.0, result.getMagnification(), tolerance);
 		
-		assertEquals( 0.0, result.getOrthoX(),        TOLERANCE);
-		assertEquals( 0.0, result.getOrthoY(),        TOLERANCE);
-		assertEquals( 0.0, result.getOrtho(),         TOLERANCE);
+		assertEquals( 0.0, result.getOrthoX(),        tolerance);
+		assertEquals( 0.0, result.getOrthoY(),        tolerance);
+		assertEquals( 0.0, result.getOrtho(),         tolerance);
 	}
 	
 	public void scalingX() {
@@ -75,19 +83,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
-		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationX(),          tolerance);
+		assertEquals( 0.0, result.getTranslationY(),          tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 70000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  1.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals(  0.5, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  1.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals(  0.5, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+		assertEquals( 0.0, result.getOrthoX(),                tolerance);
+		assertEquals( 0.0, result.getOrthoY(),                tolerance);
+		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
 	public void scalingY_withoutX() {
@@ -110,19 +118,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
-		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationX(),          tolerance);
+		assertEquals( 0.0, result.getTranslationY(),          tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 70000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  0.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals( -2.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals( -1.0, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  0.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals( -2.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals( -1.0, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+		assertEquals( 0.0, result.getOrthoX(),                tolerance);
+		assertEquals( 0.0, result.getOrthoY(),                tolerance);
+		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
 	public void scalingX_withoutY() {
@@ -144,19 +152,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
-		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationX(),          tolerance);
+		assertEquals( 0.0, result.getTranslationY(),          tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 70000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  1.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals(  0.5, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  1.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals(  0.5, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+		assertEquals( 0.0, result.getOrthoX(),                tolerance);
+		assertEquals( 0.0, result.getOrthoY(),                tolerance);
+		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
 	public void scalingXY() {
@@ -179,19 +187,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.0, result.getTranslationX(),          TOLERANCE);
-		assertEquals( 0.0, result.getTranslationY(),          TOLERANCE);
+		assertEquals( 0.0, result.getTranslationX(),          tolerance);
+		assertEquals( 0.0, result.getTranslationY(),          tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 70000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 70000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  1.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals( -2.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals( -0.5, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  1.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals( -2.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals( -0.5, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( 0.0, result.getOrthoX(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrthoY(),                TOLERANCE);
-		assertEquals( 0.0, result.getOrtho(),                 TOLERANCE);
+		assertEquals( 0.0, result.getOrthoX(),                tolerance);
+		assertEquals( 0.0, result.getOrthoY(),                tolerance);
+		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
 	public void shearingX() {
@@ -213,19 +221,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.075, result.getTranslationX(),       TOLERANCE);
-		assertEquals( 0.000, result.getTranslationY(),       TOLERANCE);
+		assertEquals( 0.075, result.getTranslationX(),       tolerance);
+		assertEquals( 0.000, result.getTranslationY(),       tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),          TOLERANCE);
-		assertEquals( 75000.0, result.getCenterY(),          TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),          tolerance);
+		assertEquals( 75000.0, result.getCenterY(),          tolerance);
 		
-		assertEquals( 0.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals( 0.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals( 0.0, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals( 0.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals( 0.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals( 0.0, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( 0.0, toPPM(result.getOrthoX()),        TOLERANCE);
-		assertEquals( 1.0, toPPM(result.getOrthoY()),        TOLERANCE);
-		assertEquals( 1.0, toPPM(result.getOrtho()) ,        TOLERANCE);
+		assertEquals( 0.0, toPPM(result.getOrthoX()),        tolerance);
+		assertEquals( 1.0, toPPM(result.getOrthoY()),        tolerance);
+		assertEquals( 1.0, toPPM(result.getOrtho()) ,        tolerance);
 	}
 	
 	public void shearingY() {
@@ -247,19 +255,19 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.000, result.getTranslationX(),        TOLERANCE);
-		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);
+		assertEquals( 0.000, result.getTranslationX(),        tolerance);
+		assertEquals( 0.075, result.getTranslationY(),        tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 75000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 75000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  0.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  0.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( -1.0, toPPM(result.getOrthoX()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getOrthoY()),        TOLERANCE);
-		assertEquals(  1.0, toPPM(result.getOrtho()) ,        TOLERANCE);
+		assertEquals( -1.0, toPPM(result.getOrthoX()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getOrthoY()),        tolerance);
+		assertEquals(  1.0, toPPM(result.getOrtho()) ,        tolerance);
 	}
 	
 	public void shearingXY() {
@@ -281,38 +289,38 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.075, result.getTranslationX(),        TOLERANCE);
-		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);
+		assertEquals( 0.075, result.getTranslationX(),        tolerance);
+		assertEquals( 0.075, result.getTranslationY(),        tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 75000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 75000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  0.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  0.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( -1.0, toPPM(result.getOrthoX()),        TOLERANCE);
-		assertEquals(  1.0, toPPM(result.getOrthoY()),        TOLERANCE);
-		assertEquals(  2.0, toPPM(result.getOrtho()) ,        TOLERANCE);
+		assertEquals( -1.0, toPPM(result.getOrthoX()),        tolerance);
+		assertEquals(  1.0, toPPM(result.getOrthoY()),        tolerance);
+		assertEquals(  2.0, toPPM(result.getOrtho()) ,        tolerance);
 		
 		result = getCorrectedFirstOrder();
 		
 		assertNotNull(result);
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( 0.075, result.getTranslationX(),        TOLERANCE);
-		assertEquals( 0.075, result.getTranslationY(),        TOLERANCE);
+		assertEquals( 0.075, result.getTranslationX(),        tolerance);
+		assertEquals( 0.075, result.getTranslationY(),        tolerance);
 		
-		assertEquals( 75000.0, result.getCenterX(),           TOLERANCE);
-		assertEquals( 75000.0, result.getCenterY(),           TOLERANCE);
+		assertEquals( 75000.0, result.getCenterX(),           tolerance);
+		assertEquals( 75000.0, result.getCenterY(),           tolerance);
 		
-		assertEquals(  0.0, toPPM(result.getScaleX()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getScaleY()),        TOLERANCE);
-		assertEquals(  0.0, toPPM(result.getMagnification()), TOLERANCE);
+		assertEquals(  0.0, toPPM(result.getScaleX()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getScaleY()),        tolerance);
+		assertEquals(  0.0, toPPM(result.getMagnification()), tolerance);
 		
-		assertEquals( -1.0, toPPM(result.getOrthoX()),        TOLERANCE);
-		assertEquals(  1.0, toPPM(result.getOrthoY()),        TOLERANCE);
-		assertEquals(  2.0, toPPM(result.getOrtho()) ,        TOLERANCE);
+		assertEquals( -1.0, toPPM(result.getOrthoX()),        tolerance);
+		assertEquals(  1.0, toPPM(result.getOrthoY()),        tolerance);
+		assertEquals(  2.0, toPPM(result.getOrtho()) ,        tolerance);
 	}
 	
 	public void displacementsAlongVerticalLine() {
@@ -334,11 +342,11 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals( tx, result.getTranslationX(),  TOLERANCE);
-		assertEquals( ty, result.getTranslationY(),  TOLERANCE);
+		assertEquals( tx, result.getTranslationX(),  tolerance);
+		assertEquals( ty, result.getTranslationY(),  tolerance);
 		
-		assertEquals( 70000.0, result.getCenterX(),  TOLERANCE);
-		assertEquals( 80000.0, result.getCenterY(),  TOLERANCE);
+		assertEquals( 70000.0, result.getCenterX(),  tolerance);
+		assertEquals( 80000.0, result.getCenterY(),  tolerance);
 		
 		assertEquals(   0.000, result.getScaleX()*1E6,        1E-6);
 		assertEquals(   1.000, result.getScaleY()*1E6,        1E-6);
@@ -373,36 +381,36 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		
 		assertEquals(SimpleAffineTransform.class, result.getClass());
 		
-		assertEquals(  tx, result.getTranslationX(),  TOLERANCE);
-		assertEquals(  ty, result.getTranslationY(),  TOLERANCE);
+		assertEquals(  tx, result.getTranslationX(),  tolerance);
+		assertEquals(  ty, result.getTranslationY(),  tolerance);
 		
-		assertEquals( 80000.0, result.getCenterX(),    TOLERANCE);
-		assertEquals( 70000.0, result.getCenterY(),    TOLERANCE);
+		assertEquals( 80000.0, result.getCenterX(),    tolerance);
+		assertEquals( 70000.0, result.getCenterY(),    tolerance);
 		
 		assertEquals(  1.000, result.getScaleX()*1E6,        1E-6);
 		assertEquals(  0.0,   result.getScaleY()*1E6,        1E-6);
 		assertEquals(  0.500, result.getMagnification()*1E6, 1E-6);
 		
 		assertEquals( -1.000, result.getOrthoX()*1E6,        1E-6);
-		assertEquals(  0.000, result.getOrthoY()*1E6,        TOLERANCE);
+		assertEquals(  0.000, result.getOrthoY()*1E6,        tolerance);
 		assertEquals(  1.000, result.getOrtho()*1E6,         1E-6);
 		
 		//
 		
 		result = getCorrectedFirstOrder();
 			
-		assertEquals(  0.000, result.getTranslationX(),  TOLERANCE);
-		assertEquals(  0.000, result.getTranslationY(),  TOLERANCE);
+		assertEquals(  0.000, result.getTranslationX(),  tolerance);
+		assertEquals(  0.000, result.getTranslationY(),  tolerance);
 		
-		assertEquals( 80000.0, result.getCenterX(),    TOLERANCE);
-		assertEquals( 70000.0, result.getCenterY(),    TOLERANCE);
+		assertEquals( 80000.0, result.getCenterX(),    tolerance);
+		assertEquals( 70000.0, result.getCenterY(),    tolerance);
 		
 		assertEquals(  0.000, result.getScaleX()*1E6,        1E-6);
 		assertEquals(  0.000, result.getScaleY()*1E6,        1E-6);
 		assertEquals(  0.000, result.getMagnification()*1E6, 1E-6);
 		
 		assertEquals(  0.000, result.getOrthoX()*1E6,        1E-6);
-		assertEquals(  0.000, result.getOrthoY()*1E6,        TOLERANCE);
+		assertEquals(  0.000, result.getOrthoY()*1E6,        tolerance);
 		assertEquals(  0.000, result.getOrtho()*1E6,         1E-6);
 	}
 	
