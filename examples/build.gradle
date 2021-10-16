@@ -1,21 +1,12 @@
 // EXAMPLES
-
 plugins {
     id 'java'
 }
 
 dependencies {
-
 	implementation project(':solver-api')
 	implementation project(':image-registration')
-	
-	implementation project(':jama-solver')
-    
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
-    
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-       
+	implementation project(':jama-solver')       
 }
 
 test {

@@ -1,5 +1,4 @@
 // EJML BUNDLER
-
 plugins {
     id 'java-library'
     id 'signing'
@@ -38,54 +37,3 @@ task unpackJar(type: Copy) {
 
 classes.finalizedBy createBundleJar
 createBundleJar.finalizedBy unpackJar
-
-publishing {
-    repositories {
-    	mavenLocal()
-        maven {
-            url = version.endsWith('SNAPSHOT') ? sonatypeSnapshotsUrl : sonatypeReleasesUrl
-            credentials {
-                username = ossrhUsername
-                password = ossrhPassword
-            }
-        }
-    }
-    
-    publications {
-        maven(MavenPublication) {
-        	groupId = group
-            from components.java
-            pom {
-                description = "$projectDescription"
-                url = "$projectUrl"
-                inceptionYear = "$projectInceptionYear"
-                organization {
-                	name = "$projectVendor"
-                	url  = "$projectVendorUrl"
-                }
-                licenses {
-                    license {
-                        name = "$projectLicense"
-                        url  = "$projectLicenseUrl"
-                    }
-                }
-                issueManagement {
-                	system = "Github Issues"
-                	url = "$projectIssues"
-                }
-                developers {
-                    developer {
-                        id = "$projectDeveloperId"
-                        name = "$projectDeveloper"
-                        email = "$projectDeveloperMail"
-                    }
-                }
-                scm {
-                    connection = "scm:git:$projectScm"
-                    developerConnection = "scm:git:$projectScm"
-                    url = "$projectUrl"
-                }
-            }
-        }
-    }
-}

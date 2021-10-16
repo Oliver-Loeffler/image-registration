@@ -3,13 +3,6 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
-    id 'de.jjohannes.extra-java-module-info'
-}
-
-extraJavaModuleInfo {
-	module("jblas-1.2.5.jar", "org.jblas", "1.2.5") {
-		exports("org.jblas")
-	}	
 }
 
 dependencies {

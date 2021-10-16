@@ -3,15 +3,6 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
-    id 'de.jjohannes.extra-java-module-info'
-}
-
-extraJavaModuleInfo {
-	module("la4j-0.6.0.jar", "org.la4j", "0.6.0") {
-		exports("org.la4j")
-		exports("org.la4j.inversion")
-		exports("org.la4j.decomposition")
-	}	
 }
 
 dependencies {

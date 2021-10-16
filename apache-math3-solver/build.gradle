@@ -3,13 +3,6 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
-    id 'de.jjohannes.extra-java-module-info'
-}
-
-extraJavaModuleInfo {
-	module("commons-math3-3.6.1.jar", "commons.math3", "3.6.1") {
-		exports("org.apache.commons.math3.linear")
-	}	
 }
 
 dependencies {

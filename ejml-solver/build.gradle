@@ -3,13 +3,6 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
-    id 'de.jjohannes.extra-java-module-info'
-}
-
-extraJavaModuleInfo {
-	module("ejml-simple-bundle-0.41.jar", "net.raumzeitfalle.ejml.simple.bundle", "0.41") {
-		exports("org.ejml.simple")
-	}	
 }
 
 dependencies {

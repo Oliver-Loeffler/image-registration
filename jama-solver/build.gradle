@@ -3,13 +3,6 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
-    id 'de.jjohannes.extra-java-module-info'
-}
-
-extraJavaModuleInfo {
-	module("jama-1.0.3.jar", "Jama", "1.0.3") {
-		exports("Jama")
-	}	
 }
 
 dependencies {

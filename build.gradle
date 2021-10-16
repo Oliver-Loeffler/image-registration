@@ -4,7 +4,6 @@ plugins {
    id "jacoco"
    id "com.github.hierynomus.license-base" version "0.15.0"
    id "org.sonarqube" version "3.0"
-   id "de.jjohannes.extra-java-module-info" version "0.9"
 }
 
 allprojects {
@@ -24,8 +23,8 @@ allprojects {
     version = '0.0.5-SNAPSHOT'
 
     java {
-    	sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    	sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
 
 		withJavadocJar()
     	withSourcesJar()
