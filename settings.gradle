@@ -2,7 +2,6 @@ rootProject.name = 'image-registration'
 
 include 'solver-api'
 include 'image-registration'
-
 include 'ejml-simple-bundle'
 include 'ejml-solver'
 include 'la4j-solver'

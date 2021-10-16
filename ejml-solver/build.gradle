@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     implementation project(':solver-api')
-	implementation 'net.raumzeitfalle.registration.ejml:ejml-simple-bundle:0.41'    
+	implementation 'org.ejml:ejml-simple:0.41'    
 }
 
 test {
