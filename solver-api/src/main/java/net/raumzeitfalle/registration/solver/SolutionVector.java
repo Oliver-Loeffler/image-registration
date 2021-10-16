@@ -19,7 +19,7 @@ final class SolutionVector implements Solution {
 			throw new IllegalArgumentException("index must be in intervall [0, " + (this.coefficients.length-1)+"]");
 		}
 		
-		if (index > this.coefficients.length) {
+		if (index >= this.coefficients.length) {
 			throw new IllegalArgumentException("The solution is empty, no coefficients available.");
 		}
 		
