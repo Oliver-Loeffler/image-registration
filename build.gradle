@@ -2,7 +2,7 @@
 plugins {
    id "java"
    id "jacoco"
-   id "com.github.hierynomus.license-base" version "0.15.0"
+   id "com.github.hierynomus.license-base" version "0.16.1"
    id "org.sonarqube" version "3.0"
 }
 
