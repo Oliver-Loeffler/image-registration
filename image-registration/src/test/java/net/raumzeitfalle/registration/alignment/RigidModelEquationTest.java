@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import net.raumzeitfalle.registration.*;
+import net.raumzeitfalle.registration.Orientations;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 class RigidModelEquationTest {

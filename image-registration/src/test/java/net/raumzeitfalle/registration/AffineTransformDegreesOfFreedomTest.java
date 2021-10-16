@@ -1,15 +1,22 @@
 package net.raumzeitfalle.registration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import net.raumzeitfalle.registration.alignment.*;
+import net.raumzeitfalle.registration.alignment.SimpleTranslation;
+import net.raumzeitfalle.registration.alignment.Translation;
 import net.raumzeitfalle.registration.displacement.Displacement;
-import net.raumzeitfalle.registration.distortions.*;
+import net.raumzeitfalle.registration.distortions.AffineTransform;
+import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
+import net.raumzeitfalle.registration.distortions.SimpleAffineTransform;
 
 class AffineTransformDegreesOfFreedomTest {
 	

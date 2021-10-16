@@ -2,7 +2,8 @@ package net.raumzeitfalle.registration.alignment;
 
 import java.util.Objects;
 
-import net.raumzeitfalle.registration.*;
+import net.raumzeitfalle.registration.DifferencesVector;
+import net.raumzeitfalle.registration.OrientedOperation;
 
 class RigidTransformTranslationsFactory implements OrientedOperation<RigidTransform> {
 	

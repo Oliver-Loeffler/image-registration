@@ -9,9 +9,9 @@ import net.raumzeitfalle.registration.displacement.Displacement;
  * 
  * Rigid Body 3-parameter Model
  * <ul>
- * 	<li>DoF  = 0 -> no calculation possible</li>
- *  <li>DoF  = 1 -> translation only</li>
- *  <li>DoF >= 2 -> translation and rotation</li>
+ * 	<li>DoF  = 0 -&gt; no calculation possible</li>
+ *  <li>DoF  = 1 -&gt; translation only</li>
+ *  <li>DoF &gt;= 2 -&gt; translation and rotation</li>
  * </ul>
  * 
  *

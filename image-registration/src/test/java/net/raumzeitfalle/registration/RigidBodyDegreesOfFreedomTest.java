@@ -2,7 +2,8 @@ package net.raumzeitfalle.registration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.displacement.Displacement;
 

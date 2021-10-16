@@ -22,7 +22,9 @@ package net.raumzeitfalle.registration.alignment;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import net.raumzeitfalle.registration.*;
+import net.raumzeitfalle.registration.ModelEquation;
+import net.raumzeitfalle.registration.Orientation;
+import net.raumzeitfalle.registration.Orientations;
 import net.raumzeitfalle.registration.displacement.Displacement;
 
 public final class RigidModelEquation implements ModelEquation {
