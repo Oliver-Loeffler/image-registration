@@ -1,5 +1,4 @@
 // APACHE COMMONS MATH SOLVER
-
 plugins {
     id 'java-library'
     id 'signing'
@@ -14,14 +13,8 @@ extraJavaModuleInfo {
 }
 
 dependencies {
-
     implementation project(':solver-api')
-
     implementation 'org.apache.commons:commons-math3:3.6.1'	
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    
 }
 
 test {

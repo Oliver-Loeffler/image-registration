@@ -1,25 +1,16 @@
 // SOLVER TEST
-
 plugins {
     id 'java-library'
 }
 
 dependencies {
-
 	implementation project(':solver-api')
 	implementation project(':image-registration')
-	
 	testImplementation project(':jama-solver')
 	testImplementation project(':la4j-solver')
 	testImplementation project(':ejml-solver')
 	testImplementation project(':apache-math3-solver')
-	testImplementation project(':jblas-solver')
-	    
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
-    
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-       
+	testImplementation project(':jblas-solver')        
 }
 
 test {

@@ -1,5 +1,4 @@
 // EJML SOLVER
-
 plugins {
     id 'java-library'
     id 'signing'
@@ -15,11 +14,7 @@ extraJavaModuleInfo {
 
 dependencies {
     implementation project(':solver-api')
-	implementation 'net.raumzeitfalle.registration.ejml:ejml-simple-bundle:0.41'
-	
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    
+	implementation 'net.raumzeitfalle.registration.ejml:ejml-simple-bundle:0.41'    
 }
 
 test {
