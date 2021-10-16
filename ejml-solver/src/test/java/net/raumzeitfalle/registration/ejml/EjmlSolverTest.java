@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.solver.Solution;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 class EjmlSolverTest {
 
-	private final Solver classUnderTest = new EjmlSolver();
+	private final SolverAdapter classUnderTest = new EjmlSolver();
 
 	private static final double TOLERANCE = 1E-11;
 	

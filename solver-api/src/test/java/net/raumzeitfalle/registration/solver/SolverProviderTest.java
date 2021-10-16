@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.*;
 
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 class SolverProviderTest {
 
@@ -20,7 +20,7 @@ class SolverProviderTest {
 	@Test
 	void getAllAvailableImplementations() {
 		
-		List<Solver> implementations = classUnderTest.getAllAvailableImplementations();
+		List<SolverAdapter> implementations = classUnderTest.getAllAvailableImplementations();
 		
 		assertTrue(implementations.isEmpty(), "no implementations expected to be found");
 		

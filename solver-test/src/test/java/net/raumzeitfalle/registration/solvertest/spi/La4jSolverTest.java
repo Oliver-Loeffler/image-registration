@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.la4j.La4jSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 
 class La4jSolverTest {
@@ -19,7 +19,7 @@ class La4jSolverTest {
 	@Test
 	void testServiceDiscovery() {
 		
-		Solver solver = SolverProvider.getInstance().getSolver();
+		SolverAdapter solver = SolverProvider.getInstance().getSolver();
 		
 		assertEquals(La4jSolver.class.getName(), solver.getClass().getName());
 		

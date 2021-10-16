@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.jama.JamaSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 import net.raumzeitfalle.registration.solvertest.numerics.AffineTransformNumerics;
 import net.raumzeitfalle.registration.solvertest.numerics.RigidTransformNumerics;
 
@@ -26,7 +26,7 @@ class JamaNumericsTest {
 	
 	@BeforeEach
 	void checkImplementation() {
-		Solver solver = new JamaSolver();	
+		SolverAdapter solver = new JamaSolver();	
 		assertEquals(solver.getClass(), SolverProvider.getInstance().getSolver().getClass());
 	}
 	

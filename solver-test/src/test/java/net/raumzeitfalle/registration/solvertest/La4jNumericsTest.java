@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.la4j.La4jSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 import net.raumzeitfalle.registration.solvertest.numerics.AffineTransformNumerics;
 import net.raumzeitfalle.registration.solvertest.numerics.RigidTransformNumerics;
 
@@ -25,7 +25,7 @@ class La4jSolverNumericsTest {
 	@BeforeEach
 	void checkImplementation() {
 		
-		Solver la4j = new La4jSolver();
+		SolverAdapter la4j = new La4jSolver();
 		
 		assertEquals(la4j.getClass(), SolverProvider.getInstance().getSolver().getClass());
 	}

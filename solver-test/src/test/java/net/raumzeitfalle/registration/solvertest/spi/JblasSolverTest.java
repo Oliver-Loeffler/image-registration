@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.jblas.JblasSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 
 class JblasSolverTest {
@@ -20,7 +20,7 @@ class JblasSolverTest {
 	@Test
 	void testServiceDiscovery() {
 		
-		Solver solver = SolverProvider.getInstance().getSolver();
+		SolverAdapter solver = SolverProvider.getInstance().getSolver();
 		
 		assertEquals(JblasSolver.class.getName(), solver.getClass().getName());
 		

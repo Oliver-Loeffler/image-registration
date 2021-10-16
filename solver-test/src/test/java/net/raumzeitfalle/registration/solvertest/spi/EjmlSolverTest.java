@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.ejml.EjmlSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 class EjmlSolverTest {
 	
@@ -18,7 +18,7 @@ class EjmlSolverTest {
 	@Test
 	void testServiceDiscovery() {
 		
-		Solver solver = SolverProvider.getInstance().getSolver();
+		SolverAdapter solver = SolverProvider.getInstance().getSolver();
 		
 		assertEquals(EjmlSolver.class.getName(), solver.getClass().getName());
 		

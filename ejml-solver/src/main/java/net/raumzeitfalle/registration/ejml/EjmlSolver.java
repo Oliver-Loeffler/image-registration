@@ -3,9 +3,9 @@ package net.raumzeitfalle.registration.ejml;
 import org.ejml.simple.SimpleMatrix;
 
 import net.raumzeitfalle.registration.solver.*;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
-public class EjmlSolver implements Solver {
+public class EjmlSolver implements SolverAdapter {
 
 	public Solution solve(References references, Deltas deviations) {
 		

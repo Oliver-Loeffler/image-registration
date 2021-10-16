@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.jama.JamaSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 
 class JamaSolverTest {
@@ -18,7 +18,7 @@ class JamaSolverTest {
 
 	@Test
 	void testServiceDiscovery() {
-		Solver solver = SolverProvider.getInstance().getSolver();
+		SolverAdapter solver = SolverProvider.getInstance().getSolver();
 		assertEquals(JamaSolver.class.getName(), solver.getClass().getName());		
 	}
 		

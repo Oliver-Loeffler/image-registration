@@ -4,17 +4,20 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
+}
+
+extraJavaModuleInfo {
+	module("jblas-1.2.5.jar", "org.jblas", "1.2.5") {
+		exports("org.jblas")
+	}	
 }
 
 dependencies {
-
-    implementation project(':solver-api')
-	
+    implementation project(':solver-api')	
     implementation 'org.jblas:jblas:1.2.5'
-
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    
 }
 
 test {

@@ -1,20 +1,24 @@
 // LA4J SOLVER
-
 plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
+}
+
+extraJavaModuleInfo {
+	module("la4j-0.6.0.jar", "org.la4j", "0.6.0") {
+		exports("org.la4j")
+		exports("org.la4j.inversion")
+		exports("org.la4j.decomposition")
+	}	
 }
 
 dependencies {
-
     implementation project(':solver-api')
-	
     implementation 'org.la4j:la4j:0.6.0'
-    
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'    
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    
 }
 
 test {

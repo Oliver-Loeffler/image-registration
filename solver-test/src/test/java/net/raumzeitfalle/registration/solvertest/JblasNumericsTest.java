@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.jblas.JblasSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 import net.raumzeitfalle.registration.solvertest.numerics.AffineTransformNumerics;
 import net.raumzeitfalle.registration.solvertest.numerics.RigidTransformNumerics;
 
@@ -23,7 +23,7 @@ class JblasNumericsTest {
 	
 	@BeforeEach
 	void checkImplementation() {
-		Solver jblasSolver = new JblasSolver();	
+		SolverAdapter jblasSolver = new JblasSolver();	
 		assertEquals(jblasSolver.getClass(), SolverProvider.getInstance().getSolver().getClass());
 	}
 		

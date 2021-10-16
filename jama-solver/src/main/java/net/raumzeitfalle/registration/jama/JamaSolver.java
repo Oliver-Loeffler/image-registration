@@ -1,12 +1,12 @@
 package net.raumzeitfalle.registration.jama;
 
 import net.raumzeitfalle.registration.solver.*;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
 
-public class JamaSolver implements Solver {
+public class JamaSolver implements SolverAdapter {
 	
 	public Solution solve(References references, Deltas deviations) {
 		

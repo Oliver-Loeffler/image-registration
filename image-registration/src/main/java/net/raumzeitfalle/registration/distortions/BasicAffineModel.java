@@ -31,7 +31,7 @@ import net.raumzeitfalle.registration.solver.Deltas;
 import net.raumzeitfalle.registration.solver.References;
 import net.raumzeitfalle.registration.solver.Solution;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 /**
  * 
@@ -69,7 +69,7 @@ final class BasicAffineModel implements AffineModel {
 
 	private AffineTransform solve(References references, Deltas deltas, Orientation direction) {
 		
-		Solver solver = SolverProvider.getInstance().getSolver();
+		SolverAdapter solver = SolverProvider.getInstance().getSolver();
 		Solution solution = solver.apply(references, deltas);
 		
 		return createTransform(solution, direction);

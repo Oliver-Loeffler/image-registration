@@ -29,7 +29,7 @@ import net.raumzeitfalle.registration.Orientation;
 import net.raumzeitfalle.registration.ReferencesMatrix;
 import net.raumzeitfalle.registration.solver.Solution;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 /**
  * 
@@ -63,7 +63,7 @@ final class BasicRigidBodyModel implements RigidBodyModel {
 
 	private RigidTransform solve(ReferencesMatrix references, DifferencesVector deltas, Orientation direction) {
 
-		Solver solver = SolverProvider.getInstance().getSolver();
+		SolverAdapter solver = SolverProvider.getInstance().getSolver();
 		Solution solution = solver.apply(references, deltas);
 		
 		return createTransform(solution,direction);

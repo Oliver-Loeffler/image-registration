@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.solver.Solution;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 class JamaSolverTest {
 
-	private final Solver classUnderTest = new JamaSolver();
+	private final SolverAdapter classUnderTest = new JamaSolver();
 
 	private static final double TOLERANCE = 1E-11;
 	

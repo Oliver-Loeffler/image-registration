@@ -3,9 +3,9 @@ package net.raumzeitfalle.registration.mathcommons;
 import org.apache.commons.math3.linear.*;
 
 import net.raumzeitfalle.registration.solver.*;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
-public class ApacheMathCommonsSolver implements Solver {
+public class ApacheMathCommonsSolver implements SolverAdapter {
 
 	public Solution solve(References references, Deltas deviations) {
 

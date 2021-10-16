@@ -5,18 +5,14 @@ plugins {
     id 'signing'
     id 'maven-publish'
 }
-
+	
 dependencies {
-
-    implementation project(':solver-api')
+    implementation     project(':solver-api')    
+    testRuntimeOnly    project(':jama-solver')
     
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
-    
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    
-    testRuntimeOnly project(':jama-solver')
-    
+    testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.7.1'
 }
 
 test {

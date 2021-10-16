@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 import net.raumzeitfalle.registration.solver.Solution;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 class JblasSolverTest {
 
-	private final Solver classUnderTest = new JblasSolver();
+	private final SolverAdapter classUnderTest = new JblasSolver();
 
 	private static final double TOLERANCE = 1E-11;
 	

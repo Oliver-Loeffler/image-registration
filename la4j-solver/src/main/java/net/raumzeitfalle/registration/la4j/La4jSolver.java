@@ -5,9 +5,9 @@ import org.la4j.Matrix;
 import org.la4j.decomposition.QRDecompositor;
 
 import net.raumzeitfalle.registration.solver.*;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
-public class La4jSolver implements Solver {
+public class La4jSolver implements SolverAdapter {
 
 	public Solution solve(References references, Deltas deviations) {
 

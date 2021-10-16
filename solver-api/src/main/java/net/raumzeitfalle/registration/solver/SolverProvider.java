@@ -2,7 +2,7 @@ package net.raumzeitfalle.registration.solver;
 
 import java.util.*;
 
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 public class SolverProvider {
 	
@@ -20,7 +20,7 @@ public class SolverProvider {
 
 	private static String preferredSolverClass = null;
 
-	private Solver preferredImplementation = null;
+	private SolverAdapter preferredImplementation = null;
 	
 	public static synchronized SolverProvider getInstance() {
         if (service == null) {
@@ -31,36 +31,36 @@ public class SolverProvider {
 	
 	private static SolverProvider service;
 	
-	private ServiceLoader<Solver> loader;
+	private ServiceLoader<SolverAdapter> loader;
 	
 	private SolverProvider() {
-        loader = ServiceLoader.load(Solver.class);
+        loader = ServiceLoader.load(SolverAdapter.class);
     }
 	
-	protected List<Solver> getAllAvailableImplementations() {
-		List<Solver> discoveredImplementations = new ArrayList<>();
-		Iterator<Solver> availableImplementations = loader.iterator();
+	protected List<SolverAdapter> getAllAvailableImplementations() {
+		List<SolverAdapter> discoveredImplementations = new ArrayList<>();
+		Iterator<SolverAdapter> availableImplementations = loader.iterator();
 		while(availableImplementations.hasNext()) {
-			Solver solver = availableImplementations.next();
+			SolverAdapter solver = availableImplementations.next();
 			discoveredImplementations.add(solver);
 		}
 		return discoveredImplementations;
     }
 	
-	public Solver getSolver() {
+	public SolverAdapter getSolver() {
 		if (this.preferredImplementation != null) {
 			return this.preferredImplementation;
 		}
 		
-		List<Solver> solver = getAllAvailableImplementations();
+		List<SolverAdapter> solver = getAllAvailableImplementations();
 		if (preferredSolverClass != null) {
-			Optional<Solver> option = solver.stream()
+			Optional<SolverAdapter> option = solver.stream()
 										    .filter(s->s.getClass().getName().equals(preferredSolverClass))
 										    .findAny();
 			
 			if (option.isPresent()) {
 				
-				Solver newPreference = option.get();
+				SolverAdapter newPreference = option.get();
 				setPreferredSolver(newPreference);
 				return newPreference;
 			}
@@ -68,12 +68,12 @@ public class SolverProvider {
 			throw new IllegalArgumentException(String.format("There is no solver with class [%s] configured.", preferredSolverClass));				  
 		}
 		
-		Solver lastFound = getLastImplementation(solver); 
+		SolverAdapter lastFound = getLastImplementation(solver); 
 		setPreferredSolver(lastFound);
 		return this.preferredImplementation;
 	}
 
-	private void setPreferredSolver(Solver newPreference) {
+	private void setPreferredSolver(SolverAdapter newPreference) {
 		this.preferredImplementation = newPreference;
 	}
 	
@@ -81,7 +81,7 @@ public class SolverProvider {
 		this.preferredImplementation = null;
 	}
 
-	private Solver getLastImplementation(List<Solver> solver) {
+	private SolverAdapter getLastImplementation(List<SolverAdapter> solver) {
 		if (solver.isEmpty()) {
 			throw new IllegalArgumentException("There is no solver implementation configured.");
 		}

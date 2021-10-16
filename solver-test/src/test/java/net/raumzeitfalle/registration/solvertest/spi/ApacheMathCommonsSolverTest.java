@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import net.raumzeitfalle.registration.mathcommons.ApacheMathCommonsSolver;
 import net.raumzeitfalle.registration.solver.SolverProvider;
-import net.raumzeitfalle.registration.solver.spi.Solver;
+import net.raumzeitfalle.registration.solver.spi.SolverAdapter;
 
 class ApacheMathCommonsSolverTest {
 	
@@ -20,7 +20,7 @@ class ApacheMathCommonsSolverTest {
 		
 		SolverProvider instance = SolverProvider.getInstance();
 		
-		Solver solver = instance.getSolver();
+		SolverAdapter solver = instance.getSolver();
 		assertEquals(ApacheMathCommonsSolver.class.getName(), solver.getClass().getName());
 		
 	}

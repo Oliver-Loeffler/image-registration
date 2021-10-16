@@ -1,40 +1,43 @@
-// JAMA SOLVER
+// EJML BUNDLER
 
 plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
-    id 'de.jjohannes.extra-java-module-info'
 }
 
-extraJavaModuleInfo {
-	module("jama-1.0.3.jar", "Jama", "1.0.3") {
-		exports("Jama")
-	}	
+configurations {
+	bundle
+}
+
+def ejmlVersion = '0.41'
+
+java {
+	version = '0.41'
+	tasks.withType(Javadoc).all { enabled = false }
 }
 
 dependencies {
+	bundle 'org.ejml:ejml-simple:0.41'
+}
 
-	implementation project(':solver-api')
+def bundleArchive = "${buildDir}/bundles/ejml-simple-bundle-${ejmlVersion}.jar"
+
+task createBundleJar(type: Jar) {
+    from configurations.bundle.collect { zipTree it }    
+    archiveFileName = bundleArchive
+}
+
+task unpackJar(type: Copy) {
+	def sourceFile = bundleArchive
+	def targetDir = "${buildDir}/classes/java/main"
 	
-	implementation 'gov.nist.math:jama:1.0.3'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testImplementation project(':jama-solver')
-    
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    
+	from zipTree(sourceFile)
+	into targetDir
 }
 
-test {
-    useJUnitPlatform()
-}
-
-signing {
-	if (!project.hasProperty("skipSigning")) {
-	    sign configurations.archives
-	}
-}
+classes.finalizedBy createBundleJar
+createBundleJar.finalizedBy unpackJar
 
 publishing {
     repositories {
