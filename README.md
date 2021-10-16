@@ -30,7 +30,7 @@ Control point or feature based methods have only limited scope of use in medical
 
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
 Version 0.0.4 is available on Maven Central using following snippet:
-Version 0.0.5 will be ready until end of April'2021.
+Version 0.0.5 will be ready until end of October'2021.
 
 
 ```xml

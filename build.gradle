@@ -20,7 +20,7 @@ allprojects {
 	apply plugin: 'project-report'
 	
     group = 'net.raumzeitfalle.registration'
-    version = '0.0.5-SNAPSHOT'
+    version = '0.0.5'
 
     java {
     	sourceCompatibility = JavaVersion.VERSION_1_8
