@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package net.raumzeitfalle.util;
+package net.raumzeitfalle.registration.displacement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

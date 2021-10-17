@@ -29,7 +29,6 @@ import net.raumzeitfalle.registration.alignment.RigidTransform;
 import net.raumzeitfalle.registration.alignment.RigidTransformCalculation;
 import net.raumzeitfalle.registration.distortions.AffineTransform;
 import net.raumzeitfalle.registration.distortions.AffineTransformCalculation;
-import net.raumzeitfalle.util.DoubleStatisticsSummary;
 
 
 /**
