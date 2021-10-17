@@ -16,7 +16,7 @@ The solver will be selected using the Java SPI (Service Provider Interface) mech
 - [x] Versions up to and including 0.0.5 run with Java-8
 - [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
 - [ ] Version 0.0.6 will support Java-8 and Java-11 (utilize multi-release JARs)
-- [ ] Version 0.0.8 will support Java-15 with records
+- [ ] Version 0.0.8 will support Java-15 with records (JEP 359)
 - [ ] Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
@@ -94,7 +94,7 @@ In case a custom implementaton is required, this must be created based on `solve
 - [ ]  Make all core elements immutable, improve design step by step to achieve concurrency 
   for large data sets (improve speed by using fork-join, try to use async using CompletableFutures) 
 - [ ]  Consider use of Units-of-Measurement API (JSR385, http://unitsofmeasurement.github.io/unit-api/)
-- [ ]  Learn how project Valhalla works in Java 14 (JEP169, https://openjdk.java.net/jeps/169)
+- [ ]  Utilize records where possible (JEP359, https://openjdk.java.net/jeps/359)
 
 ## Todos
 * Handle 1D cases (handling of individual missing points already works)
@@ -106,10 +106,6 @@ In case a custom implementaton is required, this must be created based on `solve
   model should work up to 9th order, coefficients to be used shall be configurable independently for x and y)
 * Sum up learnings and reshape structure of alignment/correction classes, possibly add 
   higher level functions to do the all-in-one-job as its done in the demos.   
-
-* Create a multi-release JAR where Java-8 and Java-11 are supported
-* Move to Java 11 and introduce modules
-* Move to Java 15 and introduce records
 
 * Add graphical examples of first order distortions.
 
