@@ -50,7 +50,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 	    this.tolerance = tolerance;
 	}
 	
-	public void zeroTransform() {
+	public void assertZeroTransform() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
 		undisplaced.add(Displacement.at(0, 0,    0,    0,    0,    0));
@@ -82,7 +82,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals( 0.0, result.getOrtho(),         tolerance);
 	}
 	
-	public void scalingX() {
+	public void assertScalingX() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm
 		double dy =  0.0;   // no impact on y-axis
@@ -117,7 +117,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
-	public void scalingY_withoutX() {
+	public void assert_scalingY_withoutX() {
 		
 		double dx =  0.0;   // 150nm over 150um is 1ppm
 		double dy = -0.140; // 140nm over 140um is 1ppm
@@ -152,7 +152,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
-	public void scalingX_withoutY() {
+	public void assert_scalingX_withoutY() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm
 		
@@ -186,7 +186,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
-	public void scalingXY() {
+	public void assertScalingXY() {
 		
 		double dx =  0.075; // 150nm over 150um is 1ppm
 		double dy = -0.140; // 140nm over 140um is 1ppm
@@ -221,7 +221,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals( 0.0, result.getOrtho(),                 tolerance);
 	}
 	
-	public void shearingX() {
+	public void assertShearingX() {
 		
 		double dx = 0.150; // 150nm over 150um is 1ppm
 		
@@ -255,7 +255,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals( 1.0, toPPM(result.getOrtho()) ,        tolerance);
 	}
 	
-	public void shearingY() {
+	public void assertShearingY() {
 		
 		double dy = 0.150; // 150nm over 150um is 1ppm
 		
@@ -289,7 +289,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals(  1.0, toPPM(result.getOrtho()) ,        tolerance);
 	}
 	
-	public void shearingXY() {
+	public void assertShearingXY() {
 		
 		double dx = 0.150; // 150nm over 150um is 1ppm
 		double dy = 0.150;
@@ -342,7 +342,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals(  2.0, toPPM(result.getOrtho()) ,        tolerance);
 	}
 	
-	public void displacementsAlongVerticalLine() {
+	public void assertDisplacementsAlongVerticalLine() {
 		// 1ppm rotation
 
 		double tx = 0.1;
@@ -378,7 +378,7 @@ public class AffineTransformNumerics extends NumericsTestBase {
 		assertEquals(   0.000, result.getOrthoX()*1E6,        2.6E-11);
 	}
 	
-	public void displacementsAlongHorizontalLine() {
+	public void assertDisplacementsAlongHorizontalLine() {
 		// 1ppm rotation
 
 		double tx = 0.1;

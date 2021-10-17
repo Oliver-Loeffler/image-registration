@@ -39,7 +39,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 
 	private static final double TOLERANCE = 1E-11;
 	
-	public void translationX() {
+	public void assertTranslationX() {
 
 		List<Displacement> displacements = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1010, 1000),
@@ -59,7 +59,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 
 	}
 	
-	public void translationY() {
+	public void assertTranslationY() {
 		
 		List<Displacement> displacements = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1000,  990),
@@ -80,7 +80,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void translationXY() {
+	public void assertTranslationXY() {
 		
 		List<Displacement> displaced = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1010,  990),
@@ -100,7 +100,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void rotation() {
+	public void assertRotation() {
 		
 		
 		double rotated = Math.sqrt(2)*1E3;
@@ -131,7 +131,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		assertEquals( 40.514, 180 * result.getRotation() / Math.PI , 1E-3);
 	}
 	
-	public void rotationAndTranslation() {
+	public void assertRotationAndTranslation() {
 		
 		
 		double rotated = Math.sqrt(2)*1E3;
@@ -162,7 +162,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		assertEquals( 40.514, 180 * result.getRotation() / Math.PI , 1E-3);
 	}
 	
-	public void skipTransform() {
+	public void assertSkipTransform() {
 		
 		List<Displacement> displacements = listOf(
 				Displacement.at(0, 0, 1000, 1000, 1010,  990),
@@ -188,7 +188,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 	
 	}
 	
-	public void translationXonly1D() {
+	public void assertTranslationXonly1D() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
 		undisplaced.add(Displacement.at(0, 0, 1000, 1000, 1010, Double.NaN));
@@ -208,7 +208,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void translationYonly1D() {
+	public void assertTranslationYonly1D() {
 		
 		List<Displacement> undisplaced = new ArrayList<>(4);
 		undisplaced.add(Displacement.at(0, 0, 1000, 1000, Double.NaN, 1000));
@@ -228,7 +228,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void displacementsAlongHorizontalLine() {
+	public void assertDisplacementsAlongHorizontalLine() {
 		
 		// 1ppm rotation	
 		List<Displacement> undisplaced = new ArrayList<>(5);
@@ -253,7 +253,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void singularityXY() {
+	public void assertSingularityXY() {
 			
 		double dx =   0.075; 
 		double dy =  -0.075; 
@@ -272,7 +272,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void singularityX() {
+	public void assertSingularityX() {
 			
 		double dx =   0.075; 
 	
@@ -290,7 +290,7 @@ public class RigidTransformNumerics extends NumericsTestBase {
 		
 	}
 	
-	public void singularityY() {
+	public void assertSingularityY() {
 			 
 		double dy =  -0.075; 
 	

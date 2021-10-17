@@ -50,114 +50,114 @@ class EjmlNumericsTest {
 	
 	@Test
 	void translationX() {
-		rigidTransformNumerics.translationX();
+		rigidTransformNumerics.assertTranslationX();
 	}
 	
 	@Test
 	void translationY() {
-		rigidTransformNumerics.translationY();
+		rigidTransformNumerics.assertTranslationY();
 	}
 	
 	@Test
 	void translationXY() {
-		rigidTransformNumerics.translationXY();
+		rigidTransformNumerics.assertTranslationXY();
 	}
 
 	@Test
 	void rotation() {
-		rigidTransformNumerics.rotation();
+		rigidTransformNumerics.assertRotation();
 	}
 	
 	@Test
 	void rotationAndTranslation() {
-		rigidTransformNumerics.rotationAndTranslation();
+		rigidTransformNumerics.assertRotationAndTranslation();
 	}
 	
 	@Test
 	void skipTransform() {
-		rigidTransformNumerics.skipTransform();
+		rigidTransformNumerics.assertSkipTransform();
 	}
 	
 	@Test
 	void translationXonly1D() {
-		rigidTransformNumerics.translationXonly1D();
+		rigidTransformNumerics.assertTranslationXonly1D();
 	}
 	
 	
 	@Test
 	void translationYonly1D() {
-		rigidTransformNumerics.translationYonly1D();
+		rigidTransformNumerics.assertTranslationYonly1D();
 	}
 	
 	@Test
 	void alignmentOfDisplacementsAlongHorizontalLine() {
-		rigidTransformNumerics.displacementsAlongHorizontalLine();
+		rigidTransformNumerics.assertDisplacementsAlongHorizontalLine();
 	}
 	
 	@Test
 	void singularityXY() {
-		rigidTransformNumerics.singularityXY();
+		rigidTransformNumerics.assertSingularityXY();
 	}
 	
 	@Test
 	void singularityX() {
-		rigidTransformNumerics.singularityX();
+		rigidTransformNumerics.assertSingularityX();
 	}
 	
 	@Test
 	void singularityY() {
-		rigidTransformNumerics.singularityY();
+		rigidTransformNumerics.assertSingularityY();
 	}
 	
 	//
 	@Test
 	void zeroTransform() {
-		affineTransformNumerics.zeroTransform();
+		affineTransformNumerics.assertZeroTransform();
 	}
 	
 	@Test
 	void scalingX() {
-		affineTransformNumerics.scalingX();
+		affineTransformNumerics.assertScalingX();
 	}
 	
 	@Test
 	void scalingY_withoutX() {
-		affineTransformNumerics.scalingY_withoutX();
+		affineTransformNumerics.assert_scalingY_withoutX();
 	}
 	
 	@Test
 	void scalingX_withoutY() {
-		affineTransformNumerics.scalingX_withoutY();
+		affineTransformNumerics.assert_scalingX_withoutY();
 	}
 
 	@Test
 	void scalingXY() {
-		affineTransformNumerics.scalingXY();
+		affineTransformNumerics.assertScalingXY();
 	}
 	
 	@Test
 	void shearingX() {
-		affineTransformNumerics.shearingX();
+		affineTransformNumerics.assertShearingX();
 	}
 	
 	@Test
 	void shearingY() {
-		affineTransformNumerics.shearingY();
+		affineTransformNumerics.assertShearingY();
 	}
 	
 	@Test
 	void shearingXY() {
-		affineTransformNumerics.shearingXY();
+		affineTransformNumerics.assertShearingXY();
 	}
 	
 	@Test
 	void displacementsAlongVerticalLine() {
-		affineTransformNumerics.displacementsAlongVerticalLine();
+		affineTransformNumerics.assertDisplacementsAlongVerticalLine();
 	}
 	
 	@Test
 	void displacementsAlongHorizontalLine() {
-		affineTransformNumerics.displacementsAlongHorizontalLine();
+		affineTransformNumerics.assertDisplacementsAlongHorizontalLine();
 	}
 	
 }
