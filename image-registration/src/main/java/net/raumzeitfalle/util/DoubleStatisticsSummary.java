@@ -23,7 +23,7 @@ import java.util.DoubleSummaryStatistics;
 
 public final class DoubleStatisticsSummary {
 	
-	private double loadFactor = 0.5;
+	private float loadFactor = 0.5f;
 	
 	private double[] values;
 	
@@ -54,7 +54,7 @@ public final class DoubleStatisticsSummary {
 
 	private final void increaseArraySize() {
 		if (cursor >= values.length) {
-			int expansion = Double.valueOf(Double.valueOf(values.length) * loadFactor).intValue();
+			int expansion = 1 + (int)(values.length*loadFactor);
 			double[] moreValues = new double[values.length + expansion];
 			System.arraycopy(values, 0, moreValues, 0, values.length);
 			values = moreValues;
