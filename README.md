@@ -13,11 +13,11 @@ be used in `image-registration`. Here it will be possible to choose either `gov.
 for `image-registration` and there will be a group of JARs providing a solver implementation. 
 The solver will be selected using the Java SPI (Service Provider Interface) mechanism. 
 
-* Versions up to and including 0.0.5 run with Java-8
-* Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
-* Version 0.0.6 will support Java-8 and Java-11 (utilize multi-release JARs)
-* Version 0.0.8 will support Java-15 with records
-* Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
+- [x] Versions up to and including 0.0.5 run with Java-8
+- [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
+- [ ] Version 0.0.6 will support Java-8 and Java-11 (utilize multi-release JARs)
+- [ ] Version 0.0.8 will support Java-15 with records
+- [ ] Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
 Control point or feature based methods have only limited scope of use in medical imaging, there intensity based or voxel based methods are preferred due to the natural structure of medical image data. These additional intensity and voxel based methods are not supported by this library.
@@ -29,37 +29,47 @@ Control point or feature based methods have only limited scope of use in medical
 ## How to start?
 
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
-Version 0.0.4 is available on Maven Central using following snippet:
-Version 0.0.5 will be ready until end of October'2021.
-
+Version 0.0.5 is available on Maven Central using following snippet:
 
 ```xml
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>image-registration</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
+</dependency>
+<dependency>
+  <groupId>net.raumzeitfalle.registration</groupId>
+  <artifactId>solver-api</artifactId>
+  <version>0.0.5</version>
+</dependency>
+<dependency>
+  <groupId>net.raumzeitfalle.registration</groupId>
+  <artifactId>jama-solver</artifactId>
+  <version>0.0.5</version>
 </dependency>
 ```
 
-For version 0.0.5 the setup will look different. Starting with 0.0.5, there will be a separated Solver-API, the actual image-registration API and a dependency to a Solver-implementation. The plan is, to provide following solver implementations:
+The artifact `image-registration` provides the actual API for image registration using control points. The `solver-api` artifact defines the service provider interface which is required to integrate different externa linear algebra (LA) libraries. The third artifact in this example, `jama-solver` provides an implementation to the `solver-api` based on NIST JAMA library. 
+
+When the consumer project requires a different LA library, the appropriate implementation provided by this project can be used.
+In case a custom implementaton is required, this must be created based on `solver-api`.
 
 ### New API structure
 
 | Module | Purpose |
 |-|-|
-| `core-api`   | Image Registration API |
-| `solver-api` | API to utilize different linear algebra frameworks for calculation |
-| `image-registration` | A convenience package where a JAMA-based solver is included. When the consumer project utilizes a different linear algebra library, the appropriate solver module can be used instead.|
+| `image-registration`   | Image Registration API without any external solver binding |
+| `solver-api`           | API to utilize different linear algebra frameworks for calculation |
 
 ### Following solver implementations will be available
 
-| Solver Module | Dependency to: |
-|-|-|
-| `apache-math3-solver` | `org.apache.commons:commons-math3` |
-| `ejml-solver`        |  `org.ejml:ejml-simple` |
-| `jama-solver`        | `gov.nist.math:jama` |
-| `jblas-solver`       | `org.jblas:jblas` |
-| `la4j-solver`        | `org.la4j:la4j` |
+| Solver Module | Dependency to: | Library version: |
+|-|-|-|
+| `apache-math3-solver` | `org.apache.commons:commons-math3` | 3.6.1 |
+| `ejml-solver`        |  `org.ejml:ejml-simple` | 0.41 |
+| `jama-solver`        | `gov.nist.math:jama` | 1.0.3 |
+| `jblas-solver`       | `org.jblas:jblas` | 1.2.5 |
+| `la4j-solver`        | `org.la4j:la4j` | 0.6.0 |
 
 ### More Linear Algebra libraries:
 * https://ojalgo.org/
@@ -70,21 +80,21 @@ For version 0.0.5 the setup will look different. Starting with 0.0.5, there will
 
 ## Goals
 
-* Learn how to implement a construction kit for various transforms used in photomask image placement 
+- [ ] Learn how to implement a construction kit for various transforms used in photomask image placement 
   using Javas functional elements (enabling use of .andThen(...) and .compose(...)
-* Experimenting to find suitable data types and data flows for easy use and extendability
-* Try to make model parameter names and class names to speak for them selves, ideally 
+- [ ]  Experimenting to find suitable data types and data flows for easy use and extendability
+- [ ]  Try to make model parameter names and class names to speak for them selves, ideally 
   end up with a fluent API which uses builder pattern for setup
-* The library should behave as lazy as possible 
-* It should be numerically and technically correct 
-* Try more advanced transforms beyond rigid (alignment) and affine (6-parameter first 
+- [ ]  The library should behave as lazy as possible 
+- [ ]  It should be numerically and technically correct 
+- [ ]  Try more advanced transforms beyond rigid (alignment) and affine (6-parameter first 
   order). Technically n-parameters higher order should work.
-* Decouple matrix computation (equation solving) from high level transform code so 
+- [x]  Decouple matrix computation (equation solving) from high level transform code so 
   that matrix libraries can be exchanged (e.g. using La4J instead of Jama)
-* Make all core elements immutable, improve design step by step to achieve concurrency 
+- [ ]  Make all core elements immutable, improve design step by step to achieve concurrency 
   for large data sets (improve speed by using fork-join, try to use async using CompletableFutures) 
-* Consider use of Units-of-Measurement API (JSR385, http://unitsofmeasurement.github.io/unit-api/)
-* Learn how project Valhalla works in Java 14 (JEP169, https://openjdk.java.net/jeps/169)
+- [ ]  Consider use of Units-of-Measurement API (JSR385, http://unitsofmeasurement.github.io/unit-api/)
+- [ ]  Learn how project Valhalla works in Java 14 (JEP169, https://openjdk.java.net/jeps/169)
 
 ## Todos
 * Handle 1D cases (handling of individual missing points already works)
