@@ -60,6 +60,8 @@ In case a custom implementaton is required, this must be created based on `solve
 |-|-|
 | `image-registration`   | Image Registration API without any external solver binding |
 | `solver-api`           | API to utilize different linear algebra frameworks for calculation |
+| `solver-test`          | Non-API, project to test numerics and service discovery of all available solvers |
+| `examples`             | Non-API, examples on how the Image-Registration API can be used and which possibilities exist |
 
 ### Following solver implementations will be available
 
