@@ -25,4 +25,4 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Build with Gradle
-      run: gradlew build jacocoTestReport
+      run: ./gradlew.sh build jacocoTestReport
