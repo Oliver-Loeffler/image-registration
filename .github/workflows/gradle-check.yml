@@ -1,7 +1,7 @@
 # This workflow will build a package using Gradle
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
-name: Gradle Build
+name: Gradle Check
 
 on:
   workflow_dispatch
@@ -28,4 +28,4 @@ jobs:
       run: chmod +x ./gradlew
     
     - name: Build with Gradle
-      run: ./gradlew build jacocoTestReport
+      run: ./gradlew check jacocoTestReport
