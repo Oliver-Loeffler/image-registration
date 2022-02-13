@@ -1,12 +1,32 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "de.jjohannes.gradle:extra-java-module-info:0.11"
+  }
+}
+
 // LA4J SOLVER
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
 }
 
 dependencies {
     implementation project(':solver-api')
     implementation 'org.la4j:la4j:0.6.0'
+}
+
+extraJavaModuleInfo {
+    module('la4j-0.6.0.jar', 'la4j', '0.6.0') {
+        exports('org.la4j')
+        exports('org.la4j.inversion')
+        exports('org.la4j.decomposition')
+    }
 }
 
 test {

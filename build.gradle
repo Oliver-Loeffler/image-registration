@@ -4,6 +4,7 @@ plugins {
    id "jacoco"
    id "com.github.hierynomus.license-base" version "0.16.1"
    id "org.sonarqube" version "3.0"
+   id "de.jjohannes.extra-java-module-info" version "0.11"
 }
 
 allprojects {
@@ -23,8 +24,8 @@ allprojects {
     version = '0.0.5'
 
     java {
-    	sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    	sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
 
 		withJavadocJar()
     	withSourcesJar()
@@ -103,5 +104,5 @@ allprojects {
 
 wrapper {
     distributionType = Wrapper.DistributionType.BIN
-    gradleVersion = "7.2"
+    gradleVersion = "7.4"
 }

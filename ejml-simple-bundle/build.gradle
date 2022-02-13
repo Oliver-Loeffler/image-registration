@@ -1,12 +1,8 @@
 // EJML BUNDLER
 plugins {
     id 'java-library'
-    id 'signing'
     id 'maven-publish'
-}
-
-configurations {
-	bundle
+    id 'signing'
 }
 
 def ejmlVersion = '0.41'
@@ -16,24 +12,76 @@ java {
 	tasks.withType(Javadoc).all { enabled = false }
 }
 
+configurations {
+	ejml
+}
+
+jar {
+    from {
+        configurations.ejml.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 dependencies {
-	bundle 'org.ejml:ejml-simple:0.41'
+	ejml 'org.ejml:ejml-simple:0.41'
+	ejml 'org.ejml:ejml-core:0.41'
+	ejml 'org.ejml:ejml-fdense:0.41'
+	ejml 'org.ejml:ejml-ddense:0.41'
+	ejml 'org.ejml:ejml-cdense:0.41'
+	ejml 'org.ejml:ejml-zdense:0.41'
+	ejml 'org.ejml:ejml-dsparse:0.41'
+	ejml 'org.ejml:ejml-fsparse:0.41'
 }
 
-def bundleArchive = "${buildDir}/bundles/ejml-simple-bundle-${ejmlVersion}.jar"
-
-task createBundleJar(type: Jar) {
-    from configurations.bundle.collect { zipTree it }    
-    archiveFileName = bundleArchive
+publishing {
+    repositories {
+        mavenLocal()
+        maven {
+            url = version.endsWith('SNAPSHOT') ? sonatypeSnapshotsUrl : sonatypeReleasesUrl
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = project.name
+            groupId = group
+            from components.java
+                        
+            pom {
+                name = project.name
+                description = "$projectDescription"
+                url = "$projectUrl"
+                inceptionYear = "$projectInceptionYear"
+                organization {
+                    name = "$projectVendor"
+                    url  = "$projectVendorUrl"
+                }
+                licenses {
+                    license {
+                        name = "$projectLicense"
+                        url  = "$projectLicenseUrl"
+                    }
+                }
+                issueManagement {
+                    system = "Github Issues"
+                    url = "$projectIssues"
+                }
+                developers {
+                    developer {
+                        id = "$projectDeveloperId"
+                        name = "$projectDeveloper"
+                        email = "$projectDeveloperMail"
+                    }
+                }
+                scm {
+                    connection = "scm:git:$projectScm"
+                    developerConnection = "scm:git:$projectScm"
+                    url = "$projectUrl"
+                }
+            }
+        }
+    }
 }
-
-task unpackJar(type: Copy) {
-	def sourceFile = bundleArchive
-	def targetDir = "${buildDir}/classes/java/main"
-	
-	from zipTree(sourceFile)
-	into targetDir
-}
-
-classes.finalizedBy createBundleJar
-createBundleJar.finalizedBy unpackJar

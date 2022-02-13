@@ -1,12 +1,22 @@
 rootProject.name = 'image-registration'
 
-include 'solver-api'
-include 'image-registration'
-include 'ejml-simple-bundle'
-include 'ejml-solver'
-include 'la4j-solver'
-include 'jama-solver'
-include 'apache-math3-solver'
-include 'jblas-solver'
-include 'solver-test'
-include 'examples'
+// Default bundle with JAMA
+include ':image-registration'
+
+// Library components
+include ':solver-api'
+include ':solver-test'
+include ':core'
+
+// Solver Implementations
+include ':jama-solver'
+include ':jblas-solver'
+include ':la4j-solver'
+include ':apache-math3-solver'
+include ':ejml-solver'
+include ':ejml-simple-bundle'
+
+// Examples
+include ':example-modular'
+include ':example-modular-jama-only'
+include ':example-non-modular'

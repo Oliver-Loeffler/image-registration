@@ -3,11 +3,18 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
 }
 
 dependencies {
     implementation project(':solver-api')
     implementation 'org.apache.commons:commons-math3:3.6.1'	
+}
+
+extraJavaModuleInfo {
+    module('commons-math3-3.6.1.jar', 'org.apache.commonsmath3', '3.6.1') {
+        exports('org.apache.commons.math3.linear')
+    }
 }
 
 test {

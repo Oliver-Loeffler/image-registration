@@ -3,12 +3,19 @@ plugins {
     id 'java-library'
     id 'signing'
     id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
 }
 
 dependencies {
     implementation project(':solver-api')
     implementation 'gov.nist.math:jama:1.0.3'
     testImplementation project(':jama-solver')
+}
+
+extraJavaModuleInfo {
+    module('jama-1.0.3.jar', 'jama', '1.0.3') {
+        exports('Jama')
+    }
 }
 
 test {

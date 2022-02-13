@@ -2,11 +2,22 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
 }
 
 dependencies {
     implementation project(':solver-api')
-	implementation 'org.ejml:ejml-simple:0.41'    
+    // implementation project(':ejml-simple-bundle')
+    implementation 'net.raumzeitfalle.registration:ejml-simple-bundle:0.41'
+}
+
+extraJavaModuleInfo {
+    module('ejml-simple-bundle-0.41.jar', 'ejml.simple.bundle', '0.4.1') {
+        exports('org.ejml')
+        exports('org.ejml.simple')
+        exports('org.ejml.data.row')
+        exports('org.ejml.ops')
+    }
 }
 
 test {
