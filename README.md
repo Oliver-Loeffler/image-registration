@@ -92,8 +92,9 @@ In case a custom implementaton is required, this must be created based on `solve
 | `core`                | Image Registration API without any external solver binding |
 | `solver-api`           | API to utilize different linear algebra frameworks for calculation |
 | `solver-test`          | Non-API, project to test numerics and service discovery of all available solvers |
-| `examples-nonmodular`   | Non-API, A Gradle example project on how to use this library in classical classpath based Java project aka. non-modular  |
-| `examples-modular`      | Non-API, The same example project but implemented using the module path aka. a modular project. |
+| `example-non-modular`   | Non-API, A Gradle example project on how to use this library in classical classpath based Java project aka. non-modular  |
+| `example-modular`           | Non-API, The same example project but implemented using the module path aka. a modular project. |
+| `example-modular-jama-only`  | Non-API, Straight forward example which requires a single dependency and provides Jama backend. |
 
 ### Following solver implementations will be available
 
