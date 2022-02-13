@@ -1,0 +1,12 @@
+// EXAMPLES
+plugins {
+    id 'java'
+}
+
+dependencies { 
+	implementation project(':image-registration')
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -5,9 +5,8 @@ plugins {
 }
 	
 dependencies {
-    api project(':core')  
-    api project(':solver-api')
-    api project(':jama-solver')
+    implementation     project(':solver-api')    
+    testRuntimeOnly    project(':jama-solver')
 }
 
 test {

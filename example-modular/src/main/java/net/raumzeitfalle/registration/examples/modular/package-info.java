@@ -2,7 +2,7 @@
  * #%L
  * Image-Registration
  * %%
- * Copyright (C) 2019, 2021 Oliver Loeffler, Raumzeitfalle.net
+ * Copyright (C) 2019 Oliver Loeffler, Raumzeitfalle.net
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package net.raumzeitfalle.registration.ejmlbundle;
-
 /**
- * This library is just a workaround to get EJML (Efficient Java Matrix Library) working with Java Modules.
- * It is basically a replica of the {@code "org.ejml:ejml-simple:0.41"} artifact with all classes included (fat jar).
- * 
- * @author Oliver L&ouml;ffler
- * 
+ * Demo code and examples.
  */
-public final class Readme {
-    Readme() {
-        throw new UnsupportedOperationException("Please use \"org.ejml:ejml-simple:0.41\" for working with EJML");
-    }
-}
+package net.raumzeitfalle.registration.examples.modular;

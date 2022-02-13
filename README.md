@@ -15,8 +15,8 @@ The solver will be selected using the Java SPI (Service Provider Interface) mech
 
 - [x] Versions up to and including 0.0.5 run with Java-8
 - [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
-- [ ] Version 0.0.6 will support Java-8 and Java-11 (utilize multi-release JARs)
-- [ ] Version 0.0.8 will support Java-15 with records (JEP 359)
+- [x] Version 0.0.6 will support ~~Java-8 and~~ Java-11 (~~utilize multi-release JARs~~ support for modules will be introduced)
+- [ ] Version 0.0.7 will support Java-17 with records (JEP 359)
 - [ ] Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
@@ -31,12 +31,40 @@ Control point or feature based methods have only limited scope of use in medical
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
 Version 0.0.5 is available on Maven Central using following snippet:
 
+### Non-Modular project with JAMA backend:
+
 ```xml
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>image-registration</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
 </dependency>
+```
+
+### Modular project with JAMA backend:
+
+
+```xml
+<dependency>
+  <groupId>net.raumzeitfalle.registration</groupId>
+  <artifactId>image-registration</artifactId>
+  <version>0.0.6</version>
+</dependency>
+```
+
+Additionally the `module-info.java` file needs an update:
+
+```java
+module yourmodule {
+	requires net.raumzeitfalle.registration.solver;
+	requires net.raumzeitfalle.registration.core;
+	uses net.raumzeitfalle.registration.solver.SolverProvider;
+}
+```
+
+### Modular project with any custom backend:
+
+```xml
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>solver-api</artifactId>
@@ -49,6 +77,8 @@ Version 0.0.5 is available on Maven Central using following snippet:
 </dependency>
 ```
 
+
+
 The artifact `image-registration` provides the actual API for image registration using control points. The `solver-api` artifact defines the service provider interface which is required to integrate different externa linear algebra (LA) libraries. The third artifact in this example, `jama-solver` provides an implementation to the `solver-api` based on NIST JAMA library. 
 
 When the consumer project requires a different LA library, the appropriate implementation provided by this project can be used.
@@ -58,10 +88,12 @@ In case a custom implementaton is required, this must be created based on `solve
 
 | Module | Purpose |
 |-|-|
-| `image-registration`   | Image Registration API without any external solver binding |
+| `image-registration`   | Image Registration API with JAMA solver by default (`core`, `solver-api` and `jama-solver` in one artifact) |
+| `core`                | Image Registration API without any external solver binding |
 | `solver-api`           | API to utilize different linear algebra frameworks for calculation |
 | `solver-test`          | Non-API, project to test numerics and service discovery of all available solvers |
-| `examples`             | Non-API, examples on how the Image-Registration API can be used and which possibilities exist |
+| `examples-nonmodular`   | Non-API, A Gradle example project on how to use this library in classical classpath based Java project aka. non-modular  |
+| `examples-modular`      | Non-API, The same example project but implemented using the module path aka. a modular project. |
 
 ### Following solver implementations will be available
 

@@ -17,17 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package net.raumzeitfalle.registration.ejmlbundle;
+package net.raumzeitfalle.registration.examples.classpath;
 
-/**
- * This library is just a workaround to get EJML (Efficient Java Matrix Library) working with Java Modules.
- * It is basically a replica of the {@code "org.ejml:ejml-simple:0.41"} artifact with all classes included (fat jar).
- * 
- * @author Oliver L&ouml;ffler
- * 
- */
-public final class Readme {
-    Readme() {
-        throw new UnsupportedOperationException("Please use \"org.ejml:ejml-simple:0.41\" for working with EJML");
-    }
+public class DisplacementParsingError extends RuntimeException {
+
+	private static final long serialVersionUID = -6300870477418276835L;
+
+	protected DisplacementParsingError(Exception cause) {
+		super(cause);
+	}
 }
