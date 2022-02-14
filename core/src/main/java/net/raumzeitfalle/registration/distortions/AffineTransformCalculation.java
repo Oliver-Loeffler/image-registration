@@ -19,14 +19,13 @@
  */
 package net.raumzeitfalle.registration.distortions;
 
+import java.lang.System.Logger.Level;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import net.raumzeitfalle.registration.DegreesOfFreedom;
@@ -39,7 +38,7 @@ public final class AffineTransformCalculation implements BiFunction<Collection<D
 	
 	private Function<Exception, AffineTransform> errorHandler;
 	
-	private static final Logger LOGGER = Logger.getLogger(AffineTransformCalculation.class.getName());
+	private static final System.Logger LOGGER = System.getLogger(AffineTransformCalculation.class.getName());
 	
 	public AffineTransformCalculation() {
 		this(new BasicAffineModel());

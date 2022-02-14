@@ -1,5 +1,4 @@
 open module net.raumzeitfalle.registration.core {
-	requires java.logging;
 	requires transitive net.raumzeitfalle.registration.solver;
 	
 	exports net.raumzeitfalle.registration;
