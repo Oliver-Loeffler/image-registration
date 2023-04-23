@@ -7,11 +7,9 @@
 
 Image registration is the process of finding the transform to match a given image with a desired reference. This library supports rigid body transforms (translation and rotation) as well as affine transforms (anisotropic scaling, anisotropic rotation/shear aka. non-orthogonality). Currently non-linear transforms are not supported.
 
-Version 0.0.5 will introduce a method to select different linear algebra frameworks to 
-be used in `image-registration`. Here it will be possible to choose either `gov.nist.math.jama`, 
-`org.la4j`, `org.ejml`, `org.apache.commons.math3` or even `org.jblas`. There will be a core or api JAR 
-for `image-registration` and there will be a group of JARs providing a solver implementation. 
-The solver will be selected using the Java SPI (Service Provider Interface) mechanism. 
+Up to version 0.0.4, this API only worked together with NIST JAMA. Since version 0.0.5, different linear algebra frameworks can be used in `image-registration` using the Solver-API. Here it is now possible to choose either `gov.nist.math.jama`, 
+`org.la4j`, `org.ejml`, `org.apache.commons.math3` or even `org.jblas`. The library now consists of an API and a core JAR and a group of JARs providing a solver implementation for the linear algebra framework of choice. 
+The solver is selected using the Java SPI (Service Provider Interface) mechanism. 
 
 - [x] Versions up to and including 0.0.5 run with Java-8
 - [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
