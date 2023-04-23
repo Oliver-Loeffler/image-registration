@@ -1,10 +1,11 @@
-/.idea/
-/.gradle/
-/.classpath
-/.project
+.idea/
+.gradle/
+.classpath
+.project
 /build/
 /target/
 /bin/
 /out/
 .DS_Store
-/.settings/
+.settings/
+*.bak
