@@ -1,0 +1,101 @@
+// JAMA
+plugins {
+    id 'java-library'
+    id 'signing'
+    id 'maven-publish'
+    id 'de.jjohannes.extra-java-module-info'
+}
+
+dependencies {
+    implementation project(':solver-api')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+signing {
+    sign configurations.archives
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+        maven {
+            url = version.endsWith('SNAPSHOT') ? sonatypeSnapshotsUrl : sonatypeReleasesUrl
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
+    }
+    
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = project.name
+            groupId = group
+            from components.java
+                        
+            pom {
+                name = project.name
+                description = "$projectDescription"
+                url = "$projectUrl"
+                inceptionYear = "$projectInceptionYear"
+                organization {
+                    name = "$projectVendor"
+                    url  = "$projectVendorUrl"
+                }
+                licenses {
+                    license {
+                        name = "$projectLicense"
+                        url  = "$projectLicenseUrl"
+                    }
+                }
+                issueManagement {
+                    system = "Github Issues"
+                    url = "$projectIssues"
+                }
+                developers {
+                    developer {
+                        id = "$projectDeveloperId"
+                        name = "$projectDeveloper"
+                        email = "$projectDeveloperMail"
+                    }
+                }
+                scm {
+                    connection = "scm:git:$projectScm"
+                    developerConnection = "scm:git:$projectScm"
+                    url = "$projectUrl"
+                }
+            }
+            
+            pom.withXml {
+                def pomFile = file("${project.buildDir}/generated-pom.xml")
+                writeTo(pomFile)
+                def pomAscFile = signing.sign(pomFile).signatureFiles[0]
+                artifact(pomAscFile) {
+                    classifier = null
+                    extension = 'pom.asc'
+                }
+            }
+            
+            project.tasks.signArchives.signatureFiles.each {
+                artifact(it) {
+                    def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+                    if (matcher.find()) {
+                        classifier = matcher.group(1)
+                    } else {
+                        classifier = null
+                    }
+                    extension = 'jar.asc'
+                }
+            }
+        }
+    }
+}

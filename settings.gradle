@@ -7,6 +7,7 @@ include ':image-registration'
 include ':solver-api'
 include ':solver-test'
 include ':core'
+include ':jama'
 
 // Solver Implementations
 include ':jama-solver'
