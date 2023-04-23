@@ -68,16 +68,14 @@ module yourmodule {
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>solver-api</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
 </dependency>
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>jama-solver</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
 </dependency>
 ```
-
-
 
 The artifact `image-registration` provides the actual API for image registration using control points. The `solver-api` artifact defines the service provider interface which is required to integrate different externa linear algebra (LA) libraries. The third artifact in this example, `jama-solver` provides an implementation to the `solver-api` based on NIST JAMA library. 
 
@@ -120,7 +118,7 @@ In case a custom implementaton is required, this must be created based on `solve
 - [ ] Learn how to implement a construction kit for various transforms used in photomask image placement 
   using Javas functional elements (enabling use of .andThen(...) and .compose(...)
 - [ ]  Experimenting to find suitable data types and data flows for easy use and extendability
-- [ ]  Try to make model parameter names and class names to speak for them selves, ideally 
+- [ ]  Try to make model parameter names and class names to speak for themselves, ideally 
   end up with a fluent API which uses builder pattern for setup
 - [ ]  The library should behave as lazy as possible 
 - [ ]  It should be numerically and technically correct 
@@ -134,16 +132,15 @@ In case a custom implementaton is required, this must be created based on `solve
 - [ ]  Utilize records where possible (JEP359, https://openjdk.java.net/jeps/359)
 
 ## Todos
+
 * Handle 1D cases (handling of individual missing points already works)
 * Define high level API (ideally fluent or builder based) to compose evaluations.
 * Fluent-API for selecting specific displacements for alignment, positional calculation, 
   first order calculation
-
 * Implement higher order polynomial model with configurable coefficients (polynomial 
   model should work up to 9th order, coefficients to be used shall be configurable independently for x and y)
 * Sum up learnings and reshape structure of alignment/correction classes, possibly add 
-  higher level functions to do the all-in-one-job as its done in the demos.   
-
+  higher level functions to do the all-in-one-job as its done in the demos.
 * Add graphical examples of first order distortions.
 
 # How does is work?
@@ -159,7 +156,6 @@ In case a custom implementaton is required, this must be created based on `solve
 * Rigid Body Transform
 * Affine Transform
 * Alignment and First Order Distortions
-
 * FirstOrderSetup
 * FirstOrderCorrection
 * FirstOrderResult
@@ -169,7 +165,6 @@ In case a custom implementaton is required, this must be created based on `solve
 * Displacement
 
 * Category
-
 * SiteSelection
     * AlignmentSelection
     * CalculationSelection
@@ -332,26 +327,24 @@ be used.
 
 ## Apache License, Version 2.0 
 
-   Copyright 2019 Oliver Löffler, Raumzeitfalle.net
+Copyright 2019 Oliver Löffler, Raumzeitfalle.net
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ## Attributions, external libraries used with their licenses
 
-   This project makes use of NIST.gov JAMA library. JAMA is public domain, see:
-   https://math.nist.gov/javanumerics/jama/#license.
+This project makes use of NIST.gov JAMA library. JAMA is public domain, see:
+https://math.nist.gov/javanumerics/jama/#license.
 
-   Also this project uses LA4J library, which also follows Apache 2.0 license.
-   See http://la4j.org for details, sources can be found at https://github.com/vkostyukov/la4j.
-
- 
+Also, this project uses LA4J library, which also follows Apache 2.0 license.
+See http://la4j.org for details, sources can be found at https://github.com/vkostyukov/la4j.
