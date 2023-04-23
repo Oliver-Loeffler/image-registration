@@ -21,23 +21,22 @@ allprojects {
 	apply plugin: 'project-report'
 	
     group = 'net.raumzeitfalle.registration'
-    version = '0.0.5'
+    version = '0.0.6'
 
     java {
     	sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-
-		withJavadocJar()
+	withJavadocJar()
     	withSourcesJar()
     }
     	
-	dependencies {
+    dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
         testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0'
         testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.8.0'
-	}
+    }
 	
-	tasks.withType(GenerateModuleMetadata) {
+    tasks.withType(GenerateModuleMetadata) {
         enabled = false
     }
 
@@ -50,9 +49,9 @@ allprojects {
         }
     }
 	
-	htmlDependencyReport {
+    htmlDependencyReport {
     	projects = project.allprojects
-	}
+    }
 }
 
 wrapper {
