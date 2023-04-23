@@ -112,6 +112,7 @@ In case a custom implementaton is required, this must be created based on `solve
 * https://dst.lbl.gov/ACSSoftware/colt/
 * https://github.com/fommil/matrix-toolkits-java
 * https://github.com/deeplearning4j/nd4j
+* https://math.nist.gov/javanumerics/jama/
 
 
 ## Goals
