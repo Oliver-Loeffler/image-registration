@@ -37,8 +37,8 @@ class OrientationsTest {
 	@Test
 	void x() {
 		
-		List<Integer> xValues = listOf(1,2,3,4,5);
-		List<Integer> yValues = listOf();
+		List<Integer> xValues = List.of(1,2,3,4,5);
+		List<Integer> yValues = List.of();
 		
 		orientation = classUnderTest.determine(xValues, yValues);
 		
@@ -52,8 +52,8 @@ class OrientationsTest {
 	@Test
 	void y() {
 		
-		List<Integer> yValues = listOf(1,2,3,4,5);
-		List<Integer> xValues = listOf();
+		List<Integer> yValues = List.of(1,2,3,4,5);
+		List<Integer> xValues = List.of();
 		
 		orientation = classUnderTest.determine(xValues, yValues);
 		
@@ -82,8 +82,8 @@ class OrientationsTest {
 	@Test
 	void populated_xy() {
 		
-		List<Integer> yValues = listOf(1,2,3,4,5);
-		List<Integer> xValues = listOf(4,5);
+		List<Integer> yValues = List.of(1,2,3,4,5);
+		List<Integer> xValues = List.of(4,5);
 		
 		orientation = classUnderTest.determine(xValues, yValues);
 		
@@ -93,9 +93,4 @@ class OrientationsTest {
 				()->assertEquals("XY", orientation.toString(), "Name")
 				);
 	}
-	
-	private <T> List<T> listOf(@SuppressWarnings("unchecked") T ... values) {
-		return Arrays.asList(values);
-	}
-
 }
