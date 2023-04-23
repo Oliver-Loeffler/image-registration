@@ -33,6 +33,10 @@ dependencies {
 	ejml 'org.ejml:ejml-fsparse:0.41'
 }
 
+signing {
+    sign configurations.archives
+}
+
 publishing {
     repositories {
         mavenLocal()
