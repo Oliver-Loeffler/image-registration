@@ -143,9 +143,11 @@ public class SimpleAffineTransform implements AffineTransform {
 
     @Override
     public Displacement apply(Displacement d) {
-    	return Displacement.from(d,
-    			- translationX + d.getXd() - d.getX() * this.getScaleX() + d.getY() * this.getOrthoX(),
-    			- translationY + d.getYd() - d.getY() * this.getScaleY() - d.getX() * this.getOrthoY());
+        double x = Double.isFinite(d.getX()) ? d.getX() : 0d;
+        double y = Double.isFinite(d.getY()) ? d.getY() : 0d;
+        double xd = - translationX + d.getXd() - x * this.getScaleX() + y * this.getOrthoX();
+        double yd = - translationY + d.getYd() - y * this.getScaleY() - x * this.getOrthoY();
+    	return Displacement.from(d,xd,yd);
     }
 
 	@Override
