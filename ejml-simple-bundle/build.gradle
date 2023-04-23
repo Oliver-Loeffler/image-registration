@@ -37,6 +37,12 @@ signing {
     sign configurations.archives
 }
 
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
 publishing {
     repositories {
         mavenLocal()
@@ -84,6 +90,28 @@ publishing {
                     connection = "scm:git:$projectScm"
                     developerConnection = "scm:git:$projectScm"
                     url = "$projectUrl"
+                }
+            }
+            
+            pom.withXml {
+                def pomFile = file("${project.buildDir}/generated-pom.xml")
+                writeTo(pomFile)
+                def pomAscFile = signing.sign(pomFile).signatureFiles[0]
+                artifact(pomAscFile) {
+                    classifier = null
+                    extension = 'pom.asc'
+                }
+            }
+            
+            project.tasks.signArchives.signatureFiles.each {
+                artifact(it) {
+                    def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+                    if (matcher.find()) {
+                        classifier = matcher.group(1)
+                    } else {
+                        classifier = null
+                    }
+                    extension = 'jar.asc'
                 }
             }
         }
