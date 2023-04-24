@@ -29,8 +29,6 @@ publishing {
             }
         }
     }
-
-    
         
     publications {
         maven(MavenPublication) {

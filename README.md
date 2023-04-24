@@ -82,16 +82,14 @@ In case a custom implementaton is required, this must be created based on `solve
 
 ### New API structure
 
-| Module                      | Purpose                                                                                                                 |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| `image-registration`        | Image Registration API with JAMA solver by default (`core`, `solver-api` and `jama-solver` in one artifact)             |
-| `core`                      | Image Registration API without any external solver binding                                                              |
-| `solver-api`                | API to utilize different linear algebra frameworks for calculation                                                      |
-| `solver-test`               | Non-API, project to test numerics and service discovery of all available solvers                                        |
+| Module                      | Purpose                                                                                                                |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `image-registration`        | Image Registration API without any external solver binding                                                             |
+| `solver-api`                | API to utilize different linear algebra frameworks for calculation                                                     |
+| `solver-test`               | Non-API, project to test numerics and service discovery of all available solvers                                       |
 | `example-non-modular`       | Non-API, A Gradle example project on how to use this library in classical classpath based Java project aka. non-modular |
-| `example-modular`           | Non-API, The same example project but implemented using the module path aka. a modular project.                         |
-| `example-modular-jama-only` | Non-API, Straight forward example which requires a single dependency and provides Jama backend.                         |
-| `jama`                      | Non-API, Fork of NIST JAMA: Java Matrix Package, based on version 1.0.3                                                 |
+| `example-modular`           | Non-API, The same example project but implemented using the module path aka. a modular project.                        |
+| `jama`                      | Non-API, Fork of NIST JAMA: Java Matrix Package, based on version 1.0.3                                                |
 
 ### Following solver implementations will be available
 
@@ -104,6 +102,7 @@ In case a custom implementaton is required, this must be created based on `solve
 | `la4j-solver`        | `org.la4j:la4j` | 0.6.0 |
 
 ### More Linear Algebra libraries:
+
 * https://ojalgo.org/
 * https://dst.lbl.gov/ACSSoftware/colt/
 * https://github.com/fommil/matrix-toolkits-java

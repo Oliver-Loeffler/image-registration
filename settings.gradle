@@ -1,15 +1,12 @@
 rootProject.name = 'image-registration'
 
-// Default bundle with JAMA
-include ':image-registration'
-
 // Library components
+include ':image-registration'
 include ':solver-api'
 include ':solver-test'
-include ':core'
 include ':jama'
 
-// Solver Implementations
+// Solver implementations
 include ':jama-solver'
 include ':jblas-solver'
 include ':la4j-solver'
@@ -19,5 +16,4 @@ include ':ejml-simple-bundle'
 
 // Examples
 include ':example-modular'
-include ':example-modular-jama-only'
 include ':example-non-modular'

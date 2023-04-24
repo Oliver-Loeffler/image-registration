@@ -4,8 +4,7 @@ plugins {
 }
 
 dependencies { 
-	implementation project(':core')
-	implementation project(':solver-api')
+	implementation project(':image-registration')
 	runtimeOnly    project(':jama-solver')
 }
 
