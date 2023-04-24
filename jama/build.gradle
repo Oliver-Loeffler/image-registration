@@ -6,6 +6,10 @@ plugins {
     id 'de.jjohannes.extra-java-module-info'
 }
 
+dependencies {
+    implementation project(':solver-api')
+}
+
 test {
     useJUnitPlatform()
 }

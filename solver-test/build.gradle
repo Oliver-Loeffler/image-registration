@@ -6,6 +6,7 @@ plugins {
 dependencies {
 	implementation project(':solver-api')
 	implementation project(':image-registration')
+	testImplementation project(':jama')
 	testImplementation project(':jama-solver')
 	testImplementation project(':la4j-solver')
 	testImplementation project(':ejml-solver')

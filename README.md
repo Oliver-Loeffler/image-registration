@@ -14,7 +14,8 @@ The solver is selected using the Java SPI (Service Provider Interface) mechanism
 - [x] Versions up to and including 0.0.5 run with Java-8
 - [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
 - [x] Version 0.0.6 will support ~~Java-8 and~~ Java-11 (~~utilize multi-release JARs~~ support for modules will be introduced)
-- [ ] Version 0.0.7 will support Java-17 with records (JEP 359)
+- [ ] Version 0.0.7 will no longer provide a bundle version, the core is now the `image-registration` API library. It is now mandatory to add the required solver as needed.
+- [ ] Version 0.0.8 will support Java-17 with records (JEP 359)
 - [ ] Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
 These methods are used e.g. in photomask manufacturing, medical imaging or geospatial applications.
@@ -29,7 +30,7 @@ Control point or feature based methods have only limited scope of use in medical
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
 Version 0.0.5 is available on Maven Central using following snippet:
 
-### Non-Modular project with JAMA backend:
+### Maven Dependency for a project with JAMA backend (using `gov.nist.math:jama:1.0.3`):
 
 ```xml
 <dependency>
@@ -37,20 +38,14 @@ Version 0.0.5 is available on Maven Central using following snippet:
   <artifactId>image-registration</artifactId>
   <version>0.0.6</version>
 </dependency>
-```
-
-### Modular project with JAMA backend:
-
-
-```xml
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
-  <artifactId>image-registration</artifactId>
+  <artifactId>jama-solver</artifactId>
   <version>0.0.6</version>
 </dependency>
 ```
 
-Additionally the `module-info.java` file needs an update:
+For a modular project, the projects module descriptor must be updated accordingly:
 
 ```java
 module yourmodule {
@@ -70,7 +65,7 @@ module yourmodule {
 </dependency>
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
-  <artifactId>jama-solver</artifactId>
+  <artifactId>la4j-solver</artifactId>
   <version>0.0.6</version>
 </dependency>
 ```
@@ -93,13 +88,14 @@ In case a custom implementaton is required, this must be created based on `solve
 
 ### Following solver implementations will be available
 
-| Solver Module | Dependency to: | Library version: |
-|-|-|-|
-| `apache-math3-solver` | `org.apache.commons:commons-math3` | 3.6.1 |
-| `ejml-solver`        |  `org.ejml:ejml-simple` | 0.41 |
-| `jama-solver`        | `gov.nist.math:jama` | 1.0.3 |
-| `jblas-solver`       | `org.jblas:jblas` | 1.2.5 |
-| `la4j-solver`        | `org.la4j:la4j` | 0.6.0 |
+| Solver Module         | Dependency to:                                                                    | Library version: |
+|-----------------------|-----------------------------------------------------------------------------------|-|
+| `apache-math3-solver` | `org.apache.commons:commons-math3`                                                | 3.6.1 |
+| `ejml-solver`         | `org.ejml:ejml-simple`                                                            | 0.41 |
+| `jama-solver`         | `gov.nist.math:jama`                                                              | 1.0.3 |
+| `jblas-solver`        | `org.jblas:jblas`                                                                 | 1.2.5 |
+| `la4j-solver`         | `org.la4j:la4j`                                                                   | 0.6.0 |
+| `jama`                | no external dependency, functionality is equivalent to `gov.nist.math:jama:1.0.3` | 0.6.0 |
 
 ### More Linear Algebra libraries:
 
@@ -214,19 +210,19 @@ information any kind or matrix based system can be configured.
 
 ![Models and Transforms Interfaces](docs/interfaces_models_and_transforms.png)
 
-# Examples
+# Examples (see example-modular)
 
 There are some demos available, how this library is supposed to be used:
 
-* `net/raumzeitfalle/registration/examples/DemoFourpointsOnlyWithMissingMeas.java`
-* `net/raumzeitfalle/registration/examples/DemoFourpointsScanner.java`
-* `net/raumzeitfalle/registration/examples/DemoFourpointsStandard.java`
-* `net/raumzeitfalle/registration/examples/DemoMultipoint.java`
-* `net/raumzeitfalle/registration/examples/DemoMultipointMagnification.java`
-* `net/raumzeitfalle/registration/examples/DemoMultipointOneDimensional.java` (not yet validated)
-* `net/raumzeitfalle/registration/examples/DemoMultipointResidual.java`
+* `net/raumzeitfalle/registration/examples/modular/DemoFourpointsOnlyWithMissingMeas.java`
+* `net/raumzeitfalle/registration/examples/modular/DemoFourpointsScanner.java`
+* `net/raumzeitfalle/registration/examples/modular/DemoFourpointsStandard.java`
+* `net/raumzeitfalle/registration/examples/modular/DemoMultipoint.java`
+* `net/raumzeitfalle/registration/examples/modular/DemoMultipointMagnification.java`
+* `net/raumzeitfalle/registration/examples/modular/DemoMultipointOneDimensional.java` (not yet validated)
+* `net/raumzeitfalle/registration/examples/modular/DemoMultipointResidual.java`
 
-The class `net.raumzeitfalle.registration.examples.Demo` is used to define all examples. This template allows it, to configure and parameterize the evaluation process as needed. 
+The class `net.raumzeitfalle.registration.examples.modular.Demo` is used to define all examples. This template allows it, to configure and parameterize the evaluation process as needed. 
 
 The following example code shows, how alignment on 4 selected locations works, with 
 info only locations being removed. First order (scale/ortho) will be calculated on 
