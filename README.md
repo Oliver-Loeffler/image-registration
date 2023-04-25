@@ -4,7 +4,7 @@
 
 Image Registration API:
 
-[![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/image-registration) ![Maven Central](https://img.shields.io/maven-central/v/net.raumzeitfalle.registration/image-registration) ![GitHub issues](https://img.shields.io/github/issues/oliver-loeffler/image-registration) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=net.raumzeitfalle.registration%3Aimage-registration)
+[![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/image-registration) ![Maven Central](https://img.shields.io/maven-central/v/net.raumzeitfalle.registration/image-registration) [![GitHub issues](https://img.shields.io/github/issues/oliver-loeffler/image-registration)](https://github.com/Oliver-Loeffler/image-registration/issues) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=net.raumzeitfalle.registration%3Aimage-registration)
 
 Solver-API: 
 
