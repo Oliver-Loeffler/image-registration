@@ -1,3 +1,6 @@
+/**
+ * Example Module
+ */
 module nmodularexample {
 	requires java.logging;
 	requires net.raumzeitfalle.registration.solver;

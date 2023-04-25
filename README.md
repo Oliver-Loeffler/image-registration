@@ -1,7 +1,14 @@
 # Image Registration using Control Points
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/image-registration) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=alert_status)](https://sonarcloud.io/dashboard?id=net.raumzeitfalle.registration%3Aimage-registration) 
-[![codecov](https://codecov.io/gh/Oliver-Loeffler/image-registration/branch/master/graph/badge.svg)](https://codecov.io/gh/Oliver-Loeffler/image-registration) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.raumzeitfalle.registration/image-registration/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.raumzeitfalle.registration/image-registration)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+
+Image Registration API:
+
+[![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/image-registration) ![Maven Central](https://img.shields.io/maven-central/v/net.raumzeitfalle.registration/image-registration) ![GitHub issues](https://img.shields.io/github/issues/oliver-loeffler/image-registration) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=net.raumzeitfalle.registration%3Aimage-registration)
+
+Solver-API: 
+
+[![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/solver-api)
 
 ## TL;DR;
 
@@ -9,12 +16,12 @@ Image registration is the process of finding the transform to match a given imag
 
 Up to version 0.0.4, this API only worked together with NIST JAMA. Since version 0.0.5, different linear algebra frameworks can be used in `image-registration` using the Solver-API. Here it is now possible to choose either `gov.nist.math.jama`, 
 `org.la4j`, `org.ejml`, `org.apache.commons.math3` or even `org.jblas`. The library now consists of an API and a core JAR and a group of JARs providing a solver implementation for the linear algebra framework of choice. 
-The solver is selected using the Java SPI (Service Provider Interface) mechanism. 
+The solver is selected using the Java SPI (Service Provider Interface) mechanism. With version 0.0.7, selection of a solver implementation is mandatory as the main artifact no longer includes a default solver implementation.
 
 - [x] Versions up to and including 0.0.5 run with Java-8
 - [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
 - [x] Version 0.0.6 will support ~~Java-8 and~~ Java-11 (~~utilize multi-release JARs~~ support for modules will be introduced)
-- [ ] Version 0.0.7 will no longer provide a bundle version, the core is now the `image-registration` API library. It will be mandatory to add the required solver as needed.
+- [x] Version 0.0.7 will no longer provide a bundle version, the core is now the `image-registration` API library. It will be mandatory to add the required solver as needed.
 - [ ] Version 0.0.8 will support Java-17 with records (JEP 359)
 - [ ] Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
@@ -36,12 +43,12 @@ Version 0.0.5 is available on Maven Central using following snippet:
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>image-registration</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
 </dependency>
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>jama-solver</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
 </dependency>
 ```
 
@@ -61,12 +68,12 @@ module yourmodule {
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>solver-api</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
 </dependency>
 <dependency>
   <groupId>net.raumzeitfalle.registration</groupId>
   <artifactId>la4j-solver</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
 </dependency>
 ```
 
@@ -135,6 +142,7 @@ In case a custom implementaton is required, this must be created based on `solve
 * Sum up learnings and reshape structure of alignment/correction classes, possibly add 
   higher level functions to do the all-in-one-job as its done in the demos.
 * Add graphical examples of first order distortions.
+* Functionality to determine which kind of correction / model can be used on a given dataset
 
 # How does is work?
 
@@ -341,3 +349,8 @@ https://math.nist.gov/javanumerics/jama/#license.
 
 Also, this project uses LA4J library, which also follows Apache 2.0 license.
 See http://la4j.org for details, sources can be found at https://github.com/vkostyukov/la4j.
+
+Badges have been created with:
+
+* https://www.javadoc.io
+* https://shields.io

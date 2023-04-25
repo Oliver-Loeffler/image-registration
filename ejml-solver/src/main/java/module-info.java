@@ -1,3 +1,6 @@
+/**
+ * EJML Solver Module for Image-Registration
+ */
 open module net.raumzeitfalle.registration.ejml {
 	requires ejml.simple.bundle;
 	requires transitive net.raumzeitfalle.registration.solver;

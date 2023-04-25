@@ -19,32 +19,56 @@
  */
 package net.raumzeitfalle.registration.examples.classpath;
 
-import java.util.function.*;
+import net.raumzeitfalle.registration.displacement.Category;
+import net.raumzeitfalle.registration.displacement.Displacement;
 
-import net.raumzeitfalle.registration.displacement.*;
+import java.util.function.BiFunction;
 
-class DisplacementParser implements BiFunction<Integer,String,Displacement>{
+/**
+ * Minimalistic helper class to parse a line of text into a Displacement.
+ * <pre>
+ *     0      1      2      3      4      5       6
+ *     refx,  refy,  posx,  posy,  diffx, diffy,  type
+ *     double,double,double,double,double,double, Category (String)
+ * </pre>
+ *
+ * <ol>
+ *   <li>refx = Design / reference coordinate (x)</li>
+ *   <li>refy = Design / reference coordinate (y)</li>
+ *   <li>posx = Displaced coordinate x (horizontal)</li>
+ *   <li>posy = Displaced coordinate y (vertical)</li>
+ *   <li>diffx = Difference: posx - refx</li>
+ *   <li>diffy = Difference: posy - refy</li>
+ *   <li>type = String representing the point category</li>
+ * </ol>
+ *
+ * Default column separator must be a comma. Number format must use period as decimal separator.
+ * No thousand separator.
+ */
+public class DisplacementParser implements BiFunction<Integer,String, Displacement>{
 
 	@Override
 	public Displacement apply(Integer index, String line) {
-		String[] e = line.split(",");
+		return apply(index, line, ",");
+	}
+
+	public Displacement apply(Integer index, String line, String columnSeparatorRegex) {
+		String[] e = line.split(columnSeparatorRegex);
+
+		double x = Double.parseDouble(e[0].trim());
+		double xd = Double.parseDouble(e[2].trim());
+		double y = Double.parseDouble(e[1].trim());
+		double yd = Double.parseDouble(e[3].trim());
 		
-		double x = Double.parseDouble(e[0]);
-		double xd = Double.parseDouble(e[2]);
-		double y = Double.parseDouble(e[1]);
-		double yd = Double.parseDouble(e[3]);
-		
-		String type = e[6];
+		String type = e[6].trim();
 		int firstQuote = type.indexOf("\"");
 		int lastQuote = type.lastIndexOf("\"");
 		
 		Category category = Category.REG;
 		if (firstQuote >= 0 && lastQuote >= 0) {
-			String siteClass = type.substring(firstQuote+1, lastQuote);
+			var siteClass = type.substring(firstQuote+1, lastQuote).trim();
 			category = Category.fromString(siteClass);
 		} 				
-		
 		return Displacement.at(index,index, x, y, xd, yd, category);
 	}
-
 }

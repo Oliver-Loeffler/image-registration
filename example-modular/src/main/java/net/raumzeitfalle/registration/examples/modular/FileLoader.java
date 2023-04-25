@@ -19,15 +19,17 @@
  */
 package net.raumzeitfalle.registration.examples.modular;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-import java.util.*;
-import java.util.function.Function;
-import java.util.logging.*;
-
 import net.raumzeitfalle.registration.displacement.Displacement;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileLoader implements Function<Path,List<Displacement>> {
 
@@ -75,5 +77,4 @@ public class FileLoader implements Function<Path,List<Displacement>> {
 	private boolean isDisplacementLine(String line) {
 		return line.startsWith("\"") && line.toLowerCase().contains("refx");
 	}
-
 }

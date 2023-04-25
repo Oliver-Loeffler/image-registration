@@ -1,3 +1,6 @@
+/**
+ * LA4J (linear algebra 4 java) Solver Module for Image Registration
+ */
 open module net.raumzeitfalle.registration.la4j {
 	requires transitive net.raumzeitfalle.registration.solver;
 	requires la4j;

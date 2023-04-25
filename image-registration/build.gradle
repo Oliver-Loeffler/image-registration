@@ -3,7 +3,13 @@ plugins {
     id 'java-library'
     id 'maven-publish'
 }
-	
+
+configurations {
+    doc {
+        transitive false
+    }
+}
+
 dependencies {
     api             project(':solver-api')
     testRuntimeOnly project(':jama-solver')

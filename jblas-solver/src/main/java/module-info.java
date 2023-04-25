@@ -1,3 +1,6 @@
+/**
+ * JBLAS Solver Module for Image Registration
+ */
 open module net.raumzeitfalle.registration.jblas {
 	requires jblas;
 	

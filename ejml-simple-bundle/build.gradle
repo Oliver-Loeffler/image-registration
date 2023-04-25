@@ -46,13 +46,6 @@ artifacts {
 publishing {
     repositories {
         mavenLocal()
-        maven {
-            url = version.endsWith('SNAPSHOT') ? sonatypeSnapshotsUrl : sonatypeReleasesUrl
-            credentials {
-                username = ossrhUsername
-                password = ossrhPassword
-            }
-        }
     }
     publications {
         mavenJava(MavenPublication) {
