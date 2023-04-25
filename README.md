@@ -14,7 +14,7 @@ The solver is selected using the Java SPI (Service Provider Interface) mechanism
 - [x] Versions up to and including 0.0.5 run with Java-8
 - [x] Version 0.0.5 will support different linear algebra libraries (will make use of service provider API)
 - [x] Version 0.0.6 will support ~~Java-8 and~~ Java-11 (~~utilize multi-release JARs~~ support for modules will be introduced)
-- [ ] Version 0.0.7 will no longer provide a bundle version, the core is now the `image-registration` API library. It is now mandatory to add the required solver as needed.
+- [ ] Version 0.0.7 will no longer provide a bundle version, the core is now the `image-registration` API library. It will be mandatory to add the required solver as needed.
 - [ ] Version 0.0.8 will support Java-17 with records (JEP 359)
 - [ ] Later versions will support higher order calculations (first: up to 3rd order, 20 coefficient model)
 
