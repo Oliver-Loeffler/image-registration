@@ -35,7 +35,9 @@ Control point or feature based methods have only limited scope of use in medical
 ## How to start?
 
 The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
-Version 0.0.5 is available on Maven Central using following snippet:
+The javadoc for the Solver-API: https://www.raumzeitfalle.net/image-registration/solver/
+
+Version 0.0.7 is available on Maven Central using following snippet:
 
 ### Maven Dependency for a project with JAMA backend (using `gov.nist.math:jama:1.0.3`):
 
