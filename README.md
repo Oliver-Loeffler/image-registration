@@ -4,7 +4,7 @@
 
 Image Registration API:
 
-[![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/image-registration) ![Maven Central](https://img.shields.io/maven-central/v/net.raumzeitfalle.registration/image-registration) [![GitHub issues](https://img.shields.io/github/issues/oliver-loeffler/image-registration)](https://github.com/Oliver-Loeffler/image-registration/issues) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=net.raumzeitfalle.registration%3Aimage-registration)
+[![Javadocs](https://www.javadoc.io/badge/net.raumzeitfalle.registration/image-registration.svg)](https://www.javadoc.io/doc/net.raumzeitfalle.registration/image-registration) [![Maven Central](https://img.shields.io/maven-central/v/net.raumzeitfalle.registration/image-registration)](https://search.maven.org/search?q=net.raumzeitfalle.registration) [![GitHub issues](https://img.shields.io/github/issues/oliver-loeffler/image-registration)](https://github.com/Oliver-Loeffler/image-registration/issues) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.raumzeitfalle.registration%3Aimage-registration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=net.raumzeitfalle.registration%3Aimage-registration)
 
 Solver-API: 
 
@@ -34,7 +34,7 @@ Control point or feature based methods have only limited scope of use in medical
 
 ## How to start?
 
-The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/api/
+The SNAPSHOT-API documentation is available on: https://www.raumzeitfalle.net/image-registration/reg/
 The javadoc for the Solver-API: https://www.raumzeitfalle.net/image-registration/solver/
 
 Version 0.0.7 is available on Maven Central using following snippet:
