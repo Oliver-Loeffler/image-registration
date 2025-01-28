@@ -3,8 +3,8 @@ plugins {
    id "java"
    id "jacoco"
    id "com.github.hierynomus.license-base" version "0.16.1"
-   id "org.sonarqube" version "4.0.0.2929"
-   id "de.jjohannes.extra-java-module-info" version "0.11"
+   id "org.sonarqube" version "6.0.1.5171"
+   id "de.jjohannes.extra-java-module-info" version "0.16"
 }
 
 allprojects {
@@ -41,9 +41,9 @@ allprojects {
     }
     	
     dependencies {
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
-        testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
-        testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.4'
+        testImplementation 'org.junit.jupiter:junit-jupiter-params:5.11.4'
+        testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.11.4'
     }
 	
     tasks.withType(GenerateModuleMetadata) {
