@@ -31,7 +31,7 @@ Control point or feature based methods have only limited scope of use in medical
 * Photomask related:http://www.lithoguru.com/scientist/glossary/R.html#registration, http://www.lithoguru.com/scientist/glossary/O.html#overlay,  https://www.nist.gov/system/files/documents/pml/div683/conference/Hughes.pdf
 * Medical imaging: http://www.iro.umontreal.ca/~sherknie/articles/medImageRegAnOverview/brussel_bvz.pdf
 * Geo-Registration: http://www.georeference.org/doc/georegistration.htm 
-* Chris A. Macks Youtube Channel: https://www.youtube.com/@ChrisMack/videos
+* Chris A. Macks Youtube Channel: https://www.youtube.com/@ChrisMack
 
 ## How to start?
 
