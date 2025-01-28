@@ -19,7 +19,11 @@
  */
 package net.raumzeitfalle.registration.displacement;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -40,6 +44,14 @@ import net.raumzeitfalle.registration.alignment.TranslateFunction;
  *
  */
 public class Displacement {
+
+	public static List<Displacement> fromFile(Path sourceFile) {
+		try {
+			return new FileLoader().load(sourceFile);
+		} catch (Exception anyError) {
+			return List.of();
+		}
+	}
 	
 	public static Displacement.Builder builder() {
 		return new Displacement.Builder();
