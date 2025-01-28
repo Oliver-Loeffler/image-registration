@@ -5,10 +5,10 @@ plugins {
     id 'signing'
 }
 
-def ejmlVersion = '0.41'
+def ejmlVersion = '0.43.1'
 
 java {
-	version = '0.41'
+	version = '0.43.1'
 	tasks.withType(Javadoc).all { enabled = false }
 }
 
@@ -23,14 +23,14 @@ jar {
 }
 
 dependencies {
-	ejml 'org.ejml:ejml-simple:0.41'
-	ejml 'org.ejml:ejml-core:0.41'
-	ejml 'org.ejml:ejml-fdense:0.41'
-	ejml 'org.ejml:ejml-ddense:0.41'
-	ejml 'org.ejml:ejml-cdense:0.41'
-	ejml 'org.ejml:ejml-zdense:0.41'
-	ejml 'org.ejml:ejml-dsparse:0.41'
-	ejml 'org.ejml:ejml-fsparse:0.41'
+	ejml 'org.ejml:ejml-simple:' + ejmlVersion
+	ejml 'org.ejml:ejml-core:' + ejmlVersion
+	ejml 'org.ejml:ejml-fdense:' + ejmlVersion
+	ejml 'org.ejml:ejml-ddense:' + ejmlVersion
+	ejml 'org.ejml:ejml-cdense:' + ejmlVersion
+	ejml 'org.ejml:ejml-zdense:' + ejmlVersion
+	ejml 'org.ejml:ejml-dsparse:' + ejmlVersion
+	ejml 'org.ejml:ejml-fsparse:' + ejmlVersion
 }
 
 signing {

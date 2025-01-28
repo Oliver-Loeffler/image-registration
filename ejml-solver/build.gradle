@@ -12,7 +12,7 @@ dependencies {
 }
 
 extraJavaModuleInfo {
-    module('ejml-simple-bundle-0.41.jar', 'ejml.simple.bundle', '0.4.1') {
+    module('ejml-simple-bundle-0.43.1.jar', 'ejml.simple.bundle', '0.43.1') {
         exports('org.ejml')
         exports('org.ejml.simple')
         exports('org.ejml.data.row')
