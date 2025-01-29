@@ -31,7 +31,7 @@ add_noise <- function(sample, noise=1) {
 #' @param pitch pitch
 #' @param noise standard deviation (sd) for the rnorm function
 #' @return data.frame with refx, refy, posx, posy and diffx, diffy columns, plus a type column
-generate_grid <- function(l=-2,u=2,pitch=1000, noise=1) {
+generate_grid <- function(l=-2,u=2,pitch=1000, noise=0.01) {
     x_rng=(l:u)*pitch
     y_rng=(l:u)*pitch
     result <- do.call(rbind,lapply(x_rng, FUN=generate_sub_grid, y_rng))
@@ -50,35 +50,66 @@ generate_grid <- function(l=-2,u=2,pitch=1000, noise=1) {
 #' Generates a grid plot for the given data.frame.
 #' @param R data.frame with refx, refy, posx, posy
 #'          and diffx, diffy columns, plus a type column
-plot_distortion_grid <- function(R) {
+#' @param margin Plot margin (percentage of )
+plot_distortion_grid <- function(R, margin=0.1) {
     # R must have:
     # x,y = Design Coordinates
     # posx, posy = Actual Coordinates
     # dx, dy = Displacement, e.g. dx = posx - x
+    mg <- max(abs(range(R$refx)))*margin
+    x_extent <- c(min(R$refx)-mg, max(R$refx)+mg)
+
+    mg <- max(abs(range(R$refy)))*margin
+    y_extent <- c(min(R$refy)-mg, max(R$refy)+mg)
 
     # Connect all points in column
-    plot(R$posy ~ R$posx,
+    plot(c(R$posy,R$refy) ~ c(R$posx,R$refx),
          xlab = "X position",
          ylab = "Y position",
-         main = "Displacement Grid Plot")
+         main = "Displacement Grid Plot", col="lightgray", pch=3, lwd=0.1, cex=0.1, xlim=x_extent, ylim=y_extent)
 
     rows <- unique(R$refx)
     for (r in rows) {
         all_points <- R[which(R$refx == r),]
-        lines(all_points$posy ~ all_points$posx)
+        lines(all_points$refy ~ all_points$refx, col="lightgray")
     }
 
     # Connect all points in row
     rows <- unique(R$refy)
     for (r in rows) {
         all_points <- R[which(R$refy == r),]
-        lines(all_points$posy ~ all_points$posx)
+        lines(all_points$refy ~ all_points$refx, col="lightgray")
+    }
+
+    rows <- unique(R$refx)
+    for (r in rows) {
+        all_points <- R[which(R$refx == r),]
+        lines(all_points$posy ~ all_points$posx, col="blue")
+    }
+
+    # Connect all points in row
+    rows <- unique(R$refy)
+    for (r in rows) {
+        all_points <- R[which(R$refy == r),]
+        lines(all_points$posy ~ all_points$posx, col="blue")
     }
 }
 
 
-plot_distortion_grid(generate_grid(noise=200))
+# Some Demo Code
+if (FALSE) {
+    plot_distortion_grid(generate_grid(noise=200))
 
-png("grid_plot.png")
-plot_distortion_grid(generate_grid(l=-10,u=10,noise=100))
-dev.off()
+    png("grid_plot_1.png")
+    plot_distortion_grid(generate_grid(l=-2.5,u=2.5,noise=100))
+    dev.off()
+
+    png("grid_plot_2.png")
+    plot_distortion_grid(generate_grid(l=-4.5,u=4.5,noise=100))
+    dev.off()
+
+    png("grid_plot_3.png")
+    plot_distortion_grid(generate_grid(l=-7.5,u=7.5,noise=100))
+    dev.off()
+}
+
