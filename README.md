@@ -444,6 +444,44 @@ be used.
 
 ![references on one single location, partially with X and Y, some XY](docs/images/11_single-reference-singularity.png)
 
+## Distortion Types Overview (incomplete)
+
+### Noise and No-Noise
+![Perfect](example-non-modular/distortions_none.png)
+![Noise only](example-non-modular/distortions_noise_only.png)
+
+### Translation
+![translation x](example-non-modular/distortions_translation_x.png)
+![translation y](example-non-modular/distortions_translation_y.png)
+![translation xy](example-non-modular/distortions_translation_xy.png)
+
+### Scaling
+![shrink x](example-non-modular/distortions_scaling_shrink_x.png)
+![extend x](example-non-modular/distortions_scaling_extend_x.png)
+
+![shrink y](example-non-modular/distortions_scaling_shrink_y.png)
+![extend y](example-non-modular/distortions_scaling_extend_y.png)
+
+![shrink xy](example-non-modular/distortions_scaling_shrink_xy.png)
+![extend xy](example-non-modular/distortions_scaling_extend_xy.png)
+
+### Skew
+![skew x](example-non-modular/distortions_skew_x.png)
+![skew y](example-non-modular/distortions_skew_y.png)
+![skew xy](example-non-modular/distortions_skew_xy.png)
+
+![skew -x](example-non-modular/distortions_skew_x_inv.png)
+![skew -y](example-non-modular/distortions_skew_y_inv.png)
+![skew -x,-y](example-non-modular/distortions_skew_xinv_yinv.png)
+
+![skew x -y](example-non-modular/distortions_skew_x_yinv.png)
+![skew -x y](example-non-modular/distortions_skew_xinv_y.png)
+
+### Combination
+
+![scaling and shifting](example-non-modular/distortions_scaling_shifting_xy.png)
+![scaling, shifting, noise](example-non-modular/distortions_noisy_scaling_shifting_xy.png)
+![scaling, shifting, skew, noise](example-non-modular/distortions_noisy_scaling_shifting_skew_xy.png)
 
 # References for further reading
 
