@@ -141,6 +141,46 @@ apply_correction <- function(R, coeffs) {
     distorted
 }
 
+#' Applies the higher order distortion described by the provided coefficients to the given grid.
+#' @description
+#' Supports higher order, first quadratic term.
+#' 
+#' @param R data.frame with refx, refy, posx, posy columns
+#' @return data.frame with refx, refy, posx, posy columns; diffx and diffy columns will be created if not existing.
+apply_higher_order_correction <- function(R, coeffs) {
+    dx <- coeffs[1] + coeffs[3]*R$refx + coeffs[5] * R$refy + coeffs[7]*(R$refx*R$refx) + coeffs[ 9]*(R$refx*R$refy)  
+    dy <- coeffs[2] + coeffs[4]*R$refy + coeffs[6] * R$refx + coeffs[8]*(R$refy*R$refy) + coeffs[10]*(R$refy*R$refx)
+    
+    distorted <- as.data.frame(R)
+    distorted$posx <- R$posx - dx
+    distorted$posy <- R$posy - dy
+    distorted$diffx <- dx
+    distorted$diffy <- dy
+    distorted
+}
+
+#' Creates a 13x13 grid which can be then distorted using given high order coefficients.
+#' @param coeffs coefficients
+#' @return data.frame with refx, refy, posx, posy columns; diffx and diffy for differences 
+distort <- function(coeffs) {
+    if (length(coeffs)<10) {
+        stop("Insufficient number of coefficients. At least 10 coefficients needed.")
+    }
+    
+    X<-generate_grid(l=-6,u=6,noise=0)
+    D<-apply_higher_order_correction(X, coeffs)
+    
+    ox <- mean(D$posx-D$refx)
+    oy <- mean(D$posy-D$refy)
+    
+    D$posx <- D$posx - ox
+    D$posy <- D$posy - oy
+    D$diffx <- D$posx - D$refx
+    D$diffy <- D$posy - D$refy
+        
+    plot_distortion_grid(D,margin=.4,main_title="HO ignoring translation")
+}
+
 # Some Demo Code
 if (FALSE) {
     
@@ -173,7 +213,7 @@ if (FALSE) {
     distorted <- apply_correction(zero_noise,c(0,0,0,0,0,0))
     plot_distortion_grid(distorted,margin=.4,main_title="No distortion")
     dev.off()
-    
+        
     # Translation
     shift <- 500
     
