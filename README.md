@@ -483,6 +483,13 @@ be used.
 ![scaling, shifting, noise](example-non-modular/distortions_noisy_scaling_shifting_xy.png)
 ![scaling, shifting, skew, noise](example-non-modular/distortions_noisy_scaling_shifting_skew_xy.png)
 
+### Higher Order
+
+![scaling, skew, high order](example-non-modular/distortions_higher_order_xy.png)
+![scaling, skew, noise, high order](example-non-modular/distortions_higher_order_noise_xy.png)
+
+
+
 # References for further reading
 
 ## Links
