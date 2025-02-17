@@ -330,5 +330,26 @@ if (FALSE) {
     distorted <- apply_correction(noisy,c(shift*.8,-shift/3,scale,scale/2,skew/2,-2*skew))
     plot_distortion_grid(distorted,margin=.4,main_title="Scaling + Shifting + Noise + Skew X+Y")
     dev.off()
+    
+    # First HO
+    png("distortions_higher_order_noise_xy.png")
+
+    coeffs <- c(0,0,0,0,.2,0.01,0,0.00011,0.00005,0.00006)
+    
+    X<-generate_grid(l=-6,u=6,noise=150)
+    D<-apply_higher_order_correction(X, coeffs)
+    
+    ox <- mean(D$posx-D$refx)
+    oy <- mean(D$posy-D$refy)
+    
+    D$posx <- D$posx - ox
+    D$posy <- D$posy - oy
+    D$diffx <- D$posx - D$refx
+    D$diffy <- D$posy - D$refy
+        
+    plot_distortion_grid(D,margin=.4,main_title="HO ignoring translation")
+
+    dev.off()
+    
 }
 
