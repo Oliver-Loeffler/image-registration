@@ -23,6 +23,14 @@ public class HigherOrderEquation implements ModelEquation {
 
         return builder.build();
     }
+    
+    public static HigherOrderEquation forX(Displacement xDisplacement) {
+        return byOrientation(xDisplacement, Orientations.X);
+    }
+    
+    public static HigherOrderEquation forY(Displacement yDisplacement) {
+        return byOrientation(yDisplacement, Orientations.Y);
+    }
 
     // K1 - translation X - K1
     // K2 - translation Y - K2
