@@ -141,6 +141,15 @@ apply_correction <- function(R, coeffs) {
     distorted
 }
 
+#
+#                   #1   # 3      # 5       # 7        # 9
+#     xm <- lm(dx ~  0 + R$refx + R$refy  + R$refx^2 + R$refx*R$refy)
+#    
+#                   #2   # 4      # 6       # 8        # 10  
+#     ym <- lm(dy ~  0 + R$refy + R$refx  + R$refy^2 + R$refy*R$refx)
+#
+#
+
 #' Applies the higher order distortion described by the provided coefficients to the given grid.
 #' @description
 #' Supports higher order, first quadratic term.
