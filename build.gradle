@@ -5,6 +5,7 @@ plugins {
    id "com.github.hierynomus.license-base" version "0.16.1"
    id "org.sonarqube" version "6.0.1.5171"
    id "de.jjohannes.extra-java-module-info" version "0.16"
+   id 'net.raumzeitfalle.gradle.gocdversion' version '0.3.9'
 }
 
 allprojects {
@@ -21,7 +22,11 @@ allprojects {
     apply plugin: 'project-report'
 
     group = 'net.raumzeitfalle.registration'
-    version = '0.0.8-SNAPSHOT'
+
+    gocdVersion {
+        appendComputerNameToLocalBuilds = false
+        appendTimestampToLocalBuilds = false
+    }
 
     java {
     	sourceCompatibility = JavaVersion.VERSION_11
